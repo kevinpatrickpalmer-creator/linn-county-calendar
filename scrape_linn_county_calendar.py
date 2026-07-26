@@ -70,7 +70,15 @@ DEFAULT_DURATION = timedelta(hours=1)
 
 def get_list_html(page):
     page.goto(CALENDAR_URL, wait_until="domcontentloaded", timeout=30000)
-    page.wait_for_selector(".csEvWrap", timeout=20000)
+    try:
+        page.wait_for_selector(".csEvWrap", timeout=20000)
+    except Exception:
+        # Leave evidence behind so a failure in CI (no display to look at)
+        # can still be diagnosed after the fact.
+        page.screenshot(path="debug_screenshot.png", full_page=True)
+        with open("debug_page.html", "w", encoding="utf-8") as f:
+            f.write(page.content())
+        raise
 
     # The widget lazy-renders more tiles as you scroll; keep scrolling until
     # the tile count stops growing.
@@ -250,7 +258,14 @@ def build_calendar(events):
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        context = browser.new_context(
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+            ),
+            viewport={"width": 1280, "height": 800},
+        )
+        page = context.new_page()
 
         html = get_list_html(page)
         events = parse_events(html)
