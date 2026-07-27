@@ -40,7 +40,7 @@ LOCAL_TZ = ZoneInfo("America/Chicago")
 # form on docs/index.html (Google Sheets: File > Share > Publish to web).
 # Publicly readable by design -- it's just email + two yes/no columns, no
 # auth needed to fetch it, and it isn't linked from anywhere.
-SUBSCRIBERS_CSV_URL = "YOUR_PUBLISHED_SHEET_CSV_URL"
+SUBSCRIBERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vST534r8ueuQPb5iovg38S_4nwqU5o5dTWsJ9Mrf1Kpiih-4Cz8TIyx6Tj_Q7dApMceQ-hDpgofMXu3/pub?output=csv"
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
 SENDER_EMAIL = "kevinpatrickpalmer@gmail.com"
