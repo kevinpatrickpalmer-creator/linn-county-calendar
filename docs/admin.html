@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approve an Event — Linn County Calendar Admin</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 480px; }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.25rem; color: #555; font-size: .9rem; line-height: 1.4; }
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
+  label:first-of-type { margin-top: 0; }
+  input, textarea {
+    width: 100%;
+    padding: .65rem .7rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 5rem; }
+  .row { display: flex; gap: .75rem; }
+  .row > div { flex: 1; }
+  button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: .85rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: #1a7d3c;
+    color: #fff;
+    cursor: pointer;
+  }
+  .note {
+    margin-top: 1rem;
+    padding: .75rem;
+    border-radius: 8px;
+    background: #fff8e1;
+    color: #6b5400;
+    font-size: .85rem;
+    line-height: 1.4;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    form { background: #202027; box-shadow: none; }
+    input, textarea { background: #15151a; color: #eee; border-color: #444; }
+    p.sub { color: #aaa; }
+    .note { background: #332b00; color: #f0d878; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Approve a Submitted Event</h1>
+  <p class="sub">
+    Copy the details from the submission email into this form, then click
+    "Prepare for GitHub". It'll open GitHub's own "create file" page,
+    pre-filled — review it there and click <strong>Commit new file</strong>
+    to publish. Nothing goes live until you click that button on GitHub.
+  </p>
+
+  <form id="approveForm">
+    <label for="name">Event name *</label>
+    <input id="name" name="name" type="text" required>
+
+    <div class="row">
+      <div>
+        <label for="date">Date *</label>
+        <input id="date" name="date" type="date" required>
+      </div>
+      <div>
+        <label for="time">Time (optional)</label>
+        <input id="time" name="time" type="time">
+      </div>
+    </div>
+
+    <label for="location">Location (optional)</label>
+    <input id="location" name="location" type="text">
+
+    <label for="description">Description (optional)</label>
+    <textarea id="description" name="description"></textarea>
+
+    <button type="submit">Prepare for GitHub &rarr;</button>
+  </form>
+
+  <div class="note">
+    To <strong>reject</strong> a submission, just don't do anything here —
+    ignore or delete the email. Nothing is published unless you go through
+    this form and commit the file on GitHub yourself.
+  </div>
+</main>
+
+<script>
+const REPO = "kevinpatrickpalmer-creator/linn-county-calendar";
+const BRANCH = "main";
+
+function slugify(name, date) {
+  const s = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return `${date}-${s || "event"}`;
+}
+
+function formatTime12h(value) {
+  if (!value) return "";
+  const [h, m] = value.split(":").map(Number);
+  const period = h >= 12 ? "pm" : "am";
+  const hour12 = ((h + 11) % 12) + 1;
+  return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
+}
+
+document.getElementById("approveForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const name = data.get("name").trim();
+  const date = data.get("date");
+
+  const event = {
+    name,
+    date,
+    time: formatTime12h(data.get("time")),
+    location: data.get("location").trim(),
+    description: data.get("description").trim(),
+  };
+
+  const slug = slugify(name, date);
+  const path = `data/manual_events/${slug}.json`;
+  const content = JSON.stringify(event, null, 2) + "\n";
+
+  const url =
+    `https://github.com/${REPO}/new/${BRANCH}` +
+    `?filename=${encodeURIComponent(path)}` +
+    `&value=${encodeURIComponent(content)}`;
+
+  window.open(url, "_blank");
+});
+</script>
+</body>
+</html>

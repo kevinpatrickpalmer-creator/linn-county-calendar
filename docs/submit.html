@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit a Community Event — Linn County Leader</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main {
+    width: 100%;
+    max-width: 480px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin: 0 0 .25rem;
+  }
+  p.sub {
+    margin: 0 0 1.5rem;
+    color: #555;
+    font-size: .95rem;
+  }
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: .9rem;
+    margin: 1rem 0 .35rem;
+  }
+  label:first-of-type { margin-top: 0; }
+  input, textarea {
+    width: 100%;
+    padding: .65rem .7rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 5rem; }
+  .row { display: flex; gap: .75rem; }
+  .row > div { flex: 1; }
+  button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: .85rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: #a71a2d;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:disabled { opacity: .6; }
+  #status {
+    margin-top: 1rem;
+    font-size: .95rem;
+    text-align: center;
+  }
+  #status.ok { color: #1a7d3c; }
+  #status.err { color: #a71a2d; }
+  .hp { position: absolute; left: -9999px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    form { background: #202027; box-shadow: none; }
+    input, textarea { background: #15151a; color: #eee; border-color: #444; }
+    p.sub { color: #aaa; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Submit a Community Event</h1>
+  <p class="sub">Add your event to the Linn County community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.</p>
+
+  <form id="eventForm">
+    <label for="name">Event name *</label>
+    <input id="name" name="name" type="text" maxlength="120" required>
+
+    <div class="row">
+      <div>
+        <label for="date">Date *</label>
+        <input id="date" name="date" type="date" required>
+      </div>
+      <div>
+        <label for="time">Time (optional)</label>
+        <input id="time" name="time" type="time">
+      </div>
+    </div>
+
+    <label for="location">Location (optional)</label>
+    <input id="location" name="location" type="text" maxlength="150" placeholder="e.g. Marceline City Park">
+
+    <label for="description">Description (optional)</label>
+    <textarea id="description" name="description" maxlength="500" placeholder="A sentence or two about the event"></textarea>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Submit event</button>
+    <div id="status" role="status"></div>
+  </form>
+</main>
+
+<script>
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE"; // replace after signing up at web3forms.com
+
+const form = document.getElementById("eventForm");
+const statusEl = document.getElementById("status");
+const submitBtn = document.getElementById("submitBtn");
+
+function formatTime12h(value) {
+  if (!value) return "";
+  const [h, m] = value.split(":").map(Number);
+  const period = h >= 12 ? "pm" : "am";
+  const hour12 = ((h + 11) % 12) + 1;
+  return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  statusEl.textContent = "";
+  statusEl.className = "";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
+
+  const data = new FormData(form);
+  data.append("access_key", WEB3FORMS_ACCESS_KEY);
+  data.append("subject", `New event submission: ${data.get("name")}`);
+  data.append("from_name", "Linn County Calendar — Event Submission");
+  // Human-friendly time, since Web3Forms just relays whatever we send.
+  data.set("time", formatTime12h(data.get("time")));
+
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: data,
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      statusEl.textContent = "Thanks! Your event was submitted for review.";
+      statusEl.className = "ok";
+      form.reset();
+    } else {
+      throw new Error(result.message || "Submission failed");
+    }
+  } catch (err) {
+    statusEl.textContent = "Something went wrong submitting your event. Please try again in a moment.";
+    statusEl.className = "err";
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit event";
+  }
+});
+</script>
+</body>
+</html>

@@ -22,6 +22,7 @@ Install:
 Run:
     python scrape_linn_county_calendar.py
 """
+import glob
 import json
 import os
 import re
@@ -66,6 +67,11 @@ LOCAL_TZ = ZoneInfo("America/Chicago")  # Linn County, MO
 # Written into docs/ so GitHub Pages (serving from /docs) can host it directly.
 ICS_PATH = "docs/linn_county_events.ics"
 DEFAULT_DURATION = timedelta(hours=1)
+# One JSON file per community-submitted event that's been approved (see
+# docs/admin.html). Rejected/pending submissions never get a file here, so
+# they structurally can't reach the .ics -- there's no "is it approved?"
+# check to get wrong.
+MANUAL_EVENTS_DIR = "data/manual_events"
 
 
 def get_list_html(page):
@@ -132,6 +138,46 @@ def parse_events(html):
         )
 
     return events
+
+
+def load_manual_events():
+    """Load community-submitted events that have been approved (see
+    docs/admin.html for how a file lands here). Each file becomes one event,
+    in the same shape parse_events() produces, so build_calendar() and
+    event_uid() need no special-casing for them. A malformed file is skipped
+    with a warning rather than failing the whole run -- one bad manual entry
+    shouldn't take down the scraped events too."""
+    manual_events = []
+    for path in sorted(glob.glob(os.path.join(MANUAL_EVENTS_DIR, "*.json"))):
+        slug = os.path.splitext(os.path.basename(path))[0]
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"  WARNING: skipping unreadable manual event {path}: {e}", file=sys.stderr)
+            continue
+
+        name = (data.get("name") or "").strip()
+        date = (data.get("date") or "").strip()
+        if not name or not date:
+            print(f"  WARNING: skipping {path}, missing required name/date", file=sys.stderr)
+            continue
+
+        manual_events.append(
+            {
+                "name": name,
+                "date": date,
+                "time": (data.get("time") or "").strip(),
+                "location": (data.get("location") or "").strip(),
+                "description": (data.get("description") or "").strip(),
+                "href": "",  # no CitySpark detail page to fetch
+                "event_id": f"manual-{slug}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return manual_events
 
 
 def fill_descriptions(page, events):
@@ -272,6 +318,11 @@ def main():
         fill_descriptions(page, events)
 
         browser.close()
+
+    manual_events = load_manual_events()
+    if manual_events:
+        print(f"Including {len(manual_events)} approved community-submitted event(s)\n")
+        events.extend(manual_events)
 
     if not events:
         print("No events found -- the page structure may have changed.")
