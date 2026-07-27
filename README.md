@@ -25,6 +25,24 @@ stable URL suitable for subscribing to from a phone calendar app.
   pending/rejected submissions never touch `data/manual_events/` or the
   public `.ics`.
 
+## Landing page, reminders & newsletter list
+
+- **Landing page:** `docs/index.html` — the "Subscribe to Calendar" button
+  and a preferences form (email + two independent opt-in checkboxes).
+- **Storage:** the preferences form posts directly to a Google Form, whose
+  linked Google Sheet is published to the web as CSV. Each opt-in is its
+  own column, so a single email can have either, both, or neither checked.
+  Resubmitting the form (e.g. with both boxes unchecked) overrides the
+  previous submission for that email — that's how someone unsubscribes.
+- **Daily reminders:** `.github/workflows/daily-reminders.yml` runs
+  `send_reminders.py` once a day. It reads `docs/linn_county_events.ics`
+  for anything happening tomorrow, reads the subscriber CSV, and emails
+  everyone with the reminder box checked via SendGrid (Single Sender
+  Verification, no custom domain required).
+- **Newsletter opt-ins** are stored in the same sheet but nothing sends to
+  them yet — that column is just sitting there ready for whenever an
+  actual newsletter gets built.
+
 ## Run locally
 
 ```bash
@@ -35,3 +53,5 @@ python scrape_linn_county_calendar.py
 
 Writes/overwrites `docs/linn_county_events.ics`, merging in anything found
 under `data/manual_events/`.
+
+To test the reminder script locally: `SENDGRID_API_KEY=... python send_reminders.py`
