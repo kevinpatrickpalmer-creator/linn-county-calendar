@@ -60,6 +60,16 @@
     font-size: .85rem;
     line-height: 1.4;
   }
+  .note.hidden { display: none; }
+  #prefilledNote {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    background: #e3f2e9;
+    color: #1a7d3c;
+  }
+  @media (prefers-color-scheme: dark) {
+    #prefilledNote { background: #12321f; color: #6fcf97; }
+  }
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     form { background: #202027; box-shadow: none; }
@@ -73,11 +83,15 @@
 <main>
   <h1>Approve a Submitted Event</h1>
   <p class="sub">
-    Copy the details from the submission email into this form, then click
-    "Prepare for GitHub". It'll open GitHub's own "create file" page,
-    pre-filled — review it there and click <strong>Commit new file</strong>
-    to publish. Nothing goes live until you click that button on GitHub.
+    Clicking the link in the submission email brings you here with everything
+    already filled in — just double-check it, then click "Prepare for
+    GitHub". It'll open GitHub's own "create file" page, pre-filled — review
+    it there and click <strong>Commit new file</strong> to publish. Nothing
+    goes live until you click that button on GitHub.
   </p>
+  <div id="prefilledNote" class="note hidden">
+    Pre-filled from a submission — review the fields below, then continue.
+  </div>
 
   <form id="approveForm">
     <label for="name">Event name *</label>
@@ -139,6 +153,29 @@ function formatTime12h(value) {
   const hour12 = ((h + 11) % 12) + 1;
   return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
 }
+
+// Pre-fill from a review link built by submit.html, if present, so
+// approving doesn't require retyping anything from the email by hand.
+(function prefillFromQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  if (![...params.keys()].length) return;
+
+  const fields = ["name", "date", "time", "town", "venue", "description"];
+  let filledAny = false;
+  for (const field of fields) {
+    if (!params.has(field)) continue;
+    const el = document.getElementById(field);
+    const value = params.get(field);
+    if (el && value) {
+      el.value = value;
+      filledAny = true;
+    }
+  }
+
+  if (filledAny) {
+    document.getElementById("prefilledNote").classList.remove("hidden");
+  }
+})();
 
 document.getElementById("approveForm").addEventListener("submit", (e) => {
   e.preventDefault();

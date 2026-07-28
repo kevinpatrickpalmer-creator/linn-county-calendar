@@ -153,18 +153,38 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Submitting...";
 
   const data = new FormData(form);
-  data.append("access_key", WEB3FORMS_ACCESS_KEY);
-  data.append("subject", `New event submission: ${data.get("name")}`);
-  data.append("from_name", "Linn County Calendar — Event Submission");
-  // Human-friendly time, since Web3Forms just relays whatever we send.
-  data.set("time", formatTime12h(data.get("time")));
 
-  // Combine into the same "Venue | Town, MO" shape the scraped events use,
-  // so reminder filtering by town works the same way for both. This is
-  // the value the admin should copy into admin.html's Location field.
+  // Capture raw values before anything gets reformatted for display below --
+  // these are what admin.html's own inputs expect (native <input type=date/time>
+  // values), used to build a one-click pre-filled review link.
+  const rawName = (data.get("name") || "").trim();
+  const rawDate = data.get("date") || "";
+  const rawTime = data.get("time") || "";
   const town = (data.get("town") || "").trim();
   const venue = (data.get("venue") || "").trim();
+  const rawDescription = (data.get("description") || "").trim();
+
+  const adminParams = new URLSearchParams({
+    name: rawName,
+    date: rawDate,
+    time: rawTime,
+    town,
+    venue,
+    description: rawDescription,
+  });
+  const adminLink = `https://linncounty.communitycalendarconnect.com/admin.html?${adminParams.toString()}`;
+
+  data.append("access_key", WEB3FORMS_ACCESS_KEY);
+  data.append("subject", `New event submission: ${rawName}`);
+  data.append("from_name", "Linn County Calendar — Event Submission");
+  // Human-friendly time for the email itself, since Web3Forms just relays
+  // whatever we send -- separate from rawTime, which stays HH:MM for the link.
+  data.set("time", formatTime12h(rawTime));
+
+  // Combine into the same "Venue | Town, MO" shape the scraped events use,
+  // so reminder filtering by town works the same way for both.
   data.append("location", venue && town ? `${venue} | ${town}, MO` : town ? `${town}, MO` : "");
+  data.append("review_and_approve_link", adminLink);
 
   try {
     const res = await fetch("https://api.web3forms.com/submit", {
