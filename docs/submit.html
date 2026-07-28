@@ -75,11 +75,15 @@
   #status.ok { color: #1a7d3c; }
   #status.err { color: #a71a2d; }
   .hp { position: absolute; left: -9999px; }
+  .hint { margin: .35rem 0 0; font-size: .8rem; color: #666; line-height: 1.4; }
+  .hint.err { color: #a71a2d; font-weight: 600; }
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     form { background: #202027; box-shadow: none; }
     input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
     p.sub { color: #aaa; }
+    .hint { color: #999; }
+    .hint.err { color: #ff6b6b; }
   }
 </style>
 </head>
@@ -122,6 +126,13 @@
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description" maxlength="500" placeholder="A sentence or two about the event"></textarea>
 
+    <label for="contact_email">Your contact email</label>
+    <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
+
+    <label for="contact_phone">Your contact phone</label>
+    <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+    <p class="hint" id="contactHint">At least one is required. This will be shown on the calendar listing so people with questions about the event can reach you.</p>
+
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
 
@@ -145,10 +156,24 @@ function formatTime12h(value) {
   return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
 }
 
+const contactHint = document.getElementById("contactHint");
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   statusEl.textContent = "";
   statusEl.className = "";
+
+  const contactEmail = document.getElementById("contact_email").value.trim();
+  const contactPhone = document.getElementById("contact_phone").value.trim();
+  if (!contactEmail && !contactPhone) {
+    contactHint.classList.add("err");
+    contactHint.textContent = "Please provide an email or phone number so we can reach you with questions.";
+    document.getElementById("contact_email").focus();
+    return;
+  }
+  contactHint.classList.remove("err");
+  contactHint.textContent = "At least one of email or phone is required, in case we have questions about your submission. This won't be published on the calendar.";
+
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
 
@@ -171,6 +196,11 @@ form.addEventListener("submit", async (e) => {
     town,
     venue,
     description: rawDescription,
+    // admin.html combines these into one editable "contact" field, which
+    // gets appended to the event's description -- so this does end up
+    // visible on the public calendar listing (that's the point).
+    contact_email: contactEmail,
+    contact_phone: contactPhone,
   });
   const adminLink = `https://linncounty.communitycalendarconnect.com/admin.html?${adminParams.toString()}`;
 

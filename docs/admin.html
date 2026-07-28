@@ -127,6 +127,9 @@
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description"></textarea>
 
+    <label for="contact">Contact info (shown on the calendar)</label>
+    <input id="contact" name="contact" type="text" placeholder="email and/or phone number">
+
     <button type="submit">Prepare for GitHub &rarr;</button>
   </form>
 
@@ -172,6 +175,16 @@ function formatTime12h(value) {
     }
   }
 
+  // Contact email/phone come as separate params but combine into one
+  // editable "contact" field here, since that's what ends up on the
+  // calendar (shown to anyone with questions about the event).
+  const contactParts = [params.get("contact_email"), params.get("contact_phone")]
+    .filter(Boolean);
+  if (contactParts.length) {
+    document.getElementById("contact").value = contactParts.join(" | ");
+    filledAny = true;
+  }
+
   if (filledAny) {
     document.getElementById("prefilledNote").classList.remove("hidden");
   }
@@ -187,12 +200,18 @@ document.getElementById("approveForm").addEventListener("submit", (e) => {
   const venue = (data.get("venue") || "").trim();
   const location = venue && town ? `${venue} | ${town}, MO` : town ? `${town}, MO` : "";
 
+  const baseDescription = data.get("description").trim();
+  const contact = (data.get("contact") || "").trim();
+  const description = contact
+    ? (baseDescription ? `${baseDescription}\n\nContact: ${contact}` : `Contact: ${contact}`)
+    : baseDescription;
+
   const event = {
     name,
     date,
     time: formatTime12h(data.get("time")),
     location,
-    description: data.get("description").trim(),
+    description,
   };
 
   const slug = slugify(name, date);
