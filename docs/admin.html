@@ -27,13 +27,14 @@
   }
   label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
   label:first-of-type { margin-top: 0; }
-  input, textarea {
+  input, textarea, select {
     width: 100%;
     padding: .65rem .7rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-family: inherit;
+    background: #fff;
   }
   textarea { resize: vertical; min-height: 5rem; }
   .row { display: flex; gap: .75rem; }
@@ -62,7 +63,7 @@
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     form { background: #202027; box-shadow: none; }
-    input, textarea { background: #15151a; color: #eee; border-color: #444; }
+    input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
     p.sub { color: #aaa; }
     .note { background: #332b00; color: #f0d878; }
   }
@@ -93,8 +94,21 @@
       </div>
     </div>
 
-    <label for="location">Location (optional)</label>
-    <input id="location" name="location" type="text">
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+      <option value="Brookfield">Brookfield</option>
+      <option value="Browning">Browning</option>
+      <option value="Bucklin">Bucklin</option>
+      <option value="Laclede">Laclede</option>
+      <option value="Linneus">Linneus</option>
+      <option value="Marceline">Marceline</option>
+      <option value="Meadville">Meadville</option>
+      <option value="Purdin">Purdin</option>
+    </select>
+
+    <label for="venue">Venue / address (optional)</label>
+    <input id="venue" name="venue" type="text" placeholder="e.g. City Park, or the school gym">
 
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description"></textarea>
@@ -132,11 +146,15 @@ document.getElementById("approveForm").addEventListener("submit", (e) => {
   const name = data.get("name").trim();
   const date = data.get("date");
 
+  const town = (data.get("town") || "").trim();
+  const venue = (data.get("venue") || "").trim();
+  const location = venue && town ? `${venue} | ${town}, MO` : town ? `${town}, MO` : "";
+
   const event = {
     name,
     date,
     time: formatTime12h(data.get("time")),
-    location: data.get("location").trim(),
+    location,
     description: data.get("description").trim(),
   };
 

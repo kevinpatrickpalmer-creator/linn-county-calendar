@@ -42,13 +42,14 @@
     margin: 1rem 0 .35rem;
   }
   label:first-of-type { margin-top: 0; }
-  input, textarea {
+  input, textarea, select {
     width: 100%;
     padding: .65rem .7rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-family: inherit;
+    background: #fff;
   }
   textarea { resize: vertical; min-height: 5rem; }
   .row { display: flex; gap: .75rem; }
@@ -77,7 +78,7 @@
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     form { background: #202027; box-shadow: none; }
-    input, textarea { background: #15151a; color: #eee; border-color: #444; }
+    input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
     p.sub { color: #aaa; }
   }
 </style>
@@ -102,8 +103,21 @@
       </div>
     </div>
 
-    <label for="location">Location (optional)</label>
-    <input id="location" name="location" type="text" maxlength="150" placeholder="e.g. Marceline City Park">
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+      <option value="Brookfield">Brookfield</option>
+      <option value="Browning">Browning</option>
+      <option value="Bucklin">Bucklin</option>
+      <option value="Laclede">Laclede</option>
+      <option value="Linneus">Linneus</option>
+      <option value="Marceline">Marceline</option>
+      <option value="Meadville">Meadville</option>
+      <option value="Purdin">Purdin</option>
+    </select>
+
+    <label for="venue">Venue / address (optional)</label>
+    <input id="venue" name="venue" type="text" maxlength="120" placeholder="e.g. City Park, or the school gym">
 
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description" maxlength="500" placeholder="A sentence or two about the event"></textarea>
@@ -144,6 +158,13 @@ form.addEventListener("submit", async (e) => {
   data.append("from_name", "Linn County Calendar — Event Submission");
   // Human-friendly time, since Web3Forms just relays whatever we send.
   data.set("time", formatTime12h(data.get("time")));
+
+  // Combine into the same "Venue | Town, MO" shape the scraped events use,
+  // so reminder filtering by town works the same way for both. This is
+  // the value the admin should copy into admin.html's Location field.
+  const town = (data.get("town") || "").trim();
+  const venue = (data.get("venue") || "").trim();
+  data.append("location", venue && town ? `${venue} | ${town}, MO` : town ? `${town}, MO` : "");
 
   try {
     const res = await fetch("https://api.web3forms.com/submit", {
