@@ -3,11 +3,16 @@
 Daily job: email a reminder to everyone who opted in, for every event
 happening tomorrow.
 
-Subscriber opt-ins (email + reminder + newsletter checkboxes) are collected
-by docs/index.html, which posts directly to a Google Form; that form's
-linked Google Sheet is published to the web as CSV, which this script reads
-with a plain HTTP GET -- no Google API/auth needed. The newsletter opt-in
-column is stored here but not otherwise used yet.
+Subscriber opt-ins (email + reminder + newsletter checkboxes, plus an
+optional set of towns for the reminder) are collected by docs/index.html,
+which posts directly to a Google Form; that form's linked Google Sheet is
+published to the web as CSV, which this script reads with a plain HTTP GET
+-- no Google API/auth needed. The newsletter opt-in column is stored here
+but not otherwise used yet.
+
+A subscriber with no towns selected gets every town's events (that's the
+default/simple path). One with specific towns checked only gets events
+whose LOCATION resolves to one of those towns.
 
 Sending uses Brevo's API, from an address at communitycalendarconnect.com
 (domain-authenticated with SPF/DKIM/DMARC for proper deliverability).
@@ -22,6 +27,7 @@ Run:
 import csv
 import io
 import os
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 
@@ -48,6 +54,19 @@ SENDER_EMAIL = "linncounty@communitycalendarconnect.com"
 SENDER_NAME = "Linn County Calendar"
 
 
+def extract_town(location):
+    """LOCATION strings look like "Venue Name | Town, MO" or just
+    "Town, MO" -- take the last "|"-separated segment (the actual
+    address part) and pull the town out of that, so a venue name that
+    happens to contain another town's name (e.g. "St Joseph Christian
+    School... | Marceline, MO") doesn't get misread."""
+    if not location:
+        return None
+    last_segment = location.split("|")[-1].strip()
+    m = re.search(r"([A-Za-z .]+?),\s*MO\b", last_segment)
+    return m.group(1).strip() if m else None
+
+
 def tomorrows_events():
     with open(ICS_PATH, "rb") as f:
         cal = Calendar.from_ical(f.read())
@@ -70,11 +89,13 @@ def tomorrows_events():
         if event_date != tomorrow:
             continue
 
+        location = str(component.get("location", ""))
         events.append(
             {
                 "name": str(component.get("summary", "")),
                 "time": time_str,
-                "location": str(component.get("location", "")),
+                "location": location,
+                "town": extract_town(location),
             }
         )
 
@@ -82,6 +103,9 @@ def tomorrows_events():
 
 
 def load_reminder_subscribers():
+    """Returns a list of (email, towns) tuples for everyone who opted into
+    reminders. towns is a set of town names to filter to, or an empty set
+    meaning "every town" (the default when nothing's checked)."""
     if SUBSCRIBERS_CSV_URL.startswith("YOUR_"):
         print("SUBSCRIBERS_CSV_URL isn't configured yet -- skipping reminder sends.", file=sys.stderr)
         return []
@@ -99,11 +123,15 @@ def load_reminder_subscribers():
             continue
         latest_by_email[email] = row
 
-    return [
-        email
-        for email, row in latest_by_email.items()
-        if (row.get("Reminder") or "").strip().lower() == "yes"
-    ]
+    subscribers = []
+    for email, row in latest_by_email.items():
+        if (row.get("Reminder") or "").strip().lower() != "yes":
+            continue
+        towns_raw = (row.get("Towns") or "").strip()
+        towns = {t.strip() for t in towns_raw.split(",") if t.strip()}
+        subscribers.append((email, towns))
+
+    return subscribers
 
 
 def send_reminder_email(to_email, tomorrow, events):
@@ -150,17 +178,23 @@ def main():
         print("No reminder subscribers -- nothing to send.")
         return
 
-    print(f"Emailing {len(subscribers)} subscriber(s)...")
-    sent, failed = 0, 0
-    for email in subscribers:
+    print(f"Considering {len(subscribers)} reminder subscriber(s)...")
+    sent, skipped, failed = 0, 0, 0
+    for email, towns in subscribers:
+        subscriber_events = (
+            events if not towns else [ev for ev in events if ev["town"] in towns]
+        )
+        if not subscriber_events:
+            skipped += 1
+            continue
         try:
-            send_reminder_email(email, tomorrow, events)
+            send_reminder_email(email, tomorrow, subscriber_events)
             sent += 1
         except requests.RequestException as e:
             print(f"  WARNING: failed to email {email}: {e}", file=sys.stderr)
             failed += 1
 
-    print(f"Done. Sent {sent}, failed {failed}.")
+    print(f"Done. Sent {sent}, skipped (no matching town events) {skipped}, failed {failed}.")
 
 
 if __name__ == "__main__":

@@ -91,6 +91,17 @@
   button[type="submit"]:disabled { opacity: .6; }
   #prefStatus { margin-top: 1rem; font-size: .9rem; text-align: center; }
   #prefStatus.ok { color: #1a7d3c; }
+  .town-picker {
+    margin-left: 1.75rem;
+    padding-left: .75rem;
+    border-left: 2px solid #e5e5e0;
+  }
+  .town-picker.hidden { display: none; }
+  .town-hint { margin: 0 0 .5rem; font-size: .8rem; }
+  .town-picker .checkbox-row { margin: .5rem 0; }
+  @media (prefers-color-scheme: dark) {
+    .town-picker { border-left-color: #333; }
+  }
   .footer-link { text-align: center; margin-top: .5rem; }
   .footer-link a { color: #a71a2d; font-size: .9rem; }
   @media (prefers-color-scheme: dark) {
@@ -125,6 +136,42 @@
         <label for="reminder">Email me a reminder the day before each event</label>
       </div>
 
+      <div id="townPicker" class="town-picker hidden">
+        <p class="hint town-hint">Only for reminders — leave all unchecked to get every town's events.</p>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-brookfield" value="Brookfield">
+          <label for="town-brookfield">Brookfield</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-browning" value="Browning">
+          <label for="town-browning">Browning</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-bucklin" value="Bucklin">
+          <label for="town-bucklin">Bucklin</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-laclede" value="Laclede">
+          <label for="town-laclede">Laclede</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-linneus" value="Linneus">
+          <label for="town-linneus">Linneus</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-marceline" value="Marceline">
+          <label for="town-marceline">Marceline</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-meadville" value="Meadville">
+          <label for="town-meadville">Meadville</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" class="town-checkbox" id="town-purdin" value="Purdin">
+          <label for="town-purdin">Purdin</label>
+        </div>
+      </div>
+
       <div class="checkbox-row">
         <input type="checkbox" id="newsletter" name="newsletter">
         <label for="newsletter">Sign me up for the Linn County community newsletter (occasional updates, no set schedule yet)</label>
@@ -149,10 +196,17 @@ const GOOGLE_FORM_ID = "1FAIpQLScxDicnwO6J1oSRzzZFgXRGt9xYe5AvW03dgf_TxipKC9rzTw
 const ENTRY_EMAIL = "entry.282334920";
 const ENTRY_REMINDER = "entry.1413838834";
 const ENTRY_NEWSLETTER = "entry.1757031668";
+const ENTRY_TOWNS = "entry.YOUR_TOWNS_ENTRY_ID"; // added after the Google Form question exists
 
 const form = document.getElementById("prefForm");
 const statusEl = document.getElementById("prefStatus");
 const submitBtn = document.getElementById("prefSubmit");
+const reminderCheckbox = document.getElementById("reminder");
+const townPicker = document.getElementById("townPicker");
+
+reminderCheckbox.addEventListener("change", () => {
+  townPicker.classList.toggle("hidden", !reminderCheckbox.checked);
+});
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -160,13 +214,17 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Saving...";
 
   const email = document.getElementById("email").value.trim();
-  const reminder = document.getElementById("reminder").checked;
+  const reminder = reminderCheckbox.checked;
   const newsletter = document.getElementById("newsletter").checked;
+  const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
+    .map((el) => el.value)
+    .join(",");
 
   const data = new FormData();
   data.append(ENTRY_EMAIL, email);
   data.append(ENTRY_REMINDER, reminder ? "yes" : "no");
   data.append(ENTRY_NEWSLETTER, newsletter ? "yes" : "no");
+  data.append(ENTRY_TOWNS, towns); // blank = all towns
 
   try {
     await fetch(`https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`, {
