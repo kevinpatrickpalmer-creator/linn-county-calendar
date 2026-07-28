@@ -23,5 +23,5 @@ jobs:
 
       - name: Send reminders
         env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: python send_reminders.py

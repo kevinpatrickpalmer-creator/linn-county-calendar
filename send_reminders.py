@@ -9,8 +9,8 @@ linked Google Sheet is published to the web as CSV, which this script reads
 with a plain HTTP GET -- no Google API/auth needed. The newsletter opt-in
 column is stored here but not otherwise used yet.
 
-Sending uses SendGrid's API (Single Sender Verification, no custom domain
-required). Requires a SENDGRID_API_KEY environment variable/secret.
+Sending uses Brevo's API (verified single sender, no custom domain
+required). Requires a BREVO_API_KEY environment variable/secret.
 
 Install:
     pip install icalendar requests
@@ -42,7 +42,7 @@ LOCAL_TZ = ZoneInfo("America/Chicago")
 # auth needed to fetch it, and it isn't linked from anywhere.
 SUBSCRIBERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vST534r8ueuQPb5iovg38S_4nwqU5o5dTWsJ9Mrf1Kpiih-4Cz8TIyx6Tj_Q7dApMceQ-hDpgofMXu3/pub?output=csv"
 
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
+BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 SENDER_EMAIL = "kevinpatrickpalmer@gmail.com"
 SENDER_NAME = "Linn County Calendar"
 
@@ -115,16 +115,16 @@ def send_reminder_email(to_email, tomorrow, events):
     body = "\n".join(lines)
 
     resp = requests.post(
-        "https://api.sendgrid.com/v3/mail/send",
+        "https://api.brevo.com/v3/smtp/email",
         headers={
-            "Authorization": f"Bearer {SENDGRID_API_KEY}",
+            "api-key": BREVO_API_KEY,
             "Content-Type": "application/json",
         },
         json={
-            "personalizations": [{"to": [{"email": to_email}]}],
-            "from": {"email": SENDER_EMAIL, "name": SENDER_NAME},
+            "sender": {"email": SENDER_EMAIL, "name": SENDER_NAME},
+            "to": [{"email": to_email}],
             "subject": f"Reminder: {len(events)} Linn County event(s) tomorrow",
-            "content": [{"type": "text/plain", "value": body}],
+            "textContent": body,
         },
         timeout=30,
     )
@@ -140,8 +140,8 @@ def main():
 
     print(f"Found {len(events)} event(s) for {tomorrow}.")
 
-    if not SENDGRID_API_KEY:
-        print("SENDGRID_API_KEY isn't set -- skipping reminder sends.", file=sys.stderr)
+    if not BREVO_API_KEY:
+        print("BREVO_API_KEY isn't set -- skipping reminder sends.", file=sys.stderr)
         return
 
     subscribers = load_reminder_subscribers()

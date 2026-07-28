@@ -37,8 +37,9 @@ stable URL suitable for subscribing to from a phone calendar app.
 - **Daily reminders:** `.github/workflows/daily-reminders.yml` runs
   `send_reminders.py` once a day. It reads `docs/linn_county_events.ics`
   for anything happening tomorrow, reads the subscriber CSV, and emails
-  everyone with the reminder box checked via SendGrid (Single Sender
-  Verification, no custom domain required).
+  everyone with the reminder box checked via Brevo (verified single
+  sender, no custom domain required). SendGrid was the original plan but
+  hit an unresolvable account-provisioning bug on their end (see git log).
 - **Newsletter opt-ins** are stored in the same sheet but nothing sends to
   them yet — that column is just sitting there ready for whenever an
   actual newsletter gets built.
@@ -54,4 +55,4 @@ python scrape_linn_county_calendar.py
 Writes/overwrites `docs/linn_county_events.ics`, merging in anything found
 under `data/manual_events/`.
 
-To test the reminder script locally: `SENDGRID_API_KEY=... python send_reminders.py`
+To test the reminder script locally: `BREVO_API_KEY=... python send_reminders.py`
