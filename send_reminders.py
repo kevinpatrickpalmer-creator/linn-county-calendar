@@ -9,8 +9,9 @@ linked Google Sheet is published to the web as CSV, which this script reads
 with a plain HTTP GET -- no Google API/auth needed. The newsletter opt-in
 column is stored here but not otherwise used yet.
 
-Sending uses Brevo's API (verified single sender, no custom domain
-required). Requires a BREVO_API_KEY environment variable/secret.
+Sending uses Brevo's API, from an address at communitycalendarconnect.com
+(domain-authenticated with SPF/DKIM/DMARC for proper deliverability).
+Requires a BREVO_API_KEY environment variable/secret.
 
 Install:
     pip install icalendar requests
@@ -43,7 +44,7 @@ LOCAL_TZ = ZoneInfo("America/Chicago")
 SUBSCRIBERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vST534r8ueuQPb5iovg38S_4nwqU5o5dTWsJ9Mrf1Kpiih-4Cz8TIyx6Tj_Q7dApMceQ-hDpgofMXu3/pub?output=csv"
 
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
-SENDER_EMAIL = "kevinpatrickpalmer@gmail.com"
+SENDER_EMAIL = "linncounty@communitycalendarconnect.com"
 SENDER_NAME = "Linn County Calendar"
 
 
