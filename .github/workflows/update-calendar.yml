@@ -27,8 +27,16 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
+      - name: Save pre-scrape calendar for diffing
+        run: cp docs/linn_county_events.ics /tmp/old_events.ics 2>/dev/null || true
+
       - name: Run scraper
         run: python scrape_linn_county_calendar.py
+
+      - name: Notify admin of newly-approved manual events
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python notify_new_manual_events.py /tmp/old_events.ics docs/linn_county_events.ics
 
       - name: Upload debug artifacts on failure
         if: failure()

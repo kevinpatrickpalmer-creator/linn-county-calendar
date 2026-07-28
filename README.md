@@ -19,12 +19,21 @@ calendar app.
 - **Public submission form:** `docs/submit.html` — no login required, posts
   to [Web3Forms](https://web3forms.com) which emails every submission for
   review. This is the URL to put on flyers / QR codes / links elsewhere.
-- **Admin approval helper:** `docs/admin.html` — copy a submission's details
-  in here, click through, and commit the pre-filled file GitHub opens for
-  you. That's the entire approval step; nothing else is required.
+  Collects a required **Town** (one of the 8 real Linn County towns) plus
+  an optional venue, which get combined into the same "Venue | Town, MO"
+  shape scraped events use, so town-based reminder filtering works the
+  same way regardless of where an event came from.
+- **Admin approval helper:** `docs/admin.html` — the submission email
+  includes a one-click "review & approve" link that lands here with every
+  field already filled in (no retyping). Review it, click "Prepare for
+  GitHub", then **Commit new file** on the page GitHub opens. That commit
+  is the entire approval step.
 - **Approved events:** live as one JSON file per event under
   `data/manual_events/` (see the README in that folder). The scraper merges
-  them into every `.ics` regeneration automatically.
+  them into every `.ics` regeneration automatically, and
+  `notify_new_manual_events.py` (run as part of the same scheduled workflow)
+  emails the admin a confirmation for each one that's newly appeared since
+  the last run.
 - **Rejecting** a submission means simply not creating a file for it —
   pending/rejected submissions never touch `data/manual_events/` or the
   public `.ics`.
