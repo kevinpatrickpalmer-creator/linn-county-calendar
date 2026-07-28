@@ -7,8 +7,12 @@ calendar feed at `docs/linn_county_events.ics`.
 
 A GitHub Actions workflow (`.github/workflows/update-calendar.yml`) re-runs
 the scraper every 4 hours and commits the refreshed file. GitHub Pages
-serves `docs/` as a static site, so the `.ics` file is reachable at a
-stable URL suitable for subscribing to from a phone calendar app.
+serves `docs/` as a static site, reachable at
+[linncounty.communitycalendarconnect.com](https://linncounty.communitycalendarconnect.com/)
+(a custom domain -- part of a multi-community "Community Calendar Connect"
+setup, one subdomain per town/county, all pointing at their own repo). The
+`.ics` file there is a stable URL suitable for subscribing to from a phone
+calendar app.
 
 ## Community event submissions
 
