@@ -15,6 +15,13 @@ The calendar widget defaults to showing events within 25 miles of
 Marceline/Brookfield, MO -- that's the site's own default view, so this
 script's output should match what you see when you visit the page yourself.
 
+Everything that differs between deployments (timezone, calendar display
+name, UID namespace) lives in docs/config.json, loaded via
+calendar_config.py. CALENDAR_URL and the actual scraping/parsing logic
+below are specific to this one source (a CitySpark-powered site) and
+aren't config-driven -- a new town/county needs its own scraper unless
+its source happens to also run on CitySpark.
+
 Install:
     pip install playwright beautifulsoup4 icalendar
     playwright install chromium
@@ -60,10 +67,19 @@ except ImportError:
     )
     sys.exit(1)
 
+from calendar_config import load_config
+
+CONFIG = load_config()
+
+# This scraper is specific to linncountyleader.com's CitySpark widget --
+# a new instance for a different town/county needs its own scraper (or
+# none at all, relying purely on manual submissions) unless that source
+# happens to also run on CitySpark. Not something config.json can abstract
+# away, so it stays a plain constant here rather than moving to config.
 CALENDAR_URL = "https://www.linncountyleader.com/calendar/"
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
-LOCAL_TZ = ZoneInfo("America/Chicago")  # Linn County, MO
+LOCAL_TZ = ZoneInfo(CONFIG["timezone"])
 # Written into docs/ so GitHub Pages (serving from /docs) can host it directly.
 ICS_PATH = "docs/linn_county_events.ics"
 DEFAULT_DURATION = timedelta(hours=1)
@@ -240,17 +256,17 @@ def event_uid(ev):
     missing for some reason."""
     key = ev["event_id"] or re.sub(r"\W+", "-", ev["name"].lower()).strip("-")
     time_slug = re.sub(r"\D", "", ev["time"]) if ev["time"] else "allday"
-    return f"{key}-{ev['date']}-{time_slug}@linn-county-scraper.local"
+    return f"{key}-{ev['date']}-{time_slug}@{CONFIG['uid_domain']}"
 
 
 def build_calendar(events):
     cal = Calendar()
-    cal.add("prodid", "-//Linn County Leader Events Scraper//linn-county-scraper.local//EN")
+    cal.add("prodid", f"-//{CONFIG['county_display_name']} Events Scraper//{CONFIG['uid_domain']}//EN")
     cal.add("version", "2.0")
     cal.add("calscale", "GREGORIAN")
     cal.add("method", "PUBLISH")
-    cal.add("x-wr-calname", "Linn County Leader Community Events")
-    cal.add("x-wr-timezone", "America/Chicago")
+    cal.add("x-wr-calname", CONFIG["calendar_title"])
+    cal.add("x-wr-timezone", CONFIG["timezone"])
     cal.add("x-published-ttl", "PT4H")  # matches the GitHub Actions refresh cadence
 
     now_utc = datetime.now(timezone.utc)

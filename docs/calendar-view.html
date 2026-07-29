@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Linn County Community Calendar</title>
+<title>Community Calendar</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -150,7 +150,7 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <h1 id="monthLabel">Linn County Calendar</h1>
+    <h1 id="monthLabel">Community Calendar</h1>
     <div class="nav">
       <button id="prevBtn" aria-label="Previous month">&larr;</button>
       <button id="todayBtn">Today</button>
@@ -176,14 +176,14 @@
   <details class="embed-info">
     <summary>Embed this calendar on another site</summary>
     <p>Paste this into any page that allows HTML/iframes:</p>
-    <textarea rows="3" readonly onclick="this.select()">&lt;iframe src="https://linncounty.communitycalendarconnect.com/calendar-view.html" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+    <textarea rows="3" readonly onclick="this.select()" id="embedSnippet"></textarea>
   </details>
 </div>
 
 <script>
 const ICS_URL = "linn_county_events.ics";
-const TIMEZONE = "America/Chicago";
 const DOW_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let TIMEZONE = "America/Chicago"; // overwritten from config.json before first render
 
 function unescapeText(s) {
   return s
@@ -394,6 +394,17 @@ document.getElementById("todayBtn").addEventListener("click", () => {
 });
 
 async function main() {
+  try {
+    const config = await (await fetch("config.json")).json();
+    TIMEZONE = config.timezone;
+    document.title = config.calendar_title;
+    document.getElementById("embedSnippet").value =
+      `<iframe src="https://${config.domain}/calendar-view.html" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"></iframe>`;
+  } catch (err) {
+    // Config is only needed for cosmetics/timezone/embed snippet -- fall
+    // back to the defaults above rather than blocking the calendar itself.
+  }
+
   try {
     const res = await fetch(ICS_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);

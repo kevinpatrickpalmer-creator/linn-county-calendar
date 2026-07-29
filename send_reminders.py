@@ -40,30 +40,34 @@ except ImportError:
     print("This script requires Python 3.9+ (for the zoneinfo module).")
     sys.exit(1)
 
+from calendar_config import load_config
+
+CONFIG = load_config()
+
 ICS_PATH = "docs/linn_county_events.ics"
-LOCAL_TZ = ZoneInfo("America/Chicago")
+LOCAL_TZ = ZoneInfo(CONFIG["timezone"])
 
 # Published-to-web CSV export of the Google Sheet linked to the sign-up
 # form on docs/index.html (Google Sheets: File > Share > Publish to web).
 # Publicly readable by design -- it's just email + two yes/no columns, no
 # auth needed to fetch it, and it isn't linked from anywhere.
-SUBSCRIBERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vST534r8ueuQPb5iovg38S_4nwqU5o5dTWsJ9Mrf1Kpiih-4Cz8TIyx6Tj_Q7dApMceQ-hDpgofMXu3/pub?output=csv"
+SUBSCRIBERS_CSV_URL = CONFIG["subscribers_csv_url"]
 
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
-SENDER_EMAIL = "linncounty@communitycalendarconnect.com"
-SENDER_NAME = "Linn County Calendar"
+SENDER_EMAIL = CONFIG["sender_email"]
+SENDER_NAME = CONFIG["sender_name"]
 
 
 def extract_town(location):
-    """LOCATION strings look like "Venue Name | Town, MO" or just
-    "Town, MO" -- take the last "|"-separated segment (the actual
+    """LOCATION strings look like "Venue Name | Town, ST" or just
+    "Town, ST" -- take the last "|"-separated segment (the actual
     address part) and pull the town out of that, so a venue name that
     happens to contain another town's name (e.g. "St Joseph Christian
     School... | Marceline, MO") doesn't get misread."""
     if not location:
         return None
     last_segment = location.split("|")[-1].strip()
-    m = re.search(r"([A-Za-z .]+?),\s*MO\b", last_segment)
+    m = re.search(rf"([A-Za-z .]+?),\s*{re.escape(CONFIG['state'])}\b", last_segment)
     return m.group(1).strip() if m else None
 
 
@@ -152,7 +156,7 @@ def send_reminder_email(to_email, tomorrow, events):
         json={
             "sender": {"email": SENDER_EMAIL, "name": SENDER_NAME},
             "to": [{"email": to_email}],
-            "subject": f"Reminder: {len(events)} Linn County event(s) tomorrow",
+            "subject": f"Reminder: {len(events)} {CONFIG['county_display_name']} event(s) tomorrow",
             "textContent": body,
         },
         timeout=30,

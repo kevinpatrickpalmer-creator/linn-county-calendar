@@ -14,6 +14,30 @@ setup, one subdomain per town/county, all pointing at their own repo). The
 `.ics` file there is a stable URL suitable for subscribing to from a phone
 calendar app.
 
+## Configuration (`docs/config.json`)
+
+Everything that differs between deployments of this system — display name,
+domain, timezone, state abbreviation, the town list, third-party account
+IDs (Web3Forms key, Google Form entry IDs, subscriber sheet CSV URL), the
+GitHub repo/branch, and the sender/admin email addresses — lives in one
+file: `docs/config.json`. Nothing else in the codebase should need
+Linn-County-specific values hardcoded into it.
+
+- **Python scripts** load it via `calendar_config.load_config()`.
+- **HTML pages** (`index.html`, `submit.html`, `admin.html`,
+  `manage-events.html`, `calendar-view.html`) fetch it client-side with
+  `fetch("config.json")` before rendering anything that depends on it
+  (town dropdowns, page titles, links back to GitHub, etc.).
+
+To stand up a new instance for another town or county: copy this repo,
+edit `docs/config.json`, set up that community's own Web3Forms account /
+Google Form / Brevo sender, add the `BREVO_API_KEY` secret, point GitHub
+Pages at their subdomain, and write or adapt a scraper for their local
+news/events source if it isn't the same CitySpark widget
+`scrape_linn_county_calendar.py` targets — `CALENDAR_URL` there is
+deliberately left out of `config.json` since it's specific to the source
+site, not the deployment.
+
 ## Community event submissions
 
 - **Public submission form:** `docs/submit.html` — no login required, posts

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Linn County Leader — Community Calendar</title>
+<title>Community Calendar</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -114,16 +114,16 @@
 </head>
 <body>
 <main>
-  <h1>Linn County Community Calendar</h1>
-  <p class="sub">Local events, meetings, and happenings around Linn County — kept up to date automatically.</p>
+  <h1 id="pageTitle">Community Calendar</h1>
+  <p class="sub" id="pageSub">Local events, meetings, and happenings — kept up to date automatically.</p>
 
   <section>
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
-    <a class="btn" href="webcal://linncounty.communitycalendarconnect.com/linn_county_events.ics">Subscribe to Calendar</a>
+    <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <a class="btn secondary" href="linn_county_events.ics">Download / copy link instead</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
-    <p class="hint">To stop getting these events, remove/unsubscribe from "Linn County Community Calendar" in your phone or computer's calendar app settings — that's done on your device, not here.</p>
+    <p class="hint" id="unsubscribeHint"></p>
   </section>
 
   <section>
@@ -140,43 +140,12 @@
 
       <div id="townPicker" class="town-picker hidden">
         <p class="hint town-hint">Only for reminders — leave all unchecked to get every town's events.</p>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-brookfield" value="Brookfield">
-          <label for="town-brookfield">Brookfield</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-browning" value="Browning">
-          <label for="town-browning">Browning</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-bucklin" value="Bucklin">
-          <label for="town-bucklin">Bucklin</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-laclede" value="Laclede">
-          <label for="town-laclede">Laclede</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-linneus" value="Linneus">
-          <label for="town-linneus">Linneus</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-marceline" value="Marceline">
-          <label for="town-marceline">Marceline</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-meadville" value="Meadville">
-          <label for="town-meadville">Meadville</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" class="town-checkbox" id="town-purdin" value="Purdin">
-          <label for="town-purdin">Purdin</label>
-        </div>
+        <div id="townCheckboxes"></div>
       </div>
 
       <div class="checkbox-row">
         <input type="checkbox" id="newsletter" name="newsletter">
-        <label for="newsletter">Sign me up for the Linn County community newsletter (occasional updates, no set schedule yet)</label>
+        <label for="newsletter" id="newsletterLabel">Sign me up for the community newsletter (occasional updates, no set schedule yet)</label>
       </div>
 
       <button type="submit" id="prefSubmit">Save preferences</button>
@@ -190,60 +159,78 @@
 </main>
 
 <script>
-// Direct-post to a Google Form (bypasses its visible UI, lands in the
-// linked Sheet). Google's formResponse endpoint doesn't send CORS
-// headers, so this request is fire-and-forget (mode: "no-cors") -- we
-// can't read back success/failure, only that the request was sent.
-const GOOGLE_FORM_ID = "1FAIpQLScxDicnwO6J1oSRzzZFgXRGt9xYe5AvW03dgf_TxipKC9rzTw";
-const ENTRY_EMAIL = "entry.282334920";
-const ENTRY_REMINDER = "entry.1413838834";
-const ENTRY_NEWSLETTER = "entry.1757031668";
-const ENTRY_TOWNS = "entry.YOUR_TOWNS_ENTRY_ID"; // added after the Google Form question exists
+(async function () {
+  const config = await (await fetch("config.json")).json();
 
-const form = document.getElementById("prefForm");
-const statusEl = document.getElementById("prefStatus");
-const submitBtn = document.getElementById("prefSubmit");
-const reminderCheckbox = document.getElementById("reminder");
-const townPicker = document.getElementById("townPicker");
+  document.title = config.calendar_title;
+  document.getElementById("pageTitle").textContent = config.calendar_title;
+  document.getElementById("pageSub").textContent =
+    `Local events, meetings, and happenings around ${config.county_display_name} — kept up to date automatically.`;
+  document.getElementById("subscribeBtn").href = `webcal://${config.domain}/linn_county_events.ics`;
+  document.getElementById("unsubscribeHint").textContent =
+    `To stop getting these events, remove/unsubscribe from "${config.calendar_title}" in your phone or computer's calendar app settings — that's done on your device, not here.`;
+  document.getElementById("newsletterLabel").textContent =
+    `Sign me up for the ${config.county_display_name} community newsletter (occasional updates, no set schedule yet)`;
 
-reminderCheckbox.addEventListener("change", () => {
-  townPicker.classList.toggle("hidden", !reminderCheckbox.checked);
-});
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Saving...";
-
-  const email = document.getElementById("email").value.trim();
-  const reminder = reminderCheckbox.checked;
-  const newsletter = document.getElementById("newsletter").checked;
-  const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
-    .map((el) => el.value)
-    .join(",");
-
-  const data = new FormData();
-  data.append(ENTRY_EMAIL, email);
-  data.append(ENTRY_REMINDER, reminder ? "yes" : "no");
-  data.append(ENTRY_NEWSLETTER, newsletter ? "yes" : "no");
-  data.append(ENTRY_TOWNS, towns); // blank = all towns
-
-  try {
-    await fetch(`https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`, {
-      method: "POST",
-      mode: "no-cors",
-      body: data,
-    });
-    statusEl.textContent = "Saved! You can update your preferences any time by submitting this form again.";
-    statusEl.className = "ok";
-  } catch (err) {
-    statusEl.textContent = "Something went wrong saving your preferences. Please try again.";
-    statusEl.className = "";
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Save preferences";
+  const townCheckboxes = document.getElementById("townCheckboxes");
+  for (const town of config.towns) {
+    const row = document.createElement("div");
+    row.className = "checkbox-row";
+    const id = `town-${town.toLowerCase()}`;
+    row.innerHTML = `<input type="checkbox" class="town-checkbox" id="${id}" value="${town}">
+      <label for="${id}">${town}</label>`;
+    townCheckboxes.appendChild(row);
   }
-});
+
+  // Direct-post to a Google Form (bypasses its visible UI, lands in the
+  // linked Sheet). Google's formResponse endpoint doesn't send CORS
+  // headers, so this request is fire-and-forget (mode: "no-cors") -- we
+  // can't read back success/failure, only that the request was sent.
+  const form = document.getElementById("prefForm");
+  const statusEl = document.getElementById("prefStatus");
+  const submitBtn = document.getElementById("prefSubmit");
+  const reminderCheckbox = document.getElementById("reminder");
+  const townPicker = document.getElementById("townPicker");
+
+  reminderCheckbox.addEventListener("change", () => {
+    townPicker.classList.toggle("hidden", !reminderCheckbox.checked);
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving...";
+
+    const email = document.getElementById("email").value.trim();
+    const reminder = reminderCheckbox.checked;
+    const newsletter = document.getElementById("newsletter").checked;
+    const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
+      .map((el) => el.value)
+      .join(",");
+
+    const data = new FormData();
+    data.append(config.google_form.entry_email, email);
+    data.append(config.google_form.entry_reminder, reminder ? "yes" : "no");
+    data.append(config.google_form.entry_newsletter, newsletter ? "yes" : "no");
+    data.append(config.google_form.entry_towns, towns); // blank = all towns
+
+    try {
+      await fetch(`https://docs.google.com/forms/d/e/${config.google_form.form_id}/formResponse`, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      });
+      statusEl.textContent = "Saved! You can update your preferences any time by submitting this form again.";
+      statusEl.className = "ok";
+    } catch (err) {
+      statusEl.textContent = "Something went wrong saving your preferences. Please try again.";
+      statusEl.className = "";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Save preferences";
+    }
+  });
+})();
 </script>
 </body>
 </html>

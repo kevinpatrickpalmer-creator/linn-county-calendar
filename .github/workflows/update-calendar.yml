@@ -1,4 +1,4 @@
-name: Update Linn County calendar
+name: Update community calendar
 
 on:
   schedule:

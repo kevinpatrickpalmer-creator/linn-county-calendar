@@ -1,0 +1,23 @@
+{
+  "county_display_name": "Linn County",
+  "calendar_title": "Linn County Community Calendar",
+  "domain": "linncounty.communitycalendarconnect.com",
+  "uid_domain": "linn-county-scraper.local",
+  "timezone": "America/Chicago",
+  "state": "MO",
+  "towns": ["Brookfield", "Browning", "Bucklin", "Laclede", "Linneus", "Marceline", "Meadville", "Purdin"],
+  "github_repo": "kevinpatrickpalmer-creator/linn-county-calendar",
+  "github_branch": "main",
+  "web3forms_access_key": "84cb6687-b7d7-453d-b3c0-6faca29868ed",
+  "google_form": {
+    "form_id": "1FAIpQLScxDicnwO6J1oSRzzZFgXRGt9xYe5AvW03dgf_TxipKC9rzTw",
+    "entry_email": "entry.282334920",
+    "entry_reminder": "entry.1413838834",
+    "entry_newsletter": "entry.1757031668",
+    "entry_towns": "entry.YOUR_TOWNS_ENTRY_ID"
+  },
+  "subscribers_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vST534r8ueuQPb5iovg38S_4nwqU5o5dTWsJ9Mrf1Kpiih-4Cz8TIyx6Tj_Q7dApMceQ-hDpgofMXu3/pub?output=csv",
+  "sender_email": "linncounty@communitycalendarconnect.com",
+  "sender_name": "Linn County Calendar",
+  "admin_email": "kevinpatrickpalmer@gmail.com"
+}

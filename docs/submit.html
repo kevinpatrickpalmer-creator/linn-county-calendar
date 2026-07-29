@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Submit a Community Event — Linn County Leader</title>
+<title>Submit a Community Event</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -90,7 +90,7 @@
 <body>
 <main>
   <h1>Submit a Community Event</h1>
-  <p class="sub">Add your event to the Linn County community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.</p>
+  <p class="sub" id="pageSub">Add your event to the community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.</p>
 
   <form id="eventForm">
     <label for="name">Event name *</label>
@@ -110,14 +110,6 @@
     <label for="town">Town *</label>
     <select id="town" name="town" required>
       <option value="" disabled selected>Select a town</option>
-      <option value="Brookfield">Brookfield</option>
-      <option value="Browning">Browning</option>
-      <option value="Bucklin">Bucklin</option>
-      <option value="Laclede">Laclede</option>
-      <option value="Linneus">Linneus</option>
-      <option value="Marceline">Marceline</option>
-      <option value="Meadville">Meadville</option>
-      <option value="Purdin">Purdin</option>
     </select>
 
     <label for="venue">Venue / address (optional)</label>
@@ -142,103 +134,116 @@
 </main>
 
 <script>
-const WEB3FORMS_ACCESS_KEY = "84cb6687-b7d7-453d-b3c0-6faca29868ed";
+(async function () {
+  const config = await (await fetch("config.json")).json();
 
-const form = document.getElementById("eventForm");
-const statusEl = document.getElementById("status");
-const submitBtn = document.getElementById("submitBtn");
+  document.title = `Submit a Community Event — ${config.county_display_name}`;
+  document.getElementById("pageSub").textContent =
+    `Add your event to the ${config.county_display_name} community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.`;
 
-function formatTime12h(value) {
-  if (!value) return "";
-  const [h, m] = value.split(":").map(Number);
-  const period = h >= 12 ? "pm" : "am";
-  const hour12 = ((h + 11) % 12) + 1;
-  return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
-}
-
-const contactHint = document.getElementById("contactHint");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  statusEl.textContent = "";
-  statusEl.className = "";
-
-  const contactEmail = document.getElementById("contact_email").value.trim();
-  const contactPhone = document.getElementById("contact_phone").value.trim();
-  if (!contactEmail && !contactPhone) {
-    contactHint.classList.add("err");
-    contactHint.textContent = "Please provide an email or phone number so we can reach you with questions.";
-    document.getElementById("contact_email").focus();
-    return;
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
   }
-  contactHint.classList.remove("err");
-  contactHint.textContent = "At least one of email or phone is required, in case we have questions about your submission. This won't be published on the calendar.";
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Submitting...";
+  const form = document.getElementById("eventForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const contactHint = document.getElementById("contactHint");
 
-  const data = new FormData(form);
+  function formatTime12h(value) {
+    if (!value) return "";
+    const [h, m] = value.split(":").map(Number);
+    const period = h >= 12 ? "pm" : "am";
+    const hour12 = ((h + 11) % 12) + 1;
+    return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
+  }
 
-  // Capture raw values before anything gets reformatted for display below --
-  // these are what admin.html's own inputs expect (native <input type=date/time>
-  // values), used to build a one-click pre-filled review link.
-  const rawName = (data.get("name") || "").trim();
-  const rawDate = data.get("date") || "";
-  const rawTime = data.get("time") || "";
-  const town = (data.get("town") || "").trim();
-  const venue = (data.get("venue") || "").trim();
-  const rawDescription = (data.get("description") || "").trim();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
 
-  const adminParams = new URLSearchParams({
-    name: rawName,
-    date: rawDate,
-    time: rawTime,
-    town,
-    venue,
-    description: rawDescription,
-    // admin.html combines these into one editable "contact" field, which
-    // gets appended to the event's description -- so this does end up
-    // visible on the public calendar listing (that's the point).
-    contact_email: contactEmail,
-    contact_phone: contactPhone,
-  });
-  const adminLink = `https://linncounty.communitycalendarconnect.com/admin.html?${adminParams.toString()}`;
-
-  data.append("access_key", WEB3FORMS_ACCESS_KEY);
-  data.append("subject", `New event submission: ${rawName}`);
-  data.append("from_name", "Linn County Calendar — Event Submission");
-  // Human-friendly time for the email itself, since Web3Forms just relays
-  // whatever we send -- separate from rawTime, which stays HH:MM for the link.
-  data.set("time", formatTime12h(rawTime));
-
-  // Combine into the same "Venue | Town, MO" shape the scraped events use,
-  // so reminder filtering by town works the same way for both.
-  data.append("location", venue && town ? `${venue} | ${town}, MO` : town ? `${town}, MO` : "");
-  data.append("review_and_approve_link", adminLink);
-
-  try {
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: data,
-    });
-    const result = await res.json();
-
-    if (result.success) {
-      statusEl.textContent = "Thanks! Your event was submitted for review.";
-      statusEl.className = "ok";
-      form.reset();
-    } else {
-      throw new Error(result.message || "Submission failed");
+    const contactEmail = document.getElementById("contact_email").value.trim();
+    const contactPhone = document.getElementById("contact_phone").value.trim();
+    if (!contactEmail && !contactPhone) {
+      contactHint.classList.add("err");
+      contactHint.textContent = "Please provide an email or phone number so we can reach you with questions.";
+      document.getElementById("contact_email").focus();
+      return;
     }
-  } catch (err) {
-    statusEl.textContent = "Something went wrong submitting your event. Please try again in a moment.";
-    statusEl.className = "err";
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Submit event";
-  }
-});
+    contactHint.classList.remove("err");
+    contactHint.textContent = "At least one is required. This will be shown on the calendar listing so people with questions about the event can reach you.";
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const data = new FormData(form);
+
+    // Capture raw values before anything gets reformatted for display below --
+    // these are what admin.html's own inputs expect (native <input type=date/time>
+    // values), used to build a one-click pre-filled review link.
+    const rawName = (data.get("name") || "").trim();
+    const rawDate = data.get("date") || "";
+    const rawTime = data.get("time") || "";
+    const town = (data.get("town") || "").trim();
+    const venue = (data.get("venue") || "").trim();
+    const rawDescription = (data.get("description") || "").trim();
+
+    const adminParams = new URLSearchParams({
+      name: rawName,
+      date: rawDate,
+      time: rawTime,
+      town,
+      venue,
+      description: rawDescription,
+      // admin.html combines these into one editable "contact" field, which
+      // gets appended to the event's description -- so this does end up
+      // visible on the public calendar listing (that's the point).
+      contact_email: contactEmail,
+      contact_phone: contactPhone,
+    });
+    const adminLink = `https://${config.domain}/admin.html?${adminParams.toString()}`;
+
+    data.append("access_key", config.web3forms_access_key);
+    data.append("subject", `New event submission: ${rawName}`);
+    data.append("from_name", `${config.calendar_title} — Event Submission`);
+    // Human-friendly time for the email itself, since Web3Forms just relays
+    // whatever we send -- separate from rawTime, which stays HH:MM for the link.
+    data.set("time", formatTime12h(rawTime));
+
+    // Combine into the same "Venue | Town, ST" shape the scraped events use,
+    // so reminder filtering by town works the same way for both.
+    data.append("location", venue && town ? `${venue} | ${town}, ${config.state}` : town ? `${town}, ${config.state}` : "");
+    data.append("review_and_approve_link", adminLink);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        statusEl.textContent = "Thanks! Your event was submitted for review.";
+        statusEl.className = "ok";
+        form.reset();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong submitting your event. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit event";
+    }
+  });
+})();
 </script>
 </body>
 </html>

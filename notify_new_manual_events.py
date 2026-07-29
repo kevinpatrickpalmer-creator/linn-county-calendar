@@ -21,10 +21,14 @@ import sys
 import requests
 from icalendar import Calendar
 
+from calendar_config import load_config
+
+CONFIG = load_config()
+
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
-SENDER_EMAIL = "linncounty@communitycalendarconnect.com"
-SENDER_NAME = "Linn County Calendar"
-ADMIN_EMAIL = "kevinpatrickpalmer@gmail.com"
+SENDER_EMAIL = CONFIG["sender_email"]
+SENDER_NAME = CONFIG["sender_name"]
+ADMIN_EMAIL = CONFIG["admin_email"]
 
 
 def manual_events_by_uid(ics_path):
@@ -51,7 +55,7 @@ def manual_events_by_uid(ics_path):
 
 
 def send_confirmation(event):
-    lines = [f'"{event["name"]}" is now live on the Linn County calendar.', ""]
+    lines = [f'"{event["name"]}" is now live on the {CONFIG["county_display_name"]} calendar.', ""]
     if event["location"]:
         lines.append(f"Location: {event['location']}")
     if event["description"]:
