@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linn County Community Calendar</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+  }
+  .wrap { padding: .75rem; max-width: 900px; margin: 0 auto; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-bottom: .6rem;
+    flex-wrap: wrap;
+  }
+  .topbar h1 {
+    font-size: 1.05rem;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .nav { display: flex; gap: .35rem; align-items: center; }
+  .nav button {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 6px;
+    padding: .3rem .6rem;
+    font-size: .85rem;
+    cursor: pointer;
+  }
+  .links { font-size: .8rem; }
+  .links a { color: #a71a2d; text-decoration: none; margin-left: .75rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #ddd;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .dow {
+    background: #ececea;
+    text-align: center;
+    font-size: .7rem;
+    font-weight: 600;
+    padding: .3rem 0;
+    color: #666;
+  }
+  .day {
+    background: #fff;
+    min-height: 4.5rem;
+    min-width: 0;
+    padding: .25rem;
+    font-size: .75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+  }
+  .day.other-month { background: #fafaf8; color: #bbb; }
+  .day.today { background: #fff4e8; }
+  .day .num { font-weight: 600; margin-bottom: 2px; }
+  .pill {
+    background: #a71a2d;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 4px;
+    font-size: .68rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+    display: block;
+  }
+  .more-link {
+    font-size: .65rem;
+    color: #a71a2d;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+  }
+  #detail {
+    margin-top: .75rem;
+    background: #fff;
+    border-radius: 8px;
+    padding: .85rem 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    display: none;
+  }
+  #detail h2 { font-size: 1rem; margin: 0 0 .35rem; }
+  #detail .meta { font-size: .85rem; color: #555; margin-bottom: .15rem; }
+  #detail .desc { font-size: .85rem; margin-top: .5rem; white-space: pre-wrap; }
+  #detail button {
+    margin-top: .6rem;
+    border: none;
+    background: none;
+    color: #a71a2d;
+    font-size: .8rem;
+    cursor: pointer;
+    padding: 0;
+  }
+  #status { text-align: center; padding: 2rem; color: #666; font-size: .9rem; }
+  details.embed-info { margin-top: 1rem; font-size: .8rem; color: #666; }
+  details.embed-info textarea {
+    width: 100%;
+    margin-top: .4rem;
+    font-family: monospace;
+    font-size: .75rem;
+    padding: .4rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  @media (max-width: 480px) {
+    .day { min-height: 3.6rem; font-size: .68rem; }
+    .pill { font-size: .62rem; }
+    .topbar h1 { font-size: .95rem; }
+  }
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #15151a; color: #eee; }
+    .nav button { background: #202027; border-color: #444; color: #eee; }
+    .grid { background: #333; border-color: #333; }
+    .dow { background: #1c1c22; color: #999; }
+    .day { background: #202027; }
+    .day.other-month { background: #191920; color: #555; }
+    .day.today { background: #2a2213; }
+    #detail { background: #202027; box-shadow: none; }
+    #detail .meta { color: #aaa; }
+    details.embed-info textarea { background: #15151a; color: #eee; border-color: #444; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <h1 id="monthLabel">Linn County Calendar</h1>
+    <div class="nav">
+      <button id="prevBtn" aria-label="Previous month">&larr;</button>
+      <button id="todayBtn">Today</button>
+      <button id="nextBtn" aria-label="Next month">&rarr;</button>
+    </div>
+  </div>
+
+  <div id="status">Loading events...</div>
+  <div class="grid" id="grid" style="display:none"></div>
+
+  <div id="detail">
+    <h2 id="detailName"></h2>
+    <div class="meta" id="detailWhen"></div>
+    <div class="meta" id="detailLocation"></div>
+    <div class="desc" id="detailDescription"></div>
+    <button id="detailClose">Close</button>
+  </div>
+
+  <p class="links">
+    <a href="index.html" target="_top">Subscribe / submit an event &rarr;</a>
+  </p>
+
+  <details class="embed-info">
+    <summary>Embed this calendar on another site</summary>
+    <p>Paste this into any page that allows HTML/iframes:</p>
+    <textarea rows="3" readonly onclick="this.select()">&lt;iframe src="https://linncounty.communitycalendarconnect.com/calendar-view.html" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+  </details>
+</div>
+
+<script>
+const ICS_URL = "linn_county_events.ics";
+const TIMEZONE = "America/Chicago";
+const DOW_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function unescapeText(s) {
+  return s
+    .replace(/\\n/gi, "\n")
+    .replace(/\\,/g, ",")
+    .replace(/\\;/g, ";")
+    .replace(/\\\\/g, "\\");
+}
+
+function parseICS(raw) {
+  const unfolded = raw.replace(/\r\n[ \t]/g, "").replace(/\n[ \t]/g, "");
+  const lines = unfolded.split(/\r?\n/);
+
+  const events = [];
+  let current = null;
+
+  for (const line of lines) {
+    if (line === "BEGIN:VEVENT") {
+      current = {};
+      continue;
+    }
+    if (line === "END:VEVENT") {
+      if (current) events.push(current);
+      current = null;
+      continue;
+    }
+    if (!current) continue;
+
+    const colonIdx = line.indexOf(":");
+    if (colonIdx === -1) continue;
+    const rawKey = line.slice(0, colonIdx);
+    const value = line.slice(colonIdx + 1);
+    const key = rawKey.split(";")[0];
+    const isDateOnly = rawKey.includes("VALUE=DATE");
+
+    switch (key) {
+      case "SUMMARY":
+        current.summary = unescapeText(value);
+        break;
+      case "LOCATION":
+        current.location = unescapeText(value);
+        break;
+      case "DESCRIPTION":
+        current.description = unescapeText(value);
+        break;
+      case "UID":
+        current.uid = value;
+        break;
+      case "DTSTART":
+        current.start = parseICSDate(value, isDateOnly);
+        current.allDay = isDateOnly;
+        break;
+      case "DTEND":
+        current.end = parseICSDate(value, isDateOnly);
+        break;
+    }
+  }
+
+  return events;
+}
+
+function parseICSDate(value, isDateOnly) {
+  if (isDateOnly) {
+    // "20260815" -> a plain local calendar date, no timezone involved.
+    const y = value.slice(0, 4), m = value.slice(4, 6), d = value.slice(6, 8);
+    return new Date(`${y}-${m}-${d}T00:00:00`);
+  }
+  // "20260815T233000Z" -> real UTC instant.
+  const y = value.slice(0, 4), m = value.slice(4, 6), d = value.slice(6, 8);
+  const hh = value.slice(9, 11), mm = value.slice(11, 13), ss = value.slice(13, 15);
+  return new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`);
+}
+
+// Local calendar-day key (in the site's timezone) an event should be
+// bucketed under -- for timed events this can differ from the UTC date.
+function localDateKey(date, allDay) {
+  if (allDay) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  }
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIMEZONE, year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(date);
+  const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+  return `${map.year}-${map.month}-${map.day}`;
+}
+
+function localTimeString(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: TIMEZONE, hour: "numeric", minute: "2-digit",
+  }).format(date);
+}
+
+let allEvents = [];
+let eventsByDay = new Map();
+let viewYear, viewMonth; // viewMonth is 0-11
+
+function buildDayIndex(events) {
+  const map = new Map();
+  for (const ev of events) {
+    if (!ev.start) continue;
+    const key = localDateKey(ev.start, ev.allDay);
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(ev);
+  }
+  for (const list of map.values()) {
+    list.sort((a, b) => (a.allDay ? -1 : 1) - (b.allDay ? -1 : 1) || a.start - b.start);
+  }
+  return map;
+}
+
+function showDetail(ev) {
+  document.getElementById("detailName").textContent = ev.summary || "(untitled event)";
+  document.getElementById("detailWhen").textContent = ev.allDay
+    ? "All day"
+    : `${localTimeString(ev.start)}${ev.end ? " – " + localTimeString(ev.end) : ""}`;
+  document.getElementById("detailLocation").textContent = ev.location || "";
+  document.getElementById("detailLocation").style.display = ev.location ? "block" : "none";
+  document.getElementById("detailDescription").textContent = ev.description || "";
+  document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
+  document.getElementById("detail").style.display = "block";
+  document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+document.getElementById("detailClose").addEventListener("click", () => {
+  document.getElementById("detail").style.display = "none";
+});
+
+function renderMonth(year, month) {
+  viewYear = year;
+  viewMonth = month;
+
+  const monthLabel = new Date(year, month, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  document.getElementById("monthLabel").textContent = monthLabel;
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  for (const label of DOW_LABELS) {
+    const el = document.createElement("div");
+    el.className = "dow";
+    el.textContent = label;
+    grid.appendChild(el);
+  }
+
+  const firstOfMonth = new Date(year, month, 1);
+  const startOffset = firstOfMonth.getDay(); // 0 = Sunday
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+  const todayKey = localDateKey(new Date(), true);
+  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
+
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - startOffset + 1;
+    let cellDate, otherMonth = false;
+
+    if (dayNum < 1) {
+      cellDate = new Date(year, month - 1, daysInPrevMonth + dayNum);
+      otherMonth = true;
+    } else if (dayNum > daysInMonth) {
+      cellDate = new Date(year, month + 1, dayNum - daysInMonth);
+      otherMonth = true;
+    } else {
+      cellDate = new Date(year, month, dayNum);
+    }
+
+    const key = `${cellDate.getFullYear()}-${String(cellDate.getMonth() + 1).padStart(2, "0")}-${String(cellDate.getDate()).padStart(2, "0")}`;
+    const cell = document.createElement("div");
+    cell.className = "day" + (otherMonth ? " other-month" : "") + (key === todayKey ? " today" : "");
+
+    const numEl = document.createElement("div");
+    numEl.className = "num";
+    numEl.textContent = cellDate.getDate();
+    cell.appendChild(numEl);
+
+    const dayEvents = eventsByDay.get(key) || [];
+    const maxShown = 3;
+    dayEvents.slice(0, maxShown).forEach((ev) => {
+      const pill = document.createElement("button");
+      pill.className = "pill";
+      pill.textContent = ev.summary || "(untitled)";
+      pill.addEventListener("click", () => showDetail(ev));
+      cell.appendChild(pill);
+    });
+    if (dayEvents.length > maxShown) {
+      const more = document.createElement("button");
+      more.className = "more-link";
+      more.textContent = `+${dayEvents.length - maxShown} more`;
+      more.addEventListener("click", () => showDetail(dayEvents[maxShown]));
+      cell.appendChild(more);
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+  const m = viewMonth - 1, y = m < 0 ? viewYear - 1 : viewYear;
+  renderMonth(y, (m + 12) % 12);
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const m = viewMonth + 1, y = m > 11 ? viewYear + 1 : viewYear;
+  renderMonth(y, m % 12);
+});
+document.getElementById("todayBtn").addEventListener("click", () => {
+  const now = new Date();
+  renderMonth(now.getFullYear(), now.getMonth());
+});
+
+async function main() {
+  try {
+    const res = await fetch(ICS_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    allEvents = parseICS(text);
+    eventsByDay = buildDayIndex(allEvents);
+  } catch (err) {
+    document.getElementById("status").textContent = "Couldn't load the calendar. Please try refreshing.";
+    return;
+  }
+
+  document.getElementById("status").style.display = "none";
+  document.getElementById("grid").style.display = "grid";
+
+  const now = new Date();
+  renderMonth(now.getFullYear(), now.getMonth());
+}
+
+main();
+</script>
+</body>
+</html>

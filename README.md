@@ -37,6 +37,20 @@ calendar app.
 - **Rejecting** a submission means simply not creating a file for it —
   pending/rejected submissions never touch `data/manual_events/` or the
   public `.ics`.
+- **Editing or cancelling** an approved event: `docs/manage-events.html`
+  lists every current manual event (pulled live from GitHub) with direct
+  Edit / Cancel links straight to GitHub's file editor and delete-confirm
+  pages. Scraped events aren't listed -- those aren't ours to change, and
+  track the newspaper's own site automatically.
+
+## Viewing the calendar online
+
+`docs/calendar-view.html` is a visual month-grid calendar (parses
+`linn_county_events.ics` client-side, no backend) meant for people looking
+at events in a browser rather than subscribing on a phone. It's also built
+to be embedded on other sites (town/school pages, etc.) via a plain
+`<iframe>` -- the page itself has a "Embed this calendar" snippet, and is
+responsive down to narrow sidebar-widget widths.
 
 ## Landing page, reminders & newsletter list
 
