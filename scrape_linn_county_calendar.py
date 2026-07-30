@@ -230,17 +230,29 @@ DEFAULT_DURATION = timedelta(hours=1)
 MANUAL_EVENTS_DIR = "data/manual_events"
 
 
-def get_list_html(page):
-    page.goto(CALENDAR_URL, wait_until="domcontentloaded", timeout=30000)
-    try:
-        page.wait_for_selector(".csEvWrap", timeout=20000)
-    except Exception:
-        # Leave evidence behind so a failure in CI (no display to look at)
-        # can still be diagnosed after the fact.
-        page.screenshot(path="debug_screenshot.png", full_page=True)
-        with open("debug_page.html", "w", encoding="utf-8") as f:
-            f.write(page.content())
-        raise
+def get_list_html(page, max_attempts=3):
+    """The CitySpark widget intermittently fails to load in time (either
+    the page navigation itself or the widget's own render) when run from
+    GitHub Actions -- transient, and it clears up on a retry within the
+    same run rather than indicating anything wrong with the parsing
+    logic below. Retrying here means one flaky load doesn't fail the
+    whole scheduled workflow (and email everyone) when the other six
+    sources would otherwise have succeeded fine."""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            page.goto(CALENDAR_URL, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_selector(".csEvWrap", timeout=20000)
+            break
+        except Exception as e:
+            print(f"  WARNING: CitySpark load attempt {attempt}/{max_attempts} failed: {e}", file=sys.stderr)
+            if attempt == max_attempts:
+                # Leave evidence behind so a failure in CI (no display to
+                # look at) can still be diagnosed after the fact.
+                page.screenshot(path="debug_screenshot.png", full_page=True)
+                with open("debug_page.html", "w", encoding="utf-8") as f:
+                    f.write(page.content())
+                raise
+            page.wait_for_timeout(3000)
 
     # The widget lazy-renders more tiles as you scroll; keep scrolling until
     # the tile count stops growing.
