@@ -61,6 +61,18 @@ system -- any coverage of its own. Also run through the same dedup
 check as source 5, since e.g. its "PRIMARY ELECTION" would otherwise
 double up with the newspaper's own "Primary Election" entry.
 
+Source 7 -- Rhodes Funeral Home's obituaries (Brookfield):
+The one source that isn't upcoming events at all -- recent death
+notices instead, dated by date of death/posting rather than the funeral
+service date (see RHODES_OBITUARIES_URL comment for why: the service
+date is sometimes in the prose but unreliably so, and wrong is worse
+than absent for something this consequential). Rhodes serves families
+well beyond Linn County, so entries are filtered to a conservative "of
+<Linn County town>" match near the start of the bio text -- an
+ambiguous entry is excluded rather than risked. Only the last
+RHODES_RECENCY_DAYS days are included, since these age out of
+relevance quickly unlike the other sources here.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -184,6 +196,26 @@ LEADER_MANUAL_CALENDAR_URL = "https://www.linncountyleader.com/community-calenda
 # itself, with zero presence anywhere else in this system -- any
 # coverage of its own.
 LINN_COUNTY_GOV_ICS_URL = "https://calendar.google.com/calendar/ical/calendar%40linncomo.com/public/basic.ics"
+
+# Seventh source: Rhodes Funeral Home (Brookfield) posts obituaries as a
+# JS-rendered list (like CitySpark), but individual obituary pages sit
+# behind a Cloudflare bot challenge that blocks plain requests -- the
+# listing page itself isn't protected, and it already renders each
+# obituary's full text once Playwright loads it, so no detail-page
+# fetches are needed at all. Rhodes serves families well beyond Linn
+# County (Moberly, Kirksville, etc. all showed up during testing), so
+# entries are filtered to only ones whose bio text states "of <Linn
+# County town>" near the start -- conservative on purpose: an obituary
+# without a clear in-county "of <town>" phrase is excluded even if it's
+# probably a real match, since wrongly including an out-of-county
+# funeral is worse than missing an ambiguous in-county one. Dated by
+# date of death/posting, not the funeral service date -- that's
+# sometimes stated in the prose too, but unreliably (often "pending") and
+# too consequential to get wrong by guessing, so it's left out entirely;
+# these are recent-death notices, not upcoming-event entries, unlike
+# every other source here -- only the last RHODES_RECENCY_DAYS count.
+RHODES_OBITUARIES_URL = "https://www.rhodesfh.com/obituaries/"
+RHODES_RECENCY_DAYS = 21
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -726,6 +758,67 @@ def get_linn_county_government_events():
     return events
 
 
+def get_rhodes_obituaries_html(page):
+    page.goto(RHODES_OBITUARIES_URL, wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_selector(".obituaries-list__results li", timeout=20000)
+    return page.content()
+
+
+def parse_rhodes_obituaries(html):
+    """Each `<li>` in `.obituaries-list__results` has a `.tribute-dates`
+    span (date of death/posting -- "Jul. 09, 2026"), a `.name` link, and
+    a `.obituary` paragraph with the full bio text. See the
+    RHODES_OBITUARIES_URL comment above for why only the death date is
+    used and why in-county filtering is deliberately conservative."""
+    soup = BeautifulSoup(html, "html.parser")
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+
+    for li in soup.select(".obituaries-list__results li"):
+        name_el = li.select_one(".name")
+        date_el = li.select_one(".tribute-dates")
+        bio_el = li.select_one(".obituary")
+        if not name_el or not date_el or not bio_el:
+            continue
+
+        name = name_el.get_text(strip=True)
+        bio = bio_el.get_text(" ", strip=True)
+
+        try:
+            death_date = datetime.strptime(date_el.get_text(strip=True).replace(".", ""), "%b %d, %Y").date()
+        except ValueError:
+            continue
+        if not (0 <= (today - death_date).days <= RHODES_RECENCY_DAYS):
+            continue
+
+        town = next(
+            (t for t in CONFIG["towns"] if re.search(rf"\bof\s+{re.escape(t)}\b", bio[:200])),
+            None,
+        )
+        if not town:
+            continue  # no confident in-county residence found -- excluded on purpose
+
+        href = name_el.get("href", "")
+        if href and not href.startswith("http"):
+            href = f"https://www.rhodesfh.com{href}"
+
+        events.append(
+            {
+                "name": f"Obituary: {name}",
+                "date": death_date.strftime("%Y-%m-%d"),
+                "time": "",
+                "location": f"{town}, {CONFIG['state']}",
+                "description": f"{bio}\n\nFull obituary and service details: {href}" if href else bio,
+                "href": "",
+                "event_id": f"rhodesobit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def fill_descriptions(page, events):
     """Each event's detail view embeds a schema.org JSON-LD block with a
     "description" field. It's blank for most events on this site, but we
@@ -863,6 +956,9 @@ def main():
         events = parse_events(html)
         fill_descriptions(page, events)
 
+        rhodes_html = get_rhodes_obituaries_html(page)
+        rhodes_events = parse_rhodes_obituaries(rhodes_html)
+
         browser.close()
 
     # MSHSAA now covers every school district's games directly and far
@@ -936,6 +1032,7 @@ def main():
 
     add_with_dedup(get_leader_editorial_calendar_events(), "the newspaper's manual calendar page")
     add_with_dedup(get_linn_county_government_events(), "Linn County government's calendar")
+    add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
 
     manual_events = load_manual_events()
     if manual_events:

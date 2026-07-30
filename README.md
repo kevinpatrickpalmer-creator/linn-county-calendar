@@ -42,6 +42,17 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   anywhere else in this system. Also run through the same dedup check
   as the newspaper's page, since e.g. its "PRIMARY ELECTION" would
   otherwise double up with that page's own "Primary Election" entry.
+- [Rhodes Funeral Home's obituaries](https://www.rhodesfh.com/obituaries/)
+  (Brookfield) — recent death notices, the one source here that isn't
+  upcoming events. Dated by date of death/posting rather than the
+  funeral service date, which is sometimes in the obituary text but too
+  unreliable and consequential to extract by guessing. Rhodes serves
+  families well beyond Linn County, so entries are filtered to a
+  conservative "of &lt;Linn County town&gt;" match near the start of the
+  bio text — an ambiguous case is excluded rather than risked. Only the
+  last `RHODES_RECENCY_DAYS` days are included. JS-rendered like
+  CitySpark, but individual obituary pages sit behind a Cloudflare bot
+  challenge, so everything needed is pulled from the one listing page.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
