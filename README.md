@@ -32,6 +32,16 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   the lack of structured fields is handled. A same-date + shared-keyword
   check drops entries that just duplicate something already captured
   more cleanly by another source.
+- [Linn County government's own calendar](https://linncomo.com/calendar-of-events/)
+  — embedded on the county's site as a *public* Google Calendar iframe,
+  which means no HTML scraping at all: Google publishes a standard ICS
+  export for any public calendar, so `get_linn_county_government_events()`
+  just fetches and parses it with the same `icalendar` library used
+  elsewhere. Low volume (courthouse hours, elections, tax sale) but the
+  only source covering Linneus, the county seat, which has no presence
+  anywhere else in this system. Also run through the same dedup check
+  as the newspaper's page, since e.g. its "PRIMARY ELECTION" would
+  otherwise double up with that page's own "Primary Election" entry.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`

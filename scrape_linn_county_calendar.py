@@ -48,6 +48,19 @@ extraction. A same-date + shared-keyword check filters out entries that
 just duplicate something already captured more cleanly by another
 source (e.g. "Wine & Art Stroll" from CitySpark).
 
+Source 6 -- Linn County government's own calendar:
+linncomo.com embeds its "Calendar of Events" as a *public* Google
+Calendar iframe -- meaning, unlike every other source here, there's no
+HTML to scrape at all. Google publishes a standard ICS export for any
+public calendar at a predictable URL, so get_linn_county_government_
+events() is just a fetch + the same `icalendar` parsing already used
+elsewhere in this file. Low volume (courthouse hours, elections, tax
+sale) but content no other source has, and the first source to give
+Linneus -- the county seat, with zero presence anywhere else in this
+system -- any coverage of its own. Also run through the same dedup
+check as source 5, since e.g. its "PRIMARY ELECTION" would otherwise
+double up with the newspaper's own "Primary Election" entry.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -159,6 +172,18 @@ MSHSAA_SCHOOLS = [
 # for how that messiness is handled (best-effort, honest degradation
 # rather than confidently-wrong extraction).
 LEADER_MANUAL_CALENDAR_URL = "https://www.linncountyleader.com/community-calendar-205/"
+
+# Sixth source: Linn County's own government site (linncomo.com) embeds
+# its "Calendar of Events" as a *public* Google Calendar iframe -- which
+# means, unlike every other source here, there's no HTML to parse at
+# all. Google publishes a standard ICS export for any public calendar at
+# a predictable URL from its ID, so this is just a fetch + the same
+# `icalendar` library already used elsewhere in this file. Low volume
+# (courthouse hours, elections, tax sale) but content no other source
+# has, and it's the first source to give Linneus -- the county seat
+# itself, with zero presence anywhere else in this system -- any
+# coverage of its own.
+LINN_COUNTY_GOV_ICS_URL = "https://calendar.google.com/calendar/ical/calendar%40linncomo.com/public/basic.ics"
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -637,6 +662,70 @@ def get_leader_editorial_calendar_events():
     return events
 
 
+def get_linn_county_government_events():
+    """Fetch Linn County government's own calendar via Google Calendar's
+    public ICS export -- see LINN_COUNTY_GOV_ICS_URL above for why this
+    is the easiest source of the bunch: it's already a standards-format
+    .ics file, so this reuses the same `icalendar` parsing the rest of
+    this project already relies on (see build_calendar()/send_reminders.py)
+    instead of writing new HTML-scraping logic."""
+    try:
+        resp = requests.get(LINN_COUNTY_GOV_ICS_URL, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch Linn County government's calendar: {e}", file=sys.stderr)
+        return []
+
+    try:
+        source_cal = Calendar.from_ical(resp.content)
+    except ValueError as e:
+        print(f"  WARNING: Linn County government's calendar didn't parse as valid ICS: {e}", file=sys.stderr)
+        return []
+
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+
+    for vevent in source_cal.walk("VEVENT"):
+        dtstart_prop = vevent.get("dtstart")
+        name = str(vevent.get("summary", "")).strip()
+        if not dtstart_prop or not name:
+            continue
+
+        value = dtstart_prop.dt
+        all_day = not isinstance(value, datetime)
+        if all_day:
+            event_date = value
+            time_str = ""
+        else:
+            # Google's export uses UTC ("...Z") timestamps.
+            if value.tzinfo is None:
+                value = value.replace(tzinfo=timezone.utc)
+            value = value.astimezone(LOCAL_TZ)
+            event_date = value.date()
+            time_str = value.strftime("%I:%M %p")
+
+        if event_date < today:
+            continue
+
+        uid = str(vevent.get("uid", "")) or re.sub(r"\W+", "-", name.lower()).strip("-")
+
+        events.append(
+            {
+                "name": name,
+                "date": event_date.strftime("%Y-%m-%d"),
+                "time": time_str,
+                "location": f"Linn County Courthouse | Linneus, {CONFIG['state']}",
+                "description": str(vevent.get("description", "")).strip(),
+                "href": "",
+                "event_id": f"linncogov-{uid}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def fill_descriptions(page, events):
     """Each event's detail view embeds a schema.org JSON-LD block with a
     "description" field. It's blank for most events on this site, but we
@@ -827,15 +916,26 @@ def main():
             return False
         return any(len(candidate_words & existing) >= 2 for existing in events_by_date.get(candidate["date"], []))
 
-    leader_editorial_events = get_leader_editorial_calendar_events()
-    if leader_editorial_events:
-        deduped = [ev for ev in leader_editorial_events if not is_likely_duplicate(ev)]
-        skipped = len(leader_editorial_events) - len(deduped)
+    def add_with_dedup(new_events, label):
+        """Filters new_events against events_by_date (which reflects
+        everything gathered so far), extends both `events` and the index
+        with whatever survives, and prints a summary line. Applied to
+        each additional source in turn so e.g. the county government's
+        "PRIMARY ELECTION" can be caught as a duplicate of the
+        newspaper's own "Primary Election" entry, not just of the
+        earlier, more-structured sources."""
+        deduped = [ev for ev in new_events if not is_likely_duplicate(ev)]
+        skipped = len(new_events) - len(deduped)
         print(
-            f"Including {len(deduped)} event(s) from the newspaper's manual calendar page"
+            f"Including {len(deduped)} event(s) from {label}"
             f"{f' ({skipped} skipped as likely duplicates of events above)' if skipped else ''}\n"
         )
         events.extend(deduped)
+        for ev in deduped:
+            events_by_date.setdefault(ev["date"], []).append(significant_words(ev["name"]))
+
+    add_with_dedup(get_leader_editorial_calendar_events(), "the newspaper's manual calendar page")
+    add_with_dedup(get_linn_county_government_events(), "Linn County government's calendar")
 
     manual_events = load_manual_events()
     if manual_events:
