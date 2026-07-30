@@ -1,29 +1,42 @@
 #!/usr/bin/env python3
 """
-Scrape community events from the Linn County Leader calendar and write them
-out as a subscribable .ics calendar file.
+Scrape community events from multiple Linn County sources and write them
+out as one combined, subscribable .ics calendar file.
 
-IMPORTANT: linncountyleader.com/calendar/ does NOT contain event data in its
-raw HTML. Events are rendered entirely client-side by a third-party widget
+Source 1 -- Linn County Leader's CitySpark widget:
+linncountyleader.com/calendar/ does NOT contain event data in its raw
+HTML. Events are rendered entirely client-side by a third-party widget
 (CitySpark) after the page loads -- a plain `requests.get()` returns a
 WordPress shell page with no events in it at all. So this script uses
 Playwright to load the page in a real (headless) browser, waits for the
 widget to render, and only then hands the resulting HTML to BeautifulSoup
-for the actual parsing/extraction.
+for the actual parsing/extraction. The widget defaults to showing events
+within 25 miles of Marceline/Brookfield, MO -- that's the site's own
+default view, so this script's output should match what you see when you
+visit the page yourself.
 
-The calendar widget defaults to showing events within 25 miles of
-Marceline/Brookfield, MO -- that's the site's own default view, so this
-script's output should match what you see when you visit the page yourself.
+Source 2 -- the City of Brookfield's own calendar:
+CitySpark's coverage turned out to be almost entirely Marceline-based
+institutions (the newspaper that runs it is Marceline-based, and only
+onboarded contacts it already had a relationship with). Brookfield --
+the county's largest town -- has real, actively-maintained event data of
+its own, just on a completely separate site. Unlike CitySpark, this one
+needs no headless browser: see get_brookfield_city_events() for details.
+
+Each source's output gets normalized to the same event dict shape before
+merging, so adding another town's source later just means writing one
+more `get_*_events()` function and extending it into `events` in main() --
+build_calendar(), event_uid(), etc. need no changes per source.
 
 Everything that differs between deployments (timezone, calendar display
 name, UID namespace) lives in docs/config.json, loaded via
-calendar_config.py. CALENDAR_URL and the actual scraping/parsing logic
-below are specific to this one source (a CitySpark-powered site) and
-aren't config-driven -- a new town/county needs its own scraper unless
-its source happens to also run on CitySpark.
+calendar_config.py. The source URLs and scraping/parsing logic below are
+specific to these particular sites and aren't config-driven -- a new
+town/county needs its own source scrapers unless its sources happen to
+run the same platforms (CitySpark, "Events Calendar WD", etc.).
 
 Install:
-    pip install playwright beautifulsoup4 icalendar
+    pip install playwright beautifulsoup4 icalendar requests
     playwright install chromium
 
 Run:
@@ -34,9 +47,14 @@ import json
 import os
 import re
 import sys
+import time
+import warnings
 from datetime import datetime, timedelta, timezone
 
-from bs4 import BeautifulSoup
+import requests
+from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 try:
     from zoneinfo import ZoneInfo
@@ -77,6 +95,19 @@ CONFIG = load_config()
 # happens to also run on CitySpark. Not something config.json can abstract
 # away, so it stays a plain constant here rather than moving to config.
 CALENDAR_URL = "https://www.linncountyleader.com/calendar/"
+
+# Second source: the City of Brookfield runs its own event calendar (a
+# WordPress "Events Calendar WD" site) that's completely disconnected from
+# CitySpark -- Brookfield is the county's largest town but had zero
+# presence in the CitySpark widget above, because that widget only shows
+# whatever the Marceline-based newspaper happened to onboard. Unlike
+# CitySpark, this one needs no headless browser: each event is its own
+# plain HTML page with a schema.org Event JSON-LD block, and the site's
+# own XML sitemap lists every event permalink directly, so there's no
+# month-by-month pagination to reverse-engineer either.
+BROOKFIELD_CITY_BASE = "https://brookfieldcity.com"
+BROOKFIELD_REQUEST_HEADERS = {"User-Agent": "linn-county-calendar-bot/1.0"}
+
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
 LOCAL_TZ = ZoneInfo(CONFIG["timezone"])
@@ -194,6 +225,94 @@ def load_manual_events():
         )
 
     return manual_events
+
+
+def _parse_brookfield_datetime(value):
+    """Brookfield's event pages give dates as "2026/09/01 8:00am" (no space
+    before am/pm) rather than ISO 8601, so this needs its own parser."""
+    if not value:
+        return None
+    try:
+        return datetime.strptime(value, "%Y/%m/%d %I:%M%p").replace(tzinfo=LOCAL_TZ)
+    except ValueError:
+        return None
+
+
+def get_brookfield_city_events():
+    """Fetch every event from the City of Brookfield's own calendar via its
+    XML sitemap (only ~100 events total since 2020, small enough to fetch
+    in full), filtering down to upcoming ones. Each event page embeds a
+    schema.org Event JSON-LD block with everything needed, so no separate
+    HTML-parsing logic is required the way CitySpark's tiles need."""
+    try:
+        resp = requests.get(
+            f"{BROOKFIELD_CITY_BASE}/ecwd_event-sitemap.xml",
+            headers=BROOKFIELD_REQUEST_HEADERS,
+            timeout=30,
+        )
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch Brookfield's event sitemap: {e}", file=sys.stderr)
+        return []
+
+    sitemap_soup = BeautifulSoup(resp.content, "html.parser")
+    event_urls = [
+        loc.get_text(strip=True)
+        for loc in sitemap_soup.find_all("loc")
+        if loc.get_text(strip=True).rstrip("/") != f"{BROOKFIELD_CITY_BASE}/event"
+    ]
+
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+    for i, url in enumerate(event_urls, 1):
+        print(f"  checking Brookfield event {i}/{len(event_urls)}...", end="\r", file=sys.stderr)
+        try:
+            page = requests.get(url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+            page.raise_for_status()
+        except requests.RequestException:
+            continue
+        finally:
+            time.sleep(0.2)  # be polite to a small town's server
+
+        detail_soup = BeautifulSoup(page.content, "html.parser")
+        data = None
+        for script in detail_soup.select('script[type="application/ld+json"]'):
+            try:
+                candidate = json.loads(script.string or "")
+            except json.JSONDecodeError:
+                continue
+            if candidate.get("@type") == "Event":
+                data = candidate
+                break
+        if not data:
+            continue
+
+        start = _parse_brookfield_datetime(data.get("startDate"))
+        if not start or start.date() < today:
+            continue  # skip anything unparseable or already in the past
+        end = _parse_brookfield_datetime(data.get("endDate"))
+
+        venue = ((data.get("location") or {}).get("name") or "").strip()
+        location = f"{venue} | Brookfield, {CONFIG['state']}" if venue else f"Brookfield, {CONFIG['state']}"
+
+        slug = url.rstrip("/").rsplit("/", 1)[-1]
+
+        events.append(
+            {
+                "name": (data.get("name") or "").strip(),
+                "date": start.strftime("%Y-%m-%d"),
+                "time": start.strftime("%I:%M %p"),
+                "location": location,
+                "description": (data.get("description") or "").strip(),
+                "href": "",
+                "event_id": f"bfcity-{slug}",
+                "start_iso": start.isoformat(),
+                "end_iso": end.isoformat() if end else None,
+            }
+        )
+
+    print(" " * 40, end="\r", file=sys.stderr)
+    return events
 
 
 def fill_descriptions(page, events):
@@ -335,6 +454,11 @@ def main():
 
         browser.close()
 
+    brookfield_events = get_brookfield_city_events()
+    if brookfield_events:
+        print(f"Including {len(brookfield_events)} event(s) from the City of Brookfield's calendar\n")
+        events.extend(brookfield_events)
+
     manual_events = load_manual_events()
     if manual_events:
         print(f"Including {len(manual_events)} approved community-submitted event(s)\n")
@@ -344,7 +468,7 @@ def main():
         print("No events found -- the page structure may have changed.")
         sys.exit(1)
 
-    print(f"Found {len(events)} events on {CALENDAR_URL}\n")
+    print(f"Found {len(events)} events total across all sources\n")
     for ev in events:
         when = ev["date"]
         if ev["time"]:

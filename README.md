@@ -1,9 +1,23 @@
 # Linn County Leader — Community Calendar Scraper
 
-Scrapes the community events widget on [linncountyleader.com/calendar](https://www.linncountyleader.com/calendar/)
-(a client-side rendered CitySpark widget, so this uses Playwright to render
-it before parsing with BeautifulSoup) and publishes the results as an `.ics`
-calendar feed at `docs/linn_county_events.ics`.
+Scrapes events from multiple Linn County sources and publishes the combined
+results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
+
+- [linncountyleader.com/calendar](https://www.linncountyleader.com/calendar/)
+  — a client-side rendered CitySpark widget, so this uses Playwright to
+  render it before parsing with BeautifulSoup. In practice this source is
+  almost entirely Marceline-based (the newspaper that runs it is
+  Marceline-based and only onboarded contacts it already had).
+- [brookfieldcity.com/calendar](https://brookfieldcity.com/calendar/) — the
+  City of Brookfield's own calendar, added because Brookfield (the county's
+  largest town) had zero presence in CitySpark despite having real,
+  actively-maintained event data of its own. Plain HTML + an XML sitemap,
+  no headless browser needed.
+
+Each source normalizes to the same event shape before merging, so adding
+another town's source is a matter of writing one more `get_*_events()`
+function in `scrape_linn_county_calendar.py` — see that file's module
+docstring for details.
 
 A GitHub Actions workflow (`.github/workflows/update-calendar.yml`) re-runs
 the scraper every 4 hours and commits the refreshed file. GitHub Pages
