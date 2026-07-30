@@ -23,6 +23,13 @@ the county's largest town -- has real, actively-maintained event data of
 its own, just on a completely separate site. Unlike CitySpark, this one
 needs no headless browser: see get_brookfield_city_events() for details.
 
+Source 3 -- Brookfield R-III School District's game schedule:
+Doesn't live on the district's own site at all -- it's embedded there
+from MSHSAA (Missouri State High School Activities Association), which
+hosts a shared calendar for every Missouri high school by school ID. See
+get_brookfield_schools_events() for details; notably, that function
+would work for any other Missouri school just by changing the ID.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -107,6 +114,16 @@ CALENDAR_URL = "https://www.linncountyleader.com/calendar/"
 # month-by-month pagination to reverse-engineer either.
 BROOKFIELD_CITY_BASE = "https://brookfieldcity.com"
 BROOKFIELD_REQUEST_HEADERS = {"User-Agent": "linn-county-calendar-bot/1.0"}
+
+# Third source: Brookfield R-III School District's actual game schedule
+# doesn't live on the district's own (Wix) site at all -- it's embedded
+# there via an iframe pointing at MSHSAA (Missouri State High School
+# Activities Association), which hosts a shared calendar for every
+# Missouri high school by school ID. Plain server-rendered legacy
+# ASP.NET HTML, no headless browser needed. Because MSHSAA hosts this
+# identically for every MO school, get_brookfield_schools_events() below
+# would work for any other Missouri school just by changing the ID.
+MSHSAA_SCHOOL_ID = "244"  # Brookfield R-III
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -315,6 +332,127 @@ def get_brookfield_city_events():
     return events
 
 
+def get_brookfield_schools_events():
+    """Fetch Brookfield R-III's game schedule from MSHSAA's shared
+    calendar (see MSHSAA_SCHOOL_ID above for why this lives there rather
+    than on the district's own site). The page is one big legacy ASP.NET
+    grid: a `tr.fs_columnheader` row holds a date, followed by zero or
+    more `tr.withBorderBottom` rows (one per matchup) until the next date
+    header. A row already in the past carries a `past` class -- skipped
+    here in favor of a real date comparison, since relying on the site's
+    own "is this past" judgement would silently misbehave if its notion
+    of "today" ever drifted from ours."""
+    url = f"https://www.mshsaa.org/Shared/CalendarList.aspx?s={MSHSAA_SCHOOL_ID}&noheader=1"
+    try:
+        resp = requests.get(url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch Brookfield's MSHSAA schedule: {e}", file=sys.stderr)
+        return []
+
+    soup = BeautifulSoup(resp.content, "html.parser")
+    grid = soup.find("table", class_="fs_grid")
+    if not grid:
+        print("  WARNING: MSHSAA schedule page structure has changed (no fs_grid table found)", file=sys.stderr)
+        return []
+
+    today = datetime.now(LOCAL_TZ).date()
+    current_date = None
+    events = []
+
+    for row in grid.find_all("tr", recursive=True):
+        classes = row.get("class") or []
+
+        if "fs_columnheader" in classes:
+            # e.g. "Saturday, August 22, 2026 Sat, Aug 22, 2026" -- the
+            # long form always comes first.
+            header_match = re.match(
+                r"[A-Za-z]+, ([A-Za-z]+ \d{1,2}, \d{4})", row.get_text(" ", strip=True)
+            )
+            current_date = None
+            if header_match:
+                try:
+                    current_date = datetime.strptime(header_match.group(1), "%B %d, %Y").date()
+                except ValueError:
+                    current_date = None
+            continue
+
+        if "withBorderBottom" not in classes or "past" in classes:
+            continue
+        if current_date is None or current_date < today:
+            continue
+
+        tds = row.find_all("td", recursive=False)
+        if len(tds) < 4:
+            continue
+
+        opponent_cell = tds[1]
+        # The opponent/event name is the cell's own direct text, before
+        # its nested sport/level <div>s and mobile-only duplicate info.
+        opponent = " ".join(
+            t.strip() for t in opponent_cell.find_all(string=True, recursive=False) if t.strip()
+        )
+        if not opponent or "dead period" in opponent.lower():
+            continue  # "Sport/Activity Dead Period" rows aren't real events
+
+        sport_el = opponent_cell.select_one("div.darkgray")
+        sport = sport_el.get_text(" ", strip=True) if sport_el else ""
+        sport_short = sport.split(":")[0].strip()
+
+        home_away_el = tds[2].select_one("span.small")
+        home_away = home_away_el.get_text(strip=True) if home_away_el else ""
+
+        # A single matchup can list several times, one per level (e.g. JV
+        # at 5:00, Varsity at 6:00) -- use the earliest as the event's
+        # start time and keep the full breakdown in the description.
+        time_lines = [
+            line.replace("\xa0", " ").strip()
+            for line in tds[3].get_text("\n", strip=True).split("\n")
+            if line.strip()
+        ]
+        first_time = ""
+        if time_lines:
+            time_match = TIME_RE.search(time_lines[0])
+            first_time = time_match.group(0) if time_match else ""
+
+        symbol = {"Home": "vs", "Away": "@"}.get(home_away, "")
+        if sport_short and symbol:
+            name = f"{sport_short} {symbol} {opponent}"
+        elif sport_short:
+            name = f"{sport_short}: {opponent}"
+        else:
+            name = opponent
+
+        description = "; ".join(filter(None, [home_away, ", ".join(time_lines)]))
+
+        # Full `sport` (not sport_short) because that's the only field
+        # that distinguishes e.g. boys vs girls basketball -- two entries
+        # can otherwise share date, opponent, and even a blank ("TBD")
+        # time, which would collide down to the same slug otherwise.
+        slug = re.sub(r"\W+", "-", f"{sport}-{home_away}-{opponent}".lower()).strip("-")
+
+        events.append(
+            {
+                "name": name,
+                "date": current_date.strftime("%Y-%m-%d"),
+                "time": first_time,
+                # Consistent with how Marceline R-V's own games are tagged
+                # elsewhere in this dataset ("Marceline R-V School
+                # District | Marceline, MO") regardless of home/away --
+                # a Brookfield-only subscriber wants their team's games,
+                # not just events physically inside town limits.
+                "location": f"Brookfield R-III School District | Brookfield, {CONFIG['state']}",
+                "description": description,
+                "href": "",
+                "event_id": f"bfschools-{current_date.isoformat()}-{slug}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def fill_descriptions(page, events):
     """Each event's detail view embeds a schema.org JSON-LD block with a
     "description" field. It's blank for most events on this site, but we
@@ -458,6 +596,11 @@ def main():
     if brookfield_events:
         print(f"Including {len(brookfield_events)} event(s) from the City of Brookfield's calendar\n")
         events.extend(brookfield_events)
+
+    brookfield_schools_events = get_brookfield_schools_events()
+    if brookfield_schools_events:
+        print(f"Including {len(brookfield_schools_events)} event(s) from Brookfield R-III's MSHSAA schedule\n")
+        events.extend(brookfield_schools_events)
 
     manual_events = load_manual_events()
     if manual_events:
