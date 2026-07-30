@@ -13,13 +13,16 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   largest town) had zero presence in CitySpark despite having real,
   actively-maintained event data of its own. Plain HTML + an XML sitemap,
   no headless browser needed.
-- Brookfield R-III School District's game schedule — doesn't live on the
-  district's own site at all; it's embedded there from
-  [MSHSAA](https://www.mshsaa.org/), which hosts a shared calendar for
-  every Missouri high school by school ID. Plain legacy ASP.NET HTML, no
-  headless browser needed — and since MSHSAA hosts this identically for
-  every MO school, the same parser (`get_brookfield_schools_events()`)
-  would work for any other Missouri school just by changing the ID.
+- School districts' game schedules, via [MSHSAA](https://www.mshsaa.org/)
+  — district sites often don't host their own schedules; MSHSAA hosts a
+  shared calendar for every Missouri high school by school ID instead.
+  Plain legacy ASP.NET HTML, no headless browser needed. `MSHSAA_SCHOOLS`
+  in `scrape_linn_county_calendar.py` currently covers Brookfield R-III
+  (zero CitySpark presence) and Marceline R-V (CitySpark had only 9 of
+  its 135 real upcoming events) — `get_mshsaa_school_events()` is fully
+  generic, so adding another Missouri school is just one more entry in
+  that list. CitySpark's own school-district-tagged events are filtered
+  out in `main()` so the same game doesn't appear twice.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
