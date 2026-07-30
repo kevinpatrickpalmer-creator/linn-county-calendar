@@ -956,8 +956,18 @@ def main():
         events = parse_events(html)
         fill_descriptions(page, events)
 
-        rhodes_html = get_rhodes_obituaries_html(page)
-        rhodes_events = parse_rhodes_obituaries(rhodes_html)
+        # Rhodes' site appears to challenge/block traffic from GitHub
+        # Actions' well-known CI IP ranges even though the same request
+        # works fine from a residential IP -- a real, observed failure
+        # in production, not a hypothetical. A failure here must not
+        # take down the other six working sources, so it's caught and
+        # logged rather than left to propagate and crash the whole run.
+        try:
+            rhodes_html = get_rhodes_obituaries_html(page)
+            rhodes_events = parse_rhodes_obituaries(rhodes_html)
+        except Exception as e:
+            print(f"  WARNING: couldn't fetch Rhodes Funeral Home's obituaries: {e}", file=sys.stderr)
+            rhodes_events = []
 
         browser.close()
 
