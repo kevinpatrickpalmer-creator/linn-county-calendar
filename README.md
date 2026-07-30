@@ -23,6 +23,15 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   generic, so adding another Missouri school is just one more entry in
   that list. CitySpark's own school-district-tagged events are filtered
   out in `main()` so the same game doesn't appear twice.
+- The newspaper's hand-typed ["Community Calendar"](https://www.linncountyleader.com/community-calendar-205/)
+  page — a separate WordPress post from the CitySpark widget, where staff
+  type up emailed submissions as prose under date headers rather than
+  structured fields. Covers some real towns/groups with no other online
+  presence at all (e.g. Laclede Pershing Days). Plain HTML, no headless
+  browser needed — see `get_leader_editorial_calendar_events()` for how
+  the lack of structured fields is handled. A same-date + shared-keyword
+  check drops entries that just duplicate something already captured
+  more cleanly by another source.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`

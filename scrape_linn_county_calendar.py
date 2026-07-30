@@ -35,6 +35,19 @@ upcoming events) are covered this way -- CitySpark's own
 school-district-tagged events are filtered out in main() to avoid
 double-listing the same games from two sources.
 
+Source 5 -- the newspaper's hand-typed "Community Calendar" page:
+A separate WordPress post from the CitySpark widget (source 1) -- staff
+type up submissions they receive by email as prose under date headers,
+rather than structured fields. It's the only source that covers some
+real towns/groups with no other online presence at all (e.g. Laclede
+Pershing Days), so it's worth scraping despite being messier: see
+get_leader_editorial_calendar_events() for how the messiness (no clean
+name/time/location fields, occasional multi-paragraph bullets) is
+handled with best-effort heuristics rather than confidently-wrong
+extraction. A same-date + shared-keyword check filters out entries that
+just duplicate something already captured more cleanly by another
+source (e.g. "Wine & Art Stroll" from CitySpark).
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -135,6 +148,17 @@ MSHSAA_SCHOOLS = [
     {"school_id": "244", "district": "Brookfield R-III School District", "town": "Brookfield"},
     {"school_id": "354", "district": "Marceline R-V School District", "town": "Marceline"},
 ]
+
+# Fifth source: the newspaper also runs a hand-typed "Community Calendar"
+# page (distinct from the CitySpark widget at CALENDAR_URL) -- staff type
+# up submissions they receive by email as plain prose under date headers,
+# rather than structured fields. It's the only source covering some real
+# community groups/towns that have no other online presence at all (e.g.
+# Laclede Pershing Days), so it's worth scraping despite being messier to
+# parse than the other sources -- see get_leader_editorial_calendar_events()
+# for how that messiness is handled (best-effort, honest degradation
+# rather than confidently-wrong extraction).
+LEADER_MANUAL_CALENDAR_URL = "https://www.linncountyleader.com/community-calendar-205/"
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -465,6 +489,154 @@ def get_mshsaa_school_events(school_id, district, town):
     return events
 
 
+def _find_manual_entry_name_boundary(text, max_len=80):
+    """Where a "name" plausibly ends within a hand-typed bullet like
+    "Mommy and Me Group, 10-11 a.m., 210 W Hayden St., Marceline. Join
+    this..." -- prefers an early comma (the common "Name, detail, detail"
+    shape in this data), then falls back to a sentence-ending period,
+    skipping periods that are actually abbreviations (a single capital
+    letter before them, as in "S.U.P.P.O.R.T."). Returns None if nothing
+    plausible is found within max_len, so the caller can fall back to a
+    plain truncation instead of confidently returning a wrong answer."""
+    comma_idx = text.find(",")
+    if 0 < comma_idx <= max_len:
+        return comma_idx
+
+    for m in re.finditer(r"\.(?=\s|$)", text[: max_len + 1]):
+        idx = m.start()
+        before = text[max(0, idx - 2) : idx]
+        if before and before[-1].isupper() and (idx < 2 or not text[idx - 2].isalpha()):
+            continue  # single capital letter right before the period -> acronym
+        return idx
+
+    return None
+
+
+# This prose almost always writes times as "10:30 a.m." / "7 p.m." (with
+# periods), unlike TIME_RE above (used by the CitySpark parser, whose
+# source writes "6:30 pm" with no periods) -- a separate regex rather
+# than loosening the shared one, so this source's quirks can't change
+# CitySpark's already-working behavior.
+MANUAL_TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]\.?m\.?\b", re.IGNORECASE)
+MANUAL_HOUR_ONLY_TIME_RE = re.compile(r"(?<!:)\b(\d{1,2})\s?([ap])\.?m\.?\b", re.IGNORECASE)
+
+
+def _normalize_manual_entry_time(text):
+    """Prefers a full "H:MM am/pm" match; falls back to an hour-only one
+    ("7 p.m.") common in this hand-typed prose, normalized to "H:00 AM".
+    The fallback's negative lookbehind keeps it from misreading the
+    minutes of an already-matched "10:30 a.m." as a standalone "30 a.m."."""
+    match = MANUAL_TIME_RE.search(text)
+    if match:
+        compact = match.group(0).upper().replace(".", "").replace(" ", "")
+        return f"{compact[:-2]} {compact[-2:]}"
+    match = MANUAL_HOUR_ONLY_TIME_RE.search(text)
+    if match:
+        return f"{match.group(1)}:00 {match.group(2).upper()}M"
+    return ""
+
+
+def get_leader_editorial_calendar_events():
+    """Fetch the newspaper's hand-typed "Community Calendar" page -- a
+    single WordPress post (not a live database) that editorial staff
+    keep editing over time as they receive submissions by email, laid
+    out as `<b>Date</b>` headers followed by `<p>` bullets. Two quirks
+    this has to handle that the other sources don't: (1) a bullet's text
+    sometimes wraps into a second `<p>` with no repeated "*" marker (an
+    apparent copy/paste slip on the newspaper's end, not a different
+    event) -- treated as a continuation of the previous bullet; and (2)
+    there's no structured name/time/location fields at all, just prose,
+    so those are extracted with best-effort heuristics that degrade to
+    "use the raw text" rather than guessing wrong. No headless browser
+    needed -- ordinary WordPress post content, in the raw HTML already."""
+    try:
+        resp = requests.get(LEADER_MANUAL_CALENDAR_URL, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch the newspaper's manual calendar page: {e}", file=sys.stderr)
+        return []
+
+    soup = BeautifulSoup(resp.content, "html.parser")
+    content = soup.find("div", class_="entry-content")
+    if not content:
+        print("  WARNING: manual calendar page structure has changed (no entry-content found)", file=sys.stderr)
+        return []
+
+    today = datetime.now(LOCAL_TZ).date()
+    current_date = None
+    raw_bullets = []  # [{"date": date, "text": str}, ...], in document order
+
+    for p in content.find_all("p", recursive=False):
+        bold = p.find("b")
+        text = p.get_text(" ", strip=True)
+        if not text:
+            continue
+
+        if bold:
+            date_match = re.match(r"^([A-Za-z]+)\s+(\d{1,2})$", bold.get_text(strip=True))
+            current_date = None
+            if date_match:
+                try:
+                    candidate = datetime.strptime(
+                        f"{date_match.group(1)} {date_match.group(2)} {today.year}", "%B %d %Y"
+                    ).date()
+                    # The post has no year in its date headers and gets
+                    # edited across a year boundary -- if a date reads as
+                    # more than ~2 months in the past, it must mean next
+                    # year, not literally the past.
+                    if (candidate - today).days < -60:
+                        candidate = candidate.replace(year=today.year + 1)
+                    current_date = candidate
+                except ValueError:
+                    current_date = None
+            continue
+
+        if current_date is None:
+            continue
+
+        if text.startswith("•"):  # "*" bullet marker
+            raw_bullets.append({"date": current_date, "text": text[1:].strip()})
+        elif raw_bullets and raw_bullets[-1]["date"] == current_date:
+            raw_bullets[-1]["text"] += " " + text
+        # else: a continuation paragraph with no preceding bullet under
+        # this date -- nothing sensible to attach it to, so it's dropped.
+
+    events = []
+    for item in raw_bullets:
+        text, date = item["text"], item["date"]
+        if not text:
+            continue
+
+        boundary = _find_manual_entry_name_boundary(text)
+        if boundary is not None:
+            name = text[:boundary].strip()
+        elif len(text) > 80:
+            name = text[:77].rsplit(" ", 1)[0] + "..."
+        else:
+            name = text
+
+        town = next((t for t in CONFIG["towns"] if re.search(rf"\b{re.escape(t)}\b", text)), None)
+        location = f"{town}, {CONFIG['state']}" if town else ""
+
+        slug = re.sub(r"\W+", "-", name.lower()).strip("-")[:60]
+
+        events.append(
+            {
+                "name": name,
+                "date": date.strftime("%Y-%m-%d"),
+                "time": _normalize_manual_entry_time(text),
+                "location": location,
+                "description": text,
+                "href": "",
+                "event_id": f"leadereditorial-{date.isoformat()}-{slug}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def fill_descriptions(page, events):
     """Each event's detail view embeds a schema.org JSON-LD block with a
     "description" field. It's blank for most events on this site, but we
@@ -623,6 +795,47 @@ def main():
         if school_events:
             print(f"Including {len(school_events)} event(s) from {school['district']}'s MSHSAA schedule\n")
             events.extend(school_events)
+
+    # The newspaper's hand-typed calendar inevitably covers some of the
+    # same real-world events already captured more cleanly above (e.g.
+    # "Wine & Art Stroll" from CitySpark vs. "Marceline Wine and Art
+    # Stroll..." here) -- there's no shared ID to dedupe on like there
+    # was for MSHSAA, so this is a same-date + shared-significant-word
+    # heuristic instead. Conservative on purpose: it'll let a few real
+    # duplicates through rather than risk dropping a genuinely distinct
+    # event that just happens to share a date and a common word.
+    STOPWORDS = {
+        "the", "and", "for", "with", "from", "this", "that", "will", "are",
+        "a", "an", "at", "in", "of", "on", "to", "vs", "is", "be", "or",
+        # Words common across many unrelated events in *this* dataset
+        # specifically -- "Linn" and "County" appear on nearly everything
+        # in a Linn County calendar, so on their own they're not a
+        # meaningful signal that two events are the same one.
+        "linn", "county", "community", "annual",
+    }
+
+    def significant_words(name):
+        return {w for w in re.findall(r"[a-z0-9']+", name.lower()) if len(w) > 2 and w not in STOPWORDS}
+
+    events_by_date = {}
+    for ev in events:
+        events_by_date.setdefault(ev["date"], []).append(significant_words(ev["name"]))
+
+    def is_likely_duplicate(candidate):
+        candidate_words = significant_words(candidate["name"])
+        if not candidate_words:
+            return False
+        return any(len(candidate_words & existing) >= 2 for existing in events_by_date.get(candidate["date"], []))
+
+    leader_editorial_events = get_leader_editorial_calendar_events()
+    if leader_editorial_events:
+        deduped = [ev for ev in leader_editorial_events if not is_likely_duplicate(ev)]
+        skipped = len(leader_editorial_events) - len(deduped)
+        print(
+            f"Including {len(deduped)} event(s) from the newspaper's manual calendar page"
+            f"{f' ({skipped} skipped as likely duplicates of events above)' if skipped else ''}\n"
+        )
+        events.extend(deduped)
 
     manual_events = load_manual_events()
     if manual_events:
