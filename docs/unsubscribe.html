@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unsubscribe</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 480px; }
+  h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.5rem; color: #555; font-size: .95rem; line-height: 1.4; }
+  section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  p.email { font-size: 1.05rem; margin: 0 0 1rem; }
+  p.email strong { word-break: break-all; }
+  button {
+    width: 100%;
+    padding: .85rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: #a71a2d;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:disabled { opacity: .6; }
+  #status {
+    margin-top: 1rem;
+    font-size: .95rem;
+    text-align: center;
+  }
+  #status.ok { color: #1a7d3c; }
+  #status.err { color: #a71a2d; }
+  .hint { margin: 1rem 0 0; font-size: .8rem; color: #666; line-height: 1.4; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    section { background: #202027; box-shadow: none; }
+    p.sub, .hint { color: #aaa; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<main>
+  <h1 id="pageTitle">Unsubscribe</h1>
+  <p class="sub" id="pageSub">Stop the daily reminder and newsletter emails for this address.</p>
+
+  <section id="emailBox">
+    <p class="email">Email: <strong id="emailDisplay"></strong></p>
+    <button id="unsubBtn">Unsubscribe this email</button>
+  </section>
+
+  <div id="status" role="status"></div>
+
+  <p class="hint">This only affects reminder/newsletter emails — it doesn't touch the calendar itself. To stop seeing events on your phone or computer, remove the subscribed calendar in your device's own calendar app settings.</p>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Unsubscribe — ${config.calendar_title}`;
+  document.getElementById("pageTitle").textContent = `Unsubscribe from ${config.calendar_title}`;
+
+  const params = new URLSearchParams(window.location.search);
+  const email = (params.get("email") || "").trim();
+
+  const emailBox = document.getElementById("emailBox");
+  const emailDisplay = document.getElementById("emailDisplay");
+  const unsubBtn = document.getElementById("unsubBtn");
+  const statusEl = document.getElementById("status");
+
+  if (!email) {
+    emailBox.style.display = "none";
+    statusEl.textContent = "No email address given — use the unsubscribe link from one of your reminder emails.";
+    statusEl.className = "err";
+    return;
+  }
+
+  emailDisplay.textContent = email;
+
+  // Same direct-post-to-Google-Form technique index.html's own
+  // preferences form uses. Submitting reminder=no/newsletter=no for
+  // this email creates a new row in the linked Sheet; send_reminders.py
+  // already takes the *last* row per email as authoritative, so this
+  // overrides any earlier opt-in with no other code changes needed.
+  unsubBtn.addEventListener("click", async () => {
+    unsubBtn.disabled = true;
+    unsubBtn.textContent = "Unsubscribing...";
+
+    const data = new FormData();
+    data.append(config.google_form.entry_email, email);
+    data.append(config.google_form.entry_reminder, "no");
+    data.append(config.google_form.entry_newsletter, "no");
+    data.append(config.google_form.entry_towns, "");
+
+    try {
+      await fetch(`https://docs.google.com/forms/d/e/${config.google_form.form_id}/formResponse`, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      });
+      emailBox.style.display = "none";
+      statusEl.textContent = `${email} has been unsubscribed from reminders and the newsletter.`;
+      statusEl.className = "ok";
+    } catch (err) {
+      statusEl.textContent = "Something went wrong. Please try again.";
+      statusEl.className = "err";
+      unsubBtn.disabled = false;
+      unsubBtn.textContent = "Unsubscribe this email";
+    }
+  });
+})();
+</script>
+</body>
+</html>

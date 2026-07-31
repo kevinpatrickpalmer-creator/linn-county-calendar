@@ -30,6 +30,7 @@ import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
+from urllib.parse import quote
 
 import requests
 from icalendar import Calendar
@@ -145,6 +146,9 @@ def send_reminder_email(to_email, tomorrow, events):
         if ev["location"]:
             line += f" @ {ev['location']}"
         lines.append(line)
+
+    unsubscribe_url = f"https://{CONFIG['domain']}/unsubscribe.html?email={quote(to_email)}"
+    lines += ["", f"Unsubscribe from these emails: {unsubscribe_url}"]
     body = "\n".join(lines)
 
     resp = requests.post(
