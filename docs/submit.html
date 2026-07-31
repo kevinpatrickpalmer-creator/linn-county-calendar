@@ -124,7 +124,7 @@
 
     <label for="contact_phone">Your contact phone</label>
     <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
-    <p class="hint" id="contactHint">At least one is required. This will be shown on the calendar listing so people with questions about the event can reach you.</p>
+    <p class="hint" id="contactHint">At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly — we won't call you or share it anywhere else.</p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
@@ -177,7 +177,7 @@
       return;
     }
     contactHint.classList.remove("err");
-    contactHint.textContent = "At least one is required. This will be shown on the calendar listing so people with questions about the event can reach you.";
+    contactHint.textContent = "At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly — we won't call you or share it anywhere else.";
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
