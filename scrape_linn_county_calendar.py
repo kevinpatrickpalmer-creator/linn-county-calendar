@@ -65,17 +65,19 @@ system -- any coverage of its own. Also run through the same dedup
 check as source 5, since e.g. its "PRIMARY ELECTION" would otherwise
 double up with the newspaper's own "Primary Election" entry.
 
-Source 7, 8 -- funeral home obituaries (Brookfield):
+Source 7, 8, 9 -- funeral home obituaries (Brookfield, Marceline):
 The only sources that aren't upcoming events -- recent death notices
 instead, dated by date of death/posting rather than the funeral service
 date (see OBITUARY_RECENCY_DAYS comment for why: the service date is
 sometimes in the prose but unreliably so, and wrong is worse than
 absent for something this consequential). Rhodes needs Playwright
-(JS-rendered, and detail pages are Cloudflare-protected); Wright
-doesn't need a browser at all (a plain XML sitemap plus JSON-LD on
-each page). Both serve families well beyond Linn County, so entries
-are filtered to a conservative in-county town match -- an ambiguous
-entry is excluded rather than risked.
+(JS-rendered, and detail pages are Cloudflare-protected); Wright and
+Delaney run the same third-party platform and need no browser at all
+(a plain XML sitemap plus JSON-LD on each page) --
+get_tribute_technology_obituaries() is fully generic across any
+funeral home on that platform. All three serve families well beyond
+Linn County, so entries are filtered to a conservative in-county town
+match -- an ambiguous entry is excluded rather than risked.
 
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
@@ -231,22 +233,28 @@ OBITUARY_RECENCY_DAYS = 21
 # fetches are needed at all.
 RHODES_OBITUARIES_URL = "https://www.rhodesfh.com/obituaries/"
 
-# Eighth source: Wright Funeral Home (also Brookfield) runs a different
-# platform (Tribute Technology) with no Cloudflare protection anywhere --
-# an XML sitemap lists every obituary permalink with a lastmod date, and
-# each obituary page embeds a clean schema.org Person JSON-LD block
-# (birthDate/deathDate/description). No headless browser needed at all,
-# unlike Rhodes: both URL discovery and page content are plain HTML.
-# Only sitemap entries with a recent lastmod are fetched, to avoid
-# pulling all ~500 historical obituaries just to find the handful of
-# recent ones. Wright's bio text leads with birth info before residence
-# info ("born ... in X, to parents. Y passed away ... in Z, MO"), so the
-# town match here specifically looks near "passed away"/"died" rather
-# than just early in the text -- otherwise a birthplace that happens to
-# be a Linn County town would be misread as current residence.
-WRIGHT_SITEMAP_URLS = [
-    "https://www.wright-funeralhome.com/obituaries-sitemap/1.xml.gz",
-    "https://www.wright-funeralhome.com/obituaries-sitemap/2.xml.gz",
+# Eighth+ source: Wright Funeral Home and Delaney Funeral Home (also
+# Brookfield/Marceline) both run the same third-party platform (Tribute
+# Technology) with no Cloudflare protection anywhere -- an XML sitemap
+# lists every obituary permalink with a lastmod date, and each obituary
+# page embeds a clean schema.org Person JSON-LD block (birthDate/
+# deathDate/description). No headless browser needed at all, unlike
+# Rhodes: both URL discovery and page content are plain HTML.
+# get_tribute_technology_obituaries() is fully generic across any
+# funeral home on this platform; TRIBUTE_TECHNOLOGY_FUNERAL_HOMES below
+# is just this county's list. Only sitemap entries with a recent
+# lastmod are fetched, to avoid pulling hundreds of historical
+# obituaries just to find the handful of recent ones. Delaney has
+# locations in both Marceline and Bucklin.
+TRIBUTE_TECHNOLOGY_FUNERAL_HOMES = [
+    {
+        "name": "Wright Funeral Home",
+        "base_url": "https://www.wright-funeralhome.com",
+    },
+    {
+        "name": "Delaney Funeral Home",
+        "base_url": "https://www.delaneyfuneralhome.com",
+    },
 ]
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
@@ -863,40 +871,49 @@ def parse_rhodes_obituaries(html):
     return events
 
 
-def _find_town_near_death_mention(bio, max_gap=150):
-    """Wright's bio text leads with birth info before residence/death
-    info ("born ... in <birthplace>, to parents. <Name> passed away ...
-    in <residence>, MO"), unlike Rhodes' "<Name>, age, of <town>, MO;
-    passed away..." -- so this looks for a town name within max_gap
-    characters *after* "passed away"/"died", not just early in the
-    text, so a birthplace that happens to match a Linn County town
-    isn't misread as current residence."""
+def _find_town_near_death_mention(bio, before=100, after=150):
+    """Different funeral homes -- and even different obituaries on the
+    same site, presumably depending on who in the family wrote it up --
+    place the residence town in different spots relative to "passed
+    away"/"died": sometimes before ("<Name>, age, of <town>, MO; passed
+    away...") and sometimes after ("<Name> passed away ... in <town>,
+    MO"). This checks a window on both sides of the death mention rather
+    than assuming one fixed order, and skips a match if it's preceded by
+    "formerly"/"previously" -- e.g. "of Marceline, formerly of Mendon,
+    passed away..." should match Marceline, not Mendon, since "formerly
+    of" explicitly means that's not where they lived anymore."""
     death_match = re.search(r"passed away|died", bio, re.IGNORECASE)
     if not death_match:
         return None
-    window = bio[death_match.start() : death_match.start() + max_gap]
-    return next(
-        (t for t in CONFIG["towns"] if re.search(rf"\b(?:of|in)\s+{re.escape(t)}\b", window)),
-        None,
-    )
+    window = bio[max(0, death_match.start() - before) : death_match.start() + after]
+    for town in CONFIG["towns"]:
+        for m in re.finditer(rf"\b(?:of|in)\s+{re.escape(town)}\b", window):
+            preceding = window[: m.start()].rstrip()
+            if re.search(r"\b(?:formerly|previously|formally)$", preceding, re.IGNORECASE):
+                continue
+            return town
+    return None
 
 
-def get_wright_obituaries():
-    """Fetch recent obituaries from Wright Funeral Home's XML sitemaps
-    (see WRIGHT_SITEMAP_URLS above for why no headless browser is
-    needed here, unlike Rhodes). Each sitemap entry's <lastmod> is used
-    only to cheaply skip old obituaries before fetching anything; the
-    authoritative date is the deathDate pulled from each page's own
-    schema.org Person JSON-LD block."""
+def get_tribute_technology_obituaries(name, base_url):
+    """Fetch recent obituaries from a funeral home running the Tribute
+    Technology platform (see TRIBUTE_TECHNOLOGY_FUNERAL_HOMES above for
+    why no headless browser is needed here, unlike Rhodes). Each
+    sitemap entry's <lastmod> is used only to cheaply skip old
+    obituaries before fetching anything; the authoritative date is the
+    deathDate pulled from each page's own schema.org Person JSON-LD
+    block. Generic across any funeral home on this platform -- only
+    name/base_url vary per call."""
     today = datetime.now(LOCAL_TZ).date()
     candidate_urls = []
 
-    for sitemap_url in WRIGHT_SITEMAP_URLS:
+    for sitemap_path in ("obituaries-sitemap/1.xml.gz", "obituaries-sitemap/2.xml.gz"):
+        sitemap_url = f"{base_url}/{sitemap_path}"
         try:
             resp = requests.get(sitemap_url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
             resp.raise_for_status()
         except requests.RequestException as e:
-            print(f"  WARNING: couldn't fetch Wright Funeral Home's sitemap {sitemap_url}: {e}", file=sys.stderr)
+            print(f"  WARNING: couldn't fetch {name}'s sitemap {sitemap_url}: {e}", file=sys.stderr)
             continue
         for loc, lastmod in re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", resp.text):
             try:
@@ -906,6 +923,7 @@ def get_wright_obituaries():
             if 0 <= (today - mod_date).days <= OBITUARY_RECENCY_DAYS:
                 candidate_urls.append(loc)
 
+    id_prefix = re.sub(r"[^a-z0-9]+", "", name.lower())
     events = []
     for url in candidate_urls:
         try:
@@ -926,7 +944,7 @@ def get_wright_obituaries():
         if not data:
             continue
 
-        name = html.unescape(data.get("name") or "").strip()
+        person_name = html.unescape(data.get("name") or "").strip()
         try:
             death_date = datetime.strptime((data.get("deathDate") or "").strip(), "%B %d, %Y").date()
         except ValueError:
@@ -943,13 +961,13 @@ def get_wright_obituaries():
 
         events.append(
             {
-                "name": f"Obituary: {name}",
+                "name": f"Obituary: {person_name}",
                 "date": death_date.strftime("%Y-%m-%d"),
                 "time": "",
                 "location": f"{town}, {CONFIG['state']}",
                 "description": f"{bio}\n\nFull obituary and service details: {url}",
                 "href": "",
-                "event_id": f"wrightobit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')}",
+                "event_id": f"{id_prefix}obit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', person_name.lower()).strip('-')}",
                 "start_iso": None,
                 "end_iso": None,
             }
@@ -1144,8 +1162,13 @@ def main():
         # Words common across many unrelated events in *this* dataset
         # specifically -- "Linn" and "County" appear on nearly everything
         # in a Linn County calendar, so on their own they're not a
-        # meaningful signal that two events are the same one.
-        "linn", "county", "community", "annual",
+        # meaningful signal that two events are the same one. "Obituary"
+        # prefixes every single obituary entry's name, so it's a
+        # guaranteed false-positive contributor between any two
+        # same-day obituaries -- caught this for real during testing
+        # ("Letty Jean Parr" wrongly matched "Bonnie Jean Alexander" via
+        # shared "obituary" + "jean").
+        "linn", "county", "community", "annual", "obituary",
     }
 
     def significant_words(name):
@@ -1183,12 +1206,13 @@ def main():
     add_with_dedup(get_linn_county_government_events(), "Linn County government's calendar")
     add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
 
-    try:
-        wright_events = get_wright_obituaries()
-    except Exception as e:
-        print(f"  WARNING: couldn't fetch Wright Funeral Home's obituaries: {e}", file=sys.stderr)
-        wright_events = []
-    add_with_dedup(wright_events, "Wright Funeral Home (in-county obituaries)")
+    for home in TRIBUTE_TECHNOLOGY_FUNERAL_HOMES:
+        try:
+            home_events = get_tribute_technology_obituaries(**home)
+        except Exception as e:
+            print(f"  WARNING: couldn't fetch {home['name']}'s obituaries: {e}", file=sys.stderr)
+            home_events = []
+        add_with_dedup(home_events, f"{home['name']} (in-county obituaries)")
 
     manual_events = load_manual_events()
     if manual_events:

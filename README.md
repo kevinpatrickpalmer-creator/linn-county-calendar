@@ -44,20 +44,24 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   anywhere else in this system. Also run through the same dedup check
   as the newspaper's page, since e.g. its "PRIMARY ELECTION" would
   otherwise double up with that page's own "Primary Election" entry.
-- [Rhodes Funeral Home's obituaries](https://www.rhodesfh.com/obituaries/)
-  and [Wright Funeral Home's obituaries](https://www.wright-funeralhome.com/)
-  (both Brookfield) — recent death notices, the only sources here that
+- [Rhodes](https://www.rhodesfh.com/obituaries/),
+  [Wright](https://www.wright-funeralhome.com/), and
+  [Delaney](https://www.delaneyfuneralhome.com/) Funeral Homes'
+  obituaries (Brookfield, Brookfield, and Marceline/Bucklin
+  respectively) — recent death notices, the only sources here that
   aren't upcoming events. Dated by date of death/posting rather than
   the funeral service date, which is sometimes in the obituary text but
-  too unreliable and consequential to extract by guessing. Both serve
-  families well beyond Linn County, so entries are filtered to a
+  too unreliable and consequential to extract by guessing. All three
+  serve families well beyond Linn County, so entries are filtered to a
   conservative in-county town match — an ambiguous case is excluded
   rather than risked. Only the last `OBITUARY_RECENCY_DAYS` days are
   included. Rhodes is JS-rendered like CitySpark, with individual
   obituary pages behind a Cloudflare bot challenge, so everything
-  needed is pulled from the one listing page. Wright needs no headless
-  browser at all — a plain XML sitemap plus a schema.org JSON-LD block
-  on each page cover everything.
+  needed is pulled from the one listing page. Wright and Delaney run
+  the same third-party platform and need no headless browser at all —
+  a plain XML sitemap plus a schema.org JSON-LD block on each page
+  cover everything; `get_tribute_technology_obituaries()` is fully
+  generic across any funeral home on that platform.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
