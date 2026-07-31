@@ -65,17 +65,17 @@ system -- any coverage of its own. Also run through the same dedup
 check as source 5, since e.g. its "PRIMARY ELECTION" would otherwise
 double up with the newspaper's own "Primary Election" entry.
 
-Source 7 -- Rhodes Funeral Home's obituaries (Brookfield):
-The one source that isn't upcoming events at all -- recent death
-notices instead, dated by date of death/posting rather than the funeral
-service date (see RHODES_OBITUARIES_URL comment for why: the service
-date is sometimes in the prose but unreliably so, and wrong is worse
-than absent for something this consequential). Rhodes serves families
-well beyond Linn County, so entries are filtered to a conservative "of
-<Linn County town>" match near the start of the bio text -- an
-ambiguous entry is excluded rather than risked. Only the last
-RHODES_RECENCY_DAYS days are included, since these age out of
-relevance quickly unlike the other sources here.
+Source 7, 8 -- funeral home obituaries (Brookfield):
+The only sources that aren't upcoming events -- recent death notices
+instead, dated by date of death/posting rather than the funeral service
+date (see OBITUARY_RECENCY_DAYS comment for why: the service date is
+sometimes in the prose but unreliably so, and wrong is worse than
+absent for something this consequential). Rhodes needs Playwright
+(JS-rendered, and detail pages are Cloudflare-protected); Wright
+doesn't need a browser at all (a plain XML sitemap plus JSON-LD on
+each page). Both serve families well beyond Linn County, so entries
+are filtered to a conservative in-county town match -- an ambiguous
+entry is excluded rather than risked.
 
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
@@ -97,6 +97,7 @@ Run:
     python scrape_linn_county_calendar.py
 """
 import glob
+import html
 import json
 import os
 import re
@@ -208,25 +209,45 @@ LEADER_MANUAL_CALENDAR_URL = "https://www.linncountyleader.com/community-calenda
 # coverage of its own.
 LINN_COUNTY_GOV_ICS_URL = "https://calendar.google.com/calendar/ical/calendar%40linncomo.com/public/basic.ics"
 
+# Obituary sources (7, 8): recent death notices, not upcoming events like
+# everywhere else here -- dated by date of death/posting, not the funeral
+# service date (sometimes stated in the prose too, but unreliably --
+# often "pending" -- and too consequential to get wrong by guessing, so
+# it's left out entirely). Only the last OBITUARY_RECENCY_DAYS count,
+# since these age out of relevance quickly. Both funeral homes serve
+# families well beyond Linn County, so entries are filtered to ones
+# whose bio text names a Linn County town near the death/residence
+# mention -- conservative on purpose: an obituary without a clear
+# in-county match is excluded even if it's probably a real match, since
+# wrongly including an out-of-county funeral is worse than missing an
+# ambiguous in-county one.
+OBITUARY_RECENCY_DAYS = 21
+
 # Seventh source: Rhodes Funeral Home (Brookfield) posts obituaries as a
 # JS-rendered list (like CitySpark), but individual obituary pages sit
 # behind a Cloudflare bot challenge that blocks plain requests -- the
 # listing page itself isn't protected, and it already renders each
 # obituary's full text once Playwright loads it, so no detail-page
-# fetches are needed at all. Rhodes serves families well beyond Linn
-# County (Moberly, Kirksville, etc. all showed up during testing), so
-# entries are filtered to only ones whose bio text states "of <Linn
-# County town>" near the start -- conservative on purpose: an obituary
-# without a clear in-county "of <town>" phrase is excluded even if it's
-# probably a real match, since wrongly including an out-of-county
-# funeral is worse than missing an ambiguous in-county one. Dated by
-# date of death/posting, not the funeral service date -- that's
-# sometimes stated in the prose too, but unreliably (often "pending") and
-# too consequential to get wrong by guessing, so it's left out entirely;
-# these are recent-death notices, not upcoming-event entries, unlike
-# every other source here -- only the last RHODES_RECENCY_DAYS count.
+# fetches are needed at all.
 RHODES_OBITUARIES_URL = "https://www.rhodesfh.com/obituaries/"
-RHODES_RECENCY_DAYS = 21
+
+# Eighth source: Wright Funeral Home (also Brookfield) runs a different
+# platform (Tribute Technology) with no Cloudflare protection anywhere --
+# an XML sitemap lists every obituary permalink with a lastmod date, and
+# each obituary page embeds a clean schema.org Person JSON-LD block
+# (birthDate/deathDate/description). No headless browser needed at all,
+# unlike Rhodes: both URL discovery and page content are plain HTML.
+# Only sitemap entries with a recent lastmod are fetched, to avoid
+# pulling all ~500 historical obituaries just to find the handful of
+# recent ones. Wright's bio text leads with birth info before residence
+# info ("born ... in X, to parents. Y passed away ... in Z, MO"), so the
+# town match here specifically looks near "passed away"/"died" rather
+# than just early in the text -- otherwise a birthplace that happens to
+# be a Linn County town would be misread as current residence.
+WRIGHT_SITEMAP_URLS = [
+    "https://www.wright-funeralhome.com/obituaries-sitemap/1.xml.gz",
+    "https://www.wright-funeralhome.com/obituaries-sitemap/2.xml.gz",
+]
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -811,7 +832,7 @@ def parse_rhodes_obituaries(html):
             death_date = datetime.strptime(date_el.get_text(strip=True).replace(".", ""), "%b %d, %Y").date()
         except ValueError:
             continue
-        if not (0 <= (today - death_date).days <= RHODES_RECENCY_DAYS):
+        if not (0 <= (today - death_date).days <= OBITUARY_RECENCY_DAYS):
             continue
 
         town = next(
@@ -834,6 +855,101 @@ def parse_rhodes_obituaries(html):
                 "description": f"{bio}\n\nFull obituary and service details: {href}" if href else bio,
                 "href": "",
                 "event_id": f"rhodesobit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
+def _find_town_near_death_mention(bio, max_gap=150):
+    """Wright's bio text leads with birth info before residence/death
+    info ("born ... in <birthplace>, to parents. <Name> passed away ...
+    in <residence>, MO"), unlike Rhodes' "<Name>, age, of <town>, MO;
+    passed away..." -- so this looks for a town name within max_gap
+    characters *after* "passed away"/"died", not just early in the
+    text, so a birthplace that happens to match a Linn County town
+    isn't misread as current residence."""
+    death_match = re.search(r"passed away|died", bio, re.IGNORECASE)
+    if not death_match:
+        return None
+    window = bio[death_match.start() : death_match.start() + max_gap]
+    return next(
+        (t for t in CONFIG["towns"] if re.search(rf"\b(?:of|in)\s+{re.escape(t)}\b", window)),
+        None,
+    )
+
+
+def get_wright_obituaries():
+    """Fetch recent obituaries from Wright Funeral Home's XML sitemaps
+    (see WRIGHT_SITEMAP_URLS above for why no headless browser is
+    needed here, unlike Rhodes). Each sitemap entry's <lastmod> is used
+    only to cheaply skip old obituaries before fetching anything; the
+    authoritative date is the deathDate pulled from each page's own
+    schema.org Person JSON-LD block."""
+    today = datetime.now(LOCAL_TZ).date()
+    candidate_urls = []
+
+    for sitemap_url in WRIGHT_SITEMAP_URLS:
+        try:
+            resp = requests.get(sitemap_url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            print(f"  WARNING: couldn't fetch Wright Funeral Home's sitemap {sitemap_url}: {e}", file=sys.stderr)
+            continue
+        for loc, lastmod in re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", resp.text):
+            try:
+                mod_date = datetime.strptime(lastmod, "%Y-%m-%d").date()
+            except ValueError:
+                continue
+            if 0 <= (today - mod_date).days <= OBITUARY_RECENCY_DAYS:
+                candidate_urls.append(loc)
+
+    events = []
+    for url in candidate_urls:
+        try:
+            page = requests.get(url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+            page.raise_for_status()
+        except requests.RequestException:
+            continue
+
+        data = None
+        for match in re.finditer(r'<script type="application/ld\+json">(.*?)</script>', page.text, re.DOTALL):
+            try:
+                candidate = json.loads(match.group(1))
+            except json.JSONDecodeError:
+                continue
+            if candidate.get("@type") == "Person":
+                data = candidate
+                break
+        if not data:
+            continue
+
+        name = html.unescape(data.get("name") or "").strip()
+        try:
+            death_date = datetime.strptime((data.get("deathDate") or "").strip(), "%B %d, %Y").date()
+        except ValueError:
+            continue
+        if not (0 <= (today - death_date).days <= OBITUARY_RECENCY_DAYS):
+            continue
+
+        bio_html = html.unescape(data.get("description") or "")
+        bio = BeautifulSoup(bio_html, "html.parser").get_text(" ", strip=True)
+
+        town = _find_town_near_death_mention(bio)
+        if not town:
+            continue  # no confident in-county residence found -- excluded on purpose
+
+        events.append(
+            {
+                "name": f"Obituary: {name}",
+                "date": death_date.strftime("%Y-%m-%d"),
+                "time": "",
+                "location": f"{town}, {CONFIG['state']}",
+                "description": f"{bio}\n\nFull obituary and service details: {url}",
+                "href": "",
+                "event_id": f"wrightobit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')}",
                 "start_iso": None,
                 "end_iso": None,
             }
@@ -1066,6 +1182,13 @@ def main():
     add_with_dedup(get_leader_editorial_calendar_events(), "the newspaper's manual calendar page")
     add_with_dedup(get_linn_county_government_events(), "Linn County government's calendar")
     add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
+
+    try:
+        wright_events = get_wright_obituaries()
+    except Exception as e:
+        print(f"  WARNING: couldn't fetch Wright Funeral Home's obituaries: {e}", file=sys.stderr)
+        wright_events = []
+    add_with_dedup(wright_events, "Wright Funeral Home (in-county obituaries)")
 
     manual_events = load_manual_events()
     if manual_events:
