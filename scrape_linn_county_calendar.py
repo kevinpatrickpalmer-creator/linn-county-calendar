@@ -29,11 +29,15 @@ districts' own sites at all -- they're embedded from MSHSAA (Missouri
 State High School Activities Association), which hosts a shared
 calendar for every Missouri high school by school ID. get_mshsaa_
 school_events() is fully generic across schools; MSHSAA_SCHOOLS above
-is just this county's list. Both Brookfield R-III (zero CitySpark
-presence) and Marceline R-V (CitySpark had only 9 of its 135 real
-upcoming events) are covered this way -- CitySpark's own
-school-district-tagged events are filtered out in main() to avoid
-double-listing the same games from two sources.
+is just this county's list, currently covering 5 of the county's 8
+towns directly: Brookfield R-III, Marceline R-V, Bucklin R-II, Linn
+County R-I (physically in Purdin, also serves Linneus and Browning),
+and Meadville R-IV. CitySpark's own school-district-tagged events are
+filtered out in main() to avoid double-listing the same games from two
+sources. Laclede appears to have no school of its own left to cover
+(its own school closed decades ago with no MSHSAA-listed successor
+found); it's still covered by the newspaper and county-government
+sources below, just not a school-specific one.
 
 Source 5 -- the newspaper's hand-typed "Community Calendar" page:
 A separate WordPress post from the CitySpark widget (source 1) -- staff
@@ -168,10 +172,17 @@ BROOKFIELD_REQUEST_HEADERS = {"User-Agent": "linn-county-calendar-bot/1.0"}
 # Brookfield had zero CitySpark presence -- then checking Marceline R-V
 # (which *does* have some CitySpark presence) found CitySpark was only
 # capturing 9 of its 135 real upcoming events, so it's included too, not
-# just schools CitySpark completely misses.
+# just schools CitySpark completely misses. Linn County R-I is Purdin's
+# physical high school but also serves Linneus and Browning (all four
+# towns without their own MSHSAA-listed school were checked; Laclede's
+# own school appears to have closed decades ago with no current
+# successor district found, so it has no MSHSAA entry of its own).
 MSHSAA_SCHOOLS = [
     {"school_id": "244", "district": "Brookfield R-III School District", "town": "Brookfield"},
     {"school_id": "354", "district": "Marceline R-V School District", "town": "Marceline"},
+    {"school_id": "246", "district": "Bucklin R-II School District", "town": "Bucklin"},
+    {"school_id": "346", "district": "Linn County R-I School District", "town": "Purdin"},
+    {"school_id": "363", "district": "Meadville R-IV School District", "town": "Meadville"},
 ]
 
 # Fifth source: the newspaper also runs a hand-typed "Community Calendar"

@@ -17,12 +17,14 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   — district sites often don't host their own schedules; MSHSAA hosts a
   shared calendar for every Missouri high school by school ID instead.
   Plain legacy ASP.NET HTML, no headless browser needed. `MSHSAA_SCHOOLS`
-  in `scrape_linn_county_calendar.py` currently covers Brookfield R-III
-  (zero CitySpark presence) and Marceline R-V (CitySpark had only 9 of
-  its 135 real upcoming events) — `get_mshsaa_school_events()` is fully
-  generic, so adding another Missouri school is just one more entry in
-  that list. CitySpark's own school-district-tagged events are filtered
-  out in `main()` so the same game doesn't appear twice.
+  in `scrape_linn_county_calendar.py` covers 5 of the county's 8 towns
+  directly: Brookfield R-III, Marceline R-V, Bucklin R-II, Linn County
+  R-I (physically in Purdin, also serves Linneus and Browning), and
+  Meadville R-IV — `get_mshsaa_school_events()` is fully generic, so
+  adding another Missouri school is just one more entry in that list.
+  (Laclede appears to have no school of its own left; no MSHSAA-listed
+  successor was found.) CitySpark's own school-district-tagged events
+  are filtered out in `main()` so the same game doesn't appear twice.
 - The newspaper's hand-typed ["Community Calendar"](https://www.linncountyleader.com/community-calendar-205/)
   page — a separate WordPress post from the CitySpark widget, where staff
   type up emailed submissions as prose under date headers rather than
