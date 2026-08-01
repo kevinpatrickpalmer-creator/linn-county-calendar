@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-08-01T00:28:17.217487+00:00",
+  "sources": [
+    {
+      "name": "CitySpark (Linn County Leader)",
+      "count": 75,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Rhodes Funeral Home",
+      "count": 0,
+      "ok": false,
+      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".obituaries-list__results li\") to be visible\n"
+    },
+    {
+      "name": "City of Brookfield calendar",
+      "count": 8,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Brookfield R-III School District (MSHSAA)",
+      "count": 251,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Marceline R-V School District (MSHSAA)",
+      "count": 135,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Bucklin R-II School District (MSHSAA)",
+      "count": 70,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Linn County R-I School District (MSHSAA)",
+      "count": 74,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Meadville R-IV School District (MSHSAA)",
+      "count": 73,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Newspaper's Community Calendar page",
+      "count": 32,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Linn County government calendar",
+      "count": 9,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Wright Funeral Home",
+      "count": 1,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Delaney Funeral Home",
+      "count": 5,
+      "ok": true,
+      "error": null
+    }
+  ]
+}
