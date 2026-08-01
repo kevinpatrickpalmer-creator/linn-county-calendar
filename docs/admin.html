@@ -120,6 +120,9 @@
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description"></textarea>
 
+    <label for="website">Event website or social media page</label>
+    <input id="website" name="website" type="url" placeholder="https://...">
+
     <label for="contact">Contact info (shown on the calendar)</label>
     <input id="contact" name="contact" type="text" placeholder="email and/or phone number">
 
@@ -167,7 +170,7 @@
     const params = new URLSearchParams(window.location.search);
     if (![...params.keys()].length) return;
 
-    const fields = ["name", "date", "time", "town", "venue", "description"];
+    const fields = ["name", "date", "time", "town", "venue", "description", "website"];
     let filledAny = false;
     for (const field of fields) {
       if (!params.has(field)) continue;
@@ -205,9 +208,13 @@
     const location = venue && town ? `${venue} | ${town}, ${config.state}` : town ? `${town}, ${config.state}` : "";
 
     const baseDescription = data.get("description").trim();
+    const website = (data.get("website") || "").trim();
     const contact = (data.get("contact") || "").trim();
-    const description = contact
-      ? (baseDescription ? `${baseDescription}\n\nContact: ${contact}` : `Contact: ${contact}`)
+    const extras = [];
+    if (website) extras.push(`Website: ${website}`);
+    if (contact) extras.push(`Contact: ${contact}`);
+    const description = extras.length
+      ? [baseDescription, ...extras].filter(Boolean).join("\n\n")
       : baseDescription;
 
     const event = { name, date, time: formatTime12h(data.get("time")), location, description };

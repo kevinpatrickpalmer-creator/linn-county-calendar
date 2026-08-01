@@ -133,6 +133,9 @@
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description" maxlength="500" placeholder="A sentence or two about the event"></textarea>
 
+    <label for="website">Event website or social media page (optional)</label>
+    <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
+
     <label for="contact_email">Your contact email</label>
     <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
 
@@ -213,6 +216,7 @@
     const town = (data.get("town") || "").trim();
     const venue = (data.get("venue") || "").trim();
     const rawDescription = (data.get("description") || "").trim();
+    const website = (data.get("website") || "").trim();
 
     const adminParams = new URLSearchParams({
       name: rawName,
@@ -221,6 +225,7 @@
       town,
       venue,
       description: rawDescription,
+      website,
       // admin.html combines these into one editable "contact" field, which
       // gets appended to the event's description -- so this does end up
       // visible on the public calendar listing (that's the point).
