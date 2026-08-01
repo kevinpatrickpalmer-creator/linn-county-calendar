@@ -96,6 +96,27 @@ lists a neighboring town's event, e.g. a rivalry game hosted in
 Marceline) -- see get_brookfield_chamber_events() for how the town is
 parsed from each event's own street address rather than assumed.
 
+Source 11 -- Downtown Marceline Foundation's calendar:
+downtownmarceline.org embeds its events calendar the same way Linn
+County government's does (source 6) -- a *public* Google Calendar
+iframe, so there's no HTML to scrape at all, just Google's standard ICS
+export. get_downtown_marceline_events() is deliberately its own
+function rather than a shared helper with
+get_linn_county_government_events(), even though both fetch+parse a
+public Google Calendar the same way: this one preserves each event's
+own LOCATION field (a real street address) rather than assuming one
+fixed venue, since the Foundation's calendar covers real venues around
+town rather than always the same courthouse -- forcing that difference
+through one shared function would need a callback for one call site
+alone. Genuinely new Marceline content beyond what CitySpark and the
+newspaper's page already capture -- Patriotic Pie War, the Spring
+Festival, Shop Hop, the library's own Quarter Auction fundraiser -- even
+though CitySpark is itself Marceline-based (source 1), it was already
+found to only capture a fraction of Marceline's real event volume (see
+the MSHSAA_SCHOOLS comment above). Run through the same dedup check as
+the newspaper's page, since e.g. its "Wine & Art Stroll" would
+otherwise double up with CitySpark's own entry for the same event.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -235,6 +256,18 @@ LEADER_MANUAL_CALENDAR_URL = "https://www.linncountyleader.com/community-calenda
 # itself, with zero presence anywhere else in this system -- any
 # coverage of its own.
 LINN_COUNTY_GOV_ICS_URL = "https://calendar.google.com/calendar/ical/calendar%40linncomo.com/public/basic.ics"
+
+# Eleventh source: the Downtown Marceline Foundation's own calendar,
+# embedded on downtownmarceline.org the same way (a public Google
+# Calendar iframe) -- see the module docstring's "Source 11" section for
+# why get_downtown_marceline_events() is its own function rather than
+# sharing one with get_linn_county_government_events() above despite
+# both being Google Calendar exports.
+DOWNTOWN_MARCELINE_ICS_URL = (
+    "https://calendar.google.com/calendar/ical/"
+    "c_519a86074d6a3267a04609eb6bb3da5711e0049de867055e60b1b1867168ffc9"
+    "%40group.calendar.google.com/public/basic.ics"
+)
 
 # Obituary sources (7, 8): recent death notices, not upcoming events like
 # everywhere else here -- dated by date of death/posting, not the funeral
@@ -941,6 +974,79 @@ def get_linn_county_government_events():
     return events
 
 
+def get_downtown_marceline_events():
+    """Fetch the Downtown Marceline Foundation's calendar via Google
+    Calendar's public ICS export -- see DOWNTOWN_MARCELINE_ICS_URL above.
+    Structurally the same fetch+parse as
+    get_linn_county_government_events() just above, but this calendar's
+    own LOCATION field is a real, worth-preserving street address (e.g.
+    "327 S Kansas Ave, Marceline, MO 64658, USA") rather than always the
+    same courthouse, so every event here is tagged Marceline but keeps
+    whatever venue address Google gives it."""
+    try:
+        resp = requests.get(DOWNTOWN_MARCELINE_ICS_URL, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch the Downtown Marceline Foundation's calendar: {e}", file=sys.stderr)
+        return []
+
+    try:
+        source_cal = Calendar.from_ical(resp.content)
+    except ValueError as e:
+        print(f"  WARNING: the Downtown Marceline Foundation's calendar didn't parse as valid ICS: {e}", file=sys.stderr)
+        return []
+
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+
+    for vevent in source_cal.walk("VEVENT"):
+        dtstart_prop = vevent.get("dtstart")
+        name = str(vevent.get("summary", "")).strip()
+        if not dtstart_prop or not name:
+            continue
+
+        value = dtstart_prop.dt
+        all_day = not isinstance(value, datetime)
+        if all_day:
+            event_date = value
+            time_str = ""
+        else:
+            # Google's export uses UTC ("...Z") timestamps.
+            if value.tzinfo is None:
+                value = value.replace(tzinfo=timezone.utc)
+            value = value.astimezone(LOCAL_TZ)
+            event_date = value.date()
+            time_str = value.strftime("%I:%M %p")
+
+        if event_date < today:
+            continue
+
+        # The street address alone (before the first comma) reads fine as
+        # a venue; falls back to a bare "Marceline, ST" for entries with
+        # no LOCATION at all (e.g. a plain "Board Meeting").
+        raw_location = str(vevent.get("location", "")).strip()
+        venue = raw_location.split(",")[0].strip() if raw_location else ""
+        location = f"{venue} | Marceline, {CONFIG['state']}" if venue else f"Marceline, {CONFIG['state']}"
+
+        uid = str(vevent.get("uid", "")) or re.sub(r"\W+", "-", name.lower()).strip("-")
+
+        events.append(
+            {
+                "name": name,
+                "date": event_date.strftime("%Y-%m-%d"),
+                "time": time_str,
+                "location": location,
+                "description": str(vevent.get("description", "")).strip(),
+                "href": "",
+                "event_id": f"dtmarceline-{uid}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def get_rhodes_obituaries_html(page):
     page.goto(RHODES_OBITUARIES_URL, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_selector(".obituaries-list__results li", timeout=20000)
@@ -1393,6 +1499,10 @@ def main():
     county_gov_events = get_linn_county_government_events()
     record_health("Linn County government calendar", len(county_gov_events))
     add_with_dedup(county_gov_events, "Linn County government's calendar")
+
+    marceline_events = get_downtown_marceline_events()
+    record_health("Downtown Marceline Foundation", len(marceline_events))
+    add_with_dedup(marceline_events, "the Downtown Marceline Foundation's calendar")
 
     add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
 

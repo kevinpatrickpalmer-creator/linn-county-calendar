@@ -77,6 +77,18 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   already covers. Unlike the city's own calendar, not every event here
   is inside Brookfield itself, so the town is parsed from each event's
   own street address rather than assumed.
+- The [Downtown Marceline Foundation](https://www.downtownmarceline.org/events/)'s
+  calendar — embedded on their site the same way Linn County government's
+  is (a *public* Google Calendar iframe), so `get_downtown_marceline_events()`
+  is another plain ICS fetch, no scraping needed. Genuinely new Marceline
+  content beyond CitySpark and the newspaper's page — Patriotic Pie War,
+  the Spring Festival, Shop Hop, the library's own Quarter Auction
+  fundraiser — even though CitySpark is itself Marceline-based, it only
+  ever captured a fraction of the town's real event volume (see
+  `MSHSAA_SCHOOLS`' comment for the same story with school games). Run
+  through the same dedup check as the newspaper's page, since its own
+  "Wine & Art Stroll" would otherwise double up with CitySpark's entry
+  for the same event.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
@@ -93,9 +105,10 @@ public site, same as `admin.html`/`manage-events.html`) renders this so a
 persistent failure like Rhodes' Cloudflare block is visible at a glance
 instead of only showing up by chance in GitHub Actions logs. Sources that
 catch their own errors internally (Brookfield city, the Brookfield
-Chamber, MSHSAA schools, the newspaper page, county government) always
-show as OK here even if their count unexpectedly drops to zero -- a
-sudden 0 from a normally-active source is still worth checking by hand.
+Chamber, MSHSAA schools, the newspaper page, county government, the
+Downtown Marceline Foundation) always show as OK here even if their
+count unexpectedly drops to zero -- a sudden 0 from a normally-active
+source is still worth checking by hand.
 
 A GitHub Actions workflow (`.github/workflows/update-calendar.yml`) re-runs
 the scraper every 4 hours and commits the refreshed file. GitHub Pages
