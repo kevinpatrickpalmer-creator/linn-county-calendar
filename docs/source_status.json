@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T03:34:20.578990+00:00",
+  "generated_at": "2026-08-01T07:58:38.356816+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,7 +15,7 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 0,
+      "count": 8,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Linn County government calendar",
-      "count": 9,
+      "count": 8,
       "ok": true,
       "error": null
     },
@@ -69,7 +69,7 @@
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 5,
+      "count": 3,
       "ok": true,
       "error": null
     }
