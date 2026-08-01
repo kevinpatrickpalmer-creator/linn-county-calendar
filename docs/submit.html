@@ -122,6 +122,24 @@
       </div>
     </div>
 
+    <div class="row">
+      <div>
+        <label for="recurrence">Repeats?</label>
+        <select id="recurrence" name="recurrence">
+          <option value="none" selected>Does not repeat</option>
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Every 2 weeks</option>
+          <option value="monthly_weekday">Monthly (same week &amp; day, e.g. 3rd Monday)</option>
+          <option value="monthly_date">Monthly (same date, e.g. the 15th)</option>
+        </select>
+      </div>
+      <div id="repeatUntilWrap" style="display:none;">
+        <label for="repeat_until">Repeat until *</label>
+        <input id="repeat_until" name="repeat_until" type="date">
+      </div>
+    </div>
+    <p class="hint" id="recurrenceHint" style="display:none;">Based on the date above, this will repeat until the date you pick here.</p>
+
     <label for="town">Town *</label>
     <select id="town" name="town" required>
       <option value="" disabled selected>Select a town</option>
@@ -177,6 +195,18 @@
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const contactHint = document.getElementById("contactHint");
+  const recurrenceSelect = document.getElementById("recurrence");
+  const repeatUntilWrap = document.getElementById("repeatUntilWrap");
+  const repeatUntilInput = document.getElementById("repeat_until");
+  const recurrenceHint = document.getElementById("recurrenceHint");
+
+  recurrenceSelect.addEventListener("change", () => {
+    const repeats = recurrenceSelect.value !== "none";
+    repeatUntilWrap.style.display = repeats ? "" : "none";
+    recurrenceHint.style.display = repeats ? "" : "none";
+    repeatUntilInput.required = repeats;
+    if (!repeats) repeatUntilInput.value = "";
+  });
 
   function formatTime12h(value) {
     if (!value) return "";
@@ -202,6 +232,15 @@
     contactHint.classList.remove("err");
     contactHint.textContent = "At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly — we won't call you or share it anywhere else.";
 
+    if (recurrenceSelect.value !== "none" && !repeatUntilInput.value) {
+      recurrenceHint.classList.add("err");
+      recurrenceHint.textContent = "Please pick an end date for the repeating event.";
+      repeatUntilInput.focus();
+      return;
+    }
+    recurrenceHint.classList.remove("err");
+    recurrenceHint.textContent = "Based on the date above, this will repeat until the date you pick here.";
+
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
@@ -217,6 +256,8 @@
     const venue = (data.get("venue") || "").trim();
     const rawDescription = (data.get("description") || "").trim();
     const website = (data.get("website") || "").trim();
+    const recurrence = (data.get("recurrence") || "none").trim();
+    const repeatUntil = (data.get("repeat_until") || "").trim();
 
     const adminParams = new URLSearchParams({
       name: rawName,
@@ -226,6 +267,8 @@
       venue,
       description: rawDescription,
       website,
+      recurrence,
+      repeat_until: repeatUntil,
       // admin.html combines these into one editable "contact" field, which
       // gets appended to the event's description -- so this does end up
       // visible on the public calendar listing (that's the point).

@@ -163,14 +163,27 @@ site, not the deployment.
   `notify_new_manual_events.py` (run as part of the same scheduled workflow)
   emails the admin a confirmation for each one that's newly appeared since
   the last run.
+- **Recurring events:** both `submit.html` and `admin.html` have a
+  "Repeats?" field (weekly, every 2 weeks, monthly on the same week & day
+  -- e.g. the 3rd Monday -- or monthly on the same date) plus a required
+  end date, for things like a political party's or club's standing
+  monthly meeting that would otherwise need resubmitting by hand forever.
+  One JSON file still covers the whole series (just with `recurrence` and
+  `repeat_until` fields added) -- `_expand_manual_event_dates()` in
+  `scrape_linn_county_calendar.py` is what turns that into one concrete
+  calendar entry per occurrence at scrape time, computed with
+  `python-dateutil` rather than by approximating "~30 days later" (which
+  would drift onto the wrong week for a "3rd Monday" pattern).
 - **Rejecting** a submission means simply not creating a file for it —
   pending/rejected submissions never touch `data/manual_events/` or the
   public `.ics`.
 - **Editing or cancelling** an approved event: `docs/manage-events.html`
-  lists every current manual event (pulled live from GitHub) with direct
-  Edit / Cancel links straight to GitHub's file editor and delete-confirm
-  pages. Scraped events aren't listed -- those aren't ours to change, and
-  track the newspaper's own site automatically.
+  lists every current manual event (pulled live from GitHub), showing a
+  "Repeats... until ..." line for recurring ones, with direct Edit /
+  Cancel links straight to GitHub's file editor and delete-confirm pages
+  -- cancelling a recurring event's one file removes every future
+  occurrence at once. Scraped events aren't listed -- those aren't ours
+  to change, and track the newspaper's own site automatically.
 
 ## Viewing the calendar online
 

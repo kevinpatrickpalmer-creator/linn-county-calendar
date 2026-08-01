@@ -109,6 +109,23 @@
       </div>
     </div>
 
+    <div class="row">
+      <div>
+        <label for="recurrence">Repeats?</label>
+        <select id="recurrence" name="recurrence">
+          <option value="none" selected>Does not repeat</option>
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Every 2 weeks</option>
+          <option value="monthly_weekday">Monthly (same week &amp; day, e.g. 3rd Monday)</option>
+          <option value="monthly_date">Monthly (same date, e.g. the 15th)</option>
+        </select>
+      </div>
+      <div id="repeatUntilWrap" style="display:none;">
+        <label for="repeat_until">Repeat until *</label>
+        <input id="repeat_until" name="repeat_until" type="date">
+      </div>
+    </div>
+
     <label for="town">Town *</label>
     <select id="town" name="town" required>
       <option value="" disabled selected>Select a town</option>
@@ -163,6 +180,17 @@
     return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
   }
 
+  const recurrenceSelect = document.getElementById("recurrence");
+  const repeatUntilWrap = document.getElementById("repeatUntilWrap");
+  const repeatUntilInput = document.getElementById("repeat_until");
+
+  function syncRepeatUntilVisibility() {
+    const repeats = recurrenceSelect.value !== "none";
+    repeatUntilWrap.style.display = repeats ? "" : "none";
+    repeatUntilInput.required = repeats;
+  }
+  recurrenceSelect.addEventListener("change", syncRepeatUntilVisibility);
+
   // Pre-fill from a review link built by submit.html, if present, so
   // approving doesn't require retyping anything from the email by hand.
   // Runs after the town <option>s above exist, so setting its value works.
@@ -170,7 +198,7 @@
     const params = new URLSearchParams(window.location.search);
     if (![...params.keys()].length) return;
 
-    const fields = ["name", "date", "time", "town", "venue", "description", "website"];
+    const fields = ["name", "date", "time", "town", "venue", "description", "website", "recurrence", "repeat_until"];
     let filledAny = false;
     for (const field of fields) {
       if (!params.has(field)) continue;
@@ -181,6 +209,7 @@
         filledAny = true;
       }
     }
+    syncRepeatUntilVisibility();
 
     // Contact email/phone come as separate params but combine into one
     // editable "contact" field here, since that's what ends up on the
@@ -218,6 +247,13 @@
       : baseDescription;
 
     const event = { name, date, time: formatTime12h(data.get("time")), location, description };
+
+    const recurrence = (data.get("recurrence") || "none").trim();
+    const repeatUntil = (data.get("repeat_until") || "").trim();
+    if (recurrence !== "none" && repeatUntil) {
+      event.recurrence = recurrence;
+      event.repeat_until = repeatUntil;
+    }
 
     const slug = slugify(name, date);
     const path = `data/manual_events/${slug}.json`;

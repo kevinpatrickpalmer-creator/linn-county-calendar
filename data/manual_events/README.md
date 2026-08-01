@@ -25,3 +25,26 @@ Expected shape of each file:
 ```
 
 `time`, `location`, and `description` may be omitted or left blank.
+
+`date` is always the first occurrence, even for a recurring event. To
+repeat (e.g. a club's standing monthly meeting), add `recurrence` (one of
+`weekly`, `biweekly`, `monthly_weekday`, `monthly_date`) and `repeat_until`
+(the last date it can occur, inclusive):
+
+```json
+{
+  "name": "Linn County Republicans Meeting",
+  "date": "2026-08-17",
+  "time": "6:00 pm",
+  "location": "Meadville, MO",
+  "recurrence": "monthly_weekday",
+  "repeat_until": "2027-08-31"
+}
+```
+
+`monthly_weekday` repeats on the same week-and-day-of-month as `date`
+(the 3rd Monday, here); `monthly_date` repeats on the same day-of-month
+number instead. One file still covers the whole series -- the scraper's
+`_expand_manual_event_dates()` turns it into one calendar entry per
+occurrence at scrape time, so editing or cancelling the series (via
+`docs/manage-events.html`) only ever touches this one file.

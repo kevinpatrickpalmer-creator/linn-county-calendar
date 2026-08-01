@@ -138,7 +138,7 @@ town/county needs its own source scrapers unless its sources happen to
 run the same platforms (CitySpark, "Events Calendar WD", etc.).
 
 Install:
-    pip install playwright beautifulsoup4 icalendar requests
+    pip install playwright beautifulsoup4 icalendar requests python-dateutil
     playwright install chromium
 
 Run:
@@ -172,6 +172,16 @@ except ImportError:
         "The `icalendar` package isn't installed.\n"
         "Install with:\n"
         "    pip install icalendar"
+    )
+    sys.exit(1)
+
+try:
+    from dateutil.rrule import rrule, WEEKLY, MONTHLY, MO, TU, WE, TH, FR, SA, SU
+except ImportError:
+    print(
+        "The `python-dateutil` package isn't installed.\n"
+        "Install with:\n"
+        "    pip install python-dateutil"
     )
     sys.exit(1)
 
@@ -427,13 +437,67 @@ def parse_events(html):
     return events
 
 
+# Indexed by date.weekday() (Monday=0) so a start date's own weekday can
+# be turned into the dateutil constant _expand_manual_event_dates() needs
+# for "the 3rd Monday of the month"-style recurrence.
+_WEEKDAY_CONSTANTS = (MO, TU, WE, TH, FR, SA, SU)
+
+
+def _expand_manual_event_dates(data, start_date):
+    """A manually-submitted event can optionally repeat (see submit.html's
+    "Repeats?" field) rather than requiring someone to resubmit a monthly
+    meeting by hand forever -- this is what a local political party's
+    "3rd Monday of every month" meeting needs, for instance. Expanded
+    here into plain, independent dates -- the same one-date-per-event
+    shape every other source already produces -- rather than an ICS
+    RRULE, since calendar-view.html's own client-side parser and the
+    per-town splitting in write_town_ics_files() both work off
+    individual dated events with no notion of a recurrence rule.
+    Unrecognized or incomplete recurrence data degrades to a single
+    one-off occurrence on start_date rather than guessing."""
+    recurrence = (data.get("recurrence") or "none").strip()
+    if recurrence == "none":
+        return [start_date]
+
+    try:
+        until = datetime.strptime((data.get("repeat_until") or "").strip(), "%Y-%m-%d").date()
+    except ValueError:
+        return [start_date]
+    if until < start_date:
+        return [start_date]
+
+    if recurrence == "weekly":
+        occurrences = rrule(WEEKLY, dtstart=start_date, until=until)
+    elif recurrence == "biweekly":
+        occurrences = rrule(WEEKLY, interval=2, dtstart=start_date, until=until)
+    elif recurrence == "monthly_weekday":
+        # e.g. the 3rd Monday of the month, matching the start date's own
+        # week-of-month -- computed fresh each month via dateutil rather
+        # than approximated by adding ~30 days, so it can't drift onto
+        # the wrong week.
+        ordinal = (start_date.day - 1) // 7 + 1
+        weekday = _WEEKDAY_CONSTANTS[start_date.weekday()](ordinal)
+        occurrences = rrule(MONTHLY, byweekday=weekday, dtstart=start_date, until=until)
+    elif recurrence == "monthly_date":
+        occurrences = rrule(MONTHLY, bymonthday=start_date.day, dtstart=start_date, until=until)
+    else:
+        return [start_date]
+
+    dates = [o.date() for o in occurrences]
+    return dates or [start_date]
+
+
 def load_manual_events():
     """Load community-submitted events that have been approved (see
-    docs/admin.html for how a file lands here). Each file becomes one event,
-    in the same shape parse_events() produces, so build_calendar() and
-    event_uid() need no special-casing for them. A malformed file is skipped
-    with a warning rather than failing the whole run -- one bad manual entry
-    shouldn't take down the scraped events too."""
+    docs/admin.html for how a file lands here). Each file becomes one or
+    more events (see _expand_manual_event_dates() for the optional
+    recurrence case), in the same shape parse_events() produces, so
+    build_calendar() and event_uid() need no special-casing for them --
+    event_uid() already folds each occurrence's own date into its UID, so
+    reusing the same event_id across every occurrence of one recurring
+    entry is safe. A malformed file is skipped with a warning rather than
+    failing the whole run -- one bad manual entry shouldn't take down the
+    scraped events too."""
     manual_events = []
     for path in sorted(glob.glob(os.path.join(MANUAL_EVENTS_DIR, "*.json"))):
         slug = os.path.splitext(os.path.basename(path))[0]
@@ -445,24 +509,31 @@ def load_manual_events():
             continue
 
         name = (data.get("name") or "").strip()
-        date = (data.get("date") or "").strip()
-        if not name or not date:
+        date_str = (data.get("date") or "").strip()
+        if not name or not date_str:
             print(f"  WARNING: skipping {path}, missing required name/date", file=sys.stderr)
             continue
 
-        manual_events.append(
-            {
-                "name": name,
-                "date": date,
-                "time": (data.get("time") or "").strip(),
-                "location": (data.get("location") or "").strip(),
-                "description": (data.get("description") or "").strip(),
-                "href": "",  # no CitySpark detail page to fetch
-                "event_id": f"manual-{slug}",
-                "start_iso": None,
-                "end_iso": None,
-            }
-        )
+        try:
+            start_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except ValueError:
+            print(f"  WARNING: skipping {path}, unparseable date {date_str!r}", file=sys.stderr)
+            continue
+
+        for occurrence_date in _expand_manual_event_dates(data, start_date):
+            manual_events.append(
+                {
+                    "name": name,
+                    "date": occurrence_date.strftime("%Y-%m-%d"),
+                    "time": (data.get("time") or "").strip(),
+                    "location": (data.get("location") or "").strip(),
+                    "description": (data.get("description") or "").strip(),
+                    "href": "",  # no CitySpark detail page to fetch
+                    "event_id": f"manual-{slug}",
+                    "start_iso": None,
+                    "end_iso": None,
+                }
+            )
 
     return manual_events
 

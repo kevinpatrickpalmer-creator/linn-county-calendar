@@ -141,6 +141,19 @@ async function main() {
     when.textContent = ev.time ? `${ev.date} — ${ev.time}` : `${ev.date} (all day)`;
     card.appendChild(when);
 
+    if (ev.recurrence && ev.recurrence !== "none" && ev.repeat_until) {
+      const recurrenceLabels = {
+        weekly: "Repeats weekly",
+        biweekly: "Repeats every 2 weeks",
+        monthly_weekday: "Repeats monthly (same week & day)",
+        monthly_date: "Repeats monthly (same date)",
+      };
+      const recur = document.createElement("div");
+      recur.className = "meta";
+      recur.textContent = `${recurrenceLabels[ev.recurrence] || "Repeats"} until ${ev.repeat_until}`;
+      card.appendChild(recur);
+    }
+
     if (ev.location) {
       const loc = document.createElement("div");
       loc.className = "meta";
