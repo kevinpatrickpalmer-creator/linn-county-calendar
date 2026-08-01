@@ -37,7 +37,7 @@
     font-size: .85rem;
     cursor: pointer;
   }
-  .filterbar { margin-bottom: .6rem; }
+  .filterbar { margin-bottom: .6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .filterbar select {
     border: 1px solid #ccc;
     background: #fff;
@@ -47,6 +47,52 @@
     font-family: inherit;
     color: inherit;
   }
+  .view-toggle { display: flex; gap: .25rem; }
+  .view-toggle button {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 6px;
+    padding: .3rem .65rem;
+    font-size: .85rem;
+    cursor: pointer;
+    color: inherit;
+  }
+  .view-toggle button.active { background: #a71a2d; border-color: #a71a2d; color: #fff; }
+  .list-view { display: flex; flex-direction: column; gap: 1.25rem; }
+  .list-day-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    padding-bottom: .3rem;
+    border-bottom: 2px solid #ddd;
+  }
+  .list-day-heading.today { color: #a71a2d; }
+  .list-rows { display: flex; flex-direction: column; gap: .4rem; margin-top: .5rem; }
+  .list-row {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    background: #fff;
+    border-radius: 8px;
+    padding: .6rem .75rem;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    font-family: inherit;
+    color: inherit;
+    width: 100%;
+  }
+  .list-row .list-time {
+    flex-shrink: 0;
+    width: 5.2rem;
+    font-size: .82rem;
+    font-weight: 600;
+    color: #a71a2d;
+  }
+  .list-row .list-main { min-width: 0; }
+  .list-row .list-name { font-size: .95rem; font-weight: 600; line-height: 1.3; }
+  .list-row .list-location { font-size: .8rem; color: #666; margin-top: .1rem; }
+  #listEmpty { text-align: center; color: #666; padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: #a71a2d; text-decoration: none; margin-left: .75rem; }
   .grid {
@@ -147,6 +193,8 @@
     html, body { background: #15151a; color: #eee; }
     .nav button { background: #202027; border-color: #444; color: #eee; }
     .filterbar select { background: #202027; border-color: #444; color: #eee; }
+    .view-toggle button { background: #202027; border-color: #444; color: #eee; }
+    .view-toggle button.active { background: #a71a2d; border-color: #a71a2d; color: #fff; }
     .grid { background: #333; border-color: #333; }
     .dow { background: #1c1c22; color: #999; }
     .day { background: #202027; }
@@ -155,6 +203,12 @@
     #detail { background: #202027; box-shadow: none; }
     #detail .meta { color: #aaa; }
     details.embed-info textarea { background: #15151a; color: #eee; border-color: #444; }
+    .list-day-heading { border-bottom-color: #333; }
+    .list-day-heading.today { color: #ff8f8f; }
+    .list-row { background: #202027; box-shadow: none; }
+    .list-row .list-time { color: #ff8f8f; }
+    .list-row .list-location { color: #aaa; }
+    #listEmpty { color: #aaa; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -175,10 +229,16 @@
     <select id="townFilter">
       <option value="">All towns</option>
     </select>
+    <div class="view-toggle">
+      <button id="listViewBtn" type="button" class="active">List</button>
+      <button id="gridViewBtn" type="button">Month</button>
+    </div>
   </div>
 
   <div id="status">Loading events...</div>
   <div class="grid" id="grid" style="display:none"></div>
+  <div class="list-view" id="listView" style="display:none"></div>
+  <div id="listEmpty" style="display:none">No events this month.</div>
 
   <div id="detail">
     <h2 id="detailName"></h2>
@@ -353,13 +413,9 @@ document.getElementById("detailClose").addEventListener("click", () => {
   document.getElementById("detail").style.display = "none";
 });
 
-function renderMonth(year, month) {
-  viewYear = year;
-  viewMonth = month;
+let currentView = "list"; // "list" is the default -- see renderMonth()
 
-  const monthLabel = new Date(year, month, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
-  document.getElementById("monthLabel").textContent = monthLabel;
-
+function renderGridView(year, month, todayKey) {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
@@ -374,8 +430,6 @@ function renderMonth(year, month) {
   const startOffset = firstOfMonth.getDay(); // 0 = Sunday
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-  const todayKey = localDateKey(new Date(), true);
   const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
 
   for (let i = 0; i < totalCells; i++) {
@@ -421,6 +475,104 @@ function renderMonth(year, month) {
     grid.appendChild(cell);
   }
 }
+
+// A scrollable, full-width list grouped by date -- the fix for the month
+// grid's core problem: cells too small to show more than a truncated
+// pill, so nobody can glance at a busy day and actually tell what's on it.
+function renderListView(year, month, todayKey) {
+  const listView = document.getElementById("listView");
+  const listEmpty = document.getElementById("listEmpty");
+  listView.innerHTML = "";
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const dayKeys = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    dayKeys.push(`${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`);
+  }
+
+  const daysWithEvents = dayKeys.filter((key) => (eventsByDay.get(key) || []).length > 0);
+  listEmpty.style.display = daysWithEvents.length ? "none" : "block";
+
+  for (const key of daysWithEvents) {
+    const dayEvents = eventsByDay.get(key) || [];
+    const [y, m, d] = key.split("-").map(Number);
+    const dateLabel = new Date(y, m - 1, d).toLocaleDateString("en-US", {
+      weekday: "long", month: "long", day: "numeric",
+    });
+
+    const dayGroup = document.createElement("div");
+
+    const heading = document.createElement("div");
+    heading.className = "list-day-heading" + (key === todayKey ? " today" : "");
+    heading.textContent = key === todayKey ? `${dateLabel} — Today` : dateLabel;
+    dayGroup.appendChild(heading);
+
+    const rows = document.createElement("div");
+    rows.className = "list-rows";
+    dayEvents.forEach((ev) => {
+      const row = document.createElement("button");
+      row.className = "list-row";
+      row.addEventListener("click", () => showDetail(ev));
+
+      const time = document.createElement("span");
+      time.className = "list-time";
+      time.textContent = ev.allDay ? "All day" : localTimeString(ev.start);
+      row.appendChild(time);
+
+      const main = document.createElement("span");
+      main.className = "list-main";
+      const name = document.createElement("div");
+      name.className = "list-name";
+      name.textContent = ev.summary || "(untitled event)";
+      main.appendChild(name);
+      if (ev.location) {
+        const loc = document.createElement("div");
+        loc.className = "list-location";
+        loc.textContent = ev.location;
+        main.appendChild(loc);
+      }
+      row.appendChild(main);
+
+      rows.appendChild(row);
+    });
+    dayGroup.appendChild(rows);
+
+    listView.appendChild(dayGroup);
+  }
+}
+
+function renderMonth(year, month) {
+  viewYear = year;
+  viewMonth = month;
+
+  const monthLabel = new Date(year, month, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  document.getElementById("monthLabel").textContent = monthLabel;
+
+  const todayKey = localDateKey(new Date(), true);
+
+  document.getElementById("grid").style.display = currentView === "grid" ? "grid" : "none";
+  document.getElementById("listView").style.display = currentView === "list" ? "flex" : "none";
+  document.getElementById("listEmpty").style.display = "none";
+
+  if (currentView === "grid") {
+    renderGridView(year, month, todayKey);
+  } else {
+    renderListView(year, month, todayKey);
+  }
+}
+
+document.getElementById("listViewBtn").addEventListener("click", () => {
+  currentView = "list";
+  document.getElementById("listViewBtn").classList.add("active");
+  document.getElementById("gridViewBtn").classList.remove("active");
+  renderMonth(viewYear, viewMonth);
+});
+document.getElementById("gridViewBtn").addEventListener("click", () => {
+  currentView = "grid";
+  document.getElementById("gridViewBtn").classList.add("active");
+  document.getElementById("listViewBtn").classList.remove("active");
+  renderMonth(viewYear, viewMonth);
+});
 
 document.getElementById("prevBtn").addEventListener("click", () => {
   const m = viewMonth - 1, y = m < 0 ? viewYear - 1 : viewYear;
@@ -493,7 +645,6 @@ async function main() {
   }
 
   document.getElementById("status").style.display = "none";
-  document.getElementById("grid").style.display = "grid";
 
   const now = new Date();
   renderMonth(now.getFullYear(), now.getMonth());
