@@ -77,6 +77,16 @@
   .hp { position: absolute; left: -9999px; }
   .hint { margin: .35rem 0 0; font-size: .8rem; color: #666; line-height: 1.4; }
   .hint.err { color: #a71a2d; font-weight: 600; }
+  .site-credit {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e5e0;
+    font-size: .8rem;
+    color: #888;
+  }
+  .site-credit a { color: #a71a2d; text-decoration: none; font-weight: 600; }
+  .site-credit .powered-by { display: block; margin-top: .3rem; color: #aaa; font-size: .75rem; }
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     form { background: #202027; box-shadow: none; }
@@ -84,6 +94,8 @@
     p.sub { color: #aaa; }
     .hint { color: #999; }
     .hint.err { color: #ff6b6b; }
+    .site-credit { border-top-color: #333; color: #999; }
+    .site-credit .powered-by { color: #666; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -133,6 +145,11 @@
     <div id="status" role="status"></div>
   </form>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Built by <a href="https://kevinpalmersolutions.com" target="_blank" rel="noopener">Kevin Palmer Solutions</a> — need a custom calendar, scraper, or small-business tech solution? Let's talk.
+    <span class="powered-by">Powered by Community Calendar Connect</span>
+  </div>
 </main>
 
 <script>
