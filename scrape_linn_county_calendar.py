@@ -262,6 +262,9 @@ EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
 LOCAL_TZ = ZoneInfo(CONFIG["timezone"])
 # Written into docs/ so GitHub Pages (serving from /docs) can host it directly.
 ICS_PATH = "docs/linn_county_events.ics"
+# Per-source health snapshot from the most recent run -- see
+# docs/status.html and the source_health comment in main() for details.
+SOURCE_STATUS_PATH = "docs/source_status.json"
 DEFAULT_DURATION = timedelta(hours=1)
 # One JSON file per community-submitted event that's been approved (see
 # docs/admin.html). Rejected/pending submissions never get a file here, so
@@ -1098,6 +1101,21 @@ def build_calendar(events):
 
 
 def main():
+    # Per-source health, written to docs/source_status.json alongside the
+    # .ics at the end of this run -- see docs/status.html. Sources whose
+    # own function already catches its errors internally and degrades to
+    # an empty list (Brookfield city, MSHSAA schools, the newspaper page,
+    # county government) can't be distinguished here between "genuinely
+    # nothing new" and "the fetch silently failed" -- those are recorded
+    # with ok=True regardless, since fixing that fully means changing
+    # every source function's return signature. The sources that already
+    # propagate real exceptions to this function (CitySpark, Rhodes, the
+    # Tribute Technology funeral homes) get an accurate ok/error status.
+    source_health = []
+
+    def record_health(name, count, error=None):
+        source_health.append({"name": name, "count": count, "ok": error is None, "error": error})
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
@@ -1109,9 +1127,21 @@ def main():
         )
         page = context.new_page()
 
-        html = get_list_html(page)
-        events = parse_events(html)
-        fill_descriptions(page, events)
+        # get_list_html() already retries its own transient failures (see
+        # its docstring); this catches the case where all retries were
+        # exhausted, so a dead CitySpark widget doesn't take down the
+        # other eight working sources with it -- the same reasoning as
+        # the Rhodes/funeral-home try/excepts below, just applied to the
+        # source that used to be allowed to crash the whole run.
+        try:
+            html = get_list_html(page)
+            events = parse_events(html)
+            fill_descriptions(page, events)
+            record_health("CitySpark (Linn County Leader)", len(events))
+        except Exception as e:
+            print(f"  WARNING: couldn't fetch CitySpark's widget: {e}", file=sys.stderr)
+            events = []
+            record_health("CitySpark (Linn County Leader)", 0, error=str(e))
 
         # Rhodes' site appears to challenge/block traffic from GitHub
         # Actions' well-known CI IP ranges even though the same request
@@ -1122,9 +1152,11 @@ def main():
         try:
             rhodes_html = get_rhodes_obituaries_html(page)
             rhodes_events = parse_rhodes_obituaries(rhodes_html)
+            record_health("Rhodes Funeral Home", len(rhodes_events))
         except Exception as e:
             print(f"  WARNING: couldn't fetch Rhodes Funeral Home's obituaries: {e}", file=sys.stderr)
             rhodes_events = []
+            record_health("Rhodes Funeral Home", 0, error=str(e))
 
         browser.close()
 
@@ -1138,12 +1170,14 @@ def main():
     events = [ev for ev in events if not ev["location"].startswith(mshsaa_district_prefixes)]
 
     brookfield_events = get_brookfield_city_events()
+    record_health("City of Brookfield calendar", len(brookfield_events))
     if brookfield_events:
         print(f"Including {len(brookfield_events)} event(s) from the City of Brookfield's calendar\n")
         events.extend(brookfield_events)
 
     for school in MSHSAA_SCHOOLS:
         school_events = get_mshsaa_school_events(**school)
+        record_health(f"{school['district']} (MSHSAA)", len(school_events))
         if school_events:
             print(f"Including {len(school_events)} event(s) from {school['district']}'s MSHSAA schedule\n")
             events.extend(school_events)
@@ -1202,16 +1236,24 @@ def main():
         for ev in deduped:
             events_by_date.setdefault(ev["date"], []).append(significant_words(ev["name"]))
 
-    add_with_dedup(get_leader_editorial_calendar_events(), "the newspaper's manual calendar page")
-    add_with_dedup(get_linn_county_government_events(), "Linn County government's calendar")
+    leader_editorial_events = get_leader_editorial_calendar_events()
+    record_health("Newspaper's Community Calendar page", len(leader_editorial_events))
+    add_with_dedup(leader_editorial_events, "the newspaper's manual calendar page")
+
+    county_gov_events = get_linn_county_government_events()
+    record_health("Linn County government calendar", len(county_gov_events))
+    add_with_dedup(county_gov_events, "Linn County government's calendar")
+
     add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
 
     for home in TRIBUTE_TECHNOLOGY_FUNERAL_HOMES:
         try:
             home_events = get_tribute_technology_obituaries(**home)
+            record_health(home["name"], len(home_events))
         except Exception as e:
             print(f"  WARNING: couldn't fetch {home['name']}'s obituaries: {e}", file=sys.stderr)
             home_events = []
+            record_health(home["name"], 0, error=str(e))
         add_with_dedup(home_events, f"{home['name']} (in-county obituaries)")
 
     manual_events = load_manual_events()
@@ -1241,6 +1283,13 @@ def main():
     os.makedirs(os.path.dirname(ICS_PATH) or ".", exist_ok=True)
     with open(ICS_PATH, "wb") as f:
         f.write(ics_bytes)
+
+    with open(SOURCE_STATUS_PATH, "w", encoding="utf-8") as f:
+        json.dump(
+            {"generated_at": datetime.now(timezone.utc).isoformat(), "sources": source_health},
+            f,
+            indent=2,
+        )
 
     print(f"Wrote {ICS_PATH}\n")
     print(f"----- {ICS_PATH} contents -----")

@@ -68,6 +68,20 @@ another town's source is a matter of writing one more `get_*_events()`
 function in `scrape_linn_county_calendar.py` — see that file's module
 docstring for details.
 
+## Source health
+
+Every run writes `docs/source_status.json` alongside the `.ics` file --
+per-source event counts and, for the sources that propagate real errors
+back to `main()` (CitySpark, Rhodes, Wright, Delaney), whether that run
+succeeded. `docs/status.html` (an admin-only page, not linked from the
+public site, same as `admin.html`/`manage-events.html`) renders this so a
+persistent failure like Rhodes' Cloudflare block is visible at a glance
+instead of only showing up by chance in GitHub Actions logs. Sources that
+catch their own errors internally (Brookfield city, MSHSAA schools, the
+newspaper page, county government) always show as OK here even if their
+count unexpectedly drops to zero -- a sudden 0 from a normally-active
+source is still worth checking by hand.
+
 A GitHub Actions workflow (`.github/workflows/update-calendar.yml`) re-runs
 the scraper every 4 hours and commits the refreshed file. GitHub Pages
 serves `docs/` as a static site, reachable at

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source Status</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 700px; }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.25rem; color: #555; font-size: .9rem; line-height: 1.4; }
+  .generated {
+    font-size: .85rem;
+    padding: .6rem .85rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    background: #eef2ff;
+    color: #2946d9;
+  }
+  .generated.stale { background: #fdeceb; color: #a71a2d; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: .85rem 1.1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    margin-bottom: .6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+  }
+  .card .name { font-size: .95rem; font-weight: 600; }
+  .card .error { font-size: .8rem; color: #a71a2d; margin-top: .2rem; }
+  .card .right { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+  .count { font-size: .85rem; color: #666; }
+  .badge {
+    display: inline-block;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+  }
+  .badge.ok { background: #e3f2e9; color: #1a7d3c; }
+  .badge.err { background: #fdeceb; color: #a71a2d; }
+  #status { text-align: center; color: #666; padding: 2rem 0; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    .card { background: #202027; box-shadow: none; }
+    p.sub { color: #aaa; }
+    .count { color: #999; }
+    .generated { background: #1a1f3a; color: #8fa5ff; }
+    .generated.stale { background: #3a1a1a; color: #ff8f8f; }
+    .badge.ok { background: #12321f; color: #6fcf97; }
+    .badge.err { background: #3a1a1a; color: #ff8f8f; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<main>
+  <h1 id="pageTitle">Source Status</h1>
+  <p class="sub">
+    How each of the calendar's data sources did on the most recent scrape.
+    A source marked ⚠ threw a real error and was skipped for this run
+    (the rest of the calendar still updated normally). Some sources catch
+    their own errors internally and always show as OK here even if their
+    count unexpectedly drops to zero — a sudden 0 from a normally-active
+    source (especially a school district) is worth a manual check even
+    without a red badge.
+  </p>
+
+  <div id="generated" class="generated"></div>
+  <div id="status">Loading...</div>
+  <div id="list"></div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Source Status — ${config.calendar_title}`;
+  document.getElementById("pageTitle").textContent = `Source Status — ${config.calendar_title}`;
+
+  const statusEl = document.getElementById("status");
+  const listEl = document.getElementById("list");
+  const generatedEl = document.getElementById("generated");
+
+  let data;
+  try {
+    const res = await fetch("source_status.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+  } catch (err) {
+    statusEl.textContent = "Couldn't load source_status.json — it's written by the scraper, so it won't exist until the first run after this page was added.";
+    return;
+  }
+
+  statusEl.remove();
+
+  const generated = new Date(data.generated_at);
+  const hoursOld = (Date.now() - generated.getTime()) / 3600000;
+  generatedEl.textContent = `Last scrape: ${generated.toLocaleString()} (${hoursOld.toFixed(1)} hours ago)`;
+  if (hoursOld > 5) {
+    generatedEl.classList.add("stale");
+    generatedEl.textContent += " — later than the usual 4-hour cycle; the whole pipeline may be stuck, not just one source.";
+  }
+
+  for (const source of data.sources) {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const left = document.createElement("div");
+    const name = document.createElement("div");
+    name.className = "name";
+    name.textContent = source.name;
+    left.appendChild(name);
+    if (source.error) {
+      const err = document.createElement("div");
+      err.className = "error";
+      err.textContent = source.error;
+      left.appendChild(err);
+    }
+    card.appendChild(left);
+
+    const right = document.createElement("div");
+    right.className = "right";
+
+    const count = document.createElement("span");
+    count.className = "count";
+    count.textContent = `${source.count} event${source.count === 1 ? "" : "s"}`;
+    right.appendChild(count);
+
+    const badge = document.createElement("span");
+    badge.className = `badge ${source.ok ? "ok" : "err"}`;
+    badge.textContent = source.ok ? "OK" : "ERROR";
+    right.appendChild(badge);
+
+    card.appendChild(right);
+    listEl.appendChild(card);
+  }
+})();
+</script>
+</body>
+</html>
