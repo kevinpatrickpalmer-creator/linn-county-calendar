@@ -50,14 +50,17 @@
   }
   label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
   label:first-of-type { margin-top: 0; }
-  input[type="email"] {
+  input[type="email"], select {
     width: 100%;
     padding: .65rem .7rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-family: inherit;
+    color: inherit;
+    background: #fff;
   }
+  select { margin-bottom: .75rem; }
   .checkbox-row {
     display: flex;
     align-items: flex-start;
@@ -107,7 +110,7 @@
   @media (prefers-color-scheme: dark) {
     body { background: #15151a; color: #eee; }
     section { background: #202027; box-shadow: none; }
-    input[type="email"] { background: #15151a; color: #eee; border-color: #444; }
+    input[type="email"], select { background: #15151a; color: #eee; border-color: #444; }
     p.sub, p.hint { color: #aaa; }
   }
 </style>
@@ -121,8 +124,12 @@
   <section>
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
+    <label for="subscribeTown">Which events?</label>
+    <select id="subscribeTown">
+      <option value="">Whole county (all towns)</option>
+    </select>
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
-    <a class="btn secondary" href="linn_county_events.ics">Download / copy link instead</a>
+    <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link instead</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
     <p class="hint" id="unsubscribeHint"></p>
   </section>
@@ -170,11 +177,38 @@
   document.getElementById("pageTitle").textContent = config.calendar_title;
   document.getElementById("pageSub").textContent =
     `Local events, meetings, and happenings around ${config.county_display_name} — kept up to date automatically.`;
-  document.getElementById("subscribeBtn").href = `webcal://${config.domain}/linn_county_events.ics`;
-  document.getElementById("unsubscribeHint").textContent =
-    `To stop getting these events, remove/unsubscribe from "${config.calendar_title}" in your phone or computer's calendar app settings — that's done on your device, not here.`;
   document.getElementById("newsletterLabel").textContent =
     `Sign me up for the ${config.county_display_name} community newsletter (occasional updates, no set schedule yet)`;
+
+  // Matches the slug write_town_ics_files() uses in
+  // scrape_linn_county_calendar.py (re.sub(r"[^a-z0-9]+", "-", ...)).
+  function townSlug(town) {
+    return town.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  const subscribeBtn = document.getElementById("subscribeBtn");
+  const downloadLink = document.getElementById("downloadLink");
+  const subscribeTown = document.getElementById("subscribeTown");
+  const unsubscribeHint = document.getElementById("unsubscribeHint");
+
+  function updateSubscribeLinks() {
+    const town = subscribeTown.value;
+    const icsPath = town ? `towns/${townSlug(town)}.ics` : "linn_county_events.ics";
+    const calName = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
+    subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
+    downloadLink.href = icsPath;
+    unsubscribeHint.textContent =
+      `To stop getting these events, remove/unsubscribe from "${calName}" in your phone or computer's calendar app settings — that's done on your device, not here.`;
+  }
+
+  for (const town of config.towns) {
+    const opt = document.createElement("option");
+    opt.value = town;
+    opt.textContent = town;
+    subscribeTown.appendChild(opt);
+  }
+  subscribeTown.addEventListener("change", updateSubscribeLinks);
+  updateSubscribeLinks();
 
   const townCheckboxes = document.getElementById("townCheckboxes");
   for (const town of config.towns) {

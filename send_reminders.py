@@ -27,7 +27,6 @@ Run:
 import csv
 import io
 import os
-import re
 import sys
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
@@ -41,7 +40,7 @@ except ImportError:
     print("This script requires Python 3.9+ (for the zoneinfo module).")
     sys.exit(1)
 
-from calendar_config import load_config
+from calendar_config import extract_town, load_config
 
 CONFIG = load_config()
 
@@ -57,19 +56,6 @@ SUBSCRIBERS_CSV_URL = CONFIG["subscribers_csv_url"]
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 SENDER_EMAIL = CONFIG["sender_email"]
 SENDER_NAME = CONFIG["sender_name"]
-
-
-def extract_town(location):
-    """LOCATION strings look like "Venue Name | Town, ST" or just
-    "Town, ST" -- take the last "|"-separated segment (the actual
-    address part) and pull the town out of that, so a venue name that
-    happens to contain another town's name (e.g. "St Joseph Christian
-    School... | Marceline, MO") doesn't get misread."""
-    if not location:
-        return None
-    last_segment = location.split("|")[-1].strip()
-    m = re.search(rf"([A-Za-z .]+?),\s*{re.escape(CONFIG['state'])}\b", last_segment)
-    return m.group(1).strip() if m else None
 
 
 def tomorrows_events():
@@ -100,7 +86,7 @@ def tomorrows_events():
                 "name": str(component.get("summary", "")),
                 "time": time_str,
                 "location": location,
-                "town": extract_town(location),
+                "town": extract_town(location, CONFIG),
             }
         )
 

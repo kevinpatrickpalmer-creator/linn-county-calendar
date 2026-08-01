@@ -156,7 +156,14 @@ responsive down to narrow sidebar-widget widths.
 ## Landing page, reminders & newsletter list
 
 - **Landing page:** `docs/index.html` — the "Subscribe to Calendar" button
-  and a preferences form (email + two independent opt-in checkboxes).
+  and a preferences form (email + two independent opt-in checkboxes). A
+  "Which events?" dropdown lets someone subscribe their phone/computer
+  calendar to just one town instead of the whole county, pointing at
+  `docs/towns/<slug>.ics` instead of the full `linn_county_events.ics` --
+  see `write_town_ics_files()` in `scrape_linn_county_calendar.py`. This
+  is the calendar-subscription equivalent of the town filter already in
+  `calendar-view.html` and the per-town email filtering below; all three
+  now share the same `extract_town()` from `calendar_config.py`.
 - **Storage:** the preferences form posts directly to a Google Form, whose
   linked Google Sheet is published to the web as CSV. Each opt-in is its
   own column, so a single email can have either, both, or neither checked.

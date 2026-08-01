@@ -84,6 +84,14 @@ merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
 build_calendar(), event_uid(), etc. need no changes per source.
 
+Besides the merged docs/linn_county_events.ics, main() also writes one
+filtered .ics per town to docs/towns/ (see write_town_ics_files()) so
+someone can subscribe their phone/computer calendar to just their own
+town instead of always getting the whole county. extract_town(), the
+same town-matching logic calendar-view.html's JS and
+send_reminders.py's per-town email filtering already used, now lives in
+calendar_config.py so all three stay in sync.
+
 Everything that differs between deployments (timezone, calendar display
 name, UID namespace) lives in docs/config.json, loaded via
 calendar_config.py. The source URLs and scraping/parsing logic below are
@@ -142,7 +150,7 @@ except ImportError:
     )
     sys.exit(1)
 
-from calendar_config import load_config
+from calendar_config import extract_town, load_config
 
 CONFIG = load_config()
 
@@ -265,6 +273,13 @@ ICS_PATH = "docs/linn_county_events.ics"
 # Per-source health snapshot from the most recent run -- see
 # docs/status.html and the source_health comment in main() for details.
 SOURCE_STATUS_PATH = "docs/source_status.json"
+# One filtered .ics per town, alongside the full one, so someone can
+# subscribe their phone/computer calendar to just their own town instead
+# of always getting the whole county -- see write_town_ics_files() in
+# main(). docs/calendar-view.html's town filter and send_reminders.py's
+# per-town email filtering both already existed; this is the same idea
+# applied to the actual calendar subscription itself.
+TOWN_ICS_DIR = "docs/towns"
 DEFAULT_DURATION = timedelta(hours=1)
 # One JSON file per community-submitted event that's been approved (see
 # docs/admin.html). Rejected/pending submissions never get a file here, so
@@ -1042,13 +1057,13 @@ def event_uid(ev):
     return f"{key}-{ev['date']}-{time_slug}@{CONFIG['uid_domain']}"
 
 
-def build_calendar(events):
+def build_calendar(events, calname=None):
     cal = Calendar()
     cal.add("prodid", f"-//{CONFIG['county_display_name']} Events Scraper//{CONFIG['uid_domain']}//EN")
     cal.add("version", "2.0")
     cal.add("calscale", "GREGORIAN")
     cal.add("method", "PUBLISH")
-    cal.add("x-wr-calname", CONFIG["calendar_title"])
+    cal.add("x-wr-calname", calname or CONFIG["calendar_title"])
     cal.add("x-wr-timezone", CONFIG["timezone"])
     cal.add("x-published-ttl", "PT4H")  # matches the GitHub Actions refresh cadence
 
@@ -1098,6 +1113,24 @@ def build_calendar(events):
         cal.add_component(event)
 
     return cal
+
+
+def write_town_ics_files(events):
+    """One filtered .ics per town in docs/towns/, so someone can subscribe
+    their phone/computer calendar to just their own town's events instead
+    of always getting the whole county's -- the calendar-app equivalent
+    of the town filter already in calendar-view.html and the per-town
+    email filtering already in send_reminders.py. Events with no
+    resolvable town (a bare "Marceline, MO"-only match is fine; blank/
+    unparseable locations are not) are simply omitted from every town
+    file rather than guessed at."""
+    os.makedirs(TOWN_ICS_DIR, exist_ok=True)
+    for town in CONFIG["towns"]:
+        town_events = [ev for ev in events if extract_town(ev.get("location", ""), CONFIG) == town]
+        calendar = build_calendar(town_events, calname=f"{town} Events ({CONFIG['calendar_title']})")
+        slug = re.sub(r"[^a-z0-9]+", "-", town.lower()).strip("-")
+        with open(os.path.join(TOWN_ICS_DIR, f"{slug}.ics"), "wb") as f:
+            f.write(calendar.to_ical())
 
 
 def main():
@@ -1283,6 +1316,9 @@ def main():
     os.makedirs(os.path.dirname(ICS_PATH) or ".", exist_ok=True)
     with open(ICS_PATH, "wb") as f:
         f.write(ics_bytes)
+
+    write_town_ics_files(events)
+    print(f"Wrote per-town .ics files to {TOWN_ICS_DIR}/\n")
 
     with open(SOURCE_STATUS_PATH, "w", encoding="utf-8") as f:
         json.dump(
