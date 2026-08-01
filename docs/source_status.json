@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-01T15:47:35.919935+00:00",
+  "generated_at": "2026-08-01T16:46:23.756889+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".obituaries-list__results li\") to be visible\n"
+      "count": 1,
+      "ok": true,
+      "error": null
     },
     {
       "name": "City of Brookfield calendar",
@@ -51,7 +51,13 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Brookfield Area Chamber of Commerce",
+      "count": 15,
       "ok": true,
       "error": null
     },

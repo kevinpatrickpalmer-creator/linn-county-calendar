@@ -62,6 +62,21 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   a plain XML sitemap plus a schema.org JSON-LD block on each page
   cover everything; `get_tribute_technology_obituaries()` is fully
   generic across any funeral home on that platform.
+- The [Brookfield Area Chamber of Commerce](https://brookfieldmochamber.com)'s
+  community events calendar — also the shared calendar for Main Street
+  Brookfield and the Brookfield Area Growth Partnership (same umbrella
+  org, different public-facing names). Runs the same "Events Calendar WD"
+  WordPress plugin as the City of Brookfield's own site above, so
+  `get_brookfield_chamber_events()` reuses the same schema.org JSON-LD
+  approach, just discovered via WordPress's own built-in sitemap rather
+  than a dedicated one. Genuinely new content beyond CitySpark and the
+  city's own calendar — Railroad Days, the Great Pershing Balloon Derby,
+  Main Street Sip & Stroll — run through the same date-and-keyword
+  dedup check as the newspaper's page above, since it
+  occasionally lists the same event the city or a school district
+  already covers. Unlike the city's own calendar, not every event here
+  is inside Brookfield itself, so the town is parsed from each event's
+  own street address rather than assumed.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
@@ -77,10 +92,10 @@ succeeded. `docs/status.html` (an admin-only page, not linked from the
 public site, same as `admin.html`/`manage-events.html`) renders this so a
 persistent failure like Rhodes' Cloudflare block is visible at a glance
 instead of only showing up by chance in GitHub Actions logs. Sources that
-catch their own errors internally (Brookfield city, MSHSAA schools, the
-newspaper page, county government) always show as OK here even if their
-count unexpectedly drops to zero -- a sudden 0 from a normally-active
-source is still worth checking by hand.
+catch their own errors internally (Brookfield city, the Brookfield
+Chamber, MSHSAA schools, the newspaper page, county government) always
+show as OK here even if their count unexpectedly drops to zero -- a
+sudden 0 from a normally-active source is still worth checking by hand.
 
 A GitHub Actions workflow (`.github/workflows/update-calendar.yml`) re-runs
 the scraper every 4 hours and commits the refreshed file. GitHub Pages

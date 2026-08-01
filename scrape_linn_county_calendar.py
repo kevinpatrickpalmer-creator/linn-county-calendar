@@ -79,6 +79,23 @@ funeral home on that platform. All three serve families well beyond
 Linn County, so entries are filtered to a conservative in-county town
 match -- an ambiguous entry is excluded rather than risked.
 
+Source 10 -- Brookfield Area Chamber of Commerce community events:
+The Chamber's site also serves as the shared calendar for Main Street
+Brookfield and the Brookfield Area Growth Partnership (all three are
+the same umbrella organization, just different public-facing brands),
+and runs the same "Events Calendar WD" WordPress plugin as the City of
+Brookfield's own site (source 2) -- same schema.org Event JSON-LD per
+page, just discovered via WordPress's own built-in sitemap instead of
+a dedicated ecwd_event-sitemap.xml. Real, actively-maintained content
+distinct from both CitySpark and the city's own calendar: Railroad
+Days, the Great Pershing Balloon Derby, Main Street Sip & Stroll, and
+smaller recurring things like Linn County Health Department programs
+hosted in Brookfield. Unlike the city's own calendar, not every event
+here is necessarily inside Brookfield itself (the chamber occasionally
+lists a neighboring town's event, e.g. a rivalry game hosted in
+Marceline) -- see get_brookfield_chamber_events() for how the town is
+parsed from each event's own street address rather than assumed.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -264,6 +281,17 @@ TRIBUTE_TECHNOLOGY_FUNERAL_HOMES = [
         "base_url": "https://www.delaneyfuneralhome.com",
     },
 ]
+
+# Tenth source: the Brookfield Area Chamber of Commerce runs the same
+# "Events Calendar WD" plugin as the City of Brookfield's own site
+# (BROOKFIELD_CITY_BASE above) -- same schema.org Event JSON-LD per
+# event page, just discovered via WordPress core's own built-in sitemap
+# (small enough, ~65 events total, that it's a single unpaginated file)
+# rather than a dedicated ecwd_event-sitemap.xml. See the module
+# docstring's "Source 10" section for why this is worth a separate
+# scraper from CitySpark and the city's own calendar.
+BROOKFIELD_CHAMBER_BASE = "https://brookfieldmochamber.com"
+BROOKFIELD_CHAMBER_SITEMAP_URL = f"{BROOKFIELD_CHAMBER_BASE}/wp-sitemap-posts-ecwd_event-1.xml"
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s?[ap]m\b", re.IGNORECASE)
 EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
@@ -485,6 +513,91 @@ def get_brookfield_city_events():
                 "description": (data.get("description") or "").strip(),
                 "href": "",
                 "event_id": f"bfcity-{slug}",
+                "start_iso": start.isoformat(),
+                "end_iso": end.isoformat() if end else None,
+            }
+        )
+
+    print(" " * 40, end="\r", file=sys.stderr)
+    return events
+
+
+def get_brookfield_chamber_events():
+    """Fetch every event from the Brookfield Area Chamber of Commerce's
+    calendar via WordPress's own built-in sitemap (see
+    BROOKFIELD_CHAMBER_SITEMAP_URL above) -- the same "Events Calendar WD"
+    plugin and JSON-LD shape as get_brookfield_city_events(), just a
+    different sitemap path and, unlike that function, not allowed to
+    assume every event is physically in Brookfield: the town is parsed
+    out of each event's own street address instead, falling back to
+    Brookfield (the chamber's own home base) only when the address
+    doesn't clearly name a different county town."""
+    try:
+        resp = requests.get(
+            BROOKFIELD_CHAMBER_SITEMAP_URL,
+            headers=BROOKFIELD_REQUEST_HEADERS,
+            timeout=30,
+        )
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch the Brookfield Chamber's event sitemap: {e}", file=sys.stderr)
+        return []
+
+    sitemap_soup = BeautifulSoup(resp.content, "html.parser")
+    event_urls = [loc.get_text(strip=True) for loc in sitemap_soup.find_all("loc")]
+
+    town_re = re.compile(
+        rf"\b({'|'.join(re.escape(t) for t in CONFIG['towns'])}),\s*{re.escape(CONFIG['state'])}\b"
+    )
+
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+    for i, url in enumerate(event_urls, 1):
+        print(f"  checking Brookfield Chamber event {i}/{len(event_urls)}...", end="\r", file=sys.stderr)
+        try:
+            page = requests.get(url, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+            page.raise_for_status()
+        except requests.RequestException:
+            continue
+        finally:
+            time.sleep(0.2)  # be polite to a small town's server
+
+        detail_soup = BeautifulSoup(page.content, "html.parser")
+        data = None
+        for script in detail_soup.select('script[type="application/ld+json"]'):
+            try:
+                candidate = json.loads(script.string or "")
+            except json.JSONDecodeError:
+                continue
+            if candidate.get("@type") == "Event":
+                data = candidate
+                break
+        if not data:
+            continue
+
+        start = _parse_brookfield_datetime(data.get("startDate"))
+        if not start or start.date() < today:
+            continue  # skip anything unparseable or already in the past
+        end = _parse_brookfield_datetime(data.get("endDate"))
+
+        place = data.get("location") or {}
+        venue = (place.get("name") or "").strip()
+        street_address = ((place.get("address") or {}).get("streetAddress") or "")
+        town_match = town_re.search(street_address)
+        town = town_match.group(1) if town_match else "Brookfield"
+        location = f"{venue} | {town}, {CONFIG['state']}" if venue else f"{town}, {CONFIG['state']}"
+
+        slug = url.rstrip("/").rsplit("/", 1)[-1]
+
+        events.append(
+            {
+                "name": (data.get("name") or "").strip(),
+                "date": start.strftime("%Y-%m-%d"),
+                "time": start.strftime("%I:%M %p"),
+                "location": location,
+                "description": (data.get("description") or "").strip(),
+                "href": "",
+                "event_id": f"bfchamber-{slug}",
                 "start_iso": start.isoformat(),
                 "end_iso": end.isoformat() if end else None,
             }
@@ -1272,6 +1385,10 @@ def main():
     leader_editorial_events = get_leader_editorial_calendar_events()
     record_health("Newspaper's Community Calendar page", len(leader_editorial_events))
     add_with_dedup(leader_editorial_events, "the newspaper's manual calendar page")
+
+    chamber_events = get_brookfield_chamber_events()
+    record_health("Brookfield Area Chamber of Commerce", len(chamber_events))
+    add_with_dedup(chamber_events, "the Brookfield Area Chamber of Commerce's calendar")
 
     county_gov_events = get_linn_county_government_events()
     record_health("Linn County government calendar", len(county_gov_events))
