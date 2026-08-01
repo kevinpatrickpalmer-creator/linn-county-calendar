@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T19:07:28.017867+00:00",
+  "generated_at": "2026-08-01T20:19:44.777761+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -9,9 +9,9 @@
     },
     {
       "name": "Rhodes Funeral Home",
-      "count": 1,
-      "ok": true,
-      "error": null
+      "count": 0,
+      "ok": false,
+      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".obituaries-list__results li\") to be visible\n"
     },
     {
       "name": "City of Brookfield calendar",

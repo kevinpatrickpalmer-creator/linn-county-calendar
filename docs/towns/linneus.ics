@@ -10,26 +10,17 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
-DTSTAMP:20260801T190727Z
+DTSTAMP:20260801T201944Z
 UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:County Clerk's office open for Absentee Voting
-DTSTART:20260801T130000Z
-DTEND:20260801T140000Z
-DTSTAMP:20260801T190727Z
-UID:linncogov-4adjao79omoc8482grs02s6bnh@google.com-2026-08-01-0800@linn-c
- ounty-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261126
-DTEND;VALUE=DATE:20261127
-DTSTAMP:20260801T190727Z
-UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+DTSTAMP:20260801T201944Z
+UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
@@ -37,16 +28,34 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260801T190727Z
+DTSTAMP:20260801T201944Z
 UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+DTSTAMP:20260801T201944Z
+UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:County Clerk's office open for Absentee Voting
+DTSTART:20260801T130000Z
+DTEND:20260801T140000Z
+DTSTAMP:20260801T201944Z
+UID:linncogov-4adjao79omoc8482grs02s6bnh@google.com-2026-08-01-0800@linn-c
+ ounty-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
-DTSTAMP:20260801T190727Z
+DTSTAMP:20260801T201944Z
 UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -55,43 +64,9 @@ BEGIN:VEVENT
 SUMMARY:Tax Sale
 DTSTART:20260824T150000Z
 DTEND:20260824T160000Z
-DTSTAMP:20260801T190727Z
+DTSTAMP:20260801T201944Z
 UID:linncogov-3cbntjm1hmap7td7s6h10p5sbm@google.com-2026-08-24-1000@linn-c
  ounty-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261225
-DTEND;VALUE=DATE:20261226
-DTSTAMP:20260801T190727Z
-UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Obituary: Bonnie Jean Alexander
-DTSTART;VALUE=DATE:20260714
-DTEND;VALUE=DATE:20260715
-DTSTAMP:20260801T190727Z
-UID:rhodesobit-2026-07-14-bonnie-jean-alexander-2026-07-14-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:Bonnie Jean\, age 96\, of Linneus\, passed away on Tuesday\, J
- uly 14\, 2026\, at McLarney Manor in Brookfield\, MO.\n Bonnie Jean was bo
- rn on March 1\, 1930\, in Laclede\, MO to the late Lorenzo Owen and Conna 
- Maud (Massey) Dowell. She attended and graduated from school in Laclede\, 
- MO. On May 8\, 1949\, she married James Dewayne Alexander at the Laclede M
- ethodist Church in Laclede\, MO. After graduation Bonnie worked as a hospi
- tal receptionist at Woodland Hospital in Moberly\, MO. She later worked fo
- r 29 years at the Agricultural Stabilization and Conservation Service (ASC
- S) office in Brookfield\, MO.\n Bonnie was a member of the Linneus United 
- Methodist Church where she was a lead vocalist and choir member for many y
- ears. Bonnie and James were very active with the church’s card club\, an
- d created fond memories at their New Years Eve parties. She was a member o
- f the Order of Eastern Star for over 75 years. She also served on the Linn
-  County 4H Fair Board and held the office of Secretary.\n Bonnie’s great
- est joy was her...\n\nFull obituary and service details: https://www.rhode
- sfh.com/obituaries/bonnie-alexander-3/
-LOCATION:Linneus\, MO
 END:VEVENT
 END:VCALENDAR
