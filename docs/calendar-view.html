@@ -37,6 +37,16 @@
     font-size: .85rem;
     cursor: pointer;
   }
+  .filterbar { margin-bottom: .6rem; }
+  .filterbar select {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 6px;
+    padding: .3rem .5rem;
+    font-size: .85rem;
+    font-family: inherit;
+    color: inherit;
+  }
   .links { font-size: .8rem; }
   .links a { color: #a71a2d; text-decoration: none; margin-left: .75rem; }
   .grid {
@@ -136,6 +146,7 @@
   @media (prefers-color-scheme: dark) {
     html, body { background: #15151a; color: #eee; }
     .nav button { background: #202027; border-color: #444; color: #eee; }
+    .filterbar select { background: #202027; border-color: #444; color: #eee; }
     .grid { background: #333; border-color: #333; }
     .dow { background: #1c1c22; color: #999; }
     .day { background: #202027; }
@@ -159,6 +170,13 @@
     </div>
   </div>
 
+  <div class="filterbar">
+    <label for="townFilter" style="font-size:.85rem;margin-right:.4rem;">Town:</label>
+    <select id="townFilter">
+      <option value="">All towns</option>
+    </select>
+  </div>
+
   <div id="status">Loading events...</div>
   <div class="grid" id="grid" style="display:none"></div>
 
@@ -176,7 +194,7 @@
 
   <details class="embed-info">
     <summary>Embed this calendar on another site</summary>
-    <p>Paste this into any page that allows HTML/iframes:</p>
+    <p>Paste this into any page that allows HTML/iframes. Pick a town above first to embed a version pre-filtered to just that town's events.</p>
     <textarea rows="3" readonly onclick="this.select()" id="embedSnippet"></textarea>
   </details>
 </div>
@@ -185,6 +203,18 @@
 const ICS_URL = "linn_county_events.ics";
 const DOW_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let TIMEZONE = "America/Chicago"; // overwritten from config.json before first render
+let STATE = "MO"; // overwritten from config.json before first render
+
+// Mirrors extract_town() in send_reminders.py: LOCATION strings look like
+// "Venue Name | Town, ST" or just "Town, ST" -- take the last "|"-separated
+// segment (the actual address part) so a venue name that happens to
+// contain another town's name doesn't get misread.
+function extractTown(location) {
+  if (!location) return null;
+  const lastSegment = location.split("|").pop().trim();
+  const m = lastSegment.match(new RegExp(`([A-Za-z .]+?),\\s*${STATE}\\b`));
+  return m ? m[1].trim() : null;
+}
 
 function unescapeText(s) {
   return s
@@ -226,6 +256,7 @@ function parseICS(raw) {
         break;
       case "LOCATION":
         current.location = unescapeText(value);
+        current.town = extractTown(current.location);
         break;
       case "DESCRIPTION":
         current.description = unescapeText(value);
@@ -280,11 +311,13 @@ function localTimeString(date) {
 let allEvents = [];
 let eventsByDay = new Map();
 let viewYear, viewMonth; // viewMonth is 0-11
+let currentTown = ""; // "" = all towns
 
 function buildDayIndex(events) {
   const map = new Map();
   for (const ev of events) {
     if (!ev.start) continue;
+    if (currentTown && ev.town !== currentTown) continue;
     const key = localDateKey(ev.start, ev.allDay);
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(ev);
@@ -293,6 +326,14 @@ function buildDayIndex(events) {
     list.sort((a, b) => (a.allDay ? -1 : 1) - (b.allDay ? -1 : 1) || a.start - b.start);
   }
   return map;
+}
+
+// Re-derives eventsByDay from allEvents under the current town filter and
+// re-renders whatever month is already on screen (doesn't reset to today).
+function applyTownFilter() {
+  eventsByDay = buildDayIndex(allEvents);
+  renderMonth(viewYear, viewMonth);
+  updateEmbedSnippet();
 }
 
 function showDetail(ev) {
@@ -394,16 +435,50 @@ document.getElementById("todayBtn").addEventListener("click", () => {
   renderMonth(now.getFullYear(), now.getMonth());
 });
 
+let siteConfig = null;
+
+function updateEmbedSnippet() {
+  if (!siteConfig) return;
+  const townParam = currentTown ? `?town=${encodeURIComponent(currentTown)}` : "";
+  document.getElementById("embedSnippet").value =
+    `<iframe src="https://${siteConfig.domain}/calendar-view.html${townParam}" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"></iframe>`;
+}
+
+document.getElementById("townFilter").addEventListener("change", (e) => {
+  currentTown = e.target.value;
+  applyTownFilter();
+});
+
 async function main() {
   try {
     const config = await (await fetch("config.json")).json();
+    siteConfig = config;
     TIMEZONE = config.timezone;
+    STATE = config.state;
     document.title = config.calendar_title;
-    document.getElementById("embedSnippet").value =
-      `<iframe src="https://${config.domain}/calendar-view.html" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"></iframe>`;
+
+    const townSelect = document.getElementById("townFilter");
+    for (const town of config.towns) {
+      const opt = document.createElement("option");
+      opt.value = town;
+      opt.textContent = town;
+      townSelect.appendChild(opt);
+    }
+
+    // Lets a town's own site embed a pre-filtered view, e.g.
+    // calendar-view.html?town=Brookfield -- see updateEmbedSnippet().
+    const params = new URLSearchParams(window.location.search);
+    const initialTown = params.get("town");
+    if (initialTown && config.towns.includes(initialTown)) {
+      currentTown = initialTown;
+      townSelect.value = initialTown;
+    }
+
+    updateEmbedSnippet();
   } catch (err) {
-    // Config is only needed for cosmetics/timezone/embed snippet -- fall
-    // back to the defaults above rather than blocking the calendar itself.
+    // Config is only needed for cosmetics/timezone/town filter/embed
+    // snippet -- fall back to the defaults above rather than blocking
+    // the calendar itself.
   }
 
   try {
