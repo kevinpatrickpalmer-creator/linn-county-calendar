@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T20:19:44.777761+00:00",
+  "generated_at": "2026-08-02T08:00:55.866442+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,7 +15,7 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 8,
+      "count": 7,
       "ok": true,
       "error": null
     },
@@ -57,13 +57,13 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 15,
+      "count": 14,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County government calendar",
-      "count": 8,
+      "count": 7,
       "ok": true,
       "error": null
     },
