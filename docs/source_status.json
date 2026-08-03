@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-03T12:49:40.193182+00:00",
+  "generated_at": "2026-08-03T20:48:00.831072+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -45,13 +45,13 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 73,
+      "count": 80,
       "ok": true,
       "error": null
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
       "ok": true,
       "error": null
     },
