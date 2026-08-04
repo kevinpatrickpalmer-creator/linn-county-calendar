@@ -246,6 +246,8 @@
     <select id="townFilter">
       <option value="">All towns</option>
     </select>
+    <label style="font-size:.85rem;"><input type="checkbox" id="hideSports"> Hide sports</label>
+    <label style="font-size:.85rem;"><input type="checkbox" id="hideObituaries"> Hide obituaries</label>
     <div class="view-toggle">
       <button id="listViewBtn" type="button" class="active">List</button>
       <button id="gridViewBtn" type="button">Month</button>
@@ -353,6 +355,9 @@ function parseICS(raw) {
       case "DESCRIPTION":
         current.description = unescapeText(value);
         break;
+      case "CATEGORIES":
+        current.categories = unescapeText(value).split(",").map((c) => c.trim().toLowerCase());
+        break;
       case "UID":
         current.uid = value;
         break;
@@ -404,12 +409,17 @@ let allEvents = [];
 let eventsByDay = new Map();
 let viewYear, viewMonth; // viewMonth is 0-11
 let currentTown = ""; // "" = all towns
+let excludeSports = false;
+let excludeObituaries = false;
 
 function buildDayIndex(events) {
   const map = new Map();
   for (const ev of events) {
     if (!ev.start) continue;
     if (currentTown && ev.town !== currentTown) continue;
+    const categories = ev.categories || [];
+    if (excludeSports && categories.includes("sports")) continue;
+    if (excludeObituaries && categories.includes("obituary")) continue;
     const key = localDateKey(ev.start, ev.allDay);
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(ev);
@@ -420,8 +430,9 @@ function buildDayIndex(events) {
   return map;
 }
 
-// Re-derives eventsByDay from allEvents under the current town filter and
-// re-renders whatever month is already on screen (doesn't reset to today).
+// Re-derives eventsByDay from allEvents under the current town/category
+// filters and re-renders whatever month is already on screen (doesn't
+// reset to today).
 function applyTownFilter() {
   eventsByDay = buildDayIndex(allEvents);
   renderMonth(viewYear, viewMonth);
@@ -630,6 +641,16 @@ function updateEmbedSnippet() {
 
 document.getElementById("townFilter").addEventListener("change", (e) => {
   currentTown = e.target.value;
+  applyTownFilter();
+});
+
+document.getElementById("hideSports").addEventListener("change", (e) => {
+  excludeSports = e.target.checked;
+  applyTownFilter();
+});
+
+document.getElementById("hideObituaries").addEventListener("change", (e) => {
+  excludeObituaries = e.target.checked;
   applyTownFilter();
 });
 

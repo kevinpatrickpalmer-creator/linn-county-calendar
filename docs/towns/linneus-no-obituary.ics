@@ -3,7 +3,7 @@ VERSION:2.0
 PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Linneus Events (Linn County Community Calendar)
+X-WR-CALNAME:Linneus Events (Linn County Community Calendar) (No Obituary)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
@@ -59,31 +59,5 @@ DTSTAMP:20260804T200826Z
 UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Obituary: Bonnie Jean Alexander
-DTSTART;VALUE=DATE:20260714
-DTEND;VALUE=DATE:20260715
-DTSTAMP:20260804T200826Z
-UID:rhodesobit-2026-07-14-bonnie-jean-alexander-2026-07-14-allday@linn-cou
- nty-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Bonnie Jean\, age 96\, of Linneus\, passed away on Tuesday\, J
- uly 14\, 2026\, at McLarney Manor in Brookfield\, MO.\n Bonnie Jean was bo
- rn on March 1\, 1930\, in Laclede\, MO to the late Lorenzo Owen and Conna 
- Maud (Massey) Dowell. She attended and graduated from school in Laclede\, 
- MO. On May 8\, 1949\, she married James Dewayne Alexander at the Laclede M
- ethodist Church in Laclede\, MO. After graduation Bonnie worked as a hospi
- tal receptionist at Woodland Hospital in Moberly\, MO. She later worked fo
- r 29 years at the Agricultural Stabilization and Conservation Service (ASC
- S) office in Brookfield\, MO.\n Bonnie was a member of the Linneus United 
- Methodist Church where she was a lead vocalist and choir member for many y
- ears. Bonnie and James were very active with the church’s card club\, an
- d created fond memories at their New Years Eve parties. She was a member o
- f the Order of Eastern Star for over 75 years. She also served on the Linn
-  County 4H Fair Board and held the office of Secretary.\n Bonnie’s great
- est joy was her...\n\nFull obituary and service details: https://www.rhode
- sfh.com/obituaries/bonnie-alexander-3/
-LOCATION:Linneus\, MO
 END:VEVENT
 END:VCALENDAR

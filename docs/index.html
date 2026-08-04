@@ -142,6 +142,17 @@
     <select id="subscribeTown">
       <option value="">Whole county (all towns)</option>
     </select>
+
+    <label>Include:</label>
+    <div class="checkbox-row">
+      <input type="checkbox" id="includeSports" checked>
+      <label for="includeSports">School sports games</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="includeObituaries" checked>
+      <label for="includeObituaries">Obituaries</label>
+    </div>
+
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link instead</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
@@ -209,10 +220,24 @@
   const downloadLink = document.getElementById("downloadLink");
   const subscribeTown = document.getElementById("subscribeTown");
   const unsubscribeHint = document.getElementById("unsubscribeHint");
+  const includeSports = document.getElementById("includeSports");
+  const includeObituaries = document.getElementById("includeObituaries");
+
+  // Order matters here -- it has to match FILTERABLE_CATEGORIES in
+  // scrape_linn_county_calendar.py, since that's the order
+  // _write_category_variant_ics_files() builds each "-no-<category>"
+  // filename suffix in.
+  function categorySuffix() {
+    const excluded = [];
+    if (!includeSports.checked) excluded.push("sports");
+    if (!includeObituaries.checked) excluded.push("obituary");
+    return excluded.map((c) => `-no-${c}`).join("");
+  }
 
   function updateSubscribeLinks() {
     const town = subscribeTown.value;
-    const icsPath = town ? `towns/${townSlug(town)}.ics` : "linn_county_events.ics";
+    const suffix = categorySuffix();
+    const icsPath = town ? `towns/${townSlug(town)}${suffix}.ics` : `linn_county_events${suffix}.ics`;
     const calName = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
     subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
     downloadLink.href = icsPath;
@@ -227,6 +252,8 @@
     subscribeTown.appendChild(opt);
   }
   subscribeTown.addEventListener("change", updateSubscribeLinks);
+  includeSports.addEventListener("change", updateSubscribeLinks);
+  includeObituaries.addEventListener("change", updateSubscribeLinks);
   updateSubscribeLinks();
 
   const townCheckboxes = document.getElementById("townCheckboxes");

@@ -3,7 +3,8 @@ VERSION:2.0
 PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Browning Events (Linn County Community Calendar)
+X-WR-CALNAME:Browning Events (Linn County Community Calendar) (No Sports\,
+  No Obituary)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT

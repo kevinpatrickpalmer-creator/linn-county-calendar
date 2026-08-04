@@ -1,0 +1,10 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Purdin Events (Linn County Community Calendar) (No Sports\, N
+ o Obituary)
+X-PUBLISHED-TTL:PT4H
+X-WR-TIMEZONE:America/Chicago
+END:VCALENDAR

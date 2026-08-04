@@ -146,6 +146,7 @@ Run:
 """
 import glob
 import html
+import itertools
 import json
 import os
 import re
@@ -341,6 +342,16 @@ EVENT_ID_RE = re.compile(r"#/details/[^/]+/(\d+)/")
 LOCAL_TZ = ZoneInfo(CONFIG["timezone"])
 # Written into docs/ so GitHub Pages (serving from /docs) can host it directly.
 ICS_PATH = "docs/linn_county_events.ics"
+# Event categories a subscriber can opt out of individually via
+# checkboxes on index.html (e.g. someone who wants their town's events
+# but not school sports games or obituaries) -- see the "category" key
+# each event dict may carry (get_mshsaa_school_events() tags "sports";
+# the funeral home sources tag "obituary") and
+# _write_category_variant_ics_files() below, which writes one .ics per
+# combination of these to exclude, alongside the "everything included"
+# file every caller already writes. Adding a third category later is
+# just adding it here -- the combination logic doesn't change.
+FILTERABLE_CATEGORIES = ("sports", "obituary")
 # Per-source health snapshot from the most recent run -- see
 # docs/status.html and the source_health comment in main() for details.
 SOURCE_STATUS_PATH = "docs/source_status.json"
@@ -827,6 +838,14 @@ def get_mshsaa_school_events(school_id, district, town):
                 "event_id": f"mshsaa-{school_id}-{current_date.isoformat()}-{slug}",
                 "start_iso": None,
                 "end_iso": None,
+                # See FILTERABLE_CATEGORIES -- lets a subscriber uncheck
+                # "School sports games" on index.html and get every
+                # "-no-sports*.ics" variant _write_category_variant_ics_files()
+                # writes. A handful of sports-ish events from other
+                # sources (e.g. the Chamber's own "Bell Game") aren't
+                # caught by this; tagging by source is reliable, tagging
+                # by guessing at event names is not.
+                "category": "sports",
             }
         )
 
@@ -1173,6 +1192,7 @@ def parse_rhodes_obituaries(html):
                 "event_id": f"rhodesobit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')}",
                 "start_iso": None,
                 "end_iso": None,
+                "category": "obituary",
             }
         )
 
@@ -1278,6 +1298,7 @@ def get_tribute_technology_obituaries(name, base_url):
                 "event_id": f"{id_prefix}obit-{death_date.isoformat()}-{re.sub(r'[^a-z0-9]+', '-', person_name.lower()).strip('-')}",
                 "start_iso": None,
                 "end_iso": None,
+                "category": "obituary",
             }
         )
 
@@ -1399,10 +1420,38 @@ def build_calendar(events, calname=None):
             event.add("location", ev["location"])
         if ev["description"]:
             event.add("description", ev["description"])
+        if ev.get("category"):
+            # Lets calendar-view.html's own filter recognize category
+            # (currently just "sports") straight from a normal
+            # linn_county_events.ics fetch, without needing the separate
+            # "-no-sports.ics" files write_town_ics_files()/main() write
+            # for actual phone/computer calendar subscriptions.
+            event.add("categories", ev["category"])
 
         cal.add_component(event)
 
     return cal
+
+
+def _write_category_variant_ics_files(events, base_path, calname_base):
+    """Write one .ics per non-empty combination of FILTERABLE_CATEGORIES
+    to exclude (e.g. "{base_path}-no-sports.ics",
+    "{base_path}-no-sports-no-obituary.ics", ...) alongside the
+    "everything included" file the caller already writes at
+    "{base_path}.ics" -- so a subscriber can check exactly the kinds of
+    events they want on index.html instead of an all-or-nothing
+    subscription. Shared by main() (the county-wide file) and
+    write_town_ics_files() (each per-town file) so the combination logic
+    -- and the naming scheme calendar-view.html/index.html need to match
+    -- only lives in one place."""
+    for r in range(1, len(FILTERABLE_CATEGORIES) + 1):
+        for excluded in itertools.combinations(FILTERABLE_CATEGORIES, r):
+            suffix = "".join(f"-no-{c}" for c in excluded)
+            calname = f"{calname_base} (" + ", ".join(f"No {c.title()}" for c in excluded) + ")"
+            filtered = [ev for ev in events if ev.get("category") not in excluded]
+            calendar = build_calendar(filtered, calname=calname)
+            with open(f"{base_path}{suffix}.ics", "wb") as f:
+                f.write(calendar.to_ical())
 
 
 def write_town_ics_files(events):
@@ -1413,14 +1462,23 @@ def write_town_ics_files(events):
     email filtering already in send_reminders.py. Events with no
     resolvable town (a bare "Marceline, MO"-only match is fine; blank/
     unparseable locations are not) are simply omitted from every town
-    file rather than guessed at."""
+    file rather than guessed at.
+
+    Also writes every FILTERABLE_CATEGORIES exclusion combination per
+    town via _write_category_variant_ics_files() -- e.g.
+    docs/towns/brookfield-no-sports.ics -- the same idea as main() does
+    for the county-wide file, just per-town."""
     os.makedirs(TOWN_ICS_DIR, exist_ok=True)
     for town in CONFIG["towns"]:
         town_events = [ev for ev in events if extract_town(ev.get("location", ""), CONFIG) == town]
-        calendar = build_calendar(town_events, calname=f"{town} Events ({CONFIG['calendar_title']})")
+        calname_base = f"{town} Events ({CONFIG['calendar_title']})"
+        calendar = build_calendar(town_events, calname=calname_base)
         slug = re.sub(r"[^a-z0-9]+", "-", town.lower()).strip("-")
-        with open(os.path.join(TOWN_ICS_DIR, f"{slug}.ics"), "wb") as f:
+        base_path = os.path.join(TOWN_ICS_DIR, slug)
+        with open(f"{base_path}.ics", "wb") as f:
             f.write(calendar.to_ical())
+
+        _write_category_variant_ics_files(town_events, base_path, calname_base)
 
 
 def main():
@@ -1614,6 +1672,8 @@ def main():
     os.makedirs(os.path.dirname(ICS_PATH) or ".", exist_ok=True)
     with open(ICS_PATH, "wb") as f:
         f.write(ics_bytes)
+
+    _write_category_variant_ics_files(events, ICS_PATH.removesuffix(".ics"), CONFIG["calendar_title"])
 
     write_town_ics_files(events)
     print(f"Wrote per-town .ics files to {TOWN_ICS_DIR}/\n")

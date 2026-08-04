@@ -3,7 +3,8 @@ VERSION:2.0
 PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Brookfield Events (Linn County Community Calendar)
+X-WR-CALNAME:Brookfield Events (Linn County Community Calendar) (No Obitua
+ ry)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
@@ -3187,58 +3188,6 @@ DESCRIPTION:Celebrate Customer Appreciation Day with Chariton Valley! Enjo
  y lunch\, visit with Chariton Valley staff\, and let us thank you for bein
  g a valued customer. We look forward to seeing you there!📍Macon HQ Lawn
  -1213 E Briggs Drive\, Macon\, MO 63552
-LOCATION:Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Obituary: Letty  Jean Parr
-DTSTART;VALUE=DATE:20260714
-DTEND;VALUE=DATE:20260715
-DTSTAMP:20260804T200826Z
-UID:delaneyfuneralhomeobit-2026-07-14-letty-jean-parr-2026-07-14-allday@li
- nn-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Letty Jean Parr\, 88\, of Brookfield\, Missouri\, passed away 
- peacefully on Tuesday\, July 14\, 2026\, at Pioneer Skilled Nursing Center
-  in Marceline. Born on August 16\, 1937\, in Manning\, Iowa\, Letty was th
- e daughter of Arthur Herman Fuss and Wilhelmine Amanda (Schroeder) Fuss. S
- he graduated from Marceline High School with the Class of 1955. On March 6
- \, 1960\, she was united in marriage to Charles Wayne Parr in Marceline\, 
- Missouri. Together they built a loving home centered around faith and fami
- ly until Charles preceded her in death on Tuesday\, May 28\, 2007. A devot
- ed homemaker\, Letty found great joy in caring for her family and creating
-  a warm\, welcoming home. She loved playing cards\, crocheting\, cross-sti
- tching\, tending her garden\, canning and traveling whenever she had the o
- pportunity. She was an enthusiastic fan of the Kansas City Chiefs and Kans
- as City Royals and never missed an opportunity to celebrate birthdays\, Ch
- ristmas\, and holidays with those she loved. Letty delighted in decorating
-  for every season\, sharing stories with her grandchildren\, and making la
- sting memories with her family. To know Letty was to know a kind\, loving 
- woman whose greatest joy was the people she loved. Letty was a longtime me
- mber of First Christian Church in Marceline. She was actively involved in 
- her community through the Mothers Study Club in Marceline\, the Neighborho
- od Home Social Club in Brookfield\, the Red Hats Society Club in Brookfiel
- d\, CDF Women\, and served as a leader for the Stains Willing Workers 4-H 
- Club. She also volunteered at the Walt Disney Hometown Museum\, where she 
- enjoyed giving back to her community. She is survived by her children\, Ar
- thur Wayne Parr (Devanie Sloan) of St. Catharine\, Missouri\, and Melissa 
- Hustead and husband Lenard of Marceline\, Missouri\; grandchildren\, Luke 
- Hustead and wife Rebecca\, Bo Hustead (Kayli Crawford)\, Krista Hustead an
- d Stephen Leetch\; great-grandchildren\, T.J. Leetch and Karlyn Almond\, w
- ith one additional great-grandchild expected soon\; as well as many belove
- d nieces\, nephews\, extended family members\, and dear friends. She was p
- receded in death by her parents\; her beloved husband\, Charles Wayne Parr
- \; her parents-in-law\, John and Anna Parr\; brothers\, Lyle Fuss (Dorothy
- ) and Charles Fuss (Linda)\; nephews\, Jeff Powell and Mark Fuss\; nieces\
- , Penny Fuss and Debbie Vietti\; sister-in-law and brother-in-law\, Marie 
- Vietti (Raymond)\; sister-in-law and brother-in-law\, Gertie Finney (Lloyd
- )\; and her beloved cat\, Alley. Funeral services will be held at 11:00 a.
- m. on Tuesday\, July 21\, 2026\, at Delaney Funeral Home in Marceline. Vis
- itation will be from 5:00 until 7:00 p.m. on Monday\, July 20\, 2026\, at 
- Delaney Funeral Home in Marceline. Burial will follow at Mt. Olivet Cemete
- ry in Marceline\, Missouri. Memorial contributions may be made to First Ch
- ristian Church\, the Marceline Nutrition Site\, or Pioneer Activities.\n\n
- Full obituary and service details: https://www.delaneyfuneralhome.com/obit
- uaries/Letty-Jean-Parr?obId=49015862
 LOCATION:Brookfield\, MO
 END:VEVENT
 END:VCALENDAR

@@ -205,6 +205,23 @@ responsive down to narrow sidebar-widget widths.
   is the calendar-subscription equivalent of the town filter already in
   `calendar-view.html` and the per-town email filtering below; all three
   now share the same `extract_town()` from `calendar_config.py`.
+- **Category checkboxes:** also on `docs/index.html`, "School sports
+  games" and "Obituaries" (both checked by default) let someone exclude
+  a category they don't want mixed into their subscription -- e.g.
+  Marceline's events minus school sports games. Each event optionally
+  carries a `category` (only `get_mshsaa_school_events()` tags `"sports"`
+  and the three funeral home sources tag `"obituary"` -- these are the
+  only sources reliable enough to tag by source rather than by guessing
+  at event names). `_write_category_variant_ics_files()` in
+  `scrape_linn_county_calendar.py` writes every combination of these to
+  exclude, both for the county-wide file
+  (`linn_county_events-no-sports.ics`, etc.) and per-town
+  (`docs/towns/<slug>-no-sports.ics`, etc.) -- `FILTERABLE_CATEGORIES`
+  there is the single source of truth both the Python file-naming and
+  index.html's JS combine to match. `calendar-view.html` also reads each
+  event's `CATEGORIES` field directly (added in `build_calendar()`) for
+  its own "Hide sports"/"Hide obituaries" checkboxes, filtering
+  client-side rather than needing a separate file per combination.
 - **Storage:** the preferences form posts directly to a Google Form, whose
   linked Google Sheet is published to the web as CSV. Each opt-in is its
   own column, so a single email can have either, both, or neither checked.
