@@ -48,6 +48,14 @@
     border: none;
     margin-top: .6rem;
   }
+  .or-divider {
+    text-align: center;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #999;
+    margin: .5rem 0 .1rem;
+  }
   label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
   label:first-of-type { margin-top: 0; }
   input[type="email"], select {
@@ -166,7 +174,8 @@
     </div>
 
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
-    <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link instead</a>
+    <p class="or-divider">OR</p>
+    <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
     <p class="hint" id="unsubscribeHint"></p>
   </section>
