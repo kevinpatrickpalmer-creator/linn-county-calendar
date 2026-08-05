@@ -107,6 +107,16 @@
   }
   .footer-link { text-align: center; margin-top: .5rem; }
   .footer-link a { color: #a71a2d; font-size: .9rem; }
+  .submit-qr { text-align: center; margin-top: .6rem; }
+  .submit-qr .qr-box {
+    display: inline-block;
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    line-height: 0;
+  }
+  .submit-qr .qr-box svg { width: 92px; height: 92px; display: block; }
+  .submit-qr p { margin: .3rem 0 0; font-size: .75rem; color: #888; }
   .site-credit {
     text-align: center;
     margin-top: 1.5rem;
@@ -126,9 +136,11 @@
     input[type="email"], select { background: #15151a; color: #eee; border-color: #444; }
     p.sub, p.hint { color: #aaa; }
     .footer-link a { color: #d99a44; }
+    .submit-qr p { color: #999; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="qrcode.js"></script>
 </head>
 <body>
 <main>
@@ -189,6 +201,10 @@
   <div class="footer-link">
     <a href="submit.html">Submit a community event &rarr;</a>
   </div>
+  <div class="submit-qr">
+    <div class="qr-box" id="submitQR"></div>
+    <p>Scan to submit an event</p>
+  </div>
   <div class="footer-link">
     <a href="privacy.html">Privacy Policy</a>
   </div>
@@ -209,6 +225,13 @@
     `Local events, meetings, and happenings around ${config.county_display_name} — kept up to date automatically.`;
   document.getElementById("newsletterLabel").textContent =
     `Sign me up for the ${config.county_display_name} community newsletter (occasional updates, no set schedule yet)`;
+
+  // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
+  // printable flyer uses, so both point to the exact same submit.html URL.
+  const qr = qrcode(0, "M");
+  qr.addData(`https://${config.domain}/submit.html`);
+  qr.make();
+  document.getElementById("submitQR").innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
 
   // Matches the slug write_town_ics_files() uses in
   // scrape_linn_county_calendar.py (re.sub(r"[^a-z0-9]+", "-", ...)).
