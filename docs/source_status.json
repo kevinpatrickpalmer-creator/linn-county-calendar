@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T23:51:40.251723+00:00",
+  "generated_at": "2026-08-05T10:26:04.953765+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -63,7 +63,7 @@
     },
     {
       "name": "Linn County government calendar",
-      "count": 7,
+      "count": 6,
       "ok": true,
       "error": null
     },
@@ -81,7 +81,7 @@
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 3,
+      "count": 2,
       "ok": true,
       "error": null
     }
