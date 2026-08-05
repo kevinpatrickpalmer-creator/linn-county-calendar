@@ -194,6 +194,38 @@ to be embedded on other sites (town/school pages, etc.) via a plain
 `<iframe>` -- the page itself has a "Embed this calendar" snippet, and is
 responsive down to narrow sidebar-widget widths.
 
+## Printable flyer
+
+`docs/flyer.html` is a one-page, letter-sized flyer for recruiting
+businesses/institutions/organizations to submit their events -- linked
+from the bottom of `index.html` ("Printable flyer for businesses &
+organizations") so it's always somewhere the community can find and print
+it, not just a link handed out once. Has a "Print this flyer" button and
+print-specific CSS (`@media print`) sized to fit one printed page.
+
+Pulls from `config.json` the same way every other page does (calendar
+name, town list, domain, admin email), so it stays correct if this ever
+gets reused for another town/county -- the only genuinely Linn-County
+-specific content is the Missouri-with-Linn-County-highlighted map in the
+masthead (public domain, from [Wikimedia Commons](https://en.wikipedia.org/wiki/File:Map_of_Missouri_highlighting_Linn_County.svg),
+recolored to match the site's palette) and the copy itself, both of which
+would need swapping for a different deployment same as `CALENDAR_URL` in
+the scraper.
+
+Has two QR codes, generated client-side with `docs/qrcode.js`
+([kazuhikoarase/qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator),
+MIT licensed) -- the same script `index.html`'s own QR code
+(next to "Submit a community event") uses, so all three point at
+consistent URLs:
+- **Scan to submit** -- `submit.html`, for the business/organization
+  actually adding their event.
+- **Scan to subscribe** -- the countywide `webcal://` link directly
+  (not just the website), so a resident gets the whole calendar in one
+  scan with no extra taps. It can't offer per-town or category
+  filtering the way the button on `index.html` can, since a QR code is
+  a fixed link -- that's the deliberate tradeoff for a flyer, where
+  low friction for a casual scanner matters more than granularity.
+
 ## Landing page, reminders & newsletter list
 
 - **Landing page:** `docs/index.html` — the "Subscribe to Calendar" button
