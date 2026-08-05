@@ -340,7 +340,18 @@
         mode: "no-cors",
         body: data,
       });
-      statusEl.textContent = "Saved! You can update your preferences any time by submitting this form again.";
+      const nextSteps = [];
+      if (reminder) {
+        nextSteps.push(
+          "You'll get your first reminder email the evening before an event you're tracking is happening — a quiet inbox until then just means nothing's coming up yet."
+        );
+      }
+      if (newsletter) {
+        nextSteps.push("We'll email you the moment the Community App is ready — there's no set timeline yet.");
+      }
+      const nextStepsText = nextSteps.length ? ` ${nextSteps.join(" ")}` : "";
+      statusEl.textContent =
+        `Saved!${nextStepsText} You can update your preferences any time by submitting this form again.`;
       statusEl.className = "ok";
     } catch (err) {
       statusEl.textContent = "Something went wrong saving your preferences. Please try again.";
