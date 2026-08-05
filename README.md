@@ -226,7 +226,7 @@ consistent URLs:
   a fixed link -- that's the deliberate tradeoff for a flyer, where
   low friction for a casual scanner matters more than granularity.
 
-## Landing page, reminders & newsletter list
+## Landing page, reminders & app interest list
 
 - **Landing page:** `docs/index.html` — the "Subscribe to Calendar" button
   and a preferences form (email + two independent opt-in checkboxes). A
@@ -265,9 +265,13 @@ consistent URLs:
   everyone with the reminder box checked via Brevo (verified single
   sender, no custom domain required). SendGrid was the original plan but
   hit an unresolvable account-provisioning bug on their end (see git log).
-- **Newsletter opt-ins** are stored in the same sheet but nothing sends to
-  them yet — that column is just sitting there ready for whenever an
-  actual newsletter gets built.
+- **Community App interest** ("Notify me when the Community App launches")
+  reuses the same `newsletter` field/column (both in the HTML element IDs
+  and `config.json`'s `entry_newsletter` Google Form field) -- it was
+  originally a newsletter opt-in, repurposed to gauge interest in a future
+  app instead of adding a separate opt-in and Form field for the same
+  "email us later" purpose. Nothing sends to this list yet; it's just
+  collecting interest.
 
 ## Run locally
 

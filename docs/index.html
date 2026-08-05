@@ -199,7 +199,7 @@
 
       <div class="checkbox-row">
         <input type="checkbox" id="newsletter" name="newsletter">
-        <label for="newsletter" id="newsletterLabel">Sign me up for the community newsletter (occasional updates, no set schedule yet)</label>
+        <label for="newsletter" id="newsletterLabel">Notify me when the Community App launches</label>
       </div>
 
       <button type="submit" id="prefSubmit">Save preferences</button>
@@ -236,7 +236,7 @@
   document.getElementById("pageSub").textContent =
     `Local events, meetings, and happenings around ${config.county_display_name} — kept up to date automatically.`;
   document.getElementById("newsletterLabel").textContent =
-    `Sign me up for the ${config.county_display_name} community newsletter (occasional updates, no set schedule yet)`;
+    `Notify me when the ${config.county_display_name} Community App launches`;
 
   // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
   // printable flyer uses, so both point to the exact same submit.html URL.
