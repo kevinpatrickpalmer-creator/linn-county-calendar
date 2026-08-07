@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T15:13:34.351085+00:00",
+  "generated_at": "2026-08-07T18:45:55.562344+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,37 +15,37 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 0,
+      "count": 7,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 255,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 135,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 70,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 75,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 80,
+      "count": 0,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 0,
+      "count": 13,
       "ok": true,
       "error": null
     },
@@ -75,7 +75,7 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 1,
+      "count": 2,
       "ok": true,
       "error": null
     },
