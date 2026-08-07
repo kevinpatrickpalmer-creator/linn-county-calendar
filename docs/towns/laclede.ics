@@ -11,7 +11,7 @@ SUMMARY:Laclede Pershing Days Car Show this September. The event is schedu
  led for Sat.
 DTSTART:20260912T133000Z
 DTEND:20260912T143000Z
-DTSTAMP:20260807T184555Z
+DTSTAMP:20260807T221018Z
 UID:leadereditorial-2026-09-12-laclede-pershing-days-car-show-this-septemb
  er-the-event-is-s-2026-09-12-830@linn-county-scraper.local
 DESCRIPTION:Laclede Pershing Days Car Show this September. The event is sc
@@ -29,7 +29,7 @@ BEGIN:VEVENT
 SUMMARY:Obituary: Bobby Dale Hudson "Bob"
 DTSTART;VALUE=DATE:20260721
 DTEND;VALUE=DATE:20260722
-DTSTAMP:20260807T184555Z
+DTSTAMP:20260807T221018Z
 UID:wrightfuneralhomeobit-2026-07-21-bobby-dale-hudson-bob-2026-07-21-alld
  ay@linn-county-scraper.local
 CATEGORIES:obituary
