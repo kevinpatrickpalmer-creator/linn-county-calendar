@@ -267,7 +267,6 @@
     text-align: right;
     line-height: 1.5;
   }
-  .footer .credit a { color: var(--navy); text-decoration: none; font-weight: 600; }
 
   @media (max-width: 640px) {
     .page { padding: .6in .5in .5in; }
@@ -479,12 +478,11 @@
 
   <div class="footer">
     <div class="towns">
-      <b>Questions?</b>
-      <span id="contactEmail"></span>
+      <b>Questions or problems?</b>
+      kevin@communitycalendarconnect.com
     </div>
     <div class="credit">
-      Built by <a href="https://kevinpalmersolutions.com">Kevin Palmer Solutions</a><br>
-      Powered by Community Calendar Connect
+      Powered by communitycalendarconnect.com
     </div>
   </div>
 
@@ -516,7 +514,6 @@
   }
   fillDomain(document.getElementById("ctaUrlDomain"), config.domain);
   fillDomain(document.getElementById("subscribeUrl"), config.domain);
-  document.getElementById("contactEmail").textContent = config.admin_email;
 
   const qrSubmit = qrcode(0, "M");
   qrSubmit.addData(`https://${config.domain}/submit.html`);
