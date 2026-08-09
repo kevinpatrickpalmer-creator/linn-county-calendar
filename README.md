@@ -89,6 +89,23 @@ results as an `.ics` calendar feed at `docs/linn_county_events.ics`:
   through the same dedup check as the newspaper's page, since its own
   "Wine & Art Stroll" would otherwise double up with CitySpark's entry
   for the same event.
+- [Teter Auction Company](https://www.teterauction.com/)'s upcoming
+  auctions — physically headquartered in Laclede, and its homepage lists
+  real land/estate auctions across the region. The only auction/estate
+  -sale source found with both real in-county content and something
+  worth scraping (Sayre, Smith, Scotty's, McCurdy, and Enyeart were all
+  checked; none had both, and a national estate-sale aggregator had zero
+  listings anywhere near Linn County). Unlike every other source here,
+  there's no structured markup at all — `get_teter_auction_events()`
+  parses the page's own rendered text, the same spirit as
+  `get_leader_editorial_calendar_events()`, and is the most fragile
+  source in this file: a homepage redesign could break it silently. Also
+  widens its town match to include Macon and Chillicothe (both along the
+  same Highway 36 corridor) since auctions draw people well beyond their
+  own town in a way most other events here don't — those still land in
+  the whole-county calendar without appearing in any single Linn County
+  town's own filtered `.ics`, since `extract_town()` has no fixed town
+  list of its own.
 
 Each source normalizes to the same event shape before merging, so adding
 another town's source is a matter of writing one more `get_*_events()`
@@ -99,8 +116,9 @@ docstring for details.
 
 Every run writes `docs/source_status.json` alongside the `.ics` file --
 per-source event counts and, for the sources that propagate real errors
-back to `main()` (CitySpark, Rhodes, Wright, Delaney), whether that run
-succeeded. `docs/status.html` (an admin-only page, not linked from the
+back to `main()` (CitySpark, Rhodes, Wright, Delaney, Teter Auction
+Company), whether that run succeeded. `docs/status.html` (an admin-only
+page, not linked from the
 public site, same as `admin.html`/`manage-events.html`) renders this so a
 persistent failure like Rhodes' Cloudflare block is visible at a glance
 instead of only showing up by chance in GitHub Actions logs. Sources that

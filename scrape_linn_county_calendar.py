@@ -117,6 +117,29 @@ the MSHSAA_SCHOOLS comment above). Run through the same dedup check as
 the newspaper's page, since e.g. its "Wine & Art Stroll" would
 otherwise double up with CitySpark's own entry for the same event.
 
+Source 12 -- Teter Auction Company:
+The only auction/estate-sale house found with real, ongoing in-county
+content -- physically headquartered in Laclede, and its homepage lists
+real land/estate auctions across the region, including ones in Laclede
+and Brookfield specifically. Unlike every other source here, though,
+there's no structured markup to lean on at all: no schema.org JSON-LD,
+no semantic class names, just free-form Wix rich-text blocks. Several
+other local auction companies were checked (Sayre, Smith, Scotty's,
+McCurdy, Enyeart) and none had both real in-county content and
+anything more structured to scrape -- and a national estate-sale
+aggregator (estatesales.net) currently has zero listings anywhere near
+Linn County, so isn't a viable source either. get_teter_auction_events()
+is a best-effort text parser in the same spirit as
+get_leader_editorial_calendar_events() -- it reads the page's own
+rendered text line-by-line rather than its markup, splitting on each
+"TOWN, MISSOURI" header, and is deliberately conservative: a block
+whose town isn't one of ours, or whose date can't be confidently
+parsed, is skipped outright rather than guessed at. This is the most
+fragile source in this file by far -- a homepage redesign could break
+it silently -- but it's also the only realistic way to get this
+content, since auction companies this size don't tend to adopt a
+submission form on their own.
+
 Each source's output gets normalized to the same event dict shape before
 merging, so adding another town's source later just means writing one
 more `get_*_events()` function and extending it into `events` in main() --
@@ -278,6 +301,28 @@ DOWNTOWN_MARCELINE_ICS_URL = (
     "https://calendar.google.com/calendar/ical/"
     "c_519a86074d6a3267a04609eb6bb3da5711e0049de867055e60b1b1867168ffc9"
     "%40group.calendar.google.com/public/basic.ics"
+)
+
+# Twelfth source: Teter Auction Company's homepage lists real, current
+# auctions -- see the module docstring's "Source 12" section for why
+# get_teter_auction_events() has to parse the page's own rendered text
+# rather than any structured markup. Auctions draw people well beyond
+# their own town in a way most other events here don't -- people
+# already treat them as worth an out-of-county drive -- so this source
+# widens its town match beyond CONFIG["towns"] to include neighboring
+# Macon and Chillicothe (both along the same Highway 36 corridor, per
+# CLAUDE.md's brand context) rather than only the 8 Linn County towns
+# every other source is limited to. Since extract_town() has no notion
+# of a fixed town list -- it just pulls whatever "Town, ST" text
+# appears -- these still correctly show up in the whole-county
+# calendar without appearing in any single Linn County town's own
+# filtered .ics, which is what should happen for towns that aren't
+# actually in Linn County.
+TETER_AUCTION_URL = "https://www.teterauction.com/"
+TETER_AUCTION_EXTRA_TOWNS = ("Macon", "Chillicothe")
+TETER_TOWN_HEADER_RE = re.compile(r"^([A-Z][A-Z .]+), MISSOURI$")
+TETER_DATE_RE = re.compile(
+    r"^(?:Opens:\s*)?([A-Za-z]+, [A-Za-z]+ \d{1,2}, \d{4})\s*\S\s*(\d{1,2}:\d{2}\s?[AP]M)$"
 )
 
 # Obituary sources (7, 8): recent death notices, not upcoming events like
@@ -1137,6 +1182,119 @@ def get_downtown_marceline_events():
     return events
 
 
+def get_teter_auction_events():
+    """Fetch Teter Auction Company's homepage and parse its "Upcoming
+    Auctions" list from the page's own rendered text (see
+    TETER_AUCTION_URL above for why -- there's no structured markup to
+    lean on at all). Each auction block starts with an all-caps
+    "TOWN, MISSOURI" header; only blocks whose town matches one of ours
+    are kept, since most of Teter's real auctions are elsewhere in the
+    region. A block whose date can't be confidently parsed is skipped
+    rather than guessed at, same principle as everywhere else in this
+    file."""
+    try:
+        resp = requests.get(TETER_AUCTION_URL, headers=BROOKFIELD_REQUEST_HEADERS, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  WARNING: couldn't fetch Teter Auction Company's homepage: {e}", file=sys.stderr)
+        return []
+
+    soup = BeautifulSoup(resp.content, "html.parser")
+    text = (soup.find("main") or soup).get_text("\n", strip=True)
+
+    start = text.find("UPCOMING AUCTIONS")
+    if start == -1:
+        print("  WARNING: Teter Auction Company's page structure has changed (no 'UPCOMING AUCTIONS' section found)", file=sys.stderr)
+        return []
+    end = text.find("Never miss another auction", start)
+    section = text[start + len("UPCOMING AUCTIONS") : end if end != -1 else None]
+
+    # Split into one block per "TOWN, MISSOURI" header line -- everything
+    # after a header, up to the next one, belongs to that auction.
+    blocks = []
+    current = None
+    for line in section.split("\n"):
+        line = line.strip()
+        if not line or line == "​":  # Wix leaves a stray zero-width space per block
+            continue
+        header_match = TETER_TOWN_HEADER_RE.match(line)
+        if header_match:
+            if current:
+                blocks.append(current)
+            current = {"town_header": header_match.group(1).title(), "lines": []}
+        elif current is not None:
+            current["lines"].append(line)
+    if current:
+        blocks.append(current)
+
+    today = datetime.now(LOCAL_TZ).date()
+    events = []
+    for block in blocks:
+        town = next(
+            (
+                t
+                for t in (*CONFIG["towns"], *TETER_AUCTION_EXTRA_TOWNS)
+                if t.lower() == block["town_header"].lower()
+            ),
+            None,
+        )
+        if not town:
+            continue  # not one of our towns (or Macon/Chillicothe) -- most Teter auctions are elsewhere
+
+        lines = block["lines"]
+        if not lines:
+            continue
+        name = lines[0]
+
+        date_idx, start_dt = None, None
+        for i, line in enumerate(lines):
+            date_match = TETER_DATE_RE.match(line)
+            if date_match:
+                try:
+                    start_dt = datetime.strptime(
+                        f"{date_match.group(1)} {date_match.group(2).upper().replace(' ', '')}",
+                        "%A, %B %d, %Y %I:%M%p",
+                    ).replace(tzinfo=LOCAL_TZ)
+                except ValueError:
+                    continue
+                date_idx = i
+                break
+        if start_dt is None or start_dt.date() < today:
+            continue
+
+        # Everything between the date line and the final "VIEW AUCTION
+        # DETAILS"/"DETAILS COMING SOON!" line is the address -- joined,
+        # then trimmed of the trailing ", Town, MO #####" the block's own
+        # header already told us, rather than re-parsed from it.
+        address_lines = lines[date_idx + 1 : -1] if len(lines) > date_idx + 1 else []
+        address = " ".join(address_lines).replace("Address:", "").strip()
+        address = re.sub(
+            rf",?\s*{re.escape(town)},?\s*(Missouri|MO)?\.?\s*\d{{0,5}}\.?$",
+            "",
+            address,
+            flags=re.IGNORECASE,
+        ).strip().rstrip(",")
+
+        location = f"{address} | {town}, {CONFIG['state']}" if address else f"{town}, {CONFIG['state']}"
+        slug = re.sub(r"[^a-z0-9]+", "-", f"{name}-{town}".lower()).strip("-")
+
+        events.append(
+            {
+                "name": name,
+                "date": start_dt.strftime("%Y-%m-%d"),
+                "time": start_dt.strftime("%I:%M %p"),
+                "location": location,
+                "description": f"See {TETER_AUCTION_URL} for full auction details.",
+                "href": "",
+                "event_id": f"teterauction-{start_dt.date().isoformat()}-{slug}",
+                "start_iso": None,
+                "end_iso": None,
+            }
+        )
+
+    return events
+
+
 def get_rhodes_obituaries_html(page):
     page.goto(RHODES_OBITUARIES_URL, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_selector(".obituaries-list__results li", timeout=20000)
@@ -1632,6 +1790,18 @@ def main():
     marceline_events = get_downtown_marceline_events()
     record_health("Downtown Marceline Foundation", len(marceline_events))
     add_with_dedup(marceline_events, "the Downtown Marceline Foundation's calendar")
+
+    # The most fragile source in this file (see get_teter_auction_events()'s
+    # docstring) -- a real parsing failure here shouldn't take down the
+    # other eleven working sources with it.
+    try:
+        teter_events = get_teter_auction_events()
+        record_health("Teter Auction Company", len(teter_events))
+    except Exception as e:
+        print(f"  WARNING: couldn't parse Teter Auction Company's homepage: {e}", file=sys.stderr)
+        teter_events = []
+        record_health("Teter Auction Company", 0, error=str(e))
+    add_with_dedup(teter_events, "Teter Auction Company's upcoming auctions")
 
     add_with_dedup(rhodes_events, "Rhodes Funeral Home (in-county obituaries)")
 
