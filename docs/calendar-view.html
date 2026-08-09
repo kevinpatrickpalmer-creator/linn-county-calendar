@@ -193,9 +193,7 @@
     font-size: .8rem;
     color: #888;
   }
-  .site-credit a { color: #a71a2d; text-decoration: none; font-weight: 600; }
   .site-credit .powered-by { display: block; margin-top: .3rem; color: #aaa; font-size: .75rem; }
-  body.embedded .site-credit .personal-cta { display: none; }
   @media (max-width: 480px) {
     .day { min-height: 3.6rem; font-size: .68rem; }
     .pill { font-size: .62rem; }
@@ -225,7 +223,6 @@
     #detail button { color: #d99a44; }
     .links a { color: #d99a44; }
     .site-credit { border-top-color: #333; color: #999; }
-    .site-credit a { color: #d99a44; }
     .site-credit .powered-by { color: #666; }
   }
 </style>
@@ -279,21 +276,12 @@
   </details>
 
   <div class="site-credit">
-    <span class="personal-cta">Built by <a href="https://kevinpalmersolutions.com" target="_blank" rel="noopener">Kevin Palmer Solutions</a> — need a custom calendar, scraper, or small-business tech solution? Let's talk.</span>
-    <span class="powered-by">Powered by Community Calendar Connect</span>
+    Questions or problems? kevin@communitycalendarconnect.com
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
   </div>
 </div>
 
 <script>
-// Hide the personal marketing CTA when this page is embedded via iframe on
-// someone else's site -- "Powered by" still shows either way. window.top
-// throws for cross-origin frames, which itself means "embedded", so treat
-// that as embedded too rather than letting the error propagate.
-try {
-  if (window.self !== window.top) document.body.classList.add("embedded");
-} catch (err) {
-  document.body.classList.add("embedded");
-}
 
 const ICS_URL = "linn_county_events.ics";
 const DOW_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
