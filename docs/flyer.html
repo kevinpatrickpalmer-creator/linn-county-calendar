@@ -156,67 +156,67 @@
   }
   .body-text strong { color: var(--ink); }
 
-  /* ---------- Benefits list ---------- */
-  .benefits {
-    list-style: none;
-    margin: 0 0 1.2rem;
-    padding: 0;
-    display: grid;
-    gap: .5rem;
-  }
-  .benefits li {
-    display: grid;
-    grid-template-columns: 1.5rem 1fr;
-    gap: .5rem;
-    font-size: .88rem;
-    line-height: 1.35;
-  }
-  .benefits .mark {
-    font-family: Georgia, serif;
-    font-weight: 700;
-    color: var(--gold);
-    font-size: 1.1rem;
-    line-height: 1.3;
-  }
-  .benefits b { display: block; }
-  .benefits span.detail { color: var(--ink-soft); }
-
-  /* ---------- CTA box ---------- */
-  .cta {
+  /* ---------- Two-column subscribe / add-event table ---------- */
+  .two-col {
     display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    border: 2px solid var(--brick);
-    border-radius: 4px;
-    padding: .85rem 1.1rem;
-    margin: 0 0 .85rem;
-    background: #fff;
+    align-items: stretch;
+    gap: 0;
+    margin: 0 0 1rem;
   }
-  .cta .cta-text { flex: 1; text-align: left; }
-  .cta .cta-label {
-    font-size: .9rem;
+  .two-col .col {
+    flex: 1;
+    text-align: center;
+    padding: 0 .9rem;
+  }
+  .two-col .col-divider {
+    width: 1px;
+    background: var(--rule);
+    margin: 0 .1rem;
+  }
+  .col-label {
+    font-size: .82rem;
     font-weight: 700;
     letter-spacing: .04em;
     text-transform: uppercase;
     color: var(--brick);
-    margin: 0 0 .35rem;
+    margin: 0 0 .6rem;
   }
-  .cta .cta-url {
+  .col-url {
     font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 1.1rem;
+    font-size: .92rem;
     font-weight: 700;
     color: var(--ink);
     line-height: 1.3;
-    margin: 0 0 .35rem;
+    margin: .5rem 0 .3rem;
+    overflow-wrap: break-word;
   }
-  .cta .cta-url .path {
-    display: block;
-    color: var(--brick);
-  }
-  .cta .cta-hint {
-    font-size: .78rem;
+  .col-url .path { display: block; color: var(--brick); }
+  .col-hint {
+    font-size: .74rem;
     color: var(--ink-soft);
+    line-height: 1.35;
+    margin: 0 0 .75rem;
+  }
+  .col-benefits {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    text-align: left;
+    display: grid;
+    gap: .4rem;
+  }
+  .col-benefits li {
+    display: grid;
+    grid-template-columns: .9rem 1fr;
+    gap: .4rem;
+    font-size: .76rem;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .col-benefits .mark {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: var(--gold);
   }
 
   .qr-block {
@@ -246,24 +246,6 @@
     margin: 0 0 .45rem;
   }
 
-  .secondary-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .85rem;
-    margin: 0 0 1rem;
-  }
-  .secondary-row .qr-block .qr-img { width: 54px; height: 54px; }
-  .secondary-note {
-    text-align: center;
-    font-size: .82rem;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0;
-    max-width: 4.6in;
-  }
-  .secondary-note strong { color: var(--navy); }
-
   .spacer { flex: 1; }
 
   /* ---------- Footer ---------- */
@@ -292,6 +274,8 @@
     .page { padding: .6in .5in .5in; }
     .nameplate { font-size: 2rem; }
     .hero { font-size: 1.25rem; }
+    .two-col { flex-direction: column; gap: 1.1rem; }
+    .two-col .col-divider { width: 100%; height: 1px; margin: 0; }
     .footer { flex-direction: column; align-items: flex-start; }
     .footer .credit { text-align: left; }
   }
@@ -455,49 +439,40 @@
   <p class="section-label">What it is</p>
   <p class="body-text" id="whatItIs"></p>
 
-  <p class="section-label">Why add your event</p>
-  <ul class="benefits">
-    <li>
-      <span class="mark">&mdash;</span>
-      <span><b>It's free.</b> <span class="detail">No account, no login, no fee &mdash; ever.</span></span>
-    </li>
-    <li>
-      <span class="mark">&mdash;</span>
-      <span><b>Reach the whole county, or just your town.</b> <span class="detail">Subscribers choose what they see.</span></span>
-    </li>
-    <li>
-      <span class="mark">&mdash;</span>
-      <span><b>Standing meeting? Submit it once.</b> <span class="detail">Weekly, biweekly, or monthly events repeat on their own &mdash; no re-submitting every month.</span></span>
-    </li>
-    <li>
-      <span class="mark">&mdash;</span>
-      <span><b>Put it on your own website, too.</b> <span class="detail">The calendar embeds free as a widget, pre-filtered to your town if you want.</span></span>
-    </li>
-  </ul>
-
-  <div class="cta">
-    <div class="cta-text">
-      <p class="cta-label">Add your event &mdash; free</p>
-      <p class="cta-url"><span id="ctaUrlDomain"></span><span class="path">/submit.html</span></p>
-      <p class="cta-hint">Takes about two minutes. A real person reviews every submission before it goes live.</p>
-    </div>
-    <div class="qr-block">
-      <div class="qr-img" id="qrSubmit"></div>
-      <p class="qr-caption">Scan to submit</p>
-    </div>
-  </div>
-
+  <p class="section-label">Get started</p>
   <p class="throughline">Know before it's too late to show up.</p>
 
-  <div class="secondary-row">
-    <p class="secondary-note">
-      Just want the whole calendar on your phone? Scan, or visit
-      <strong id="secondaryDomain"></strong> to browse
-      online or pick just your town.
-    </p>
-    <div class="qr-block">
-      <div class="qr-img" id="qrMain"></div>
-      <p class="qr-caption">Scan to subscribe</p>
+  <div class="two-col">
+    <div class="col">
+      <p class="col-label">Subscribe &mdash; free</p>
+      <div class="qr-block">
+        <div class="qr-img" id="qrMain"></div>
+        <p class="qr-caption">Scan to subscribe</p>
+      </div>
+      <p class="col-url" id="subscribeUrl"></p>
+      <p class="col-hint">Or visit the link above to browse online, or pick just your town.</p>
+      <ul class="col-benefits">
+        <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
+        <li><span class="mark">&mdash;</span><span>Pick just your town, or the whole county.</span></li>
+        <li><span class="mark">&mdash;</span><span>Turn off school sports or obituaries, if you'd rather not see them.</span></li>
+        <li><span class="mark">&mdash;</span><span>New events show up on their own &mdash; nothing to check back for.</span></li>
+      </ul>
+    </div>
+    <div class="col-divider"></div>
+    <div class="col">
+      <p class="col-label">Add your event &mdash; free</p>
+      <div class="qr-block">
+        <div class="qr-img" id="qrSubmit"></div>
+        <p class="qr-caption">Scan to submit</p>
+      </div>
+      <p class="col-url"><span id="ctaUrlDomain"></span><span class="path">/submit.html</span></p>
+      <p class="col-hint">Takes about two minutes. A real person reviews every submission before it goes live.</p>
+      <ul class="col-benefits">
+        <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
+        <li><span class="mark">&mdash;</span><span>Reach the whole county, or just your town.</span></li>
+        <li><span class="mark">&mdash;</span><span>Standing meetings repeat on their own &mdash; submit once.</span></li>
+        <li><span class="mark">&mdash;</span><span>Embeds free on your own website, too.</span></li>
+      </ul>
     </div>
   </div>
 
@@ -530,8 +505,18 @@
   document.getElementById("whatItIs").textContent =
     `A calendar that automatically gathers events from across all ${config.towns.length} towns in ${config.county_display_name} and puts them in one place — located online, or delivered straight to anyone's phone or computer calendar. School sports games, city and county government meetings, festivals, fundraisers, auctions and estate sales, obituaries and visitations, chamber of commerce events, and more — it's already keeping track of what's happening countywide, and growing every week. Don't see your event on there? Add it yourself using the form below — it only takes about two minutes.`;
 
-  document.getElementById("ctaUrlDomain").textContent = config.domain;
-  document.getElementById("secondaryDomain").textContent = config.domain;
+  // The domain has no spaces or hyphens, so a plain text wrap picks an
+  // arbitrary mid-word break point once a column gets narrow. Inserting a
+  // <wbr> after each "." gives the browser a sane place to break instead.
+  function fillDomain(el, domain) {
+    const parts = domain.split(".");
+    parts.forEach((part, i) => {
+      el.appendChild(document.createTextNode(i === 0 ? part : `.${part}`));
+      if (i < parts.length - 1) el.appendChild(document.createElement("wbr"));
+    });
+  }
+  fillDomain(document.getElementById("ctaUrlDomain"), config.domain);
+  fillDomain(document.getElementById("subscribeUrl"), config.domain);
   document.getElementById("contactEmail").textContent = config.admin_email;
 
   const qrSubmit = qrcode(0, "M");
