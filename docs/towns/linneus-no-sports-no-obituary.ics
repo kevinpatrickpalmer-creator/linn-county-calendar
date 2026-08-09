@@ -9,37 +9,10 @@ X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
 SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261225
-DTEND;VALUE=DATE:20261226
-DTSTAMP:20260809T085952Z
-UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tax Sale
-DTSTART:20260824T150000Z
-DTEND:20260824T160000Z
-DTSTAMP:20260809T085952Z
-UID:linncogov-3cbntjm1hmap7td7s6h10p5sbm@google.com-2026-08-24-1000@linn-c
- ounty-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261012
-DTEND;VALUE=DATE:20261013
-DTSTAMP:20260809T085952Z
-UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261111
-DTEND;VALUE=DATE:20261112
-DTSTAMP:20260809T085952Z
-UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
+DTSTART;VALUE=DATE:20260907
+DTEND;VALUE=DATE:20260908
+DTSTAMP:20260809T131715Z
+UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
@@ -47,17 +20,44 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261126
 DTEND;VALUE=DATE:20261127
-DTSTAMP:20260809T085952Z
+DTSTAMP:20260809T131715Z
 UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:Tax Sale
+DTSTART:20260824T150000Z
+DTEND:20260824T160000Z
+DTSTAMP:20260809T131715Z
+UID:linncogov-3cbntjm1hmap7td7s6h10p5sbm@google.com-2026-08-24-1000@linn-c
+ ounty-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20260907
-DTEND;VALUE=DATE:20260908
-DTSTAMP:20260809T085952Z
-UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+DTSTAMP:20260809T131715Z
+UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+DTSTAMP:20260809T131715Z
+UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+DTSTAMP:20260809T131715Z
+UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
