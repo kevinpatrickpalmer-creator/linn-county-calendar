@@ -6,42 +6,4 @@ METHOD:PUBLISH
 X-WR-CALNAME:Bucklin Events (Linn County Community Calendar) (No Sports)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
-BEGIN:VEVENT
-SUMMARY:Obituary: Larrell Keith "Sam" Newlin
-DTSTART;VALUE=DATE:20260719
-DTEND;VALUE=DATE:20260720
-DTSTAMP:20260810T022511Z
-UID:delaneyfuneralhomeobit-2026-07-19-larrell-keith-sam-newlin-2026-07-19-
- allday@linn-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Larrell Keith "Sam" Newlin\, 82\, of Bucklin\, Missouri\, pass
- ed away at his home on Sunday\, July 19\, 2026. Sam was born on November 9
- \, 1943\, in Macon County\, Missouri\, to William T. and Myrna E. (Swaidne
- r) Newlin. He was a graduate of Bucklin High School. A lifelong cattle far
- mer\, Sam dedicated his life to agriculture and took great pride in caring
-  for the land. Sam proudly served his country in the United States Army fr
- om 1968 until 1970 and was stationed at Fort Sill\, Oklahoma. Above all el
- se\, Sam cherished his family. He especially treasured the time he spent w
- ith his grandchildren\, who brought him immense joy. He enjoyed classic ca
- rs\, listening to music\, spending time with friends\, and relaxing outdoo
- rs whenever he could. Sam also had a special love for all animals and foun
- d great happiness in their companionship. He is survived by his son\, Nath
- an Newlin and wife\, Kristi\, of Meadville\, Missouri\; his daughter\, Dev
- in Bussman and husband\, Chris\, of Bucklin\, Missouri\; his grandchildren
- \, Logan Newlin and wife\, Caylie\, of Brookfield\, Ethan Newlin of Marcel
- ine\, Sevilla Bussman of Marceline\, and Addison and Harper Bussman of Buc
- klin\; one great-granddaughter\, Nora Newlin\; his siblings\, Bill Newlin\
- , Nancy Winkler and husband\, John\, and Norman Newlin\; his sister-in-law
- \, Karen Hanson\; along with several nieces\, nephews\, extended family me
- mbers\, and many friends. He was preceded in death by his beloved wife\, M
- ary Newlin\, his parents\, William and Myrna Newlin\; and his grandparents
- \, James and Letha Newlin. Funeral services will be held at 10:00 a.m. on 
- Thursday\, July 23\, 2026\, at Delaney Funeral Home\, with Ben Williams of
- ficiating. Visitation will be held from 5:00 until 7:00 p.m. on Wednesday\
- , July 22\, 2026\, at the funeral home. The family suggests memorial contr
- ibutions be made to the Veterans Administration.\n\nFull obituary and serv
- ice details: https://www.delaneyfuneralhome.com/obituaries/Larrell-Keith-S
- am-Newlin?obId=49051909
-LOCATION:Bucklin\, MO
-END:VEVENT
 END:VCALENDAR
