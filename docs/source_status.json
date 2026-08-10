@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-10T13:29:25.836564+00:00",
+  "generated_at": "2026-08-10T17:14:52.590607+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 75,
-      "ok": true,
-      "error": null
+      "count": 0,
+      "ok": false,
+      "error": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.linncountyleader.com/calendar/\", waiting until \"domcontentloaded\"\n"
     },
     {
       "name": "Rhodes Funeral Home",
@@ -21,31 +21,31 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 255,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 135,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 70,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 75,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 80,
+      "count": 0,
       "ok": true,
       "error": null
     },
