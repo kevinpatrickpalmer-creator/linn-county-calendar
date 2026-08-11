@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T17:19:52.944913+00:00",
+  "generated_at": "2026-08-11T21:10:43.525701+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -81,13 +81,13 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 0,
+      "count": 4,
       "ok": true,
       "error": null
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 0,
+      "count": 2,
       "ok": true,
       "error": null
     }
