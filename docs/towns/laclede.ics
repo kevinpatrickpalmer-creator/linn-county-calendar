@@ -7,84 +7,13 @@ X-WR-CALNAME:Laclede Events (Linn County Community Calendar)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Laclede Pershing Days Car Show this September. The event is schedu
- led for Sat.
-DTSTART:20260912T133000Z
-DTEND:20260912T143000Z
-DTSTAMP:20260811T132503Z
-UID:leadereditorial-2026-09-12-laclede-pershing-days-car-show-this-septemb
- er-the-event-is-s-2026-09-12-830@linn-county-scraper.local
-DESCRIPTION:Laclede Pershing Days Car Show this September. The event is sc
- heduled for Sat.\, Sept. 12\, at Laclede City Park. Registration will begi
- n in the morning\, with the show taking place from 8:30 a.m. to 12:30 p.m.
-  The entry fee is $10 per vehicle. The annual event is part of the Laclede
-  Pershing Days celebration and offers visitors the chance to admire a wide
-  range of restored classics\, custom builds\, vintage tractors and motorcy
- cles while enjoying one of the community’s signature festivals. For more
-  information about the car show\, contact Blake Crawford at 660-973-7653 o
- r Kasarah Crawford at 660-734-4401.
-LOCATION:Laclede\, MO
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Linn County\, MO Land Auction
 DTSTART:20260903T170000Z
 DTEND:20260903T180000Z
-DTSTAMP:20260811T132503Z
+DTSTAMP:20260811T171952Z
 UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
  -1200@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
 LOCATION:28558 Hwy 139 | Laclede\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Obituary: Bobby Dale Hudson "Bob"
-DTSTART;VALUE=DATE:20260721
-DTEND;VALUE=DATE:20260722
-DTSTAMP:20260811T132503Z
-UID:wrightfuneralhomeobit-2026-07-21-bobby-dale-hudson-bob-2026-07-21-alld
- ay@linn-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Bobby Dale Hudson was born on September 25\, 1952\, in Jamespo
- rt\, Missouri\, to Randall and Mary (Brown) Hudson. Bob passed away peacef
- ully at his home in Laclede\, MO\, with his family by his side after compl
- ications of diabetes. On November 4\, 1973\, Bob married his high school s
- weetheart\, Sandy Linebaugh. Together they built a marriage of more than 5
- 2 years\, raising their family and sharing a lifetime of memories through 
- life's joys and challenges. Bob was a man who lived life on his own terms.
-  Known for his stubborn determination\, strong opinions\, and having no fi
- lter\, he was someone who never pretended to be anything other than himsel
- f. Before losing his leg in 2012\, Bob had a lifelong love of horses and e
- njoyed spending countless hours riding. After his amputation\, he refused 
- to let that define him. Instead\, he found new ways to enjoy the outdoors\
- , whether driving the gravel roads in his beloved red Ford truck\, riding 
- his four-wheeler\, or putting around town in his golf cart. Although Bob c
- ould be gruff and was never known for sugarcoating his thoughts\, those cl
- osest to him knew the deep love he had for his family. He was proud of his
-  children\, Rusty and Lindsey\, and bragged on them to others whenever he 
- had the chance. As the family grew\, Bob happily welcomed each new member.
-  He embraced Jerry and Cassie\, and his bonus grandchildren\, Jacob\, Luke
- \, Seth\, and Cody\, loving them as members of his family. Nothing\, howev
- er\, compared to the love he had for his granddaughter\, Hazel. She quickl
- y became the center of his world\, bringing out a patience and gentleness 
- that surprised everyone who knew him. She held a special place in his hear
- t. On July 8\, 2026\, Bob accepted Jesus Christ as his Savior during a vis
- it with Brother Monty. In the days that followed\, he found a sense of pea
- ce and comfort and was thankful to spend his final days at home\, with his
-  family nearby. Bob is survived by his wife\, Sandy Hudson\, of the home\;
-  his son\, Rusty (Cassie) of Galt\; his daughter\, Lindsey (Jerry) Calvert
-  of Rothville\; his Sister\, Marilyn Moulin of Gilman City\, MO\; his cher
- ished granddaughter\, Hazel Calvert\; his bonus grandchildren\, Jacob (Sab
- rina) Calvert of Liberty\, MO\; Luke (Abbi) Calvert of Biloxi\, MS\; Seth 
- (Jordan) Calvert of Sumter\, SC\; and Cody Blackwell of Richmond\, MO. Alo
- ng with many nieces and nephews. He was preceded in death by his parents\,
-  Randall and Mary Hudson\; his brothers\, Bill and Randy Hudson\; and a st
- illborn son\, John Travis\, in 1976. Though he will be deeply missed\, his
-  family finds comfort in knowing he is now free from pain and at peace wit
- h his Lord. A celebration of Bob’s life will be held at a later date. Me
- morial contributions toward Bob’s granddaughter\, Hazel’s college fund
-  (payable to Lindsey Calvert) may be left at or mailed to Wright Funeral H
- ome\, P.O. Box 496\, Brookfield\, MO 64628.\n\nFull obituary and service d
- etails: https://www.wright-funeralhome.com/obituaries/Bobby-Dale-Hudson-Bo
- b?obId=49059013
-LOCATION:Laclede\, MO
 END:VEVENT
 END:VCALENDAR
