@@ -10,16 +10,92 @@ BEGIN:VEVENT
 SUMMARY:Marceline Wine & Art Stroll
 DTSTART:20260822T210000Z
 DTEND:20260822T220000Z
-DTSTAMP:20260813T060106Z
+DTSTAMP:20260813T092539Z
 UID:dtmarceline-2bj2fpmr6qleh53as9c65n866f@google.com-2026-08-22-0400@linn
  -county-scraper.local
+LOCATION:Marceline\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Carol Gail Lee
+DTSTART;VALUE=DATE:20260807
+DTEND;VALUE=DATE:20260808
+DTSTAMP:20260813T092539Z
+UID:delaneyfuneralhomeobit-2026-08-07-carol-gail-lee-2026-08-07-allday@lin
+ n-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Carol Gail Lee\, 83\, of Marceline\, Missouri\, passed away pe
+ acefully on Friday August 7\, 2026. Carol was born on May 6\, 1943\, in Br
+ ashear\, Missouri\, to Rev. G.D. Hammontree and Bonnie Lee (Sullins) Hammo
+ ntree. She spent her life devoted to her family and her Christian faith. O
+ n June 9\, 1963\, Carol married the love of her life\, John Steven Lee. To
+ gether they shared 63 years of marriage. Carol attended college and worked
+  as a bookkeeper throughout her career. She was a faithful member of First
+  Baptist Church\, where her faith served as a guiding light throughout her
+  life. She is survived by her beloved husband\, John Steven Lee\; her son\
+ , Nicholas Venneman (Shelby Stafford) of Chillicothe\, Missouri\; her daug
+ hter\, Chelsey Venneman (Malachi Philips-Bey) of Marceline\, Missouri\; he
+ r cherished grandchildren\, Jace Wills and Oaklee Venneman\; and her siste
+ r\, Joann Foster\; and her twin brother\, G. Dale Hammontree (Ruth Hammont
+ ree). Carol was preceded in death by her daughter\, Kristi Renee Lee\; her
+  parents\, Rev. G.D. Hammontree and Bonnie Lee Hammontree\; her sisters\, 
+ Peggy Payne and Helen Minor\; her brothers-in-law\, D. L. Payne\, Frank Fo
+ ster\, and Robert E. Lee\; and her parents-in-law\, Eugene Lee and Mary Et
+ hlyne Lee. A visitation will be held on Tuesday\, August 11\, 2026\, begin
+ ning at 2:00 p.m.\, followed by a memorial service at 3:00 p.m. at the Fir
+ st Baptist Church in Marceline\, Missouri. Psalm 23 The LORD Is My Shepher
+ d A Psalm of David. [1] The LORD is my shepherd\; I shall not want. [2]  H
+ e makes me lie down in green pastures. He leads me beside still waters. [3
+ ]  He restores my soul. He leads me in paths of righteousness for his name
+ ’s sake. [4] Even though I walk through the valley of the shadow of deat
+ h\, I will fear no evil\, for you are with me\; your rod and your staff\, 
+ they comfort me. [5] You prepare a table before me in the presence of my e
+ nemies\; you anoint my head with oil\; my cup overflows. [6] Surely goodne
+ ss and mercy shall follow me all the days of my life\, and I shall dwell i
+ n the house of the LORD forever. (ESV)\n\nFull obituary and service detail
+ s: https://www.delaneyfuneralhome.com/obituaries/Carol-Gail-Lee?obId=49204
+ 775
+LOCATION:Marceline\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Kenneth Charles "Kenny" Gladbach
+DTSTART;VALUE=DATE:20260726
+DTEND;VALUE=DATE:20260727
+DTSTAMP:20260813T092539Z
+UID:delaneyfuneralhomeobit-2026-07-26-kenneth-charles-kenny-gladbach-2026-
+ 07-26-allday@linn-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Kenneth Charles "Kenny" Gladbach\, age 61\, of Marceline\, Mis
+ souri\, formerly of Mendon\, passed away at his home on Sunday\, July 26\,
+  2026. Born on October 17\, 1964\, in Marceline\, Missouri\, Kenny was the
+  son of Charles William Gladbach and Sharol Jo Martin. He proudly served h
+ is country in the United States Marine Corps. On July 3\, 2000\, Kenny mar
+ ried the love of his life\, Ethelyn Sue Davidson. Kenny dedicated more tha
+ n 20 years of his career to Walsworth. Outside of work\, he enjoyed huntin
+ g\, mowing the lawn\, attending tractor pulls\, and had an appreciation fo
+ r anything John Deere. More than anything\, Kenny enjoyed spending time wi
+ th his family. He was member of St. Joseph Catholic Church in Hurricane Br
+ anch. Kenny is lovingly survived by his wife\, Sue Gladbach of the home\; 
+ his children\, Blake Gladbach (Casie) of Maryville\, Nikki Gladbach of Mar
+ celine\, Charles Tapscott (Breanna) of Columbia\, and Ashley Yount (Anthon
+ y) of New Cambria\; 14 cherished grandchildren\; one great-grandchild\; hi
+ s sister\, Sharol "Dee" White of Marceline\; his brother\, Kendall Gladbac
+ h (Tamra) of Carrollton\; as well as several nieces\, nephews\, extended f
+ amily members\, and many friends. He was preceded in death by his parents\
+ ; his sister\, Deborah Reams\; and his maternal and paternal grandparents.
+  Memorial donations to the family payable to Delaney Funeral Home may be l
+ eft at or mailed to Delaney Funeral Home\, 1720 North Missouri Ave. Marcel
+ ine\, MO 64658. A celebration of life will be held Saturday\, August 8\, 2
+ 026\, at Gods Garden Church in Brookfield at 1:00 p.m.. The family will re
+ ceive friends from noon until the time of the service at the church.\n\nFu
+ ll obituary and service details: https://www.delaneyfuneralhome.com/obitua
+ ries/Kenneth-Charles-Gladbach?obId=49138904
 LOCATION:Marceline\, MO
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Kevin Palmer's birthday party
 DTSTART:20261124T013000Z
 DTEND:20261124T023000Z
-DTSTAMP:20260813T060106Z
+DTSTAMP:20260813T092539Z
 UID:manual-2026-11-23-kevin-palmer-s-birthday-party-2026-11-23-730@linn-co
  unty-scraper.local
 DESCRIPTION:by invitation only
