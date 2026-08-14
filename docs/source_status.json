@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T17:06:29.838997+00:00",
+  "generated_at": "2026-08-14T20:40:54.013590+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 82,
+      "count": 84,
       "ok": true,
       "error": null
     },
@@ -81,13 +81,13 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 4,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 2,
+      "count": 0,
       "ok": true,
       "error": null
     }
