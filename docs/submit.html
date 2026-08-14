@@ -103,7 +103,7 @@
 <body>
 <main>
   <h1>Submit a Community Event</h1>
-  <p class="sub" id="pageSub">Add your event to the community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.</p>
+  <p class="sub" id="pageSub">Any event counts, big or small — school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
 
   <form id="eventForm">
     <label for="name">Event name *</label>
@@ -179,7 +179,7 @@
 
   document.title = `Submit a Community Event — ${config.county_display_name}`;
   document.getElementById("pageSub").textContent =
-    `Add your event to the ${config.county_display_name} community calendar. A person reviews every submission before it goes live — you won't see it on the calendar immediately.`;
+    `Any event counts, big or small — school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
