@@ -38,6 +38,11 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: python notify_new_manual_events.py /tmp/old_events.ics docs/linn_county_events.ics
 
+      - name: Notify admin of newly-scraped events
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python notify_new_scraped_events.py /tmp/old_events.ics docs/linn_county_events.ics
+
       - name: Upload debug artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v4
