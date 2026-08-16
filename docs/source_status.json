@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-16T04:46:02.578518+00:00",
+  "generated_at": "2026-08-16T08:46:04.383787+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -15,49 +15,49 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 7,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 256,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Marceline R-V School District (MSHSAA)",
-      "count": 135,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 74,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Linn County R-I School District (MSHSAA)",
-      "count": 78,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 84,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Newspaper's Community Calendar page",
       "count": 0,
       "ok": true,
       "error": null
     },
     {
+      "name": "Brookfield R-III School District (MSHSAA)",
+      "count": 0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Marceline R-V School District (MSHSAA)",
+      "count": 0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Bucklin R-II School District (MSHSAA)",
+      "count": 0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Linn County R-I School District (MSHSAA)",
+      "count": 0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Meadville R-IV School District (MSHSAA)",
+      "count": 0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Newspaper's Community Calendar page",
+      "count": 32,
+      "ok": true,
+      "error": null
+    },
+    {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 12,
+      "count": 0,
       "ok": true,
       "error": null
     },
@@ -81,13 +81,13 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 4,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 2,
+      "count": 0,
       "ok": true,
       "error": null
     }
