@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 """
-Runs as part of the scheduled scrape workflow: compares the previously
-published .ics against the freshly regenerated one and, if any *scraped*
-events are newly present, emails the admin a single digest so they have a
-lightweight way to confirm the scrapers are actually finding new things
-each run -- not a play-by-play, just proof of life.
+Runs once a day (.github/workflows/daily-new-events-digest.yml), separately
+from the scraper's own every-4-hours schedule: compares today's published
+.ics against the calendar as it was ~24 hours ago (pulled from git history)
+and, if any *scraped* events are newly present since then, emails the admin
+a single digest -- a lightweight daily "yes, the scrapers are still finding
+new things" signal, not a play-by-play of every 4-hour run.
 
 Manually-submitted/approved events (UID starting with "manual-") are
 excluded here since notify_new_manual_events.py already sends a dedicated
-confirmation for those; including them again in this digest would just be
-the same event announced twice through two different emails.
+confirmation for those (still on the every-4-hours schedule, since that one
+is about confirming a specific approval went live promptly); including them
+again in this digest would just be the same event announced twice.
 
 Install:
     pip install icalendar requests
 
-Run (in CI, old/new paths point at the pre- and post-scrape .ics):
+Run (old/new paths point at yesterday's and today's .ics):
     python notify_new_scraped_events.py <old_ics_path> <new_ics_path>
 """
 import os

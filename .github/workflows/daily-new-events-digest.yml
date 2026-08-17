@@ -1,0 +1,38 @@
+name: Send daily new-events digest
+
+on:
+  schedule:
+    - cron: "0 12 * * *"  # ~7am Central (drifts to 6am during standard time)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need real history to find "the calendar as of ~24h ago"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install icalendar requests
+
+      - name: Get yesterday's calendar snapshot for diffing
+        run: |
+          OLD_COMMIT=$(git log --before="24 hours ago" -1 --format=%H -- docs/linn_county_events.ics)
+          if [ -n "$OLD_COMMIT" ]; then
+            git show "$OLD_COMMIT:docs/linn_county_events.ics" > /tmp/old_events.ics
+          else
+            echo "No commit found from 24+ hours ago -- treating as a first run."
+          fi
+
+      - name: Send digest of events found in the last 24 hours
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python notify_new_scraped_events.py /tmp/old_events.ics docs/linn_county_events.ics

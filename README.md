@@ -181,15 +181,18 @@ site, not the deployment.
   `notify_new_manual_events.py` (run as part of the same scheduled workflow)
   emails the admin a confirmation for each one that's newly appeared since
   the last run.
-- **New-event digest:** `notify_new_scraped_events.py` (also run each
-  scheduled workflow, right after the manual-event confirmations) emails
-  the admin a single summary -- count plus a sorted list, capped at 40 with
-  a "+N more" note -- of any *scraped* events that are newly present since
-  the last run. This is a "the scrapers are actually finding new stuff"
-  heartbeat, not a per-event announcement like the manual one above (which
-  is why manually-approved events are excluded here -- they already get
-  their own confirmation and don't need a second one). A run that finds
-  nothing new sends no email at all.
+- **New-event digest:** `notify_new_scraped_events.py` runs once a day
+  (`.github/workflows/daily-new-events-digest.yml`, separate from the
+  scraper's own every-4-hours schedule) and emails the admin a single
+  summary -- count plus a sorted list, capped at 40 with a "+N more" note --
+  of any *scraped* events that are newly present since the calendar as it
+  was ~24 hours ago (found via `git log --before="24 hours ago"` against
+  `docs/linn_county_events.ics`'s own history, so the workflow needs
+  `fetch-depth: 0`). This is a "the scrapers are actually finding new
+  stuff" daily heartbeat, not a per-event announcement like the manual one
+  above (which is why manually-approved events are excluded here -- they
+  already get their own confirmation on the faster schedule and don't need
+  a second one). A day that finds nothing new sends no email at all.
 - **Recurring events:** both `submit.html` and `admin.html` have a
   "Repeats?" field (weekly, every 2 weeks, monthly on the same week & day
   -- e.g. the 3rd Monday -- or monthly on the same date) plus a required
