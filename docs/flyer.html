@@ -67,10 +67,21 @@
   }
 
   /* ---------- Masthead ---------- */
-  .masthead-logo {
-    display: flex;
-    justify-content: center;
-    margin: 0 0 .3rem;
+  .masthead-band {
+    background: var(--brick);
+    /* Bleed edge-to-edge by cancelling .page's own padding, then add it
+       back internally -- this is the block that has to read as a solid
+       color rectangle from across a room, not just accent text. */
+    margin: -.55in -.7in 0;
+    padding: .4in .7in .32in;
+    text-align: center;
+  }
+  .masthead-band .masthead-logo {
+    display: inline-flex;
+    background: #fff;
+    border-radius: 999px;
+    padding: .55rem .7rem .4rem;
+    margin: 0 0 .5rem;
   }
   .masthead-logo svg {
     width: 68px;
@@ -79,11 +90,11 @@
   }
 
   .kicker {
-    font-size: .72rem;
+    font-size: .74rem;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--brick);
+    color: #fbdbdf;
     text-align: center;
     margin: 0 0 .35rem;
   }
@@ -92,11 +103,12 @@
     font-family: Georgia, "Times New Roman", Times, serif;
     font-weight: 700;
     text-align: center;
-    font-size: 2.65rem;
-    line-height: 1.05;
+    font-size: 3.05rem;
+    line-height: 1.03;
     letter-spacing: -.01em;
     text-wrap: balance;
     margin: 0;
+    color: #fff;
   }
 
   .masthead-rule {
@@ -104,7 +116,7 @@
     border-top: 3px solid var(--ink);
     border-bottom: 1px solid var(--ink);
     height: 4px;
-    margin: .55rem 0 0;
+    margin: 0;
   }
 
   .masthead-sub {
@@ -225,6 +237,7 @@
   .qr-block .qr-img {
     width: 92px;
     height: 92px;
+    margin: 0 auto;
   }
   .qr-block .qr-img svg { display: block; width: 100%; height: 100%; }
   .qr-block .qr-caption {
@@ -301,6 +314,7 @@
 
 <div class="page">
 
+  <div class="masthead-band">
   <div class="masthead-logo" aria-label="Map of Missouri with Linn County highlighted">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1291.47" height="1135.56" viewBox="-25468,-22465 58116,51100">
 
@@ -426,6 +440,7 @@
 </div>
   <p class="kicker">A Free Community Service</p>
   <h1 class="nameplate" id="nameplate"></h1>
+  </div>
   <hr class="masthead-rule">
   <div class="masthead-sub">
     <span id="townsLeft"></span>
@@ -448,11 +463,10 @@
         <p class="qr-caption">Scan to subscribe</p>
       </div>
       <p class="col-url" id="subscribeUrl"></p>
-      <p class="col-hint">Or visit the link above to browse online, or pick just your town.</p>
+      <p class="col-hint">Scan the QR code, or go to the address above, to subscribe.</p>
       <ul class="col-benefits">
         <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
-        <li><span class="mark">&mdash;</span><span>Pick just your town, or the whole county.</span></li>
-        <li><span class="mark">&mdash;</span><span>Turn off school sports or obituaries, if you'd rather not see them.</span></li>
+        <li><span class="mark">&mdash;</span><span>Select only the events or towns you want.</span></li>
         <li><span class="mark">&mdash;</span><span>New events show up on their own &mdash; nothing to check back for.</span></li>
       </ul>
     </div>
@@ -464,12 +478,11 @@
         <p class="qr-caption">Scan to submit</p>
       </div>
       <p class="col-url"><span id="ctaUrlDomain"></span><span class="path">/submit.html</span></p>
-      <p class="col-hint">Big or small &mdash; meetings, fundraisers, garage sales, all of it. Takes about two minutes.</p>
+      <p class="col-hint">Scan the QR code, or go to the address above, to submit an event.</p>
       <ul class="col-benefits">
         <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
         <li><span class="mark">&mdash;</span><span>Reach the whole county, or just your town.</span></li>
-        <li><span class="mark">&mdash;</span><span>Standing meetings repeat on their own &mdash; submit once.</span></li>
-        <li><span class="mark">&mdash;</span><span>Embeds free on your own website, too.</span></li>
+        <li><span class="mark">&mdash;</span><span>Personal events count, too &mdash; funeral and celebration of life services, garage sales, benefit dinners, open houses, parties, and more.</span></li>
       </ul>
     </div>
   </div>
