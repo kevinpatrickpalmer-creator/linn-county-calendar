@@ -6,44 +6,4 @@ METHOD:PUBLISH
 X-WR-CALNAME:Purdin Events (Linn County Community Calendar) (No Sports)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
-BEGIN:VEVENT
-SUMMARY:Obituary: Conner  Lee  Spainhour
-DTSTART;VALUE=DATE:20260804
-DTEND;VALUE=DATE:20260805
-DTSTAMP:20260818T085150Z
-UID:wrightfuneralhomeobit-2026-08-04-conner-lee-spainhour-2026-08-04-allda
- y@linn-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Conner Lee Spainhour\, age 22\, of Purdin\, Missouri\, passed 
- away Tuesday\, August 4\, 2026. Conner Lee\, son of Nickolas Spainhour and
-  Tessa (Sackrey) Coffman\, was born March 15\, 2004\, in Chillicothe\, Mis
- souri. Conner was a 2022 graduate of Linn County R-1 High School near Purd
- in and a 2024 graduate of Linn State Technical College of Missouri.  He wa
- s currently employed at Scobee Powerline Construction as a lineman.  Conne
- r brought endless light\, laughter\, and kindness to everyone he met.  He 
- loved music\, duck hunting\, fishing\, and fireworks\, but more than anyth
- ing\, Conner treasured time spent with close friends and family.  Although
-  Conner’s life ended far too soon\, his love and memories will continue 
- to live on through his family and friends.  He will be deeply missed and f
- orever remembered. Survivors include his mother and stepfather\, Tessa and
-  Jeremy Coffman of Purdin\; his stepmother\, Courtney Spainhour of Chillic
- othe\; two brothers\, Alex Coffman of Purdin and Carlynn Spainhour of Chil
- licothe\; two sisters\, Tymber Spainhour of Chillicothe and Tenzli Brannam
-  of Chillicothe\; his grandparents\, Doug and Monica Denton\, Ronnie and R
- achel Bowes\, and Rick and Janice Coffman\; and numerous aunts\, uncles\, 
- and cousins.  In addition to his family\, his is survived by his best frie
- nds: Brad James Sackrey\, Jr.\, Sam Becker\, Mason Singleton\, Gage Seals\
- , Case Ratliff\, and Jordan Bealmer. He was preceded in death by his fathe
- r\, Nickolas Spainhour\; and two grandfathers\, James Sackrey and Carlton 
- Spainhour. The family will receive friends Monday\, August 10\, 2026\, fro
- m 9:00 a.m. until 12:00 noon at Wright Funeral Home in Brookfield. A celeb
- ration of life\, for family and close friends\, will follow at 12:00 noon 
- with Pastor Sung Bauta officiating at the funeral home. The family kindly 
- requests that those attending the visitation dress in casual attire. Memor
- ial contributions to the family payable to Tessa Coffman may be left at or
-  mailed to Wright Funeral Home P.O. 496\, Brookfield\, Missouri 64628.\n\n
- Full obituary and service details: https://www.wright-funeralhome.com/obit
- uaries/Conner-Lee-Spainhour?obId=49198194
-LOCATION:Purdin\, MO
-END:VEVENT
 END:VCALENDAR
