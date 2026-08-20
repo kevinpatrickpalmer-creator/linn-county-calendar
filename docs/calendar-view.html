@@ -59,6 +59,15 @@
     color: inherit;
   }
   .view-toggle button.active { background: #a71a2d; border-color: #a71a2d; color: #fff; }
+  .print-btn-cal {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 6px;
+    padding: .3rem .65rem;
+    font-size: .85rem;
+    cursor: pointer;
+    color: inherit;
+  }
   .list-view { display: flex; flex-direction: column; gap: 1.25rem; }
   .list-day-heading {
     font-size: 1rem;
@@ -202,6 +211,7 @@
   @media (prefers-color-scheme: dark) {
     html, body { background: #15151a; color: #eee; }
     .nav button { background: #202027; border-color: #444; color: #eee; }
+    .print-btn-cal { background: #202027; border-color: #444; color: #eee; }
     .filterbar select { background: #202027; border-color: #444; color: #eee; }
     .view-toggle button { background: #202027; border-color: #444; color: #eee; }
     .view-toggle button.active { background: #a71a2d; border-color: #a71a2d; color: #fff; }
@@ -224,6 +234,27 @@
     .links a { color: #d99a44; }
     .site-credit { border-top-color: #333; color: #999; }
     .site-credit .powered-by { color: #666; }
+  }
+
+  /* ---------- Print: a clean wall-calendar page, not a printout of the
+     phone-sized web view ---------- */
+  @media print {
+    @page { size: landscape; margin: .35in; }
+    html, body { background: #fff; color: #000; }
+    .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
+    #detail, #status, .list-view, #listEmpty {
+      display: none !important;
+    }
+    .topbar h1 { font-size: 1.6rem; }
+    .grid { display: grid !important; background: #999; border-color: #999; }
+    .dow { background: #eee; color: #333; }
+    .day { background: #fff; min-height: 1.35in; font-size: .8rem; }
+    .day.other-month { background: #fafafa; color: #aaa; }
+    .day.today { background: #fff4e8; }
+    .pill { background: #a71a2d; color: #fff; font-size: .72rem; }
+    .more-link { color: #a71a2d; font-size: .68rem; }
+    .site-credit { margin-top: .5rem; padding-top: .4rem; font-size: .7rem; color: #666; border-top-color: #ccc; }
+    .site-credit .powered-by { color: #888; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -250,6 +281,7 @@
       <button id="listViewBtn" type="button" class="active">List</button>
       <button id="gridViewBtn" type="button">Month</button>
     </div>
+    <button id="printBtn" type="button" class="print-btn-cal">Print</button>
   </div>
 
   <div id="status">Loading events...</div>
@@ -452,6 +484,10 @@ document.getElementById("detailClose").addEventListener("click", () => {
 });
 
 let currentView = "list"; // "list" is the default -- see renderMonth()
+// Set true only while an actual print is in flight (see the beforeprint/
+// afterprint listeners below) -- a printed page has real room, unlike a
+// phone-sized day cell, so more events can show before truncating.
+let printMode = false;
 
 function renderGridView(year, month, todayKey) {
   const grid = document.getElementById("grid");
@@ -494,7 +530,7 @@ function renderGridView(year, month, todayKey) {
     cell.appendChild(numEl);
 
     const dayEvents = eventsByDay.get(key) || [];
-    const maxShown = 3;
+    const maxShown = printMode ? 8 : 3;
     dayEvents.slice(0, maxShown).forEach((ev) => {
       const pill = document.createElement("button");
       pill.className = "pill";
@@ -609,6 +645,32 @@ document.getElementById("gridViewBtn").addEventListener("click", () => {
   currentView = "grid";
   document.getElementById("gridViewBtn").classList.add("active");
   document.getElementById("listViewBtn").classList.remove("active");
+  renderMonth(viewYear, viewMonth);
+});
+
+document.getElementById("printBtn").addEventListener("click", () => {
+  window.print();
+});
+
+// A business hanging this on a wall wants the month grid, not the phone-
+// sized list -- force that view for the actual print, then put the page
+// back exactly how the visitor had it once printing is done or cancelled.
+let viewBeforePrint = null;
+window.addEventListener("beforeprint", () => {
+  viewBeforePrint = currentView;
+  printMode = true;
+  currentView = "grid";
+  document.getElementById("gridViewBtn").classList.add("active");
+  document.getElementById("listViewBtn").classList.remove("active");
+  renderMonth(viewYear, viewMonth);
+});
+window.addEventListener("afterprint", () => {
+  printMode = false;
+  if (viewBeforePrint) {
+    currentView = viewBeforePrint;
+    document.getElementById("listViewBtn").classList.toggle("active", currentView === "list");
+    document.getElementById("gridViewBtn").classList.toggle("active", currentView === "grid");
+  }
   renderMonth(viewYear, viewMonth);
 });
 
