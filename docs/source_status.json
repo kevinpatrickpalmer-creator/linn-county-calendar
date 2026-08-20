@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T04:52:27.536839+00:00",
+  "generated_at": "2026-08-20T08:49:50.128613+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -21,31 +21,31 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 0,
+      "count": 257,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 0,
+      "count": 135,
       "ok": true,
       "error": null
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 0,
+      "count": 74,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 0,
+      "count": 78,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 0,
+      "count": 92,
       "ok": true,
       "error": null
     },
@@ -81,13 +81,13 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 4,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 2,
+      "count": 0,
       "ok": true,
       "error": null
     }
