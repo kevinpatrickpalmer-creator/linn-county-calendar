@@ -236,27 +236,33 @@
     .site-credit .powered-by { color: #666; }
   }
 
-  /* ---------- Print: a clean wall-calendar page, not a printout of the
-     phone-sized web view ---------- */
+  /* ---------- Print: a clean page, not a printout of the phone-sized web
+     view. Prints whichever view (Month grid or List) is on screen --
+     #printPageStyle sets landscape/portrait to match, from JS, since a
+     wide 7-column grid and a stacked day-by-day list want different page
+     shapes (see beforeprint below). ---------- */
   @media print {
-    @page { size: landscape; margin: .35in; }
     html, body { background: #fff; color: #000; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    #detail, #status, .list-view, #listEmpty {
+    #detail, #status {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
-    .grid { display: grid !important; background: #999; border-color: #999; }
+    .grid { background: #999; border-color: #999; }
     .dow { background: #eee; color: #333; }
     .day { background: #fff; min-height: 1.35in; font-size: .8rem; }
     .day.other-month { background: #fafafa; color: #aaa; }
     .day.today { background: #fff4e8; }
     .pill { background: #a71a2d; color: #fff; font-size: .72rem; }
     .more-link { color: #a71a2d; font-size: .68rem; }
+    .list-view { gap: .9rem; }
+    .list-row { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .list-day-heading { break-after: avoid; }
     .site-credit { margin-top: .5rem; padding-top: .4rem; font-size: .7rem; color: #666; border-top-color: #ccc; }
     .site-credit .powered-by { color: #888; }
   }
 </style>
+<style id="printPageStyle"></style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
@@ -281,7 +287,7 @@
       <button id="listViewBtn" type="button" class="active">List</button>
       <button id="gridViewBtn" type="button">Month</button>
     </div>
-    <button id="printBtn" type="button" class="print-btn-cal">Print</button>
+    <button id="printBtn" type="button" class="print-btn-cal" title="Prints whichever view (List or Month) is currently selected">Print</button>
   </div>
 
   <div id="status">Loading events...</div>
@@ -652,25 +658,20 @@ document.getElementById("printBtn").addEventListener("click", () => {
   window.print();
 });
 
-// A business hanging this on a wall wants the month grid, not the phone-
-// sized list -- force that view for the actual print, then put the page
-// back exactly how the visitor had it once printing is done or cancelled.
-let viewBeforePrint = null;
+// Prints whichever view the visitor already has on screen -- pick List
+// first for a full, untruncated day-by-day agenda (nothing to cram into
+// a cell), or Month for a wall-calendar grid. Grid wants a wide landscape
+// page; List reads better in portrait, so #printPageStyle is set here
+// rather than as a fixed @page rule.
 window.addEventListener("beforeprint", () => {
-  viewBeforePrint = currentView;
   printMode = true;
-  currentView = "grid";
-  document.getElementById("gridViewBtn").classList.add("active");
-  document.getElementById("listViewBtn").classList.remove("active");
   renderMonth(viewYear, viewMonth);
+  document.getElementById("printPageStyle").textContent = currentView === "grid"
+    ? "@page { size: landscape; margin: .35in; }"
+    : "@page { size: portrait; margin: .5in; }";
 });
 window.addEventListener("afterprint", () => {
   printMode = false;
-  if (viewBeforePrint) {
-    currentView = viewBeforePrint;
-    document.getElementById("listViewBtn").classList.toggle("active", currentView === "list");
-    document.getElementById("gridViewBtn").classList.toggle("active", currentView === "grid");
-  }
   renderMonth(viewYear, viewMonth);
 });
 
