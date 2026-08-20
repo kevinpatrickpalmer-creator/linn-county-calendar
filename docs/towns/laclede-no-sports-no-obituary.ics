@@ -8,10 +8,29 @@ X-WR-CALNAME:Laclede Events (Linn County Community Calendar) (No Sports, N
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
+SUMMARY:Laclede Pershing Days Car Show this September. The event is schedu
+ led for Sat.
+DTSTART:20260912T133000Z
+DTEND:20260912T143000Z
+DTSTAMP:20260820T015334Z
+UID:leadereditorial-2026-09-12-laclede-pershing-days-car-show-this-septemb
+ er-the-event-is-s-2026-09-12-830@linn-county-scraper.local
+DESCRIPTION:Laclede Pershing Days Car Show this September. The event is sc
+ heduled for Sat.\, Sept. 12\, at Laclede City Park. Registration will begi
+ n in the morning\, with the show taking place from 8:30 a.m. to 12:30 p.m.
+  The entry fee is $10 per vehicle. The annual event is part of the Laclede
+  Pershing Days celebration and offers visitors the chance to admire a wide
+  range of restored classics\, custom builds\, vintage tractors and motorcy
+ cles while enjoying one of the community’s signature festivals. For more
+  information about the car show\, contact Blake Crawford at 660-973-7653 o
+ r Kasarah Crawford at 660-734-4401.
+LOCATION:Laclede\, MO
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Linn County\, MO Land Auction
 DTSTART:20260903T170000Z
 DTEND:20260903T180000Z
-DTSTAMP:20260819T225355Z
+DTSTAMP:20260820T015334Z
 UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
  -1200@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
