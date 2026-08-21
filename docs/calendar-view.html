@@ -124,7 +124,7 @@
   }
   .day {
     background: #fff;
-    min-height: 4.5rem;
+    min-height: 5.6rem;
     min-width: 0;
     padding: .25rem;
     font-size: .75rem;
@@ -204,7 +204,7 @@
   }
   .site-credit .powered-by { display: block; margin-top: .3rem; color: #aaa; font-size: .75rem; }
   @media (max-width: 480px) {
-    .day { min-height: 3.6rem; font-size: .68rem; }
+    .day { min-height: 4.4rem; font-size: .68rem; }
     .pill { font-size: .62rem; }
     .topbar h1 { font-size: .95rem; }
   }
@@ -536,7 +536,7 @@ function renderGridView(year, month, todayKey) {
     cell.appendChild(numEl);
 
     const dayEvents = eventsByDay.get(key) || [];
-    const maxShown = printMode ? 8 : 3;
+    const maxShown = printMode ? 8 : 5;
     dayEvents.slice(0, maxShown).forEach((ev) => {
       const pill = document.createElement("button");
       pill.className = "pill";
