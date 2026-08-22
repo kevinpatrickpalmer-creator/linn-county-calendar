@@ -603,7 +603,7 @@ function renderListView(year, month, todayKey) {
 
     const heading = document.createElement("div");
     heading.className = "list-day-heading" + (key === todayKey ? " today" : "");
-    heading.textContent = key === todayKey ? `${dateLabel} — Today` : dateLabel;
+    heading.textContent = key === todayKey ? `${dateLabel} (Today)` : dateLabel;
     dayGroup.appendChild(heading);
 
     const rows = document.createElement("div");

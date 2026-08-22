@@ -30,7 +30,8 @@
   }
   .mo-badge img { width: 40px; height: auto; display: block; }
   h1 { font-size: 1.5rem; margin: 0 0 .35rem; text-align: center; }
-  p.sub { margin: 0 0 1.5rem; color: #555; font-size: .95rem; line-height: 1.4; text-align: center; }
+  p.sub { margin: 0 0 .6rem; color: #555; font-size: .95rem; line-height: 1.4; text-align: center; }
+  p.stats-line { margin: 0 0 1.5rem; text-align: center; font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #1e3a8a; }
   section {
     background: #fff;
     border-radius: 12px;
@@ -174,6 +175,7 @@
     input[type="email"], select { background: #15151a; color: #eee; border-color: #444; }
     p.sub, p.hint { color: #aaa; }
     .footer-link a { color: #8fa5ff; }
+    p.stats-line { color: #8fa5ff; }
     .submit-qr p { color: #999; }
     .share-label { color: #ccc; }
   }
@@ -185,7 +187,8 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1 id="pageTitle">Community Calendar</h1>
-  <p class="sub" id="pageSub">Local events, meetings, and happenings — kept up to date automatically.</p>
+  <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
+  <p class="stats-line">1 County &middot; 8 Towns &middot; 700+ Events &middot; 1 Calendar</p>
 
   <section>
     <h2>Subscribe to the calendar</h2>
@@ -209,8 +212,8 @@
     <p class="or-divider">OR</p>
     <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
-    <p class="hint">To check it worked, open your phone or computer's own calendar app — you should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
-    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default — check your calendar app's alert settings for this calendar, or sign up for reminder emails below instead.</p>
+    <p class="hint">To check it worked, open your phone or computer's own calendar app. You should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
+    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or sign up for reminder emails below instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
 
     <p class="share-label">Know someone who'd want this? Share it:</p>
@@ -236,7 +239,7 @@
       </div>
 
       <div id="townPicker" class="town-picker hidden">
-        <p class="hint town-hint">Only for reminders — leave all unchecked to get every town's events.</p>
+        <p class="hint town-hint">Only for reminders, leave all unchecked to get every town's events.</p>
         <div id="townCheckboxes"></div>
       </div>
 
@@ -280,7 +283,7 @@
   document.title = config.calendar_title;
   document.getElementById("pageTitle").textContent = config.calendar_title;
   document.getElementById("pageSub").textContent =
-    `Local events, meetings, and happenings around ${config.county_display_name} — kept up to date automatically.`;
+    `Local events, meetings, and happenings around ${config.county_display_name}, kept up to date automatically.`;
   document.getElementById("newsletterLabel").textContent =
     `Notify me when the ${config.county_display_name} Community App launches`;
 
@@ -356,7 +359,7 @@
     subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
     downloadLink.href = icsPath;
     unsubscribeHint.textContent =
-      `To stop getting these events, remove/unsubscribe from "${calName}" in your phone or computer's calendar app settings — that's done on your device, not here.`;
+      `To stop getting these events, remove/unsubscribe from "${calName}" in your phone or computer's calendar app settings. That's done on your device, not here.`;
   }
 
   for (const town of config.towns) {
@@ -421,11 +424,11 @@
       const nextSteps = [];
       if (reminder) {
         nextSteps.push(
-          "You'll get your first reminder email the evening before an event you're tracking is happening — a quiet inbox until then just means nothing's coming up yet."
+          "You'll get your first reminder email the evening before an event you're tracking is happening. A quiet inbox until then just means nothing's coming up yet."
         );
       }
       if (newsletter) {
-        nextSteps.push("We'll email you the moment the Community App is ready — there's no set timeline yet.");
+        nextSteps.push("We'll email you the moment the Community App is ready. There's no set timeline yet.");
       }
       const nextStepsText = nextSteps.length ? ` ${nextSteps.join(" ")}` : "";
       statusEl.textContent =

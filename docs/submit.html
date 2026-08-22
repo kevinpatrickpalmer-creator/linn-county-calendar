@@ -38,10 +38,19 @@
     text-align: center;
   }
   p.sub {
-    margin: 0 0 1.5rem;
+    margin: 0 0 .6rem;
     color: #555;
     font-size: .95rem;
     text-align: center;
+  }
+  p.stats-line {
+    margin: 0 0 1.5rem;
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #1e3a8a;
   }
   form {
     background: #fff;
@@ -106,6 +115,7 @@
     form { background: #202027; box-shadow: none; }
     input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
     p.sub { color: #aaa; }
+    p.stats-line { color: #8fa5ff; }
     .hint { color: #999; }
     .hint.err { color: #d99a44; }
     .hint a { color: #8fa5ff; }
@@ -120,7 +130,8 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1>Submit a Community Event</h1>
-  <p class="sub" id="pageSub">Any event counts, big or small — school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
+  <p class="sub" id="pageSub">Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
+  <p class="stats-line">1 County &middot; 8 Towns &middot; 700+ Events &middot; 1 Calendar</p>
 
   <form id="eventForm">
     <label for="name">Event name *</label>
@@ -174,7 +185,7 @@
 
     <label for="contact_phone">Your contact phone</label>
     <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
-    <p class="hint" id="contactHint">At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly — we won't call you or share it anywhere else.</p>
+    <p class="hint" id="contactHint">At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly. We won't call you or share it anywhere else.</p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
@@ -195,9 +206,9 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Submit a Community Event — ${config.county_display_name}`;
+  document.title = `Submit a Community Event | ${config.county_display_name}`;
   document.getElementById("pageSub").textContent =
-    `Any event counts, big or small — school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.`;
+    `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
@@ -246,7 +257,7 @@
       return;
     }
     contactHint.classList.remove("err");
-    contactHint.textContent = "At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly — we won't call you or share it anywhere else.";
+    contactHint.textContent = "At least one is required. This will be shown publicly on the calendar listing so people with questions about the event can reach you directly. We won't call you or share it anywhere else.";
 
     if (recurrenceSelect.value !== "none" && !repeatUntilInput.value) {
       recurrenceHint.classList.add("err");
@@ -295,7 +306,7 @@
 
     data.append("access_key", config.web3forms_access_key);
     data.append("subject", `New event submission: ${rawName}`);
-    data.append("from_name", `${config.calendar_title} — Event Submission`);
+    data.append("from_name", `${config.calendar_title}: Event Submission`);
     // Human-friendly time for the email itself, since Web3Forms just relays
     // whatever we send -- separate from rawTime, which stays HH:MM for the link.
     data.set("time", formatTime12h(rawTime));
