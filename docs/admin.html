@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Approve an Event — Calendar Admin</title>
+<title>Approve an Event | Calendar Admin</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -85,27 +85,30 @@
   <h1>Approve a Submitted Event</h1>
   <p class="sub">
     Clicking the link in the submission email brings you here with everything
-    already filled in — just double-check it, then click "Prepare for
-    GitHub". It'll open GitHub's own "create file" page, pre-filled — review
+    already filled in, just double-check it, then click "Prepare for
+    GitHub". It'll open GitHub's own "create file" page, pre-filled. Review
     it there and click <strong>Commit new file</strong> to publish. Nothing
     goes live until you click that button on GitHub.
   </p>
   <div id="prefilledNote" class="note hidden">
-    Pre-filled from a submission — review the fields below, then continue.
+    Pre-filled from a submission. Review the fields below, then continue.
   </div>
 
   <form id="approveForm">
     <label for="name">Event name *</label>
     <input id="name" name="name" type="text" required>
 
+    <label for="date">Date *</label>
+    <input id="date" name="date" type="date" required>
+
     <div class="row">
-      <div>
-        <label for="date">Date *</label>
-        <input id="date" name="date" type="date" required>
-      </div>
       <div>
         <label for="time">Time (optional)</label>
         <input id="time" name="time" type="time">
+      </div>
+      <div>
+        <label for="end_time">End time (optional)</label>
+        <input id="end_time" name="end_time" type="time">
       </div>
     </div>
 
@@ -134,6 +137,9 @@
     <label for="venue">Venue / address (optional)</label>
     <input id="venue" name="venue" type="text" placeholder="e.g. City Park, or the school gym">
 
+    <label for="online_link">Online meeting link (optional)</label>
+    <input id="online_link" name="online_link" type="url" placeholder="https://...">
+
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description"></textarea>
 
@@ -147,7 +153,7 @@
   </form>
 
   <div class="note">
-    To <strong>reject</strong> a submission, just don't do anything here —
+    To <strong>reject</strong> a submission, just don't do anything here:
     ignore or delete the email. Nothing is published unless you go through
     this form and commit the file on GitHub yourself.
   </div>
@@ -157,7 +163,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Approve an Event — ${config.county_display_name} Calendar Admin`;
+  document.title = `Approve an Event | ${config.county_display_name} Calendar Admin`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
@@ -198,7 +204,7 @@
     const params = new URLSearchParams(window.location.search);
     if (![...params.keys()].length) return;
 
-    const fields = ["name", "date", "time", "town", "venue", "description", "website", "recurrence", "repeat_until"];
+    const fields = ["name", "date", "time", "end_time", "town", "venue", "online_link", "description", "website", "recurrence", "repeat_until"];
     let filledAny = false;
     for (const field of fields) {
       if (!params.has(field)) continue;
@@ -222,7 +228,16 @@
     }
 
     if (filledAny) {
-      document.getElementById("prefilledNote").classList.remove("hidden");
+      const prefilledNote = document.getElementById("prefilledNote");
+      // Submitter name is shown here for your own reference while
+      // reviewing, but never included in the fields above -- it isn't
+      // published to the calendar (the "Contact info" field covers who to
+      // reach out to about the event, which may not be the same person).
+      const submitterName = params.get("submitter_name");
+      if (submitterName) {
+        prefilledNote.textContent = `Pre-filled from a submission by ${submitterName}. Review the fields below, then continue.`;
+      }
+      prefilledNote.classList.remove("hidden");
     }
   })();
 
@@ -238,8 +253,10 @@
 
     const baseDescription = data.get("description").trim();
     const website = (data.get("website") || "").trim();
+    const onlineLink = (data.get("online_link") || "").trim();
     const contact = (data.get("contact") || "").trim();
     const extras = [];
+    if (onlineLink) extras.push(`Join online: ${onlineLink}`);
     if (website) extras.push(`Website: ${website}`);
     if (contact) extras.push(`Contact: ${contact}`);
     const description = extras.length
@@ -247,6 +264,8 @@
       : baseDescription;
 
     const event = { name, date, time: formatTime12h(data.get("time")), location, description };
+    const endTime = formatTime12h(data.get("end_time"));
+    if (endTime) event.end_time = endTime;
 
     const recurrence = (data.get("recurrence") || "none").trim();
     const repeatUntil = (data.get("repeat_until") || "").trim();

@@ -137,16 +137,20 @@
     <label for="name">Event name *</label>
     <input id="name" name="name" type="text" maxlength="120" required>
 
+    <label for="date">Date *</label>
+    <input id="date" name="date" type="date" required>
+
     <div class="row">
-      <div>
-        <label for="date">Date *</label>
-        <input id="date" name="date" type="date" required>
-      </div>
       <div>
         <label for="time">Time (optional)</label>
         <input id="time" name="time" type="time">
       </div>
+      <div>
+        <label for="end_time">End time (optional)</label>
+        <input id="end_time" name="end_time" type="time">
+      </div>
     </div>
+    <p class="hint">Leave the end time blank if you're not sure. We'll assume it runs about an hour.</p>
 
     <div class="row">
       <div>
@@ -174,11 +178,17 @@
     <label for="venue">Venue / address (optional)</label>
     <input id="venue" name="venue" type="text" maxlength="120" placeholder="e.g. City Park, or the school gym">
 
+    <label for="online_link">Online meeting link (optional)</label>
+    <input id="online_link" name="online_link" type="url" maxlength="300" placeholder="https://... if this is a virtual or hybrid event">
+
     <label for="description">Description (optional)</label>
     <textarea id="description" name="description" maxlength="500" placeholder="A sentence or two about the event"></textarea>
 
     <label for="website">Event website or social media page (optional)</label>
     <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
+
+    <label for="submitter_name">Your name *</label>
+    <input id="submitter_name" name="submitter_name" type="text" maxlength="120" required>
 
     <label for="contact_email">Your contact email</label>
     <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
@@ -289,10 +299,13 @@
     const rawName = (data.get("name") || "").trim();
     const rawDate = data.get("date") || "";
     const rawTime = data.get("time") || "";
+    const rawEndTime = data.get("end_time") || "";
     const town = (data.get("town") || "").trim();
     const venue = (data.get("venue") || "").trim();
+    const onlineLink = (data.get("online_link") || "").trim();
     const rawDescription = (data.get("description") || "").trim();
     const website = (data.get("website") || "").trim();
+    const submitterName = (data.get("submitter_name") || "").trim();
     const recurrence = (data.get("recurrence") || "none").trim();
     const repeatUntil = (data.get("repeat_until") || "").trim();
 
@@ -300,8 +313,10 @@
       name: rawName,
       date: rawDate,
       time: rawTime,
+      end_time: rawEndTime,
       town,
       venue,
+      online_link: onlineLink,
       description: rawDescription,
       website,
       recurrence,
@@ -311,6 +326,10 @@
       // visible on the public calendar listing (that's the point).
       contact_email: contactEmail,
       contact_phone: contactPhone,
+      // Shown to Kevin while reviewing on admin.html, but never published --
+      // the calendar-visible "contact" field above covers who to reach out
+      // to, which may not be the same person who submitted this.
+      submitter_name: submitterName,
     });
     const adminLink = `https://${config.domain}/admin.html?${adminParams.toString()}`;
 
@@ -320,6 +339,7 @@
     // Human-friendly time for the email itself, since Web3Forms just relays
     // whatever we send -- separate from rawTime, which stays HH:MM for the link.
     data.set("time", formatTime12h(rawTime));
+    data.set("end_time", formatTime12h(rawEndTime));
 
     // Combine into the same "Venue | Town, ST" shape the scraped events use,
     // so reminder filtering by town works the same way for both.

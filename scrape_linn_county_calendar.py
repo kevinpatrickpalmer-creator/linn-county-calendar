@@ -545,6 +545,25 @@ def _expand_manual_event_dates(data, start_date):
     return dates or [start_date]
 
 
+def _manual_event_iso_range(occurrence_date, time_str, end_time_str):
+    """Manually submitted events can optionally include an end time (see
+    the "End time" field on submit.html/admin.html); when both a start and
+    end time are given, this turns them into real ISO datetimes so
+    build_calendar() uses the event's actual length instead of falling
+    back to DEFAULT_DURATION for every manual submission."""
+    if not time_str or not end_time_str:
+        return None, None
+    date_str = occurrence_date.strftime("%Y-%m-%d")
+    try:
+        start_dt = datetime.strptime(f"{date_str} {time_str.upper()}", "%Y-%m-%d %I:%M %p").replace(tzinfo=LOCAL_TZ)
+        end_dt = datetime.strptime(f"{date_str} {end_time_str.upper()}", "%Y-%m-%d %I:%M %p").replace(tzinfo=LOCAL_TZ)
+    except ValueError:
+        return None, None
+    if end_dt <= start_dt:
+        end_dt += timedelta(days=1)  # e.g. a dance running 9pm-1am
+    return start_dt.isoformat(), end_dt.isoformat()
+
+
 def load_manual_events():
     """Load community-submitted events that have been approved (see
     docs/admin.html for how a file lands here). Each file becomes one or
@@ -578,18 +597,22 @@ def load_manual_events():
             print(f"  WARNING: skipping {path}, unparseable date {date_str!r}", file=sys.stderr)
             continue
 
+        time_str = (data.get("time") or "").strip()
+        end_time_str = (data.get("end_time") or "").strip()
+
         for occurrence_date in _expand_manual_event_dates(data, start_date):
+            start_iso, end_iso = _manual_event_iso_range(occurrence_date, time_str, end_time_str)
             manual_events.append(
                 {
                     "name": name,
                     "date": occurrence_date.strftime("%Y-%m-%d"),
-                    "time": (data.get("time") or "").strip(),
+                    "time": time_str,
                     "location": (data.get("location") or "").strip(),
                     "description": (data.get("description") or "").strip(),
                     "href": "",  # no CitySpark detail page to fetch
                     "event_id": f"manual-{slug}",
-                    "start_iso": None,
-                    "end_iso": None,
+                    "start_iso": start_iso,
+                    "end_iso": end_iso,
                 }
             )
 
