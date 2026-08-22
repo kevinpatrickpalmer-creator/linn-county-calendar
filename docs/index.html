@@ -56,6 +56,25 @@
     color: #999;
     margin: .5rem 0 .1rem;
   }
+  .share-label { margin: 1rem 0 .5rem; font-size: .85rem; font-weight: 600; color: #444; text-align: center; }
+  .share-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+  .share-btn {
+    flex: 1 1 auto;
+    min-width: 6rem;
+    padding: .55rem .7rem;
+    font-size: .85rem;
+    font-weight: 600;
+    font-family: inherit;
+    border: 1px solid #a71a2d;
+    border-radius: 8px;
+    background: #fff;
+    color: #a71a2d;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .share-btn:hover { background: #fdeceb; }
+  .share-btn.copied { border-color: #1a7d3c; color: #1a7d3c; background: #e3f2e9; }
   label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
   label:first-of-type { margin-top: 0; }
   input[type="email"], select {
@@ -144,6 +163,10 @@
     p.sub, p.hint { color: #aaa; }
     .footer-link a { color: #d99a44; }
     .submit-qr p { color: #999; }
+    .share-label { color: #ccc; }
+    .share-btn { background: #15151a; border-color: #d99a44; color: #d99a44; }
+    .share-btn:hover { background: #2a2213; }
+    .share-btn.copied { border-color: #6fcf97; color: #6fcf97; background: #12321f; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -179,6 +202,15 @@
     <p class="hint">To check it worked, open your phone or computer's own calendar app — you should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
     <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default — check your calendar app's alert settings for this calendar, or sign up for reminder emails below instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
+
+    <p class="share-label">Know someone who'd want this? Share it:</p>
+    <div class="share-row">
+      <a class="share-btn" id="shareFacebook" href="#" target="_blank" rel="noopener">Facebook</a>
+      <a class="share-btn" id="shareWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="share-btn" id="shareEmail" href="#">Email</a>
+      <button class="share-btn" id="shareCopyLink" type="button">Copy Link</button>
+    </div>
+    <p class="hint" id="shareInstagramHint">For Instagram, tap Copy Link, then paste it into your bio, a story, or a DM.</p>
   </section>
 
   <section>
@@ -248,6 +280,39 @@
   qr.addData(`https://${config.domain}/submit.html`);
   qr.make();
   document.getElementById("submitQR").innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
+
+  // Shares the friendly landing page, not a raw webcal:// link -- someone
+  // clicking a shared link should land somewhere that explains what this is
+  // and lets them subscribe themselves, not silently trigger a calendar-app
+  // action out of context. Instagram has no public web share-link API (its
+  // share sheet only takes media, not plain URLs), so it isn't listed as its
+  // own button -- Copy Link plus a hint covers it instead.
+  const shareUrl = `https://${config.domain}/`;
+  const shareText = `${config.calendar_title}: a free calendar for everything happening in ${config.county_display_name}.`;
+
+  document.getElementById("shareFacebook").href =
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  document.getElementById("shareWhatsapp").href =
+    `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
+  document.getElementById("shareEmail").href =
+    `mailto:?subject=${encodeURIComponent(config.calendar_title)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
+
+  const copyBtn = document.getElementById("shareCopyLink");
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      copyBtn.textContent = "Copied!";
+      copyBtn.classList.add("copied");
+    } catch (err) {
+      // Clipboard API needs a secure context/permission -- fall back to
+      // just selecting the text so the visitor can copy it manually.
+      copyBtn.textContent = shareUrl;
+    }
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Link";
+      copyBtn.classList.remove("copied");
+    }, 2500);
+  });
 
   // Matches the slug write_town_ics_files() uses in
   // scrape_linn_county_calendar.py (re.sub(r"[^a-z0-9]+", "-", ...)).
