@@ -50,6 +50,7 @@
     font-size: .85rem;
     cursor: pointer;
   }
+  .stats-line { margin: 0 0 .6rem; text-align: center; font-size: .72rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: #a71a2d; }
   .filterbar { margin-bottom: .6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .filterbar input[type="checkbox"] { accent-color: #a71a2d; }
   .filterbar select {
@@ -247,6 +248,7 @@
     .links a { color: #d99a44; }
     .site-credit { border-top-color: #333; color: #999; }
     .site-credit .powered-by { color: #666; }
+    .stats-line { color: #d99a44; }
   }
 
   /* ---------- Print: a clean page, not a printout of the phone-sized web
@@ -257,7 +259,7 @@
   @media print {
     html, body { background: #fff; color: #000; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    #detail, #status {
+    .stats-line, #detail, #status {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
@@ -293,6 +295,8 @@
       <button id="nextBtn" aria-label="Next month">&rarr;</button>
     </div>
   </div>
+
+  <p class="stats-line" id="statsLine"></p>
 
   <div class="filterbar">
     <label for="townFilter" style="font-size:.85rem;margin-right:.4rem;">Town:</label>
@@ -769,6 +773,10 @@ async function main() {
     const text = await res.text();
     allEvents = parseICS(text);
     eventsByDay = buildDayIndex(allEvents);
+    if (siteConfig) {
+      document.getElementById("statsLine").textContent =
+        `1 County · ${siteConfig.towns.length} Towns · ${allEvents.length} Events · 1 Calendar`;
+    }
   } catch (err) {
     document.getElementById("status").textContent = "Couldn't load the calendar. Please try refreshing.";
     return;

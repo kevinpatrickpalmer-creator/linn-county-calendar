@@ -131,7 +131,7 @@
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1>Submit a Community Event</h1>
   <p class="sub" id="pageSub">Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
-  <p class="stats-line">1 County &middot; 8 Towns &middot; 700+ Events &middot; 1 Calendar</p>
+  <p class="stats-line" id="statsLine"></p>
 
   <form id="eventForm">
     <label for="name">Event name *</label>
@@ -209,6 +209,16 @@
   document.title = `Submit a Community Event | ${config.county_display_name}`;
   document.getElementById("pageSub").textContent =
     `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.`;
+
+  try {
+    const icsText = await (await fetch("linn_county_events.ics")).text();
+    const eventCount = (icsText.match(/^BEGIN:VEVENT/gm) || []).length;
+    document.getElementById("statsLine").textContent =
+      `1 County · ${config.towns.length} Towns · ${eventCount} Events · 1 Calendar`;
+  } catch (err) {
+    document.getElementById("statsLine").textContent =
+      `1 County · ${config.towns.length} Towns · 1 Calendar`;
+  }
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {

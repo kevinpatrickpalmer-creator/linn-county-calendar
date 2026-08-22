@@ -188,7 +188,7 @@
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1 id="pageTitle">Community Calendar</h1>
   <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
-  <p class="stats-line">1 County &middot; 8 Towns &middot; 700+ Events &middot; 1 Calendar</p>
+  <p class="stats-line" id="statsLine"></p>
 
   <section>
     <h2>Subscribe to the calendar</h2>
@@ -286,6 +286,16 @@
     `Local events, meetings, and happenings around ${config.county_display_name}, kept up to date automatically.`;
   document.getElementById("newsletterLabel").textContent =
     `Notify me when the ${config.county_display_name} Community App launches`;
+
+  try {
+    const icsText = await (await fetch("linn_county_events.ics")).text();
+    const eventCount = (icsText.match(/^BEGIN:VEVENT/gm) || []).length;
+    document.getElementById("statsLine").textContent =
+      `1 County · ${config.towns.length} Towns · ${eventCount} Events · 1 Calendar`;
+  } catch (err) {
+    document.getElementById("statsLine").textContent =
+      `1 County · ${config.towns.length} Towns · 1 Calendar`;
+  }
 
   // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
   // printable flyer uses, so both point to the exact same submit.html URL.
