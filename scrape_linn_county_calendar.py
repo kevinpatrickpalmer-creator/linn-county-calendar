@@ -226,6 +226,8 @@ from calendar_config import extract_town, load_config
 
 CONFIG = load_config()
 
+BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
+
 # This scraper is specific to linncountyleader.com's CitySpark widget --
 # a new instance for a different town/county needs its own scraper (or
 # none at all, relying purely on manual submissions) unless that source
@@ -1639,6 +1641,58 @@ def write_town_ics_files(events):
         _write_category_variant_ics_files(town_events, base_path, calname_base)
 
 
+def send_mass_failure_alert(new_count, previous_count, source_health):
+    """Emails the admin when a run is about to be aborted for losing most
+    of its sources at once (see the guard in main()) -- a failed GitHub
+    Actions run alone is easy to miss, and this is the one failure mode
+    where staying silent means the live calendar goes stale for everyone
+    subscribed to it.
+    """
+    if not BREVO_API_KEY:
+        print("  BREVO_API_KEY isn't set -- skipping mass-failure alert email.", file=sys.stderr)
+        return
+
+    failed = [s for s in source_health if not s["ok"]]
+    lines = [
+        f"Today's scrape of the {CONFIG['county_display_name']} calendar found only "
+        f"{new_count} events, down from {previous_count} in the last published "
+        "calendar. That's more than a 50% drop, which almost always means "
+        "several sources failed at once rather than that events actually "
+        "disappeared -- so this run was NOT published. The site is still "
+        "showing the last good calendar.",
+        "",
+    ]
+    if failed:
+        lines.append("Sources that failed this run:")
+        for s in failed:
+            lines.append(f"- {s['name']}: {s['error']}")
+    else:
+        lines.append(
+            "No individual source reported an error -- check the full run log "
+            "in the Actions tab for what changed."
+        )
+    lines.append("")
+    lines.append("Nothing to do unless this keeps happening on the next run too.")
+    body = "\n".join(lines)
+
+    try:
+        resp = requests.post(
+            "https://api.brevo.com/v3/smtp/email",
+            headers={"api-key": BREVO_API_KEY, "Content-Type": "application/json"},
+            json={
+                "sender": {"email": CONFIG["sender_email"], "name": CONFIG["sender_name"]},
+                "to": [{"email": CONFIG["admin_email"]}],
+                "subject": f"Scrape aborted -- {CONFIG['county_display_name']} calendar lost most of its sources",
+                "textContent": body,
+            },
+            timeout=30,
+        )
+        resp.raise_for_status()
+        print("  Sent mass-failure alert email.")
+    except requests.RequestException as e:
+        print(f"  WARNING: failed to send mass-failure alert: {e}", file=sys.stderr)
+
+
 def main():
     # Per-source health, written to docs/source_status.json alongside the
     # .ics at the end of this run -- see docs/status.html. Sources whose
@@ -1845,6 +1899,7 @@ def main():
                 "place instead of overwriting it.",
                 file=sys.stderr,
             )
+            send_mass_failure_alert(len(events), previous_count, source_health)
             sys.exit(1)
 
     print(f"Found {len(events)} events total across all sources\n")
