@@ -130,7 +130,7 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1>Submit a Community Event</h1>
-  <p class="sub" id="pageSub">Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
+  <p class="sub" id="pageSub">Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live. Calendar is updated daily.</p>
   <p class="stats-line" id="statsLine"></p>
 
   <form id="eventForm">
@@ -208,7 +208,7 @@
 
   document.title = `Submit a Community Event | ${config.county_display_name}`;
   document.getElementById("pageSub").textContent =
-    `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.`;
+    `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live. Calendar is updated daily.`;
 
   try {
     const icsText = await (await fetch("linn_county_events.ics")).text();
