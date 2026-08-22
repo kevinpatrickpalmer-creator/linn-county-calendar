@@ -23,6 +23,19 @@
     margin-bottom: .6rem;
     flex-wrap: wrap;
   }
+  .topbar-title { display: flex; align-items: center; gap: .5rem; min-width: 0; }
+  .mo-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  }
+  .mo-badge img { width: 24px; height: auto; display: block; }
   .topbar h1 {
     font-size: 1.05rem;
     margin: 0;
@@ -248,6 +261,8 @@
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
+    .mo-badge { width: 44px; height: 44px; }
+    .mo-badge img { width: 32px; }
     .grid { background: #999; border-color: #999; }
     .dow { background: #eee; color: #333; }
     .day { background: #fff; min-height: 1.35in; font-size: .8rem; }
@@ -268,7 +283,10 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <h1 id="monthLabel">Community Calendar</h1>
+    <div class="topbar-title">
+      <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+      <h1 id="monthLabel">Community Calendar</h1>
+    </div>
     <div class="nav">
       <button id="prevBtn" aria-label="Previous month">&larr;</button>
       <button id="todayBtn">Today</button>

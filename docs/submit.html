@@ -20,14 +20,28 @@
     width: 100%;
     max-width: 480px;
   }
+  .mo-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto .6rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  }
+  .mo-badge img { width: 40px; height: auto; display: block; }
   h1 {
     font-size: 1.4rem;
     margin: 0 0 .25rem;
+    text-align: center;
   }
   p.sub {
     margin: 0 0 1.5rem;
     color: #555;
     font-size: .95rem;
+    text-align: center;
   }
   form {
     background: #fff;
@@ -104,6 +118,7 @@
 </head>
 <body>
 <main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <h1>Submit a Community Event</h1>
   <p class="sub" id="pageSub">Any event counts, big or small — school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live, so you won't see it on the calendar right away.</p>
 
