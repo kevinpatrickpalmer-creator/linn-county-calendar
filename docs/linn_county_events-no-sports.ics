@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Wine & Art Stroll
 DTSTART:20260822T213000Z
 DTEND:20260823T013000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19174972-2026-08-22-430@linn-county-scraper.local
 LOCATION:Downtown Marceline Foundation | Marceline\, MO
 END:VEVENT
@@ -18,7 +18,7 @@ BEGIN:VEVENT
 SUMMARY:DJ Landen Gardner - Party on the Patio
 DTSTART:20260823T010000Z
 DTEND:20260823T020000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652878-2026-08-22-800@linn-county-scraper.local
 DESCRIPTION:DJ Landen Gardner for a Party on the Patio. No Minors\, $5.00 
  Cover Charge \, No Outside Containers.
@@ -28,7 +28,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260825
 DTEND;VALUE=DATE:20260826
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-08-25-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -36,7 +36,7 @@ BEGIN:VEVENT
 SUMMARY:Linn Co Fall Fashion Show
 DTSTART:20260830T190000Z
 DTEND:20260830T200000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19524668-2026-08-30-200@linn-county-scraper.local
 DESCRIPTION:Get inspired for the season with the latest Fall styles! Join 
  us for a fun afternoon featuring styles from OliveSage Emporium\, Hazel & 
@@ -47,7 +47,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Penney
 DTSTART:20260831T220000Z
 DTEND:20260901T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046888-2026-08-31-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -55,7 +55,7 @@ BEGIN:VEVENT
 SUMMARY:HS XC @ Salisbury
 DTSTART:20260901T210000Z
 DTEND:20260901T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046890-2026-09-01-400@linn-county-scraper.local
 LOCATION:Salisbury\, MO
 END:VEVENT
@@ -63,7 +63,7 @@ BEGIN:VEVENT
 SUMMARY:Bulk Collection Day - 1 Item per household
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17758201-2026-09-01-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -71,7 +71,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-09-01-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -79,7 +79,7 @@ BEGIN:VEVENT
 SUMMARY:FBLA Kickoff meeting
 DTSTART:20260902T233000Z
 DTEND:20260903T003000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19524376-2026-09-02-630@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -87,7 +87,7 @@ BEGIN:VEVENT
 SUMMARY:Tornado Siren Test Day!
 DTSTART;VALUE=DATE:20260902
 DTEND;VALUE=DATE:20260903
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:16999440-2026-09-02-allday@linn-county-scraper.local
 DESCRIPTION:On the first Wednesday of every month (on or around noon)\, th
  e City tests its two tornado sirens to ensure they are functioning at peak
@@ -98,7 +98,7 @@ BEGIN:VEVENT
 SUMMARY:HS G Golf - Marceline Quad
 DTSTART:20260903T210000Z
 DTEND:20260904T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046892-2026-09-03-400@linn-county-scraper.local
 LOCATION:Marceline Golf Club | Marceline\, MO
 END:VEVENT
@@ -106,7 +106,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Hannibal
 DTSTART:20260903T220000Z
 DTEND:20260904T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046893-2026-09-03-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -114,7 +114,7 @@ BEGIN:VEVENT
 SUMMARY:V Football vs Salisbury
 DTSTART:20260905T000000Z
 DTEND:20260905T030000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046894-2026-09-04-700@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -122,7 +122,7 @@ BEGIN:VEVENT
 SUMMARY:V/JV BB vs. Bevier
 DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652829-2026-09-04-allday@linn-county-scraper.local
 LOCATION:Bevier\, MO
 END:VEVENT
@@ -130,7 +130,7 @@ BEGIN:VEVENT
 SUMMARY:JV Football @ Brookfield
 DTSTART:20260907T230000Z
 DTEND:20260908T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046896-2026-09-07-600@linn-county-scraper.local
 LOCATION:Burlington Field | Brookfield\, MO
 END:VEVENT
@@ -138,7 +138,7 @@ BEGIN:VEVENT
 SUMMARY:JV Football vs Westran
 DTSTART:20260907T230000Z
 DTEND:20260908T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652804-2026-09-07-600@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -146,7 +146,7 @@ BEGIN:VEVENT
 SUMMARY:SADD meeting
 DTSTART:20260908T123000Z
 DTEND:20260908T130000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17368077-2026-09-08-730@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -154,7 +154,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Putnam County
 DTSTART:20260908T220000Z
 DTEND:20260909T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046897-2026-09-08-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -162,7 +162,7 @@ BEGIN:VEVENT
 SUMMARY:Airport Board Meeting
 DTSTART:20260908T233000Z
 DTEND:20260909T003000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19447226-2026-09-08-630@linn-county-scraper.local
 LOCATION:North Central | Brookfield\, MO
 END:VEVENT
@@ -170,7 +170,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260908
 DTEND;VALUE=DATE:20260909
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-09-08-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -178,7 +178,7 @@ BEGIN:VEVENT
 SUMMARY:FFA Chapter Meeting
 DTSTART:20260909T123000Z
 DTEND:20260909T130000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17368078-2026-09-09-730@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -186,7 +186,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf @ Paris Tournament
 DTSTART:20260909T140000Z
 DTEND:20260909T203000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046900-2026-09-09-900@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -194,7 +194,7 @@ BEGIN:VEVENT
 SUMMARY:MS Softball @ Brunswick
 DTSTART:20260909T220000Z
 DTEND:20260910T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046901-2026-09-09-500@linn-county-scraper.local
 LOCATION:Brunswick\, MO
 END:VEVENT
@@ -202,7 +202,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Regular Meeting
 DTSTART:20260909T223000Z
 DTEND:20260910T003000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19414596-2026-09-09-530@linn-county-scraper.local
 DESCRIPTION:Regular Council Meetings are on the second Wednesday of each m
  onth at 5:30 pm.
@@ -212,7 +212,7 @@ BEGIN:VEVENT
 SUMMARY:HS XC @ St Joseph Christian
 DTSTART:20260910T210000Z
 DTEND:20260910T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046902-2026-09-10-400@linn-county-scraper.local
 LOCATION:St Joseph Christian School\, 5401 Gene Field Rd\, St Joseph | Mar
  celine\, MO
@@ -221,7 +221,7 @@ BEGIN:VEVENT
 SUMMARY:FCA Meeting in the Library
 DTSTART:20260911T123000Z
 DTEND:20260911T130000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17331916-2026-09-11-730@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -229,7 +229,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf @ Marceline Quad
 DTSTART:20260914T210000Z
 DTEND:20260914T230000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046907-2026-09-14-400@linn-county-scraper.local
 LOCATION:Marceline Golf Club | Marceline\, MO
 END:VEVENT
@@ -237,7 +237,7 @@ BEGIN:VEVENT
 SUMMARY:MS Softball vs Gallatin
 DTSTART:20260915T220000Z
 DTEND:20260915T230000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046912-2026-09-15-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -245,7 +245,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-09-15-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -253,7 +253,7 @@ BEGIN:VEVENT
 SUMMARY:Build My Future Day
 DTSTART;VALUE=DATE:20260916
 DTEND;VALUE=DATE:20260917
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:18638891-2026-09-16-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -261,7 +261,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf - Tri w/ Brookfield & Putnam Co
 DTSTART:20260917T210000Z
 DTEND:20260917T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046913-2026-09-17-400@linn-county-scraper.local
 LOCATION:Brookfield Country Club | Brookfield\, MO
 END:VEVENT
@@ -269,7 +269,7 @@ BEGIN:VEVENT
 SUMMARY:Library Board Meeting
 DTSTART:20260917T210000Z
 DTEND:20260917T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:16984732-2026-09-17-400@linn-county-scraper.local
 DESCRIPTION:This board meets on the 3rd Thursday at 4:00 pm every month.
 LOCATION:Marceline Carnegie Library | Marceline\, MO
@@ -278,7 +278,7 @@ BEGIN:VEVENT
 SUMMARY:HS Softball vs South Harrison
 DTSTART:20260917T220000Z
 DTEND:20260918T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046914-2026-09-17-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -286,7 +286,7 @@ BEGIN:VEVENT
 SUMMARY:PDC In-Service (12:30 Dismissal)
 DTSTART:20260918T173000Z
 DTEND:20260918T200000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:18990418-2026-09-18-1230@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -294,7 +294,7 @@ BEGIN:VEVENT
 SUMMARY:HS Softball @ Cairo Tournament
 DTSTART:20260919T130000Z
 DTEND:20260919T210000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046917-2026-09-19-800@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -302,7 +302,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball @ Salisbury
 DTSTART:20260921T220000Z
 DTEND:20260922T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046918-2026-09-21-500@linn-county-scraper.local
 LOCATION:Salisbury\, MO
 END:VEVENT
@@ -310,7 +310,7 @@ BEGIN:VEVENT
 SUMMARY:Girls Golf - Salisbury Invitational
 DTSTART:20260922T140000Z
 DTEND:20260922T150000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:18990317-2026-09-22-900@linn-county-scraper.local
 LOCATION:Salisbury Municipal Golf | Salisbury\, MO
 END:VEVENT
@@ -318,7 +318,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260922
 DTEND;VALUE=DATE:20260923
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-09-22-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -326,7 +326,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf @ Chillicothe Tournament
 DTSTART:20260924T140000Z
 DTEND:20260924T200000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046926-2026-09-24-900@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -334,7 +334,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Brookfield (Pink Out)
 DTSTART:20260924T220000Z
 DTEND:20260925T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046928-2026-09-24-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -342,7 +342,7 @@ BEGIN:VEVENT
 SUMMARY:FCCLA Region 3 Fall Meeting @ MACC
 DTSTART:20260925T140000Z
 DTEND:20260925T150000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046930-2026-09-25-900@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -350,7 +350,7 @@ BEGIN:VEVENT
 SUMMARY:HS Football @ Putnam Co
 DTSTART:20260926T000000Z
 DTEND:20260926T020000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046931-2026-09-25-700@linn-county-scraper.local
 LOCATION:Putnam County R-I School District | Marceline\, MO
 END:VEVENT
@@ -358,7 +358,7 @@ BEGIN:VEVENT
 SUMMARY:HS Softball vs Trenton (Sr Night)
 DTSTART:20260929T220000Z
 DTEND:20260930T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046934-2026-09-29-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -366,7 +366,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20260929
 DTEND;VALUE=DATE:20260930
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-09-29-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -374,7 +374,7 @@ BEGIN:VEVENT
 SUMMARY:V/JV Softball vs Cameron
 DTSTART:20260930T220000Z
 DTEND:20261001T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652805-2026-09-30-500@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -382,7 +382,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf @ Brookfield Invitational
 DTSTART:20261001T140000Z
 DTEND:20261001T200000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046936-2026-10-01-900@linn-county-scraper.local
 LOCATION:Brookfield\, MO
 END:VEVENT
@@ -390,7 +390,7 @@ BEGIN:VEVENT
 SUMMARY:HS XC @ Moberly Invitational
 DTSTART:20261001T210000Z
 DTEND:20261001T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046937-2026-10-01-400@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -398,7 +398,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Highland
 DTSTART:20261001T220000Z
 DTEND:20261002T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046938-2026-10-01-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -406,7 +406,7 @@ BEGIN:VEVENT
 SUMMARY:MS Softball vs TBD
 DTSTART:20261001T220000Z
 DTEND:20261002T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19046939-2026-10-01-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -414,7 +414,7 @@ BEGIN:VEVENT
 SUMMARY:Homecoming (12:30 Dismissal)
 DTSTART:20261002T173000Z
 DTEND:20261002T200000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:18990376-2026-10-02-1230@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -422,7 +422,7 @@ BEGIN:VEVENT
 SUMMARY:Engineers with Principal - Marceline Alumni
 DTSTART:20261004T010000Z
 DTEND:20261004T020000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652879-2026-10-03-800@linn-county-scraper.local
 DESCRIPTION:Bar opens at 4:00. Engineers with Principal on the Patio from 
  8:00-12:00. 5.00 Cover evening only
@@ -432,7 +432,7 @@ BEGIN:VEVENT
 SUMMARY:HS Girls Golf - GRC Tournament @ TBD
 DTSTART;VALUE=DATE:20261005
 DTEND;VALUE=DATE:20261006
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19087293-2026-10-05-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -440,7 +440,7 @@ BEGIN:VEVENT
 SUMMARY:Bulk Collection Day - 1 Item per household
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17758201-2026-10-06-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -448,7 +448,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Trash Collection Day
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17938320-2026-10-06-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -456,7 +456,7 @@ BEGIN:VEVENT
 SUMMARY:GRC XC meet
 DTSTART:20261007T210000Z
 DTEND:20261007T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652806-2026-10-07-400@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -464,7 +464,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball vs Macon
 DTSTART:20261007T220000Z
 DTEND:20261008T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19087300-2026-10-07-500@linn-county-scraper.local
 LOCATION:Walt Disney Park | Marceline\, MO
 END:VEVENT
@@ -472,7 +472,7 @@ BEGIN:VEVENT
 SUMMARY:Girls Golf District @ TBD
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19087299-2026-10-07-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -480,7 +480,7 @@ BEGIN:VEVENT
 SUMMARY:Tornado Siren Test Day!
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:16999440-2026-10-07-allday@linn-county-scraper.local
 DESCRIPTION:On the first Wednesday of every month (on or around noon)\, th
  e City tests its two tornado sirens to ensure they are functioning at peak
@@ -491,7 +491,7 @@ BEGIN:VEVENT
 SUMMARY:FCA Meeting in the Library
 DTSTART:20261009T123000Z
 DTEND:20261009T130000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17331916-2026-10-09-730@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -499,7 +499,7 @@ BEGIN:VEVENT
 SUMMARY:End of 1st Quarter
 DTSTART;VALUE=DATE:20261009
 DTEND;VALUE=DATE:20261010
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:18994708-2026-10-09-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -507,7 +507,7 @@ BEGIN:VEVENT
 SUMMARY:KC Ruckus
 DTSTART:20261010T190000Z
 DTEND:20261010T230000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19652880-2026-10-10-200@linn-county-scraper.local
 DESCRIPTION:Day Band with KC Ruckus on the Patio 2:00-6:00.
 LOCATION:OK Tavern | Marceline\, MO
@@ -516,7 +516,7 @@ BEGIN:VEVENT
 SUMMARY:HS Softball @ Princeton Tournament
 DTSTART;VALUE=DATE:20261010
 DTEND;VALUE=DATE:20261011
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:19087303-2026-10-10-allday@linn-county-scraper.local
 LOCATION:Marceline\, MO
 END:VEVENT
@@ -524,114 +524,15 @@ BEGIN:VEVENT
 SUMMARY:SADD meeting
 DTSTART:20261013T123000Z
 DTEND:20261013T130000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:17368077-2026-10-13-730@linn-county-scraper.local
 LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Meeting
-DTSTART:20260825T223000Z
-DTEND:20260826T010000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-city-council-meeting-14-2026-08-25-0530@linn-county-scraper.loc
- al
-DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
- he 4th Tuesday of each month in the Council Chambers at 116 West Brooks St
- reet. The meetings begin at 5:30 pm. Special meetings or changes to the re
- gular schedule are posted in advance.Agendas and minutes from city council
-  meetings are available from the city clerk and on the Public Documents se
- ction of this website
-LOCATION:City Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Meeting
-DTSTART:20260922T223000Z
-DTEND:20260923T010000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-city-council-meeting-15-2026-09-22-0530@linn-county-scraper.loc
- al
-DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
- he 4th Tuesday of each month in the Council Chambers at 116 West Brooks St
- reet. The meetings begin at 5:30 pm. Special meetings or changes to the re
- gular schedule are posted in advance.Agendas and minutes from city council
-  meetings are available from the city clerk and on the Public Documents se
- ction of this website
-LOCATION:City Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Meeting
-DTSTART:20261027T223000Z
-DTEND:20261028T010000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-city-council-meeting-16-2026-10-27-0530@linn-county-scraper.loc
- al
-DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
- he 4th Tuesday of each month in the Council Chambers at 116 West Brooks St
- reet. The meetings begin at 5:30 pm. Special meetings or changes to the re
- gular schedule are posted in advance.Agendas and minutes from city council
-  meetings are available from the city clerk and on the Public Documents se
- ction of this website
-LOCATION:City Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Meeting
-DTSTART:20261124T233000Z
-DTEND:20261125T020000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-city-council-meeting-17-2026-11-24-0530@linn-county-scraper.loc
- al
-DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
- he 4th Tuesday of each month in the Council Chambers at 116 West Brooks St
- reet. The meetings begin at 5:30 pm. Special meetings or changes to the re
- gular schedule are posted in advance.Agendas and minutes from city council
-  meetings are available from the city clerk and on the Public Documents se
- ction of this website
-LOCATION:City Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Meeting
-DTSTART:20261222T233000Z
-DTEND:20261223T020000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-city-council-meeting-18-2026-12-22-0530@linn-county-scraper.loc
- al
-DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
- he 4th Tuesday of each month in the Council Chambers at 116 West Brooks St
- reet. The meetings begin at 5:30 pm. Special meetings or changes to the re
- gular schedule are posted in advance.Agendas and minutes from city council
-  meetings are available from the city clerk and on the Public Documents se
- ction of this website
-LOCATION:City Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Main Street Brookfield’s Sip & Stroll
-DTSTART:20260919T223000Z
-DTEND:20260920T003000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-main-street-brookfields-sip-stroll-2026-09-19-0530@linn-county-
- scraper.local
-DESCRIPTION:On Saturday\, September 19\, from 5:30–7:30 PM\, attendee
- s will spend the evening strolling downtown\, sampling beverages\, shoppin
- g local\, and discovering businesses along the way.
-LOCATION:Main Street - Brookfield | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Last Day: Linn County Youth Coalition Community Drive
-DTSTART:20260901T130000Z
-DTEND:20260901T210000Z
-DTSTAMP:20260821T204416Z
-UID:bfcity-linn-county-youth-coalition-community-hygiene-drive-2026-09-01-
- 0800@linn-county-scraper.local
-DESCRIPTION:Last day of Linn County Youth Coalition Community Hygiene Driv
- e. Go here for compete story: https://brookfieldcity.com/2026/07/30/sponso
- r-a-local-student-and-help-every-child-start-the-school-year-prepared/
-LOCATION:Linn County Health Department | Brookfield\, MO
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260710T160000Z
 DTEND:20260710T170000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-10-mommy-and-me-group-2026-07-10-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -645,7 +546,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260711T000000Z
 DTEND:20260711T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-10-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-07-10-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -662,7 +563,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260711T153000Z
 DTEND:20260711T163000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-11-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-07-11-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -675,7 +576,7 @@ SUMMARY:NARVRE 154 in Marceline meets 3rd Wednesday of each month at the M
  arceline...
 DTSTART:20260715T173000Z
 DTEND:20260715T183000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-15-narvre-154-in-marceline-meets-3rd-wednesday
  -of-each-month-at-2026-07-15-1230@linn-county-scraper.local
 DESCRIPTION:NARVRE 154 in Marceline meets 3rd Wednesday of each month at t
@@ -690,7 +591,7 @@ SUMMARY:Marceline Carnegie Library Board meets on the 3rd Thursday at 4:00
   p.m.
 DTSTART:20260716T210000Z
 DTEND:20260716T220000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-16-marceline-carnegie-library-board-meets-on-t
  he-3rd-thursday-a-2026-07-16-400@linn-county-scraper.local
 DESCRIPTION:Marceline Carnegie Library Board meets on the 3rd Thursday at 
@@ -701,7 +602,7 @@ BEGIN:VEVENT
 SUMMARY:Trevor Thomas LIVE at First Baptist Church
 DTSTART:20260717T000000Z
 DTEND:20260717T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-16-trevor-thomas-live-at-first-baptist-church-
  2026-07-16-700@linn-county-scraper.local
 DESCRIPTION:Trevor Thomas LIVE at First Baptist Church\, Marceline. Show s
@@ -712,7 +613,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260717T160000Z
 DTEND:20260717T170000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-17-mommy-and-me-group-2026-07-17-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -726,7 +627,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260718T153000Z
 DTEND:20260718T163000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-18-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-07-18-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -738,7 +639,7 @@ BEGIN:VEVENT
 SUMMARY:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.
 DTSTART:20260721T230000Z
 DTEND:20260722T000000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-21-piecemakers-quilt-guild-meets-every-3rd-tue
  sday-at-6-p-m-2026-07-21-600@linn-county-scraper.local
 DESCRIPTION:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.\, at
@@ -749,7 +650,7 @@ BEGIN:VEVENT
 SUMMARY:Fourth annual Healthy Summit
 DTSTART:20260724T000000Z
 DTEND:20260724T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-23-fourth-annual-healthy-summit-2026-07-23-700
  @linn-county-scraper.local
 DESCRIPTION:Fourth annual Healthy Summit\, 5-7 p.m.\, Walsworth Community 
@@ -760,7 +661,7 @@ BEGIN:VEVENT
 SUMMARY:Browning Homecoming
 DTSTART;VALUE=DATE:20260724
 DTEND;VALUE=DATE:20260725
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-24-browning-homecoming-2026-07-24-allday@linn-
  county-scraper.local
 DESCRIPTION:Browning Homecoming
@@ -770,7 +671,7 @@ BEGIN:VEVENT
 SUMMARY:Dakota Hale in concert at 8 p.m.
 DTSTART:20260725T010000Z
 DTEND:20260725T020000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-24-dakota-hale-in-concert-at-8-p-m-2026-07-24-
  800@linn-county-scraper.local
 DESCRIPTION:Dakota Hale in concert at 8 p.m.\, during Browning Homecoming.
@@ -780,7 +681,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260724T160000Z
 DTEND:20260724T170000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-24-mommy-and-me-group-2026-07-24-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -794,7 +695,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260725T000000Z
 DTEND:20260725T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-24-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-07-24-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -810,7 +711,7 @@ BEGIN:VEVENT
 SUMMARY:Browning Homecoming
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260726
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-25-browning-homecoming-2026-07-25-allday@linn-
  county-scraper.local
 DESCRIPTION:Browning Homecoming.
@@ -820,7 +721,7 @@ BEGIN:VEVENT
 SUMMARY:Blake Banks
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260726
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-25-blake-banks-2026-07-25-allday@linn-county-s
  craper.local
 DESCRIPTION:Blake Banks\, The Hicks\, DJ Kiki in concert at 32980 Galley D
@@ -834,7 +735,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260725T153000Z
 DTEND:20260725T163000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-25-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-07-25-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -846,7 +747,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260731T160000Z
 DTEND:20260731T170000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-07-31-mommy-and-me-group-2026-07-31-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -860,7 +761,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260801T153000Z
 DTEND:20260801T163000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-01-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-08-01-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -872,7 +773,7 @@ BEGIN:VEVENT
 SUMMARY:Primary Election
 DTSTART;VALUE=DATE:20260804
 DTEND;VALUE=DATE:20260805
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
  nty-scraper.local
 DESCRIPTION:Primary Election.
@@ -881,7 +782,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming. Carnival rides
 DTSTART;VALUE=DATE:20260805
 DTEND;VALUE=DATE:20260806
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-05-92nd-bevier-homecoming-carnival-rides-2026-
  08-05-allday@linn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -891,7 +792,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming. Carnival rides
 DTSTART;VALUE=DATE:20260806
 DTEND;VALUE=DATE:20260807
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-06-92nd-bevier-homecoming-carnival-rides-2026-
  08-06-allday@linn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -901,7 +802,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming. Carnival rides
 DTSTART;VALUE=DATE:20260807
 DTEND;VALUE=DATE:20260808
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-07-92nd-bevier-homecoming-carnival-rides-2026-
  08-07-allday@linn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -912,7 +813,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260808T000000Z
 DTEND:20260808T010000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-07-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-08-07-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -928,7 +829,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming. Carnival rides
 DTSTART;VALUE=DATE:20260808
 DTEND;VALUE=DATE:20260809
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-08-92nd-bevier-homecoming-carnival-rides-2026-
  08-08-allday@linn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -938,7 +839,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline R-V School District
 DTSTART;VALUE=DATE:20260824
 DTEND;VALUE=DATE:20260825
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-08-24-marceline-r-v-school-district-2026-08-24-al
  lday@linn-county-scraper.local
 DESCRIPTION:Marceline R-V School District\, first day of school.
@@ -949,7 +850,7 @@ SUMMARY:Laclede Pershing Days Car Show this September. The event is schedu
  led for Sat.
 DTSTART:20260912T133000Z
 DTEND:20260912T143000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-09-12-laclede-pershing-days-car-show-this-septemb
  er-the-event-is-s-2026-09-12-830@linn-county-scraper.local
 DESCRIPTION:Laclede Pershing Days Car Show this September. The event is sc
@@ -967,7 +868,7 @@ BEGIN:VEVENT
 SUMMARY:Brookfield High School Homecoming vs
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-09-18-brookfield-high-school-homecoming-vs-2026-0
  9-18-allday@linn-county-scraper.local
 DESCRIPTION:Brookfield High School Homecoming vs. Trenton. More details to
@@ -978,7 +879,7 @@ BEGIN:VEVENT
 SUMMARY:Annual Marceline vs. Brookfield Bell Game
 DTSTART;VALUE=DATE:20261023
 DTEND;VALUE=DATE:20261024
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-10-23-annual-marceline-vs-brookfield-bell-game-20
  26-10-23-allday@linn-county-scraper.local
 DESCRIPTION:Annual Marceline vs. Brookfield Bell Game\, at Marceline’s C
@@ -989,7 +890,7 @@ BEGIN:VEVENT
 SUMMARY:General Election
 DTSTART;VALUE=DATE:20261103
 DTEND;VALUE=DATE:20261104
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
  nty-scraper.local
 DESCRIPTION:General Election.
@@ -998,7 +899,7 @@ BEGIN:VEVENT
 SUMMARY:Peanut Night
 DTSTART;VALUE=DATE:20261128
 DTEND;VALUE=DATE:20261129
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:leadereditorial-2026-11-28-peanut-night-2026-11-28-allday@linn-county-
  scraper.local
 DESCRIPTION:Peanut Night\, Marceline. 65th Annual Peanut Night! Peanuts\, 
@@ -1009,137 +910,28 @@ DESCRIPTION:Peanut Night\, Marceline. 65th Annual Peanut Night! Peanuts\,
 LOCATION:Marceline\, MO
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:1st Annual Ministries in Linn County Craft Fair
-DTSTART:20260926T140000Z
-DTEND:20260926T210000Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-1st-annual-ministries-in-linn-county-craft-fair-2026-09-26-0
- 900@linn-county-scraper.local
-DESCRIPTION:Click the Link for more info!
-LOCATION:Trinity Fellowship Hall | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:BHS Prom
-DTSTART:20270410T144300Z
-DTEND:20270410T154300Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-bhs-prom-2027-04-10-0943@linn-county-scraper.local
-LOCATION:Brookfield R-3 High School | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:BHS Graduation Ceremony
-DTSTART:20270509T180000Z
-DTEND:20270509T200000Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-bhs-graduation-ceremony-2027-05-09-0100@linn-county-scraper.
- local
-LOCATION:Brookfield R-3 High School | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Great Pershing Balloon Derby Weekend
-DTSTART:20260904T165400Z
-DTEND:20260904T175400Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-great-pershing-balloon-derby-weekend-2026-09-04-1154@linn-co
- unty-scraper.local
-LOCATION:Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Railroad Days 2026
-DTSTART:20260905T172300Z
-DTEND:20260905T182300Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-railroad-days-2026-2026-09-05-1223@linn-county-scraper.local
-DESCRIPTION:More info to come.
-LOCATION:Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Customer Appreciation Day - Chartion Valley
-DTSTART:20260904T160000Z
-DTEND:20260904T180000Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-customer-appreciation-day-chartion-valley-2026-09-04-1100@li
- nn-county-scraper.local
-DESCRIPTION:Celebrate Customer Appreciation Day with Chariton Valley! Enjo
- y lunch\, visit with Chariton Valley staff\, and let us thank you for bein
- g a valued customer. We look forward to seeing you there!📍Macon HQ Lawn
- -1213 E Briggs Drive\, Macon\, MO 63552
-LOCATION:Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Linn County Youth Coalition Ice Cream Social & Mental Health Prese
- ntation
-DTSTART:20260825T220000Z
-DTEND:20260825T233000Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-linn-county-youth-coalition-ice-cream-social-mental-health-p
- resentation-2026-08-25-0500@linn-county-scraper.local
-DESCRIPTION:Come join us for Ice Cream and Connection while we learn about
-  mental health from Compass Health through a training called\, Erica’s L
- ighthouse\, it takes 45 Minutes. The target Audience for the training is M
- iddle School\, but we are welcoming 5th through 12th grade for the Ice Cre
- am Social! We will learn more about mental health & ways to keep your mind
-  healthy\, the difference between everyday feelings\, and overwhelming fee
- lings.For more information contact Kamber Fusco at kamber.a.fusco@dss.mo.g
- ov
-LOCATION:Linn County Health Department | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎉 PARK YOUTH FALL KICKOFF! 🏈
-DTSTART:20260826T230000Z
-DTEND:20260827T003000Z
-DTSTAMP:20260821T204416Z
-UID:bfchamber-%f0%9f%8e%89-park-youth-fall-kickoff-%f0%9f%8f%88-2026-08-26
- -0600@linn-county-scraper.local
-DESCRIPTION:You’re invited! 🎉Park Youth is kicking off a brand-new sc
- hool year\, and we want to invite students from all across our community t
- o join us!Our Fall Kickoff is Wednesday\, August 26\, from 6:00–7:30 p.m
- . in the Park Baptist Church parking lot. This is the first Park Youth eve
- nt of the school year\, and it’s the perfect night for students grades 5
- -12 to come check us out\, meet new friends\, and see what Park Youth is a
- ll about! 🙌 You do NOT have to attend Park Baptist Church to be part of
-  Park Youth!Our desire is to come alongside students wherever they are in 
- their faith journey. We have amazing adult mentors and small group leaders
-  who are passionate about helping students learn what it means to follow J
- esus\, grow in their faith\, build godly friendships\, and navigate life w
- ith Christ at the center. ❤️🏈 FALL KICKOFF🍔 Food🏈 Football + 
- games👥 Meet new friends & small group leaders🙌 Learn more about Park
-  Youth👕 Tailgate theme: Wear your favorite team gear!Parents are welcom
- e\, too! Come meet our leaders\, learn more about Park Youth\, and see how
-  we can partner with you as your student grows in their walk with Jesus. 
- ❤️📅 REGULAR WEDNESDAY NIGHTS BEGIN SEPTEMBER 2Middle School: 5:30
- –7:30 p.m.High School: 6:30–8:30 p.m.Awana: 5:30–7:30 p.m.🚐 Van t
- ransportation is available starting Sept. 2 when you register online.🔗 
- READY TO JOIN US? Register Here!Youth (Grades 5–12):https://www.parkbapt
- ist.com/youthAwana (4 years–4th grade):https://www.parkbaptist.com/Bring
-  a friend. Come check us out. Find a place to belong. 🙌We can’t wait 
- to kick off the school year with you! ❤️🏈Please reach out to Avery 
- Bailey at Park Baptist Church with any questions. avery@parkbaptist.com
-LOCATION:Park Baptist Church | Brookfield\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261225
-DTEND;VALUE=DATE:20261226
-DTSTAMP:20260821T204416Z
-UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Tax Sale
 DTSTART:20260824T150000Z
 DTEND:20260824T160000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:linncogov-3cbntjm1hmap7td7s6h10p5sbm@google.com-2026-08-24-1000@linn-c
  ounty-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20260907
+DTEND;VALUE=DATE:20260908
+DTSTAMP:20260822T014031Z
+UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -1148,7 +940,7 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261126
 DTEND;VALUE=DATE:20261127
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -1157,17 +949,17 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20260907
-DTEND;VALUE=DATE:20260908
-DTSTAMP:20260821T204416Z
-UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+DTSTAMP:20260822T014031Z
+UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 END:VEVENT
@@ -1175,7 +967,7 @@ BEGIN:VEVENT
 SUMMARY:Linn County\, MO Land Auction
 DTSTART:20260903T170000Z
 DTEND:20260903T180000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
  -1200@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -1185,7 +977,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -1195,17 +987,368 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
 LOCATION:102 Markham Dr. | Brookfield\, MO
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:Obituary: Kathy Hunt
+DTSTART;VALUE=DATE:20260820
+DTEND;VALUE=DATE:20260821
+DTSTAMP:20260822T014031Z
+UID:wrightfuneralhomeobit-2026-08-20-kathy-hunt-2026-08-20-allday@linn-cou
+ nty-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Kathy Hunt\, age 80\, of Meadville\, passed away peacefully on
+  Thursday\, August 20\, 2026\, at Pershing Memorial Hospital in Brookfield
+ . Mary Kathleen\, daughter of Woody Templeman and Claudia (Dawkins) Dulane
+ y\, was born December 8\, 1945\, in Chillicothe. On December 5\, 1986\, sh
+ e married Kenny Hunt\, with whom she shared nearly 40 years of marriage. K
+ athy was a 1963 graduate of Meadville High School. Throughout her working 
+ years\, she built a career in administrative work\, spending the majority 
+ of those years with the Bank of Brookfield-Purdin\, where she worked in bo
+ th the Meadville and Brookfield locations. She is survived by her husband
+ \, Kenny Hunt of the home\; two daughters\, Theresa Triplett and husband\,
+  Tom\, of Linneus\, and Holly Gasper and fiancé\, Matt Englert\, of Meadv
+ ille\; one son\, Paul Chapman Jr. of Osage\, MO\; one stepson\, Kenneth Ja
+ mes Hunt of Moberly\; eight grandchildren\, Jessica Young\, Sarah Samenus
+ \, Wayne Triplett\, Alan Gasper\, Jonathon Gasper\, Waylon Chapman\, Skyla
+ r Chapman\, and Chevelle Chapman\; several great-grandchildren\; one broth
+ er\, Mike Templeman of Brookfield\; three sisters\, Mary Ann Scott of Chil
+ licothe\, Cindy Walsh and husband\, Roger\, of Brookfield\, and Marylyn Ev
+ ans and husband\, David\, of Laclede\; as well as several nieces\, nephews
+ \, and other relatives. Kathy was preceded in death by her father\, Woody 
+ Templeman\; her mother and stepfather\, Claudia and Bill Dulaney\; her sis
+ ter-in-law\, Linda Templeman\; and her brother-in-law\, Alan Scott. In acc
+ ordance with Kathy’s wishes\, cremation will take place and no services 
+ will be held. Her family and friends will remember her privately\, holding
+  close the memories of the years they were fortunate to share with her.\n
+ \nFull obituary and service details: https://www.wright-funeralhome.com/ob
+ ituaries/Kathy-Hunt?obId=49332019
+LOCATION:Brookfield\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Patsy Lou Asher
+DTSTART;VALUE=DATE:20260810
+DTEND;VALUE=DATE:20260811
+DTSTAMP:20260822T014031Z
+UID:wrightfuneralhomeobit-2026-08-10-patsy-lou-asher-2026-08-10-allday@lin
+ n-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Patsy Lou Asher\, age 89\, of Brookfield\, passed away Monday
+ \, August 10\, 2026\, at Pershing Memorial Hospital in Brookfield. A Celeb
+ ration of Patsy’s life will be held Thursday\, August 20\, 2026\, at 2:0
+ 0 p.m. at Wright Funeral Home in Brookfield with Bro. Jeremy Blackburn off
+ iciating.  Burial will take place at Park Lawn Cemetery in Brookfield. The
+  family will receive friends from 1:00 p.m. until the time of service at t
+ he funeral home. Memorials to Pershing Memorial Auxiliary may be left at o
+ r mailed to Wright Funeral Home\, P.O. Box 496\, Brookfield\, MO 64628. Pa
+ tsy was born August 27\, 1936\, in Brookfield\, the daughter of Raymond Mo
+ rris and Bessie Mae (Adams) Sims. She was a graduate of Brookfield High Sc
+ hool. On September 26\, 1954\, she married Donald B. Asher who preceded he
+ r in death on August 5\, 1980. A familiar face to many throughout the Broo
+ kfield community\, Patsy worked for many years as a salesclerk at longtime
+  local businesses\, including Tooey's and Mart Drug\, as well as several o
+ ther retail businesses in the area. Through her work\, she came to know co
+ untless people and enjoyed the friendships she made along the way. Patsy w
+ as also a talented seamstress whose abilities were well known throughout t
+ he Brookfield area. Over the years\, she sewed for many people in the comm
+ unity and generously shared her talents with others. One especially meanin
+ gful part of her work was ordering and fitting prosthesis and bras for bre
+ ast cancer survivors\, providing a service that brought comfort and confid
+ ence to many women. Outside of work\, Patsy had a great passion for playin
+ g golf and enjoyed staying active through water aerobics. She also looked 
+ forward to attending Ray Ball Auction with her friends\, where she enjoyed
+  the company\, conversation\, and time spent together.  Above all else\, 
+ Patsy's greatest joy was her family. She dearly loved her children\, grand
+ children\, and great-grandchildren and was always proud to share a story a
+ bout them. Her family was never far from her thoughts or conversations\, a
+ nd the memories and stories she shared will remain a treasured part of her
+  legacy. Patsy is survived by her companion\, Terry Kenley of the home\; t
+ wo sons\, Donald Asher and wife\, Brenda\, of Brookfield\, and Mark Asher 
+ of Lee's Summit\; six grandchildren\, Bailey Calton and husband\, Dave\, o
+ f Lawson\, Kirby Asher and wife\, Kellie\, of Harrisburg\, Brandon Asher a
+ nd wife\, Kellan\, of Oak Park\, California\, Aaron Asher and wife\, Jessi
+ ca\, of Greenwood\, Tyler Asher and wife\, Amanda\, of Lee's Summit\, and 
+ Trevor Asher and wife\, Abby\, of Lee's Summit\; 13 great-grandchildren\; 
+ a sister-in-law\, Sylvia Morris of St. Catharine\; brother-in-law and sist
+ er-in-law Jim and Sheila Cook of Chillicothe\; and many nieces\, nephews\,
+  and other relatives. She was also preceded in death by her parents\, Raym
+ ond Morris and Bessie (Adams) Sims\; her stepfather\, Banty Sims\; two bro
+ thers\, Johnny Morris and Ronald Morris\; a daughter-in-law\, Teresa "Terr
+ i" Asher\; father-in-law and mother-in-law\, Ted and Viola Asher\;  sister
+ s-in-law and brothers-in-law\, Shirley Asher Bohannon Cook\, Eldon Bohanno
+ n\, and Ronald and Verna Asher. Patsy will be remembered for her independe
+ nt spirit\, the many talents she shared with her community\, the friendshi
+ ps she made throughout her life\, and\, most importantly\, the tremendous 
+ love and pride she had for her family.\n\nFull obituary and service detail
+ s: https://www.wright-funeralhome.com/obituaries/Patsy-Lou-Asher?obId=4922
+ 7949
+LOCATION:Brookfield\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Doris Jean Dougherty
+DTSTART;VALUE=DATE:20260806
+DTEND;VALUE=DATE:20260807
+DTSTAMP:20260822T014031Z
+UID:wrightfuneralhomeobit-2026-08-06-doris-jean-dougherty-2026-08-06-allda
+ y@linn-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Doris Jean Dougherty\, 88\, of Sumner\, Missouri\, where she m
+ ade her home for more than 65 years\, passed away peacefully on Thursday\,
+  August 6\, 2026. Doris was born on June 6\, 1938\, in Brookfield\, Missou
+ ri\, the daughter of Frank and Iva Lee (Slater) Povlovich. She graduated f
+ rom Brookfield High School with the Class of 1956. On July 29\, 1956\, she
+  married the love of her life\, John Henry Dougherty. Together they moved 
+ to Sumner to begin a life centered on faith\, family\, and farming. John p
+ receded her in death on September 22\, 2015\, after suffering a stroke whi
+ le driving a truck. Following his passing\, Doris continued living on the 
+ family farm on Lakeside Drive\, a place she dearly loved. While John farme
+ d\, Doris devoted herself to being a homemaker and raising their three chi
+ ldren\, Sondra\, Gregory\, and Kurt. She was much more than a homemaker\, 
+ however\, as she worked alongside John on the farm by managing the family'
+ s financial records and bookkeeping. She took great pride in maintaining a
+  large vegetable garden\, strawberry patch\, and beautiful flower beds eac
+ h year. She also lovingly cared for the family's pecan grove\, where she h
+ arvested\, cracked\, and sold pecans at festivals throughout the area. Dor
+ is was a faithful member of the Sumner United Methodist Church. Her church
+  family was an important part of her life\, and she generously shared her 
+ time by teaching Sunday school\, helping with the after-school program\, d
+ riving children to Vacation Bible School\, and helping build the church fl
+ oat for the annual Goose Festival Parade. She was also an active member of
+  the United Methodist Women and served as a regional librarian for the org
+ anization. Always willing to help others succeed\, Doris encouraged many a
+ spiring business owners and often taught them how to keep their financial 
+ records and books. Doris and John shared a love of travel and treasured ad
+ ventures together\, including memorable trips to Alaska and Hawaii\, where
+  they made lifelong friends. Their greatest joy\, however\, was making mem
+ ories with their family. They enjoyed vacations to Six Flags Over Texas an
+ d countless trips to the Lake of the Ozarks\, where their children spent s
+ ummers swimming and water skiing. After purchasing a camper\, they enjoyed
+  many camping adventures with family and friends. Doris especially loved f
+ ishing and found great joy in teaching many of her grandchildren how to fi
+ sh\, creating memories they will cherish for a lifetime. Above all else\, 
+ Doris treasured her family. Her love\, generosity\, steady guidance\, and 
+ servant's heart touched the lives of everyone around her. She leaves behin
+ d a legacy of faith\, hard work\, kindness\, and unconditional love that w
+ ill continue through the generations she helped shape. She is survived by 
+ her three children\, Sondra Wilson of Waverly\, Missouri\, Greg Dougherty 
+ of Sumner\, Missouri\, and Kurt Dougherty and wife Becky of Brookfield\, M
+ issouri\; six grandchildren\, Laura Hastings\, Karissa Frizzell and husban
+ d Jason\, Eric Dougherty and wife Mallory\, Anna Dougherty\, Joshua Vicker
+ y and wife Arial\, and Jacob Dougherty\; nine great-grandchildren\, Kaytli
+ n Rogers and husband Landon\, Julia Hastings\, Allison Hastings\, Madison 
+ Frizzell\, Logan Frizzell\, Eric Dougherty\, Anna Dougherty\, Jolee Doughe
+ rty\, and two additional great-grandchildren\; two sisters\, Virginia and 
+ Sharon\; one brother\, Joe\; several nieces\, nephews\, and many other ext
+ ended family members and friends. She was preceded in death by her parents
+ \; her beloved husband\, John Henry Dougherty\; and one brother\, Jimmy. F
+ uneral services will be held at 5:30 p.m. on Friday\, August 14\, 2026\, a
+ t Wright Funeral Home\, with Pastor Charles Littrell officiating. Visitati
+ on will be held from 4:00 p.m. until the time of the service at the funera
+ l home. Burial will take place at a later date in Lakeside Cemetery in Sum
+ ner\, Missouri. Memorial contributions are suggested to Lakeside Cemetery.
+ \n\nFull obituary and service details: https://www.wright-funeralhome.com/
+ obituaries/Doris-Jean-Dougherty?obId=49218621
+LOCATION:Brookfield\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Sharon Stratton
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+DTSTAMP:20260822T014031Z
+UID:wrightfuneralhomeobit-2026-08-04-sharon-stratton-2026-08-04-allday@lin
+ n-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Sharon (Collier) Stratton\, age 84\, of Brookfield\, passed aw
+ ay peacefully on Tuesday\, August 4\, 2026\, at Stonebridge Senior Living 
+ in Chillicothe. A Celebration of Sharon’s Life will be held at a later d
+ ate. Memorials to Laclede United Methodist Church may be left at or mailed
+  to Wright Funeral Home\, P.O. Box 496\, Brookfield\, MO 64628. Sharon was
+  born\, July 10\, 1942\, at her grandmother’s house in Brookfield.  She 
+ was the first child to Paul and Grace Collier and always enjoyed being fir
+ st.  She lived in Brookfield then moved to Laclede where her father worked
+  with Burlington Northern Railroad and her mother worked at Henderson’s 
+ then later at the Laclede Post Office.  Everyone around Laclede knew their
+  family\, and soon\, in 1945\, her sister\, Karen\, came along.  A little 
+ sister to play and have fun with!  Then in 1952\, baby brother\, Clifford 
+ Ray\, had two big sisters to deal with.  Growing up was grand! Some troubl
+ es came in 1953\, when Polio reared its ugly head and the girls had so man
+ y trips to the hospital.  Laclede supported the whole family when they wer
+ e struggling\, there was so much love as well. Sharon came out of it okay 
+ but was always in the hospital looking out for little sister in those earl
+ y days.  Once they were back in school\, there was baseball\, basketball\,
+  4-H\, campfire girls\, and so many grandparents\, cousins\, neighbors\, f
+ riends and classmates to come home too.  By senior year\, Sharon was at Me
+ adville High School and graduated in 1960. By 1962\, she was a married lad
+ y with a handsome husband named John Stratton\, that she met during her se
+ nior year in Meadville.  She was then on to college where she graduated in
+  1964 with a  bachelor’s degree in accounting and business management fr
+ om Warrensburg.  She and John later moved to Chillicothe and Sharon starte
+ d her career at City Bank\, as an accountant\, while John worked with fami
+ ly running a tractor all over the county. Within the next few years Sharon
+  became a Marine Corps wife and moved around a lot.  She lived in so many 
+ places\, like Independence MO\, Kansas City MO\, Jacksonville NC\, and Nor
+ folk VA\, and always found jobs working with numbers.  In Virginia\, she l
+ oved to watch the ships in the bay come and go from her office window.  Jo
+ hn was busy learning how to be a Marine and eventually serving in Vietnam.
+   Life in the Marine Corps eventually brought them to California where Sha
+ ron could be close to her beloved cousin\, Jean and all of her family.  Th
+ en babies finally came along\, Craig in 1969 and Dona in 1972.  After a fe
+ w more years\, jobs and lots of growing\, Sharon settled with her family i
+ n Northern California. She became a business owner in Napa and helped seve
+ ral generations of families and businesses with all their income tax\, boo
+ kkeeping\, and investment needs.  She had a solid family\, a thriving busi
+ ness\, and all she needed was a little more to keep her busy\, so she coac
+ hed kids ball teams\, taught every child she knew to swim\, and still had 
+ time to lead campfire girls and boy scout groups. Sharon and John also enj
+ oyed raising dogs and puppies and collecting classic cars.  Then she remem
+ bered how much she loved bowling!  She was an amazing bowler\, sponsored t
+ eams\, made it into the local hall of fame\, enjoyed many city tournaments
+ \, and also ran a local tournament for several years to benefit veterans. 
+ Being far away from her Missouri home meant lots of trips to visit.  She a
+ lways liked a houseful\, so many people came to live at the dream home she
+  loved in Napa.  It got crowded at times\, but that’s how a California f
+ amily was built\, and she enjoyed every minute of it! We lost our dear sis
+ ter\, daughter\, wife\, mother\, aunt\, cousin and friend to Dementia.  It
+  was a long hard battle\, but the care needed brought her back home to Mis
+ souri\, where she was cared for by family\, new friends\, old friends\, an
+ d a very special family that we found in Napa and somehow ended up with us
+  right here in Missouri!  You know who you are\, and we love you. Sharon i
+ s survived by numerous loving family members and friends who will cherish 
+ her memory. She was preceded in death by beloved family whom she will joyf
+ ully reunite with in Heaven. Sharon left this world on Tuesday\, August 4
+ \, 2026\, at 8:00 p.m.\, at the age of 84.  She was surrounded by loved on
+ es and the gentle hands of staff at Stonebridge Senior Living in Chillicot
+ he\, Three River’s Hospice\, and our home care team.  We are so grateful
+  for their care and for helping her achieve the peace that she was needing
+ . Her family would like to thank everyone in Laclede\, Brookfield\, Meadvi
+ lle and Chillicothe for welcoming her home\, and to the countless caregive
+ rs along the way that truly shared their whole hearts.\n\nFull obituary an
+ d service details: https://www.wright-funeralhome.com/obituaries/Sharon-St
+ ratton?obId=49204979
+LOCATION:Brookfield\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Conner  Lee  Spainhour
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+DTSTAMP:20260822T014031Z
+UID:wrightfuneralhomeobit-2026-08-04-conner-lee-spainhour-2026-08-04-allda
+ y@linn-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Conner Lee Spainhour\, age 22\, of Purdin\, Missouri\, passed 
+ away Tuesday\, August 4\, 2026. Conner Lee\, son of Nickolas Spainhour and
+  Tessa (Sackrey) Coffman\, was born March 15\, 2004\, in Chillicothe\, Mis
+ souri. Conner was a 2022 graduate of Linn County R-1 High School near Purd
+ in and a 2024 graduate of Linn State Technical College of Missouri.  He wa
+ s currently employed at Scobee Powerline Construction as a lineman.  Conne
+ r brought endless light\, laughter\, and kindness to everyone he met.  He 
+ loved music\, duck hunting\, fishing\, and fireworks\, but more than anyth
+ ing\, Conner treasured time spent with close friends and family.  Although
+  Conner’s life ended far too soon\, his love and memories will continue 
+ to live on through his family and friends.  He will be deeply missed and f
+ orever remembered. Survivors include his mother and stepfather\, Tessa and
+  Jeremy Coffman of Purdin\; his stepmother\, Courtney Spainhour of Chillic
+ othe\; two brothers\, Alex Coffman of Purdin and Carlynn Spainhour of Chil
+ licothe\; two sisters\, Tymber Spainhour of Chillicothe and Tenzli Brannam
+  of Chillicothe\; his grandparents\, Doug and Monica Denton\, Ronnie and R
+ achel Bowes\, and Rick and Janice Coffman\; and numerous aunts\, uncles\, 
+ and cousins.  In addition to his family\, his is survived by his best frie
+ nds: Brad James Sackrey\, Jr.\, Sam Becker\, Mason Singleton\, Gage Seals
+ \, Case Ratliff\, and Jordan Bealmer. He was preceded in death by his fath
+ er\, Nickolas Spainhour\; and two grandfathers\, James Sackrey and Carlton
+  Spainhour. The family will receive friends Monday\, August 10\, 2026\, fr
+ om 9:00 a.m. until 12:00 noon at Wright Funeral Home in Brookfield. A cele
+ bration of life\, for family and close friends\, will follow at 12:00 noon
+  with Pastor Sung Bauta officiating at the funeral home. The family kindly
+  requests that those attending the visitation dress in casual attire. Memo
+ rial contributions to the family payable to Tessa Coffman may be left at o
+ r mailed to Wright Funeral Home P.O. 496\, Brookfield\, Missouri 64628.\n
+ \nFull obituary and service details: https://www.wright-funeralhome.com/ob
+ ituaries/Conner-Lee-Spainhour?obId=49198194
+LOCATION:Purdin\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Dennis Ray Wright
+DTSTART;VALUE=DATE:20260816
+DTEND;VALUE=DATE:20260817
+DTSTAMP:20260822T014031Z
+UID:delaneyfuneralhomeobit-2026-08-16-dennis-ray-wright-2026-08-16-allday@
+ linn-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Dennis Ray Wright\, age 79\, of Marceline\, Missouri\, passed 
+ away Sunday\, August 16\, 2026\, at Pioneer Skilled Nursing in Marceline. 
+ Dennis was born on August 5\, 1947\, on the family farm in Chariton County
+ \, Missouri\, the son of Carl Warren and Freda Louise (York) Wright. Denni
+ s served in the United States Army and was united in marriage to Kathy Wes
+ tfall on May 20\, 1967\, at St. Bonaventure Catholic Church in Marceline. 
+ Dennis earned his Master’s degree from Missouri State Teachers College i
+ n Kirksville\, Missouri. He worked as a guidance counselor at Macon Vo-Tec
+ h. Teacher and coach at Marceline. After retiring\, he worked at Bucklin R
+ -2 as a counselor. Dennis enjoyed farming\, hunting\, fishing\, and especi
+ ally spending time with his family. Dennis is survived by his wife\, Kathy
+ \, of Marceline\; three children\, Julie Lucas and her husband Randy\, Tho
+ mas Wright\, and Alicen Wright\, all of Marceline\; six grandchildren\, Cl
+ ayton\, Blake\, Whitney\, Winston\, Hillary\, and Justin\; seven great-gra
+ ndchildren\, Bentley\, Zane\, Sally\, Remi\, Cooper\, Theodor\, and Emmy\;
+  two brothers\, Rodney Wright and wife Shirley of Marceline and Lanny Wrig
+ ht and wife Brenda of Chillicothe\; and one sister\, Mary James and husban
+ d Ed of Calhoun\, Missouri. He was preceded in death by his parents and fo
+ ur brothers\, Taylor\, Gerald “Abe\,” Allen\, and Bradly Wright. Arran
+ gements are under the direction of Delaney Funeral Home in Marceline.\n\nF
+ ull obituary and service details: https://www.delaneyfuneralhome.com/obitu
+ aries/Dennis-Ray-Wright?obId=49298351
+LOCATION:Marceline\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Obituary: Carol Gail Lee
+DTSTART;VALUE=DATE:20260807
+DTEND;VALUE=DATE:20260808
+DTSTAMP:20260822T014031Z
+UID:delaneyfuneralhomeobit-2026-08-07-carol-gail-lee-2026-08-07-allday@lin
+ n-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Carol Gail Lee\, 83\, of Marceline\, Missouri\, passed away pe
+ acefully on Friday August 7\, 2026. Carol was born on May 6\, 1943\, in Br
+ ashear\, Missouri\, to Rev. G.D. Hammontree and Bonnie Lee (Sullins) Hammo
+ ntree. She spent her life devoted to her family and her Christian faith. O
+ n June 9\, 1963\, Carol married the love of her life\, John Steven Lee. To
+ gether they shared 63 years of marriage. Carol attended college and worked
+  as a bookkeeper throughout her career. She was a faithful member of First
+  Baptist Church\, where her faith served as a guiding light throughout her
+  life. She is survived by her beloved husband\, John Steven Lee\; her son
+ \, Nicholas Venneman (Shelby Stafford) of Chillicothe\, Missouri\; her dau
+ ghter\, Chelsey Venneman (Malachi Philips-Bey) of Marceline\, Missouri\; h
+ er cherished grandchildren\, Jace Wills and Oaklee Venneman\; and her sist
+ er\, Joann Foster\; and her twin brother\, G. Dale Hammontree (Ruth Hammon
+ tree). Carol was preceded in death by her daughter\, Kristi Renee Lee\; he
+ r parents\, Rev. G.D. Hammontree and Bonnie Lee Hammontree\; her sisters\,
+  Peggy Payne and Helen Minor\; her brothers-in-law\, D. L. Payne\, Frank F
+ oster\, and Robert E. Lee\; and her parents-in-law\, Eugene Lee and Mary E
+ thlyne Lee. A visitation will be held on Tuesday\, August 11\, 2026\, begi
+ nning at 2:00 p.m.\, followed by a memorial service at 3:00 p.m. at the Fi
+ rst Baptist Church in Marceline\, Missouri. Psalm 23 The LORD Is My Shephe
+ rd A Psalm of David. [1] The LORD is my shepherd\; I shall not want. [2]  
+ He makes me lie down in green pastures. He leads me beside still waters. [
+ 3]  He restores my soul. He leads me in paths of righteousness for his nam
+ e’s sake. [4] Even though I walk through the valley of the shadow of dea
+ th\, I will fear no evil\, for you are with me\; your rod and your staff\,
+  they comfort me. [5] You prepare a table before me in the presence of my 
+ enemies\; you anoint my head with oil\; my cup overflows. [6] Surely goodn
+ ess and mercy shall follow me all the days of my life\, and I shall dwell 
+ in the house of the LORD forever. (ESV)\n\nFull obituary and service detai
+ ls: https://www.delaneyfuneralhome.com/obituaries/Carol-Gail-Lee?obId=4920
+ 4775
+LOCATION:Marceline\, MO
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Kevin Palmer's birthday party
 DTSTART:20261124T013000Z
 DTEND:20261124T023000Z
-DTSTAMP:20260821T204416Z
+DTSTAMP:20260822T014031Z
 UID:manual-2026-11-23-kevin-palmer-s-birthday-party-2026-11-23-730@linn-co
  unty-scraper.local
 DESCRIPTION:by invitation only
