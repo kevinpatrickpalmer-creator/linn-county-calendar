@@ -1824,6 +1824,29 @@ def main():
         print("No events found -- the page structure may have changed.")
         sys.exit(1)
 
+    # A single run rarely loses more than a handful of sources -- if most of
+    # them failed at once (a flaky runner, a network blip, a widespread
+    # timeout) the previous commit is almost certainly more accurate than
+    # this run's partial results. Bail out here rather than letting main()
+    # overwrite -- and the "Commit updated calendar file" workflow step
+    # publish -- a near-empty calendar over a healthy one. See the incident
+    # on 2026-08-22 where a run with 6 failing sources still committed and
+    # dropped the live feed from 761 events to 37.
+    if os.path.exists(ICS_PATH):
+        with open(ICS_PATH, encoding="utf-8") as f:
+            previous_count = f.read().count("BEGIN:VEVENT")
+        if previous_count >= 20 and len(events) < previous_count * 0.5:
+            print(
+                f"ABORTING: found only {len(events)} events this run, down from "
+                f"{previous_count} in the last published calendar (more than a "
+                "50% drop). This usually means several sources failed at once "
+                "rather than that events actually disappeared -- check the "
+                "WARNINGs above. Leaving the previously published calendar in "
+                "place instead of overwriting it.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
     print(f"Found {len(events)} events total across all sources\n")
     for ev in events:
         when = ev["date"]
