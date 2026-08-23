@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-23T01:54:14.205277+00:00",
+  "generated_at": "2026-08-23T08:44:56.191858+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 75,
-      "ok": true,
-      "error": null
+      "count": 0,
+      "ok": false,
+      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
     },
     {
       "name": "Rhodes Funeral Home",
@@ -21,13 +21,13 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 257,
+      "count": 256,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 135,
+      "count": 134,
       "ok": true,
       "error": null
     },
@@ -51,7 +51,7 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 32,
+      "count": 0,
       "ok": true,
       "error": null
     },
@@ -69,7 +69,7 @@
     },
     {
       "name": "Downtown Marceline Foundation",
-      "count": 1,
+      "count": 0,
       "ok": true,
       "error": null
     },
