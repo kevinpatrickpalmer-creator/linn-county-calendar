@@ -7,478 +7,10 @@ X-WR-CALNAME:Marceline Events (Linn County Community Calendar) (No Sports)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260825
-DTEND;VALUE=DATE:20260826
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-08-25-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Linn Co Fall Fashion Show
-DTSTART:20260830T190000Z
-DTEND:20260830T200000Z
-DTSTAMP:20260824T130851Z
-UID:19524668-2026-08-30-200@linn-county-scraper.local
-DESCRIPTION:Get inspired for the season with the latest Fall styles! Join 
- us for a fun afternoon featuring styles from OliveSage Emporium\, Hazel & 
- Grace\, Unwined & Shop\, Tooeys\, and Local Luxuries!
-LOCATION:OK Tavern | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Penney
-DTSTART:20260831T220000Z
-DTEND:20260901T010000Z
-DTSTAMP:20260824T130851Z
-UID:19046888-2026-08-31-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FBLA Meeting
-DTSTART:20260901T123000Z
-DTEND:20260901T130000Z
-DTSTAMP:20260824T130851Z
-UID:19716059-2026-09-01-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Bulk Collection Day - 1 Item per household
-DTSTART;VALUE=DATE:20260901
-DTEND;VALUE=DATE:20260902
-DTSTAMP:20260824T130851Z
-UID:17758201-2026-09-01-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260901
-DTEND;VALUE=DATE:20260902
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-09-01-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FBLA Kickoff meeting
-DTSTART:20260902T233000Z
-DTEND:20260903T003000Z
-DTSTAMP:20260824T130851Z
-UID:19524376-2026-09-02-630@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tornado Siren Test Day!
-DTSTART;VALUE=DATE:20260902
-DTEND;VALUE=DATE:20260903
-DTSTAMP:20260824T130851Z
-UID:16999440-2026-09-02-allday@linn-county-scraper.local
-DESCRIPTION:On the first Wednesday of every month (on or around noon)\, th
- e City tests its two tornado sirens to ensure they are functioning at peak
-  performance.  Do not be alarmed!
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS G Golf - Marceline Quad
-DTSTART:20260903T210000Z
-DTEND:20260904T000000Z
-DTSTAMP:20260824T130851Z
-UID:19046892-2026-09-03-400@linn-county-scraper.local
-LOCATION:Marceline Golf Club | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Hannibal
-DTSTART:20260903T220000Z
-DTEND:20260904T010000Z
-DTSTAMP:20260824T130851Z
-UID:19046893-2026-09-03-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:V Football vs Salisbury
-DTSTART:20260905T000000Z
-DTEND:20260905T030000Z
-DTSTAMP:20260824T130851Z
-UID:19046894-2026-09-04-700@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Fulton Trapshoot
-DTSTART;VALUE=DATE:20260905
-DTEND;VALUE=DATE:20260906
-DTSTAMP:20260824T130851Z
-UID:19715935-2026-09-05-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV Football vs Westran
-DTSTART:20260907T230000Z
-DTEND:20260908T010000Z
-DTSTAMP:20260824T130851Z
-UID:19652804-2026-09-07-600@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:SADD meeting
-DTSTART:20260908T123000Z
-DTEND:20260908T130000Z
-DTSTAMP:20260824T130851Z
-UID:17368077-2026-09-08-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Putnam County
-DTSTART:20260908T220000Z
-DTEND:20260909T010000Z
-DTSTAMP:20260824T130851Z
-UID:19046897-2026-09-08-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260908
-DTEND;VALUE=DATE:20260909
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-09-08-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FFA Chapter Meeting
-DTSTART:20260909T123000Z
-DTEND:20260909T130000Z
-DTSTAMP:20260824T130851Z
-UID:17368078-2026-09-09-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf @ Paris Tournament
-DTSTART:20260909T140000Z
-DTEND:20260909T203000Z
-DTSTAMP:20260824T130851Z
-UID:19046900-2026-09-09-900@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:City Council Regular Meeting
-DTSTART:20260909T223000Z
-DTEND:20260910T003000Z
-DTSTAMP:20260824T130851Z
-UID:19414596-2026-09-09-530@linn-county-scraper.local
-DESCRIPTION:Regular Council Meetings are on the second Wednesday of each m
- onth at 5:30 pm.
-LOCATION:Marceline City Hall | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FCCLA Meeting
-DTSTART:20260910T123000Z
-DTEND:20260910T130000Z
-DTSTAMP:20260824T130851Z
-UID:19716060-2026-09-10-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS XC @ St Joseph Christian
-DTSTART:20260910T210000Z
-DTEND:20260910T220000Z
-DTSTAMP:20260824T130851Z
-UID:19046902-2026-09-10-400@linn-county-scraper.local
-LOCATION:St Joseph Christian School\, 5401 Gene Field Rd\, St Joseph | Mar
- celine\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FCA Meeting in the Library
-DTSTART:20260911T123000Z
-DTEND:20260911T130000Z
-DTSTAMP:20260824T130851Z
-UID:17331916-2026-09-11-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Northwestern Trapshoot
-DTSTART;VALUE=DATE:20260912
-DTEND;VALUE=DATE:20260913
-DTSTAMP:20260824T130851Z
-UID:19715936-2026-09-12-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf @ Marceline Quad
-DTSTART:20260914T210000Z
-DTEND:20260914T230000Z
-DTSTAMP:20260824T130851Z
-UID:19046907-2026-09-14-400@linn-county-scraper.local
-LOCATION:Marceline Golf Club | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:MS Softball vs Gallatin
-DTSTART:20260915T220000Z
-DTEND:20260915T230000Z
-DTSTAMP:20260824T130851Z
-UID:19046912-2026-09-15-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260915
-DTEND;VALUE=DATE:20260916
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-09-15-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Build My Future Day
-DTSTART;VALUE=DATE:20260916
-DTEND;VALUE=DATE:20260917
-DTSTAMP:20260824T130851Z
-UID:18638891-2026-09-16-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Library Board Meeting
-DTSTART:20260917T210000Z
-DTEND:20260917T220000Z
-DTSTAMP:20260824T130851Z
-UID:16984732-2026-09-17-400@linn-county-scraper.local
-DESCRIPTION:This board meets on the 3rd Thursday at 4:00 pm every month.
-LOCATION:Marceline Carnegie Library | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Softball vs South Harrison
-DTSTART:20260917T220000Z
-DTEND:20260918T000000Z
-DTSTAMP:20260824T130851Z
-UID:19046914-2026-09-17-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:PDC In-Service (12:30 Dismissal)
-DTSTART:20260918T173000Z
-DTEND:20260918T200000Z
-DTSTAMP:20260824T130851Z
-UID:18990418-2026-09-18-1230@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Softball @ Cairo Tournament
-DTSTART:20260919T130000Z
-DTEND:20260919T210000Z
-DTSTAMP:20260824T130851Z
-UID:19046917-2026-09-19-800@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Brookfield Trapshoot
-DTSTART;VALUE=DATE:20260919
-DTEND;VALUE=DATE:20260920
-DTSTAMP:20260824T130851Z
-UID:19715937-2026-09-19-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260922
-DTEND;VALUE=DATE:20260923
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-09-22-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FFA Area Leadership Conference
-DTSTART:20260923T213000Z
-DTEND:20260924T003000Z
-DTSTAMP:20260824T130851Z
-UID:19715938-2026-09-23-430@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf @ Chillicothe Tournament
-DTSTART:20260924T140000Z
-DTEND:20260924T200000Z
-DTSTAMP:20260824T130851Z
-UID:19046926-2026-09-24-900@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Brookfield (Pink Out)
-DTSTART:20260924T220000Z
-DTEND:20260925T010000Z
-DTSTAMP:20260824T130851Z
-UID:19046928-2026-09-24-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FCCLA Region 3 Fall Meeting @ MACC
-DTSTART:20260925T140000Z
-DTEND:20260925T150000Z
-DTSTAMP:20260824T130851Z
-UID:19046930-2026-09-25-900@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Football @ Putnam Co
-DTSTART:20260926T000000Z
-DTEND:20260926T020000Z
-DTSTAMP:20260824T130851Z
-UID:19046931-2026-09-25-700@linn-county-scraper.local
-LOCATION:Putnam County R-I School District | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:MYSSA Fall Classic
-DTSTART;VALUE=DATE:20260926
-DTEND;VALUE=DATE:20260927
-DTSTAMP:20260824T130851Z
-UID:19715939-2026-09-26-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FFA Area Trapshoot
-DTSTART:20260929T170000Z
-DTEND:20260929T200000Z
-DTSTAMP:20260824T130851Z
-UID:19715940-2026-09-29-1200@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Softball vs Trenton (Sr Night)
-DTSTART:20260929T220000Z
-DTEND:20260930T010000Z
-DTSTAMP:20260824T130851Z
-UID:19046934-2026-09-29-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260929
-DTEND;VALUE=DATE:20260930
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-09-29-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:National Convention Interviews
-DTSTART:20260930T220000Z
-DTEND:20260930T230000Z
-DTSTAMP:20260824T130851Z
-UID:19715941-2026-09-30-500@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:V/JV Softball vs Cameron
-DTSTART:20260930T220000Z
-DTEND:20261001T010000Z
-DTSTAMP:20260824T130851Z
-UID:19652805-2026-09-30-500@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS XC @ Moberly Invitational
-DTSTART:20261001T210000Z
-DTEND:20261001T220000Z
-DTSTAMP:20260824T130851Z
-UID:19046937-2026-10-01-400@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Highland
-DTSTART:20261001T220000Z
-DTEND:20261002T000000Z
-DTSTAMP:20260824T130851Z
-UID:19046938-2026-10-01-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:MS Softball vs TBD
-DTSTART:20261001T220000Z
-DTEND:20261002T000000Z
-DTSTAMP:20260824T130851Z
-UID:19046939-2026-10-01-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Homecoming (12:30 Dismissal)
-DTSTART:20261002T173000Z
-DTEND:20261002T200000Z
-DTSTAMP:20260824T130851Z
-UID:18990376-2026-10-02-1230@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Engineers with Principal - Marceline Alumni
-DTSTART:20261004T010000Z
-DTEND:20261004T020000Z
-DTSTAMP:20260824T130851Z
-UID:19652879-2026-10-03-800@linn-county-scraper.local
-DESCRIPTION:Bar opens at 4:00. Engineers with Principal on the Patio from 
- 8:00-12:00. 5.00 Cover evening only
-LOCATION:OK Tavern | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FFA District Trap
-DTSTART;VALUE=DATE:20261003
-DTEND;VALUE=DATE:20261004
-DTSTAMP:20260824T130851Z
-UID:19715942-2026-10-03-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf - GRC Tournament @ TBD
-DTSTART;VALUE=DATE:20261005
-DTEND;VALUE=DATE:20261006
-DTSTAMP:20260824T130851Z
-UID:19087293-2026-10-05-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FBLA Meeting
-DTSTART:20261006T123000Z
-DTEND:20261006T130000Z
-DTSTAMP:20260824T130851Z
-UID:19716059-2026-10-06-730@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Bulk Collection Day - 1 Item per household
-DTSTART;VALUE=DATE:20261006
-DTEND;VALUE=DATE:20261007
-DTSTAMP:20260824T130851Z
-UID:17758201-2026-10-06-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261006
-DTEND;VALUE=DATE:20261007
-DTSTAMP:20260824T130851Z
-UID:17938320-2026-10-06-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:GRC XC meet
-DTSTART:20261007T210000Z
-DTEND:20261007T220000Z
-DTSTAMP:20260824T130851Z
-UID:19652806-2026-10-07-400@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:JV/V Softball vs Macon
-DTSTART:20261007T220000Z
-DTEND:20261008T010000Z
-DTSTAMP:20260824T130851Z
-UID:19087300-2026-10-07-500@linn-county-scraper.local
-LOCATION:Walt Disney Park | Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Girls Golf District @ TBD
-DTSTART;VALUE=DATE:20261007
-DTEND;VALUE=DATE:20261008
-DTSTAMP:20260824T130851Z
-UID:19087299-2026-10-07-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260710T160000Z
 DTEND:20260710T170000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-10-mommy-and-me-group-2026-07-10-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -492,7 +24,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260711T000000Z
 DTEND:20260711T010000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-10-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-07-10-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -509,7 +41,7 @@ SUMMARY:NARVRE 154 in Marceline meets 3rd Wednesday of each month at the M
  arceline...
 DTSTART:20260715T173000Z
 DTEND:20260715T183000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-15-narvre-154-in-marceline-meets-3rd-wednesday
  -of-each-month-at-2026-07-15-1230@linn-county-scraper.local
 DESCRIPTION:NARVRE 154 in Marceline meets 3rd Wednesday of each month at t
@@ -524,7 +56,7 @@ SUMMARY:Marceline Carnegie Library Board meets on the 3rd Thursday at 4:00
   p.m.
 DTSTART:20260716T210000Z
 DTEND:20260716T220000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-16-marceline-carnegie-library-board-meets-on-t
  he-3rd-thursday-a-2026-07-16-400@linn-county-scraper.local
 DESCRIPTION:Marceline Carnegie Library Board meets on the 3rd Thursday at 
@@ -535,7 +67,7 @@ BEGIN:VEVENT
 SUMMARY:Trevor Thomas LIVE at First Baptist Church
 DTSTART:20260717T000000Z
 DTEND:20260717T010000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-16-trevor-thomas-live-at-first-baptist-church-
  2026-07-16-700@linn-county-scraper.local
 DESCRIPTION:Trevor Thomas LIVE at First Baptist Church\, Marceline. Show s
@@ -546,7 +78,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260717T160000Z
 DTEND:20260717T170000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-17-mommy-and-me-group-2026-07-17-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -559,7 +91,7 @@ BEGIN:VEVENT
 SUMMARY:Fourth annual Healthy Summit
 DTSTART:20260724T000000Z
 DTEND:20260724T010000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-23-fourth-annual-healthy-summit-2026-07-23-700
  @linn-county-scraper.local
 DESCRIPTION:Fourth annual Healthy Summit\, 5-7 p.m.\, Walsworth Community 
@@ -570,7 +102,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260724T160000Z
 DTEND:20260724T170000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-24-mommy-and-me-group-2026-07-24-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -584,7 +116,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260725T000000Z
 DTEND:20260725T010000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-24-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-07-24-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -600,7 +132,7 @@ BEGIN:VEVENT
 SUMMARY:Mommy and Me Group
 DTSTART:20260731T160000Z
 DTEND:20260731T170000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-07-31-mommy-and-me-group-2026-07-31-1100@linn-cou
  nty-scraper.local
 DESCRIPTION:Mommy and Me Group\, 10-11 a.m.\, 210 W Hayden St.\, Marceline
@@ -614,7 +146,7 @@ SUMMARY:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-Oppo
  rtunities –...
 DTSTART:20260808T000000Z
 DTEND:20260808T010000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-08-07-s-u-p-p-o-r-t-seeking-uplifting-positive-pe
  ople-opportunitie-2026-08-07-700@linn-county-scraper.local
 DESCRIPTION:S.U.P.P.O.R.T. (Seeking – Uplifting – Positive – People-
@@ -630,7 +162,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline Wine and Art Stroll 4:30 -8:30 p.m
 DTSTART:20260823T013000Z
 DTEND:20260823T023000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-08-22-marceline-wine-and-art-stroll-4-30-8-30-p-m
  -2026-08-22-830@linn-county-scraper.local
 DESCRIPTION:Marceline Wine and Art Stroll 4:30 -8:30 p.m.
@@ -640,7 +172,7 @@ BEGIN:VEVENT
 SUMMARY:Marceline R-V School District
 DTSTART;VALUE=DATE:20260824
 DTEND;VALUE=DATE:20260825
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-08-24-marceline-r-v-school-district-2026-08-24-al
  lday@linn-county-scraper.local
 DESCRIPTION:Marceline R-V School District\, first day of school.
@@ -650,7 +182,7 @@ BEGIN:VEVENT
 SUMMARY:Peanut Night
 DTSTART;VALUE=DATE:20261128
 DTEND;VALUE=DATE:20261129
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:leadereditorial-2026-11-28-peanut-night-2026-11-28-allday@linn-county-
  scraper.local
 DESCRIPTION:Peanut Night\, Marceline. 65th Annual Peanut Night! Peanuts\, 
@@ -661,83 +193,10 @@ DESCRIPTION:Peanut Night\, Marceline. 65th Annual Peanut Night! Peanuts\,
 LOCATION:Marceline\, MO
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Obituary: Dennis Ray Wright
-DTSTART;VALUE=DATE:20260816
-DTEND;VALUE=DATE:20260817
-DTSTAMP:20260824T130851Z
-UID:delaneyfuneralhomeobit-2026-08-16-dennis-ray-wright-2026-08-16-allday@
- linn-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Dennis Ray Wright\, age 79\, of Marceline\, Missouri\, passed 
- away Sunday\, August 16\, 2026\, at Pioneer Skilled Nursing in Marceline. 
- Dennis was born on August 5\, 1947\, on the family farm in Chariton County
- \, Missouri\, the son of Carl Warren and Freda Louise (York) Wright. Denni
- s served in the United States Army and was united in marriage to Kathy Wes
- tfall on May 20\, 1967\, at St. Bonaventure Catholic Church in Marceline. 
- Dennis earned his Master’s degree from Missouri State Teachers College i
- n Kirksville\, Missouri. He worked as a guidance counselor at Macon Vo-Tec
- h. Teacher and coach at Marceline. After retiring\, he worked at Bucklin R
- -2 as a counselor. Dennis enjoyed farming\, hunting\, fishing\, and especi
- ally spending time with his family. Dennis is survived by his wife\, Kathy
- \, of Marceline\; three children\, Julie Lucas and her husband Randy\, Tho
- mas Wright\, and Alicen Wright\, all of Marceline\; six grandchildren\, Cl
- ayton\, Blake\, Whitney\, Winston\, Hillary\, and Justin\; seven great-gra
- ndchildren\, Bentley\, Zane\, Sally\, Remi\, Cooper\, Theodor\, and Emmy\;
-  two brothers\, Rodney Wright and wife Shirley of Marceline and Lanny Wrig
- ht and wife Brenda of Chillicothe\; and one sister\, Mary James and husban
- d Ed of Calhoun\, Missouri. He was preceded in death by his parents and fo
- ur brothers\, Taylor\, Gerald “Abe\,” Allen\, and Bradly Wright. Arran
- gements are under the direction of Delaney Funeral Home in Marceline.\n\nF
- ull obituary and service details: https://www.delaneyfuneralhome.com/obitu
- aries/Dennis-Ray-Wright?obId=49298351
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Obituary: Carol Gail Lee
-DTSTART;VALUE=DATE:20260807
-DTEND;VALUE=DATE:20260808
-DTSTAMP:20260824T130851Z
-UID:delaneyfuneralhomeobit-2026-08-07-carol-gail-lee-2026-08-07-allday@lin
- n-county-scraper.local
-CATEGORIES:obituary
-DESCRIPTION:Carol Gail Lee\, 83\, of Marceline\, Missouri\, passed away pe
- acefully on Friday August 7\, 2026. Carol was born on May 6\, 1943\, in Br
- ashear\, Missouri\, to Rev. G.D. Hammontree and Bonnie Lee (Sullins) Hammo
- ntree. She spent her life devoted to her family and her Christian faith. O
- n June 9\, 1963\, Carol married the love of her life\, John Steven Lee. To
- gether they shared 63 years of marriage. Carol attended college and worked
-  as a bookkeeper throughout her career. She was a faithful member of First
-  Baptist Church\, where her faith served as a guiding light throughout her
-  life. She is survived by her beloved husband\, John Steven Lee\; her son
- \, Nicholas Venneman (Shelby Stafford) of Chillicothe\, Missouri\; her dau
- ghter\, Chelsey Venneman (Malachi Philips-Bey) of Marceline\, Missouri\; h
- er cherished grandchildren\, Jace Wills and Oaklee Venneman\; and her sist
- er\, Joann Foster\; and her twin brother\, G. Dale Hammontree (Ruth Hammon
- tree). Carol was preceded in death by her daughter\, Kristi Renee Lee\; he
- r parents\, Rev. G.D. Hammontree and Bonnie Lee Hammontree\; her sisters\,
-  Peggy Payne and Helen Minor\; her brothers-in-law\, D. L. Payne\, Frank F
- oster\, and Robert E. Lee\; and her parents-in-law\, Eugene Lee and Mary E
- thlyne Lee. A visitation will be held on Tuesday\, August 11\, 2026\, begi
- nning at 2:00 p.m.\, followed by a memorial service at 3:00 p.m. at the Fi
- rst Baptist Church in Marceline\, Missouri. Psalm 23 The LORD Is My Shephe
- rd A Psalm of David. [1] The LORD is my shepherd\; I shall not want. [2]  
- He makes me lie down in green pastures. He leads me beside still waters. [
- 3]  He restores my soul. He leads me in paths of righteousness for his nam
- e’s sake. [4] Even though I walk through the valley of the shadow of dea
- th\, I will fear no evil\, for you are with me\; your rod and your staff\,
-  they comfort me. [5] You prepare a table before me in the presence of my 
- enemies\; you anoint my head with oil\; my cup overflows. [6] Surely goodn
- ess and mercy shall follow me all the days of my life\, and I shall dwell 
- in the house of the LORD forever. (ESV)\n\nFull obituary and service detai
- ls: https://www.delaneyfuneralhome.com/obituaries/Carol-Gail-Lee?obId=4920
- 4775
-LOCATION:Marceline\, MO
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Kevin Palmer's birthday party
 DTSTART:20261124T013000Z
 DTEND:20261124T023000Z
-DTSTAMP:20260824T130851Z
+DTSTAMP:20260824T204522Z
 UID:manual-2026-11-23-kevin-palmer-s-birthday-party-2026-11-23-730@linn-co
  unty-scraper.local
 DESCRIPTION:by invitation only
