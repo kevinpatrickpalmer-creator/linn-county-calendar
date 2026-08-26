@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T16:57:42.693608+00:00",
+  "generated_at": "2026-08-26T23:20:03.087143+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 91,
+      "count": 92,
       "ok": true,
       "error": null
     },
@@ -81,7 +81,7 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 3,
+      "count": 4,
       "ok": true,
       "error": null
     },
