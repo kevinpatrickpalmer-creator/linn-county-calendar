@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-26T23:20:03.087143+00:00",
+  "generated_at": "2026-08-28T11:10:14.300400+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 75,
-      "ok": true,
-      "error": null
+      "count": 0,
+      "ok": false,
+      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
     },
     {
       "name": "Rhodes Funeral Home",
@@ -27,7 +27,7 @@
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 134,
+      "count": 133,
       "ok": true,
       "error": null
     },
@@ -51,13 +51,13 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 32,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 12,
+      "count": 11,
       "ok": true,
       "error": null
     },
@@ -81,7 +81,7 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 4,
+      "count": 3,
       "ok": true,
       "error": null
     },
