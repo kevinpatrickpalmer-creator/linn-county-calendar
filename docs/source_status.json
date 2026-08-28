@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-28T11:10:14.300400+00:00",
+  "generated_at": "2026-08-28T22:09:58.264927+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -15,49 +15,49 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 6,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 256,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Marceline R-V School District (MSHSAA)",
-      "count": 133,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 74,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Linn County R-I School District (MSHSAA)",
-      "count": 78,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 92,
-      "ok": true,
-      "error": null
-    },
-    {
-      "name": "Newspaper's Community Calendar page",
       "count": 0,
       "ok": true,
       "error": null
     },
     {
+      "name": "Brookfield R-III School District (MSHSAA)",
+      "count": 258,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Marceline R-V School District (MSHSAA)",
+      "count": 134,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Bucklin R-II School District (MSHSAA)",
+      "count": 75,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Linn County R-I School District (MSHSAA)",
+      "count": 79,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Meadville R-IV School District (MSHSAA)",
+      "count": 93,
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "Newspaper's Community Calendar page",
+      "count": 32,
+      "ok": true,
+      "error": null
+    },
+    {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 11,
+      "count": 0,
       "ok": true,
       "error": null
     },
