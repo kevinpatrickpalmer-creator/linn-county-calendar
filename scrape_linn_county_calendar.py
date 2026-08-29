@@ -417,6 +417,22 @@ DEFAULT_DURATION = timedelta(hours=1)
 MANUAL_EVENTS_DIR = "data/manual_events"
 
 
+def dismiss_cookie_banner(page):
+    """linncountyleader.com added a cookie-consent overlay (the
+    vanilla-cookieconsent library, recognizable by its #c-p-bn/#c-s-bn
+    button ids) that blocks the CitySpark widget's own script from ever
+    rendering .csEvWrap tiles until a choice is made -- confirmed by hand
+    on 2026-08-29 (0 events found for an entire run) -- clicking either
+    button unblocks it, so this picks "Accept necessary" as the more
+    privacy-respecting option. Silently does nothing if the banner isn't
+    present (a returning visitor's consent may already be recorded, or
+    the site could remove the banner entirely later)."""
+    try:
+        page.click("#c-s-bn", timeout=4000)
+    except Exception:
+        pass
+
+
 def get_list_html(page, max_attempts=3):
     """The CitySpark widget intermittently fails to load in time (either
     the page navigation itself or the widget's own render) when run from
@@ -428,6 +444,7 @@ def get_list_html(page, max_attempts=3):
     for attempt in range(1, max_attempts + 1):
         try:
             page.goto(CALENDAR_URL, wait_until="domcontentloaded", timeout=30000)
+            dismiss_cookie_banner(page)
             page.wait_for_selector(".csEvWrap", timeout=20000)
             break
         except Exception as e:
@@ -1320,10 +1337,26 @@ def get_teter_auction_events():
     return events
 
 
-def get_rhodes_obituaries_html(page):
-    page.goto(RHODES_OBITUARIES_URL, wait_until="domcontentloaded", timeout=30000)
-    page.wait_for_selector(".obituaries-list__results li", timeout=20000)
-    return page.content()
+def get_rhodes_obituaries_html(page, max_attempts=3):
+    """Retries transient load failures the same way get_list_html() does
+    for CitySpark above -- confirmed by hand on 2026-08-29 that a plain,
+    unhurried load of this page works fine (12 obituaries rendered with
+    no cookie banner or other blocker in the way), so a single timeout in
+    CI most likely means the page was just slow that once, not that
+    something structural broke."""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            page.goto(RHODES_OBITUARIES_URL, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_selector(".obituaries-list__results li", timeout=20000)
+            return page.content()
+        except Exception as e:
+            print(f"  WARNING: Rhodes load attempt {attempt}/{max_attempts} failed: {e}", file=sys.stderr)
+            if attempt == max_attempts:
+                page.screenshot(path="debug_screenshot_rhodes.png", full_page=True)
+                with open("debug_page_rhodes.html", "w", encoding="utf-8") as f:
+                    f.write(page.content())
+                raise
+            page.wait_for_timeout(3000)
 
 
 def parse_rhodes_obituaries(html):

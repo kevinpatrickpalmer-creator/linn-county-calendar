@@ -46,6 +46,8 @@ jobs:
           path: |
             debug_screenshot.png
             debug_page.html
+            debug_screenshot_rhodes.png
+            debug_page_rhodes.html
           if-no-files-found: ignore
 
       - name: Commit updated calendar file
