@@ -38,9 +38,22 @@
     padding: 1.25rem;
     box-shadow: 0 1px 4px rgba(0,0,0,.08);
     margin-bottom: 1.25rem;
+    scroll-margin-top: 1rem;
   }
   h2 { font-size: 1.05rem; margin: 0 0 .5rem; }
   p.hint { margin: 0 0 1rem; color: #666; font-size: .85rem; line-height: 1.4; }
+  p.hint a { color: #1e3a8a; }
+  p.callout {
+    margin: 0 0 1rem;
+    padding: .75rem .9rem;
+    background: #eef1fb;
+    border-left: 3px solid #1e3a8a;
+    border-radius: 6px;
+    font-size: .85rem;
+    line-height: 1.4;
+    color: #333;
+  }
+  p.callout a { color: #1e3a8a; }
   .btn {
     display: block;
     width: 100%;
@@ -174,10 +187,13 @@
     section { background: #202027; box-shadow: none; }
     input[type="email"], select { background: #15151a; color: #eee; border-color: #444; }
     p.sub, p.hint { color: #aaa; }
+    p.hint a { color: #8fa5ff; }
     .footer-link a { color: #8fa5ff; }
     p.stats-line { color: #8fa5ff; }
     .submit-qr p { color: #999; }
     .share-label { color: #ccc; }
+    p.callout { background: #1a2340; border-left-color: #8fa5ff; color: #ddd; }
+    p.callout a { color: #8fa5ff; }
   }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -208,12 +224,14 @@
       <label for="includeObituaries">Obituaries</label>
     </div>
 
+    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="#stayInLoop">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
+
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <p class="or-divider">OR</p>
     <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
     <p class="hint">To check it worked, open your phone or computer's own calendar app. You should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
-    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or sign up for reminder emails below instead.</p>
+    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or <a href="#stayInLoop">sign up for email reminders</a> instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
 
     <p class="share-label">Know someone who'd want this? Share it:</p>
@@ -226,7 +244,7 @@
     <p class="hint" id="shareInstagramHint">For Instagram, tap Copy Link, then paste it into your bio, a story, or a DM.</p>
   </section>
 
-  <section>
+  <section id="stayInLoop">
     <h2>Stay in the loop</h2>
     <p class="hint">All optional and independent of subscribing to the calendar above.</p>
     <form id="prefForm">
