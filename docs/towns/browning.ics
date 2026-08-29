@@ -6,4 +6,34 @@ METHOD:PUBLISH
 X-WR-CALNAME:Browning Events (Linn County Community Calendar)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Browning Homecoming
+DTSTART;VALUE=DATE:20260724
+DTEND;VALUE=DATE:20260725
+DTSTAMP:20260829T205653Z
+UID:leadereditorial-2026-07-24-browning-homecoming-2026-07-24-allday@linn-
+ county-scraper.local
+DESCRIPTION:Browning Homecoming
+LOCATION:Browning\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dakota Hale in concert at 8 p.m.
+DTSTART:20260725T010000Z
+DTEND:20260725T020000Z
+DTSTAMP:20260829T205653Z
+UID:leadereditorial-2026-07-24-dakota-hale-in-concert-at-8-p-m-2026-07-24-
+ 800@linn-county-scraper.local
+DESCRIPTION:Dakota Hale in concert at 8 p.m.\, during Browning Homecoming.
+LOCATION:Browning\, MO
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Browning Homecoming
+DTSTART;VALUE=DATE:20260725
+DTEND;VALUE=DATE:20260726
+DTSTAMP:20260829T205653Z
+UID:leadereditorial-2026-07-25-browning-homecoming-2026-07-25-allday@linn-
+ county-scraper.local
+DESCRIPTION:Browning Homecoming.
+LOCATION:Browning\, MO
+END:VEVENT
 END:VCALENDAR
