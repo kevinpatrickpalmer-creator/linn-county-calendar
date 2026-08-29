@@ -51,6 +51,7 @@
     cursor: pointer;
   }
   .stats-line { margin: 0 0 .6rem; text-align: center; font-size: .72rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: #a71a2d; }
+  .month-count { margin: 0 0 .6rem; text-align: center; font-size: .78rem; color: #666; }
   .filterbar { margin-bottom: .6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .filterbar input[type="checkbox"] { accent-color: #a71a2d; }
   .filterbar select {
@@ -249,6 +250,7 @@
     .site-credit { border-top-color: #333; color: #999; }
     .site-credit .powered-by { color: #666; }
     .stats-line { color: #d99a44; }
+    .month-count { color: #aaa; }
   }
 
   /* ---------- Print: a clean page, not a printout of the phone-sized web
@@ -259,7 +261,7 @@
   @media print {
     html, body { background: #fff; color: #000; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    .stats-line, #detail, #status {
+    .stats-line, .month-count, #detail, #status {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
@@ -297,6 +299,7 @@
   </div>
 
   <p class="stats-line" id="statsLine"></p>
+  <p class="month-count" id="monthCount"></p>
 
   <div class="filterbar">
     <label for="townFilter" style="font-size:.85rem;margin-right:.4rem;">Town:</label>
@@ -661,6 +664,17 @@ function renderMonth(year, month) {
     renderGridView(year, month, todayKey);
   } else {
     renderListView(year, month, todayKey);
+  }
+
+  if (!printMode) {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    let monthTotal = 0;
+    for (let d = 1; d <= daysInMonth; d++) {
+      const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+      monthTotal += (eventsByDay.get(key) || []).length;
+    }
+    document.getElementById("monthCount").textContent =
+      `${monthTotal} event${monthTotal === 1 ? "" : "s"} in ${monthLabel}`;
   }
 }
 

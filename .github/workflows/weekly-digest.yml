@@ -1,0 +1,27 @@
+name: Send weekly event digest
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"  # Monday, ~8am Central (drifts to 7am during standard time)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install icalendar requests
+
+      - name: Send weekly digest
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: python send_weekly_digest.py

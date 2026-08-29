@@ -70,7 +70,7 @@
 <body>
 <main>
   <h1 id="pageTitle">Unsubscribe</h1>
-  <p class="sub" id="pageSub">Stop the daily reminder and newsletter emails for this address.</p>
+  <p class="sub" id="pageSub">Stop the reminder, weekly summary, and newsletter emails for this address.</p>
 
   <section id="emailBox">
     <p class="email">Email: <strong id="emailDisplay"></strong></p>
@@ -79,7 +79,7 @@
 
   <div id="status" role="status"></div>
 
-  <p class="hint">This only affects reminder/newsletter emails — it doesn't touch the calendar itself. To stop seeing events on your phone or computer, remove the subscribed calendar in your device's own calendar app settings.</p>
+  <p class="hint">This only affects reminder/newsletter emails, it doesn't touch the calendar itself. To stop seeing events on your phone or computer, remove the subscribed calendar in your device's own calendar app settings.</p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
@@ -91,7 +91,7 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Unsubscribe — ${config.calendar_title}`;
+  document.title = `Unsubscribe | ${config.calendar_title}`;
   document.getElementById("pageTitle").textContent = `Unsubscribe from ${config.calendar_title}`;
 
   const params = new URLSearchParams(window.location.search);
@@ -104,7 +104,7 @@
 
   if (!email) {
     emailBox.style.display = "none";
-    statusEl.textContent = "No email address given — use the unsubscribe link from one of your reminder emails.";
+    statusEl.textContent = "No email address given. Use the unsubscribe link from one of your reminder emails.";
     statusEl.className = "err";
     return;
   }
@@ -123,6 +123,7 @@
     const data = new FormData();
     data.append(config.google_form.entry_email, email);
     data.append(config.google_form.entry_reminder, "no");
+    data.append(config.google_form.entry_weekly_digest, "no");
     data.append(config.google_form.entry_newsletter, "no");
     data.append(config.google_form.entry_towns, "");
 
@@ -133,7 +134,7 @@
         body: data,
       });
       emailBox.style.display = "none";
-      statusEl.textContent = `${email} has been unsubscribed from reminders and the newsletter.`;
+      statusEl.textContent = `${email} has been unsubscribed from reminders, the weekly summary, and the newsletter.`;
       statusEl.className = "ok";
     } catch (err) {
       statusEl.textContent = "Something went wrong. Please try again.";

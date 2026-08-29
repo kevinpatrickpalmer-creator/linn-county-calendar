@@ -228,7 +228,7 @@
 
   <section>
     <h2>Stay in the loop</h2>
-    <p class="hint">Both are optional and independent of subscribing to the calendar above.</p>
+    <p class="hint">All optional and independent of subscribing to the calendar above.</p>
     <form id="prefForm">
       <label for="email">Email address</label>
       <input id="email" type="email" required placeholder="you@example.com">
@@ -238,8 +238,13 @@
         <label for="reminder">Email me a reminder the day before each event</label>
       </div>
 
+      <div class="checkbox-row">
+        <input type="checkbox" id="weeklyDigest" name="weeklyDigest">
+        <label for="weeklyDigest">Email me a weekly summary of the week's events</label>
+      </div>
+
       <div id="townPicker" class="town-picker hidden">
-        <p class="hint town-hint">Only for reminders, leave all unchecked to get every town's events.</p>
+        <p class="hint town-hint">Only for reminders and the weekly summary, leave all unchecked to get every town's events.</p>
         <div id="townCheckboxes"></div>
       </div>
 
@@ -401,11 +406,14 @@
   const statusEl = document.getElementById("prefStatus");
   const submitBtn = document.getElementById("prefSubmit");
   const reminderCheckbox = document.getElementById("reminder");
+  const weeklyDigestCheckbox = document.getElementById("weeklyDigest");
   const townPicker = document.getElementById("townPicker");
 
-  reminderCheckbox.addEventListener("change", () => {
-    townPicker.classList.toggle("hidden", !reminderCheckbox.checked);
-  });
+  function syncTownPickerVisibility() {
+    townPicker.classList.toggle("hidden", !reminderCheckbox.checked && !weeklyDigestCheckbox.checked);
+  }
+  reminderCheckbox.addEventListener("change", syncTownPickerVisibility);
+  weeklyDigestCheckbox.addEventListener("change", syncTownPickerVisibility);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -414,6 +422,7 @@
 
     const email = document.getElementById("email").value.trim();
     const reminder = reminderCheckbox.checked;
+    const weeklyDigest = weeklyDigestCheckbox.checked;
     const newsletter = document.getElementById("newsletter").checked;
     const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
       .map((el) => el.value)
@@ -422,6 +431,7 @@
     const data = new FormData();
     data.append(config.google_form.entry_email, email);
     data.append(config.google_form.entry_reminder, reminder ? "yes" : "no");
+    data.append(config.google_form.entry_weekly_digest, weeklyDigest ? "yes" : "no");
     data.append(config.google_form.entry_newsletter, newsletter ? "yes" : "no");
     data.append(config.google_form.entry_towns, towns); // blank = all towns
 
@@ -436,6 +446,9 @@
         nextSteps.push(
           "You'll get your first reminder email the evening before an event you're tracking is happening. A quiet inbox until then just means nothing's coming up yet."
         );
+      }
+      if (weeklyDigest) {
+        nextSteps.push("You'll get your first weekly summary email the next time it goes out.");
       }
       if (newsletter) {
         nextSteps.push("We'll email you the moment the Community App is ready. There's no set timeline yet.");
