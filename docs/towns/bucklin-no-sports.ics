@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Obituary: Ralph E. Cheek
 DTSTART;VALUE=DATE:20260825
 DTEND;VALUE=DATE:20260826
-DTSTAMP:20260829T205653Z
+DTSTAMP:20260829T224033Z
 UID:wrightfuneralhomeobit-2026-08-25-ralph-e-cheek-2026-08-25-allday@linn-
  county-scraper.local
 CATEGORIES:obituary
@@ -40,5 +40,6 @@ DESCRIPTION:Ralph E. Cheek\, age 58\, of Bucklin\, passed away Tuesday\, A
  Box\, 496\, Brookfield\, MO 64628.\n\nFull obituary and service details: h
  ttps://www.wright-funeralhome.com/obituaries/Ralph-E-Cheek?obId=49384444
 LOCATION:Bucklin\, MO
+X-EVENT-TYPE:Obituary / Visitation
 END:VEVENT
 END:VCALENDAR
