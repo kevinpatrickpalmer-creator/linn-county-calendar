@@ -117,6 +117,11 @@
   .list-row .list-main { min-width: 0; }
   .list-row .list-name { font-size: .95rem; font-weight: 600; line-height: 1.3; }
   .list-row .list-location { font-size: .8rem; color: #666; margin-top: .1rem; }
+  .list-type {
+    display: inline-block; margin-top: .3rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; color: #a71a2d;
+    background: #fbe9eb; padding: .15rem .45rem; border-radius: 999px;
+  }
   #listEmpty { text-align: center; color: #666; padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: #a71a2d; text-decoration: none; margin-left: .75rem; }
@@ -244,6 +249,7 @@
     .list-row { background: #202027; box-shadow: none; }
     .list-row .list-time { color: #d99a44; }
     .list-row .list-location { color: #aaa; }
+    .list-type { background: #3a2226; color: #e08a94; }
     #listEmpty { color: #aaa; }
     .more-link { color: #d99a44; }
     #detail button { color: #d99a44; }
@@ -307,6 +313,10 @@
     <select id="townFilter">
       <option value="">All towns</option>
     </select>
+    <label for="typeFilter" style="font-size:.85rem;margin-right:.4rem;">Type:</label>
+    <select id="typeFilter">
+      <option value="">All types</option>
+    </select>
     <label style="font-size:.85rem;"><input type="checkbox" id="hideSports"> Hide sports</label>
     <label style="font-size:.85rem;"><input type="checkbox" id="hideObituaries"> Hide obituaries</label>
     <div class="view-toggle">
@@ -323,6 +333,7 @@
 
   <div id="detail">
     <h2 id="detailName"></h2>
+    <div class="list-type" id="detailType" style="margin-bottom:.5rem;"></div>
     <div class="meta" id="detailWhen"></div>
     <div class="meta" id="detailLocation"></div>
     <div class="desc" id="detailDescription"></div>
@@ -418,6 +429,9 @@ function parseICS(raw) {
       case "CATEGORIES":
         current.categories = unescapeText(value).split(",").map((c) => c.trim().toLowerCase());
         break;
+      case "X-EVENT-TYPE":
+        current.eventType = unescapeText(value);
+        break;
       case "UID":
         current.uid = value;
         break;
@@ -469,6 +483,7 @@ let allEvents = [];
 let eventsByDay = new Map();
 let viewYear, viewMonth; // viewMonth is 0-11
 let currentTown = ""; // "" = all towns
+let currentType = ""; // "" = all types
 let excludeSports = false;
 let excludeObituaries = false;
 
@@ -477,6 +492,7 @@ function buildDayIndex(events) {
   for (const ev of events) {
     if (!ev.start) continue;
     if (currentTown && ev.town !== currentTown) continue;
+    if (currentType && ev.eventType !== currentType) continue;
     const categories = ev.categories || [];
     if (excludeSports && categories.includes("sports")) continue;
     if (excludeObituaries && categories.includes("obituary")) continue;
@@ -506,6 +522,8 @@ function showDetail(ev) {
     : `${localTimeString(ev.start)}${ev.end ? " – " + localTimeString(ev.end) : ""}`;
   document.getElementById("detailLocation").textContent = ev.location || "";
   document.getElementById("detailLocation").style.display = ev.location ? "block" : "none";
+  document.getElementById("detailType").textContent = ev.eventType || "";
+  document.getElementById("detailType").style.display = ev.eventType ? "inline-block" : "none";
   document.getElementById("detailDescription").textContent = ev.description || "";
   document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
   document.getElementById("detail").style.display = "block";
@@ -638,6 +656,12 @@ function renderListView(year, month, todayKey) {
         loc.textContent = ev.location;
         main.appendChild(loc);
       }
+      if (ev.eventType) {
+        const type = document.createElement("div");
+        type.className = "list-type";
+        type.textContent = ev.eventType;
+        main.appendChild(type);
+      }
       row.appendChild(main);
 
       rows.appendChild(row);
@@ -740,6 +764,11 @@ document.getElementById("townFilter").addEventListener("change", (e) => {
   applyTownFilter();
 });
 
+document.getElementById("typeFilter").addEventListener("change", (e) => {
+  currentType = e.target.value;
+  applyTownFilter();
+});
+
 document.getElementById("hideSports").addEventListener("change", (e) => {
   excludeSports = e.target.checked;
   applyTownFilter();
@@ -764,6 +793,14 @@ async function main() {
       opt.value = town;
       opt.textContent = town;
       townSelect.appendChild(opt);
+    }
+
+    const typeSelect = document.getElementById("typeFilter");
+    for (const type of config.event_types) {
+      const opt = document.createElement("option");
+      opt.value = type;
+      opt.textContent = type;
+      typeSelect.appendChild(opt);
     }
 
     // Lets a town's own site embed a pre-filtered view, e.g.

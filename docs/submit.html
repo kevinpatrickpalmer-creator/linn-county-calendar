@@ -138,6 +138,11 @@
     <label for="name">Event name *</label>
     <input id="name" name="name" type="text" maxlength="120" required>
 
+    <label for="eventType">Event type (optional)</label>
+    <select id="eventType" name="eventType">
+      <option value="">Not sure, skip this</option>
+    </select>
+
     <label for="date">Date *</label>
     <input id="date" name="date" type="date" required>
 
@@ -239,6 +244,14 @@
     townSelect.appendChild(option);
   }
 
+  const eventTypeSelect = document.getElementById("eventType");
+  for (const type of config.event_types) {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    eventTypeSelect.appendChild(option);
+  }
+
   const form = document.getElementById("eventForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
@@ -298,6 +311,7 @@
     // these are what admin.html's own inputs expect (native <input type=date/time>
     // values), used to build a one-click pre-filled review link.
     const rawName = (data.get("name") || "").trim();
+    const eventType = (data.get("eventType") || "").trim();
     const rawDate = data.get("date") || "";
     const rawTime = data.get("time") || "";
     const rawEndTime = data.get("end_time") || "";
@@ -312,6 +326,7 @@
 
     const adminParams = new URLSearchParams({
       name: rawName,
+      event_type: eventType,
       date: rawDate,
       time: rawTime,
       end_time: rawEndTime,

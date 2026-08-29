@@ -28,6 +28,11 @@
   }
   .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
   .card .meta { font-size: .85rem; color: #666; margin-bottom: .15rem; }
+  .card .type-badge {
+    display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; color: #a71a2d;
+    background: #fbe9eb; padding: .15rem .45rem; border-radius: 999px;
+  }
   .card .actions { margin-top: .75rem; display: flex; gap: .6rem; }
   .card .actions a {
     flex: 1;
@@ -46,6 +51,7 @@
     body { background: #15151a; color: #eee; }
     .card { background: #202027; box-shadow: none; }
     .card .meta { color: #aaa; }
+    .card .type-badge { background: #3a2226; color: #e08a94; }
     p.sub { color: #aaa; }
     .edit-link { background: #1a1f3a; color: #8fa5ff; }
     .cancel-link { background: #3a2c14; color: #d99a44; }
@@ -131,6 +137,13 @@ async function main() {
   for (const ev of events) {
     const card = document.createElement("div");
     card.className = "card";
+
+    if (ev.event_type) {
+      const badge = document.createElement("div");
+      badge.className = "type-badge";
+      badge.textContent = ev.event_type;
+      card.appendChild(badge);
+    }
 
     const title = document.createElement("h2");
     title.textContent = ev.name || "(untitled event)";

@@ -630,6 +630,7 @@ def load_manual_events():
                     "event_id": f"manual-{slug}",
                     "start_iso": start_iso,
                     "end_iso": end_iso,
+                    "event_type": (data.get("event_type") or "").strip(),
                 }
             )
 
@@ -1584,6 +1585,44 @@ def event_uid(ev):
     return f"{key}-{ev['date']}-{time_slug}@{CONFIG['uid_domain']}"
 
 
+# Order matters: the first pattern that matches wins, so put more
+# specific phrases ahead of general ones (e.g. "estate sale" is checked
+# before the bare word "sale" would ever get a chance to).
+EVENT_TYPE_KEYWORDS = [
+    (re.compile(r"\b(city council|county commission|school board|meeting)\b", re.IGNORECASE), "Meeting"),
+    (re.compile(r"\b(fundraiser|benefit dinner|benefit\b|donation drive|coalition drive|blood drive)\b", re.IGNORECASE), "Fundraiser / Benefit"),
+    (re.compile(r"\b(garage sale|yard sale|rummage sale)\b", re.IGNORECASE), "Garage Sale"),
+    (re.compile(r"\b(auction|estate sale|liquidation)\b", re.IGNORECASE), "Auction / Estate Sale"),
+    (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration)\b", re.IGNORECASE), "Festival / Fair"),
+    (re.compile(r"\b(church|revival|vbs|bible study|worship)\b", re.IGNORECASE), "Religious / Church"),
+    (re.compile(r"\bchamber\b", re.IGNORECASE), "Business / Chamber"),
+    (re.compile(r"\b(concert|theater|theatre|art show|craft fair|open mic)\b", re.IGNORECASE), "Arts & Entertainment"),
+    (re.compile(r"\b(courthouse closed|election|public notice|road closure|closed\b)\b", re.IGNORECASE), "Government Notice"),
+]
+
+
+def guess_event_type(ev):
+    """Best-effort event-type tag for calendar-view.html's type filter and
+    manage-events.html's admin view. A manually-submitted event already
+    carries a submitter-picked type (see load_manual_events()); this only
+    fills in a guess for everything else, which is most of the calendar,
+    since it's almost entirely auto-scraped and has no such field. Falls
+    back to the existing sports/obituary category (already reliable,
+    since those come from dedicated sources rather than a keyword guess)
+    and finally to "Other" rather than leaving anything untagged."""
+    if ev.get("event_type"):
+        return ev["event_type"]
+    if ev.get("category") == "sports":
+        return "Sports"
+    if ev.get("category") == "obituary":
+        return "Obituary / Visitation"
+    name = ev.get("name") or ""
+    for pattern, event_type in EVENT_TYPE_KEYWORDS:
+        if pattern.search(name):
+            return event_type
+    return "Other"
+
+
 def build_calendar(events, calname=None):
     cal = Calendar()
     cal.add("prodid", f"-//{CONFIG['county_display_name']} Events Scraper//{CONFIG['uid_domain']}//EN")
@@ -1643,6 +1682,12 @@ def build_calendar(events, calname=None):
             # "-no-sports.ics" files write_town_ics_files()/main() write
             # for actual phone/computer calendar subscriptions.
             event.add("categories", ev["category"])
+        if ev.get("event_type"):
+            # A custom X-property (RFC 5545 allows these; real calendar
+            # apps just ignore properties they don't recognize) -- this is
+            # only for calendar-view.html's own type filter/label, see
+            # guess_event_type() for how every event gets one.
+            event.add("x-event-type", ev["event_type"])
 
         cal.add_component(event)
 
@@ -1929,6 +1974,9 @@ def main():
     if manual_events:
         print(f"Including {len(manual_events)} approved community-submitted event(s)\n")
         events.extend(manual_events)
+
+    for ev in events:
+        ev["event_type"] = guess_event_type(ev)
 
     if not events:
         print("No events found -- the page structure may have changed.")

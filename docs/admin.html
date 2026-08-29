@@ -98,6 +98,11 @@
     <label for="name">Event name *</label>
     <input id="name" name="name" type="text" required>
 
+    <label for="event_type">Event type (optional)</label>
+    <select id="event_type" name="event_type">
+      <option value="">Not sure, leave blank</option>
+    </select>
+
     <label for="date">Date *</label>
     <input id="date" name="date" type="date" required>
 
@@ -173,6 +178,14 @@
     townSelect.appendChild(option);
   }
 
+  const eventTypeSelect = document.getElementById("event_type");
+  for (const type of config.event_types) {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    eventTypeSelect.appendChild(option);
+  }
+
   function slugify(name, date) {
     const s = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
     return `${date}-${s || "event"}`;
@@ -204,7 +217,7 @@
     const params = new URLSearchParams(window.location.search);
     if (![...params.keys()].length) return;
 
-    const fields = ["name", "date", "time", "end_time", "town", "venue", "online_link", "description", "website", "recurrence", "repeat_until"];
+    const fields = ["name", "event_type", "date", "time", "end_time", "town", "venue", "online_link", "description", "website", "recurrence", "repeat_until"];
     let filledAny = false;
     for (const field of fields) {
       if (!params.has(field)) continue;
@@ -266,6 +279,8 @@
     const event = { name, date, time: formatTime12h(data.get("time")), location, description };
     const endTime = formatTime12h(data.get("end_time"));
     if (endTime) event.end_time = endTime;
+    const eventType = (data.get("event_type") || "").trim();
+    if (eventType) event.event_type = eventType;
 
     const recurrence = (data.get("recurrence") || "none").trim();
     const repeatUntil = (data.get("repeat_until") || "").trim();

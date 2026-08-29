@@ -6,6 +6,7 @@
   "timezone": "America/Chicago",
   "state": "MO",
   "towns": ["Brookfield", "Browning", "Bucklin", "Laclede", "Linneus", "Marceline", "Meadville", "Purdin"],
+  "event_types": ["Meeting", "Fundraiser / Benefit", "Garage Sale", "Auction / Estate Sale", "Festival / Fair", "Sports", "Religious / Church", "Business / Chamber", "Arts & Entertainment", "Obituary / Visitation", "Government Notice", "Other"],
   "github_repo": "kevinpatrickpalmer-creator/linn-county-calendar",
   "github_branch": "main",
   "web3forms_access_key": "84cb6687-b7d7-453d-b3c0-6faca29868ed",
