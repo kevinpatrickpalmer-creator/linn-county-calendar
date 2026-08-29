@@ -58,15 +58,15 @@
 <body>
 <main>
   <h1 id="pageTitle">Privacy Policy</h1>
-  <p class="sub" id="pageSub">Plain language, not legalese — this describes exactly what this site does with information, nothing more and nothing less.</p>
+  <p class="sub" id="pageSub">Plain language, not legalese: this describes exactly what this site does with information, nothing more and nothing less.</p>
 
   <section>
     <h2>What we collect, and why</h2>
     <ul>
       <li><strong>If you submit an event:</strong> the event details, plus your contact email and/or phone number. That contact info is shown <strong>publicly</strong> on the calendar listing, on purpose, so people with questions about the event can reach you directly. We don't call you or use it for anything else.</li>
       <li><strong>If you sign up for reminder emails or the newsletter:</strong> your email address, which opt-ins you checked, and any towns you chose to filter by. Used only to send the emails you actually opted into.</li>
-      <li><strong>If you just subscribe to the calendar</strong> on your phone or computer's calendar app: nothing personal is collected at all. That's a direct connection between your device and the calendar file — we don't know who's subscribed.</li>
-      <li><strong>Basic site usage:</strong> anonymous pageview counts via Cloudflare Web Analytics — no cookies, no personal identifiers, just aggregate visit numbers.</li>
+      <li><strong>If you just subscribe to the calendar</strong> on your phone or computer's calendar app: nothing personal is collected at all. That's a direct connection between your device and the calendar file. We don't know who's subscribed.</li>
+      <li><strong>Basic site usage:</strong> anonymous pageview counts via Cloudflare Web Analytics: no cookies, no personal identifiers, just aggregate visit numbers.</li>
     </ul>
   </section>
 
@@ -77,7 +77,7 @@
       <li>Event submissions are emailed to the admin for review via <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>.</li>
       <li>Reminder/newsletter sign-ups are stored in a Google Form and Sheet.</li>
       <li>Reminder emails are sent through <a href="https://www.brevo.com" target="_blank" rel="noopener">Brevo</a>.</li>
-      <li>The site itself is hosted on GitHub Pages, which — like any web host — keeps standard technical access logs.</li>
+      <li>The site itself is hosted on GitHub Pages, which, like any web host, keeps standard technical access logs.</li>
     </ul>
   </section>
 
@@ -92,7 +92,7 @@
 
   <section>
     <h2>Public calendar content</h2>
-    <p>Some of what appears on the calendar isn't submitted by anyone directly — it's aggregated from other public sources (city/county government calendars, school athletic schedules, local funeral homes' published obituaries, etc.) to build a single, complete community calendar. That content reflects what those sources already publish publicly; we don't collect it from the individuals it's about.</p>
+    <p>Some of what appears on the calendar isn't submitted by anyone directly. It's aggregated from other public sources (city/county government calendars, school athletic schedules, local funeral homes' published obituaries, etc.) to build a single, complete community calendar. That content reflects what those sources already publish publicly; we don't collect it from the individuals it's about.</p>
   </section>
 
   <section>
@@ -100,7 +100,7 @@
     <ul>
       <li>To stop reminder/newsletter emails, use the unsubscribe link included in every email, or go directly to <a href="unsubscribe.html">unsubscribe.html</a>.</li>
       <li>To stop seeing events on your phone or computer, remove the subscribed calendar in your device's own calendar app settings.</li>
-      <li>Questions about a specific listing, or anything else here — contact us using the address below.</li>
+      <li>Questions about a specific listing, or anything else here: contact us using the address below.</li>
     </ul>
   </section>
 
@@ -120,8 +120,8 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Privacy Policy — ${config.calendar_title}`;
-  document.getElementById("pageTitle").textContent = `Privacy Policy — ${config.calendar_title}`;
+  document.title = `Privacy Policy | ${config.calendar_title}`;
+  document.getElementById("pageTitle").textContent = `Privacy Policy for ${config.calendar_title}`;
   document.getElementById("contactLine").textContent =
     `Questions about this policy or your information: ${config.admin_email}`;
 })();

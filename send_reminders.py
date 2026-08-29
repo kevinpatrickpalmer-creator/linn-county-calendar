@@ -128,7 +128,7 @@ def load_reminder_subscribers():
 def send_reminder_email(to_email, tomorrow, events):
     lines = [f"Events happening tomorrow ({tomorrow.strftime('%A, %B %-d')}):", ""]
     for ev in events:
-        line = f"- {ev['name']} — {ev['time']}"
+        line = f"- {ev['time']}: {ev['name']}"
         if ev["location"]:
             line += f" @ {ev['location']}"
         lines.append(line)

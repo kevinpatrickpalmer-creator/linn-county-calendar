@@ -75,7 +75,7 @@
     A source marked ⚠ threw a real error and was skipped for this run
     (the rest of the calendar still updated normally). Some sources catch
     their own errors internally and always show as OK here even if their
-    count unexpectedly drops to zero — a sudden 0 from a normally-active
+    count unexpectedly drops to zero: a sudden 0 from a normally-active
     source (especially a school district) is worth a manual check even
     without a red badge.
   </p>
@@ -88,8 +88,8 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Source Status — ${config.calendar_title}`;
-  document.getElementById("pageTitle").textContent = `Source Status — ${config.calendar_title}`;
+  document.title = `Source Status | ${config.calendar_title}`;
+  document.getElementById("pageTitle").textContent = `Source Status for ${config.calendar_title}`;
 
   const statusEl = document.getElementById("status");
   const listEl = document.getElementById("list");
@@ -101,7 +101,7 @@
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     data = await res.json();
   } catch (err) {
-    statusEl.textContent = "Couldn't load source_status.json — it's written by the scraper, so it won't exist until the first run after this page was added.";
+    statusEl.textContent = "Couldn't load source_status.json. It's written by the scraper, so it won't exist until the first run after this page was added.";
     return;
   }
 
@@ -112,7 +112,7 @@
   generatedEl.textContent = `Last scrape: ${generated.toLocaleString()} (${hoursOld.toFixed(1)} hours ago)`;
   if (hoursOld > 5) {
     generatedEl.classList.add("stale");
-    generatedEl.textContent += " — later than the usual 4-hour cycle; the whole pipeline may be stuck, not just one source.";
+    generatedEl.textContent += ". Later than the usual 4-hour cycle; the whole pipeline may be stuck, not just one source.";
   }
 
   for (const source of data.sources) {

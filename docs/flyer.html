@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Community Calendar — Flyer</title>
+<title>Community Calendar Flyer</title>
 <style>
   :root {
     --paper: #f5f5f2;
@@ -458,7 +458,7 @@
 
   <div class="two-col">
     <div class="col">
-      <p class="col-label">Subscribe &mdash; free</p>
+      <p class="col-label">Subscribe for free</p>
       <div class="qr-block">
         <div class="qr-img" id="qrMain"></div>
         <p class="qr-caption">Scan to subscribe</p>
@@ -466,14 +466,14 @@
       <p class="col-url" id="subscribeUrl"></p>
       <p class="col-hint">Scan the QR code, or go to the address above, to subscribe.</p>
       <ul class="col-benefits">
-        <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
-        <li><span class="mark">&mdash;</span><span>Select only the events or towns you want.</span></li>
-        <li><span class="mark">&mdash;</span><span>New events show up on their own &mdash; nothing to check back for.</span></li>
+        <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
+        <li><span class="mark">&bull;</span><span>Select only the events or towns you want.</span></li>
+        <li><span class="mark">&bull;</span><span>New events show up on their own. Nothing to check back for.</span></li>
       </ul>
     </div>
     <div class="col-divider"></div>
     <div class="col">
-      <p class="col-label">Add your event &mdash; free</p>
+      <p class="col-label">Add your event for free</p>
       <div class="qr-block">
         <div class="qr-img" id="qrSubmit"></div>
         <p class="qr-caption">Scan to submit</p>
@@ -481,9 +481,9 @@
       <p class="col-url"><span id="ctaUrlDomain"></span><span class="path">/submit.html</span></p>
       <p class="col-hint">Scan the QR code, or go to the address above, to submit an event.</p>
       <ul class="col-benefits">
-        <li><span class="mark">&mdash;</span><span>It's free &mdash; no account, no login, ever.</span></li>
-        <li><span class="mark">&mdash;</span><span>Reach the whole county, or just your town.</span></li>
-        <li><span class="mark">&mdash;</span><span>Personal events count, too &mdash; funeral and celebration of life services, garage sales, benefit dinners, open houses, parties, and more.</span></li>
+        <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
+        <li><span class="mark">&bull;</span><span>Reach the whole county, or just your town.</span></li>
+        <li><span class="mark">&bull;</span><span>Personal events count, too: funeral and celebration of life services, garage sales, benefit dinners, open houses, parties, and more.</span></li>
       </ul>
     </div>
   </div>
@@ -506,7 +506,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `${config.calendar_title} — Flyer`;
+  document.title = `${config.calendar_title} | Flyer`;
   document.getElementById("nameplate").textContent = config.calendar_title;
 
   const half = Math.ceil(config.towns.length / 2);
@@ -514,7 +514,7 @@
   document.getElementById("townsRight").textContent = config.towns.slice(half).join(" · ");
 
   document.getElementById("whatItIs").textContent =
-    `A calendar that automatically gathers events from across all ${config.towns.length} towns in ${config.county_display_name} and puts them in one place — located online, or delivered straight to anyone's phone or computer calendar. School sports games, city and county government meetings, festivals, fundraisers, auctions and estate sales, obituaries and visitations, chamber of commerce events, and more — it's already keeping track of what's happening countywide, and growing every week. Don't see your event on there? Add it yourself using the form below — it only takes about two minutes.`;
+    `A calendar that automatically gathers events from across all ${config.towns.length} towns in ${config.county_display_name} and puts them in one place, located online, or delivered straight to anyone's phone or computer calendar. School sports games, city and county government meetings, festivals, fundraisers, auctions and estate sales, obituaries and visitations, chamber of commerce events, and more. It's already keeping track of what's happening countywide, and growing every week. Don't see your event on there? Add it yourself using the form below. It only takes about two minutes.`;
 
   // The domain has no spaces or hyphens, so a plain text wrap picks an
   // arbitrary mid-word break point once a column gets narrow. Inserting a

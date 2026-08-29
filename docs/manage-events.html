@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manage Events — Calendar Admin</title>
+<title>Manage Events | Calendar Admin</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -58,7 +58,7 @@
   <h1>Manage Events</h1>
   <p class="sub">
     Everything below is a manually-approved event currently live on the
-    calendar (scraped events aren't listed here — those come and go
+    calendar (scraped events aren't listed here, those come and go
     automatically from the newspaper's own site). <strong>Edit</strong> opens
     GitHub's editor with the file's current contents; <strong>Cancel
     event</strong> opens GitHub's delete-confirmation page. Either way,
@@ -85,7 +85,7 @@ async function main() {
   const config = await (await fetch("config.json")).json();
   REPO = config.github_repo;
   BRANCH = config.github_branch;
-  document.title = `Manage Events — ${config.county_display_name} Calendar Admin`;
+  document.title = `Manage Events | ${config.county_display_name} Calendar Admin`;
 
   const statusEl = document.getElementById("status");
   const listEl = document.getElementById("list");
@@ -138,7 +138,7 @@ async function main() {
 
     const when = document.createElement("div");
     when.className = "meta";
-    when.textContent = ev.time ? `${ev.date} — ${ev.time}` : `${ev.date} (all day)`;
+    when.textContent = ev.time ? `${ev.date} at ${ev.time}` : `${ev.date} (all day)`;
     card.appendChild(when);
 
     if (ev.recurrence && ev.recurrence !== "none" && ev.repeat_until) {
