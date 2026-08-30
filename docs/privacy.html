@@ -66,7 +66,7 @@
     </ul>
   </section>
 
-  <p class="sub" id="contactLine"></p>
+  <p class="sub">Questions about this policy or your information: <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a></p>
   <p class="sub" id="lastUpdated">Last updated: July 2026.</p>
 
   <div class="back-link">
@@ -84,8 +84,6 @@
   const config = await (await fetch("config.json")).json();
   document.title = `Privacy Policy | ${config.calendar_title}`;
   document.getElementById("pageTitle").textContent = `Privacy Policy for ${config.calendar_title}`;
-  document.getElementById("contactLine").textContent =
-    `Questions about this policy or your information: ${config.admin_email}`;
 })();
 </script>
 </body>
