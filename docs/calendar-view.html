@@ -54,14 +54,41 @@
   .month-count { margin: 0 0 .6rem; text-align: center; font-size: .78rem; color: #666; }
   .filterbar { margin-bottom: .6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .filterbar input[type="checkbox"] { accent-color: #a71a2d; }
-  .filterbar select {
+  .ms-filter { position: relative; }
+  .ms-btn {
     border: 1px solid #ccc;
     background: #fff;
     border-radius: 6px;
-    padding: .3rem .5rem;
+    padding: .3rem .65rem;
     font-size: .85rem;
     font-family: inherit;
     color: inherit;
+    cursor: pointer;
+  }
+  .ms-btn.active { border-color: #a71a2d; color: #a71a2d; }
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + .3rem);
+    left: 0;
+    z-index: 10;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    padding: .6rem;
+    min-width: 12rem;
+    max-height: 16rem;
+    overflow-y: auto;
+  }
+  .ms-panel.hidden { display: none; }
+  .ms-panel label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .25rem 0; white-space: nowrap;
+  }
+  .ms-panel .ms-clear {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: #a71a2d; font-size: .8rem; font-weight: 600; cursor: pointer;
+    padding: 0 0 .4rem; margin-bottom: .3rem; border-bottom: 1px solid #eee;
+    font-family: inherit;
   }
   .view-toggle { display: flex; gap: .25rem; }
   .view-toggle button {
@@ -234,6 +261,10 @@
     .nav button { background: #202027; border-color: #444; color: #eee; }
     .print-btn-cal { background: #202027; border-color: #444; color: #eee; }
     .filterbar select { background: #202027; border-color: #444; color: #eee; }
+    .ms-btn { background: #202027; border-color: #444; color: #eee; }
+    .ms-btn.active { border-color: #d99a44; color: #d99a44; }
+    .ms-panel { background: #202027; box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+    .ms-panel .ms-clear { color: #d99a44; border-bottom-color: #333; }
     .view-toggle button { background: #202027; border-color: #444; color: #eee; }
     .view-toggle button.active { background: #a71a2d; border-color: #a71a2d; color: #fff; }
     .grid { background: #333; border-color: #333; }
@@ -309,16 +340,20 @@
   <p class="month-count" id="monthCount"></p>
 
   <div class="filterbar">
-    <label for="townFilter" style="font-size:.85rem;margin-right:.4rem;">Town:</label>
-    <select id="townFilter">
-      <option value="">All towns</option>
-    </select>
-    <label for="typeFilter" style="font-size:.85rem;margin-right:.4rem;">Type:</label>
-    <select id="typeFilter">
-      <option value="">All types</option>
-    </select>
-    <label style="font-size:.85rem;"><input type="checkbox" id="hideSports"> Hide sports</label>
-    <label style="font-size:.85rem;"><input type="checkbox" id="hideObituaries"> Hide obituaries</label>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
+      <div class="ms-panel hidden" id="townFilterPanel">
+        <button type="button" class="ms-clear" data-filter="town">Show all towns</button>
+        <div id="townCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="typeFilterBtn">Types: All</button>
+      <div class="ms-panel hidden" id="typeFilterPanel">
+        <button type="button" class="ms-clear" data-filter="type">Show all types</button>
+        <div id="typeCheckList"></div>
+      </div>
+    </div>
     <div class="view-toggle">
       <button id="listViewBtn" type="button" class="active">List</button>
       <button id="gridViewBtn" type="button">Month</button>
@@ -483,20 +518,15 @@ function localTimeString(date) {
 let allEvents = [];
 let eventsByDay = new Map();
 let viewYear, viewMonth; // viewMonth is 0-11
-let currentTown = ""; // "" = all towns
-let currentType = ""; // "" = all types
-let excludeSports = false;
-let excludeObituaries = false;
+let selectedTowns = new Set(); // empty = all towns
+let selectedTypes = new Set(); // empty = all types
 
 function buildDayIndex(events) {
   const map = new Map();
   for (const ev of events) {
     if (!ev.start) continue;
-    if (currentTown && ev.town !== currentTown) continue;
-    if (currentType && ev.eventType !== currentType) continue;
-    const categories = ev.categories || [];
-    if (excludeSports && categories.includes("sports")) continue;
-    if (excludeObituaries && categories.includes("obituary")) continue;
+    if (selectedTowns.size && !selectedTowns.has(ev.town)) continue;
+    if (selectedTypes.size && !selectedTypes.has(ev.eventType)) continue;
     const key = localDateKey(ev.start, ev.allDay);
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(ev);
@@ -755,29 +785,82 @@ let siteConfig = null;
 
 function updateEmbedSnippet() {
   if (!siteConfig) return;
-  const townParam = currentTown ? `?town=${encodeURIComponent(currentTown)}` : "";
+  const townParam = selectedTowns.size
+    ? `?town=${encodeURIComponent([...selectedTowns].join(","))}`
+    : "";
   document.getElementById("embedSnippet").value =
     `<iframe src="https://${siteConfig.domain}/calendar-view.html${townParam}" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"></iframe>`;
 }
 
-document.getElementById("townFilter").addEventListener("change", (e) => {
-  currentTown = e.target.value;
-  applyTownFilter();
-});
+// Builds one Towns/Types-style multi-checkbox dropdown: a button that
+// toggles a panel of checkboxes, backed by a Set (empty = "everything",
+// matching the old single-select's "" = "all" convention). Returns
+// syncCheckboxes() so a caller can pre-check boxes from a URL param
+// without duplicating the label/state logic.
+function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange }) {
+  const btn = document.getElementById(btnId);
+  const panel = document.getElementById(panelId);
+  const list = document.getElementById(listId);
 
-document.getElementById("typeFilter").addEventListener("change", (e) => {
-  currentType = e.target.value;
-  applyTownFilter();
-});
+  function updateBtnLabel() {
+    if (selectedSet.size === 0) {
+      btn.textContent = `${label}: All`;
+      btn.classList.remove("active");
+    } else if (selectedSet.size === 1) {
+      btn.textContent = `${label}: ${[...selectedSet][0]}`;
+      btn.classList.add("active");
+    } else {
+      btn.textContent = `${label}: ${selectedSet.size} selected`;
+      btn.classList.add("active");
+    }
+  }
 
-document.getElementById("hideSports").addEventListener("change", (e) => {
-  excludeSports = e.target.checked;
-  applyTownFilter();
-});
+  for (const opt of options) {
+    const row = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = opt;
+    cb.addEventListener("change", () => {
+      if (cb.checked) selectedSet.add(opt);
+      else selectedSet.delete(opt);
+      updateBtnLabel();
+      onChange();
+    });
+    row.appendChild(cb);
+    row.appendChild(document.createTextNode(" " + opt));
+    list.appendChild(row);
+  }
 
-document.getElementById("hideObituaries").addEventListener("change", (e) => {
-  excludeObituaries = e.target.checked;
-  applyTownFilter();
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const wasHidden = panel.classList.contains("hidden");
+    document.querySelectorAll(".ms-panel").forEach((p) => p.classList.add("hidden"));
+    if (wasHidden) panel.classList.remove("hidden");
+  });
+
+  panel.querySelector(".ms-clear").addEventListener("click", () => {
+    selectedSet.clear();
+    list.querySelectorAll("input[type=checkbox]").forEach((cb) => { cb.checked = false; });
+    updateBtnLabel();
+    onChange();
+  });
+
+  return {
+    syncCheckboxes() {
+      list.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+        cb.checked = selectedSet.has(cb.value);
+      });
+      updateBtnLabel();
+    },
+  };
+}
+
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".ms-panel").forEach((panel) => {
+    if (!panel.classList.contains("hidden") && !panel.parentElement.contains(e.target)) {
+      panel.classList.add("hidden");
+    }
+  });
 });
 
 async function main() {
@@ -788,29 +871,26 @@ async function main() {
     STATE = config.state;
     document.title = config.calendar_title;
 
-    const townSelect = document.getElementById("townFilter");
-    for (const town of config.towns) {
-      const opt = document.createElement("option");
-      opt.value = town;
-      opt.textContent = town;
-      townSelect.appendChild(opt);
-    }
-
-    const typeSelect = document.getElementById("typeFilter");
-    for (const type of config.event_types) {
-      const opt = document.createElement("option");
-      opt.value = type;
-      opt.textContent = type;
-      typeSelect.appendChild(opt);
-    }
+    const townFilterCtl = setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: config.towns, selectedSet: selectedTowns, label: "Towns",
+      onChange: () => { applyTownFilter(); updateEmbedSnippet(); },
+    });
+    setupMultiSelectFilter({
+      btnId: "typeFilterBtn", panelId: "typeFilterPanel", listId: "typeCheckList",
+      options: config.event_types, selectedSet: selectedTypes, label: "Types",
+      onChange: () => applyTownFilter(),
+    });
 
     // Lets a town's own site embed a pre-filtered view, e.g.
-    // calendar-view.html?town=Brookfield -- see updateEmbedSnippet().
+    // calendar-view.html?town=Brookfield (or ?town=Brookfield,Marceline
+    // for more than one) -- see updateEmbedSnippet().
     const params = new URLSearchParams(window.location.search);
-    const initialTown = params.get("town");
-    if (initialTown && config.towns.includes(initialTown)) {
-      currentTown = initialTown;
-      townSelect.value = initialTown;
+    const initialTowns = (params.get("town") || "")
+      .split(",").map((t) => t.trim()).filter((t) => config.towns.includes(t));
+    if (initialTowns.length) {
+      initialTowns.forEach((t) => selectedTowns.add(t));
+      townFilterCtl.syncCheckboxes();
     }
 
     updateEmbedSnippet();
