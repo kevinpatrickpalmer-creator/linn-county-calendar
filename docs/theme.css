@@ -233,11 +233,20 @@ body.themed .or-divider {
 }
 
 body.themed .share-label { margin: 1.1rem 0 .55rem; font-size: .85rem; font-weight: 600; color: var(--ink-soft); text-align: center; }
-body.themed .share-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+body.themed .share-row { display: flex; flex-wrap: wrap; gap: .55rem; justify-content: center; }
+
+/* Recognizable official platform marks/colors, not a uniform site-accent
+   pill -- residents scan for the logo they already know, and it reads as
+   more legitimate to an outside viewer (city staff, a business owner)
+   than five identical buttons would. */
 body.themed .share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
   flex: 1 1 auto;
-  min-width: 6rem;
-  padding: .6rem .7rem;
+  min-width: 6.5rem;
+  padding: .6rem .8rem;
   font-size: .85rem;
   font-weight: 600;
   font-family: var(--font-body);
@@ -248,9 +257,25 @@ body.themed .share-btn {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  transition: filter .15s ease;
 }
-body.themed .share-btn:hover { background: var(--navy-dark); }
-body.themed .share-btn.copied { background: var(--success); }
+body.themed .share-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+body.themed .share-btn:hover { filter: brightness(1.08); }
+body.themed .share-btn.facebook { background: #1877f2; }
+body.themed .share-btn.whatsapp { background: #25d366; }
+body.themed .share-btn.instagram {
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+}
+/* Fixed value, not var(--navy) -- that token flips to a pale tint in dark
+   mode for text/link contrast, which looks washed out as a solid fill. */
+body.themed .share-btn.email { background: #1f3a54; }
+body.themed .share-btn.copylink {
+  background: var(--surface);
+  color: var(--navy);
+  border: 1px solid var(--surface-border);
+}
+body.themed .share-btn.copylink:hover { border-color: var(--navy); filter: none; }
+body.themed .share-btn.copied { background: var(--success) !important; color: #fff; border-color: transparent; }
 
 body.themed label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .4rem; color: var(--ink); }
 body.themed label:first-of-type { margin-top: 0; }
