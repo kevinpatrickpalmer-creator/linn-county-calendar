@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Bucklin Events (Linn County Community Calendar) (Obituary / V
+ isitation)
+X-PUBLISHED-TTL:PT4H
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Obituary: Ralph E. Cheek
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+DTSTAMP:20260830T135922Z
+UID:wrightfuneralhomeobit-2026-08-25-ralph-e-cheek-2026-08-25-allday@linn-
+ county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Ralph E. Cheek\, age 58\, of Bucklin\, passed away Tuesday\, A
+ ugust 25\, 2026\, at his home. Ralph was a simple man who enjoyed spending
+  his time at home and doing the things he loved. He was always tinkering w
+ ith something and especially enjoyed working on his motorcycle. Although h
+ e was a homebody at heart\, Ralph appreciated the friendships he shared wi
+ th his neighbors and those in the Bucklin community. Family held a special
+  place in Ralph’s heart. Although he never had children of his own\, he 
+ loved his nieces and nephews as though they were his own. He shared a uniq
+ ue relationship with each of them and was known for giving several of them
+  special nicknames that became a cherished part of their memories with him
+ . Even though distance often separated Ralph from many members of his fami
+ ly\, it never diminished the love they shared. He was deeply loved and wil
+ l be remembered for the special place he held within his family. His prese
+ nce\, his personality\, and the memories they made together will be greatl
+ y missed. Ralph is survived by his sister\, Paula Holden of Athens\, Alaba
+ ma\; 11 nieces and nephews\, Tathamber Corum and husband\, Kevin\, Brittan
+ y Beadle and husband\, Brandon\, Brett Beadle and wife\, Katherine\, Kevin
+  Neely\, Thomas Neely\, Anthony Cruppi\, Heavenly Cruppi\, Katlyn Cruppi\,
+  Keanu Salguero\, Ashlee Salguero\, and Tyler Salguero\; and eight great-n
+ ieces and great-nephews\, Goob Beadle\, Clayton Pugh\, Hayley Corum\, Gann
+ on McBay\, Peanut Beadle\, Heifer Crosslin\, Millie Beadle\, and Maci Salg
+ uero. Memorials contributions to Wright Funeral Home ( to be used toward f
+ uneral expenses)\, may be left at or mailed to Wright Funeral Home\, P.O. 
+ Box\, 496\, Brookfield\, MO 64628.\n\nFull obituary and service details: h
+ ttps://www.wright-funeralhome.com/obituaries/Ralph-E-Cheek?obId=49384444
+LOCATION:Bucklin\, MO
+X-EVENT-TYPE:Obituary / Visitation
+END:VEVENT
+END:VCALENDAR

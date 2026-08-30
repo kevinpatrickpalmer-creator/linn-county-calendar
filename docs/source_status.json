@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T22:40:33.524597+00:00",
+  "generated_at": "2026-08-30T13:59:22.842163+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -21,13 +21,13 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 257,
+      "count": 256,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 133,
+      "count": 132,
       "ok": true,
       "error": null
     },

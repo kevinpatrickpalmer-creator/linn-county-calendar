@@ -1,0 +1,10 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Meadville Events (Linn County Community Calendar) (Fundraiser
+  / Benefit)
+X-PUBLISHED-TTL:PT4H
+X-WR-TIMEZONE:America/Chicago
+END:VCALENDAR

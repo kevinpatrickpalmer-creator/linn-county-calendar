@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Marceline Events (Linn County Community Calendar) (Obituary /
+  Visitation)
+X-PUBLISHED-TTL:PT4H
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Obituary: Dennis Ray Wright
+DTSTART;VALUE=DATE:20260816
+DTEND;VALUE=DATE:20260817
+DTSTAMP:20260830T135922Z
+UID:delaneyfuneralhomeobit-2026-08-16-dennis-ray-wright-2026-08-16-allday@
+ linn-county-scraper.local
+CATEGORIES:obituary
+DESCRIPTION:Dennis Ray Wright\, age 79\, of Marceline\, Missouri\, passed 
+ away Sunday\, August 16\, 2026\, at Pioneer Skilled Nursing in Marceline. 
+ Dennis was born on August 5\, 1947\, on the family farm in Chariton County
+ \, Missouri\, the son of Carl Warren and Freda Louise (York) Wright. Denni
+ s served in the United States Army and was united in marriage to Kathy Wes
+ tfall on May 20\, 1967\, at St. Bonaventure Catholic Church in Marceline. 
+ Dennis earned his Master’s degree from Missouri State Teachers College i
+ n Kirksville\, Missouri. He worked as a guidance counselor at Macon Vo-Tec
+ h. Teacher and coach at Marceline. After retiring\, he worked at Bucklin R
+ -2 as a counselor. Dennis enjoyed farming\, hunting\, fishing\, and especi
+ ally spending time with his family. Dennis is survived by his wife\, Kathy
+ \, of Marceline\; three children\, Julie Lucas and her husband Randy\, Tho
+ mas Wright\, and Alicen Wright\, all of Marceline\; six grandchildren\, Cl
+ ayton\, Blake\, Whitney\, Winston\, Hillary\, and Justin\; seven great-gra
+ ndchildren\, Bentley\, Zane\, Sally\, Remi\, Cooper\, Theodor\, and Emmy\;
+  two brothers\, Rodney Wright and wife Shirley of Marceline and Lanny Wrig
+ ht and wife Brenda of Chillicothe\; and one sister\, Mary James and husban
+ d Ed of Calhoun\, Missouri. He was preceded in death by his parents and fo
+ ur brothers\, Taylor\, Gerald “Abe\,” Allen\, and Bradly Wright. Arran
+ gements are under the direction of Delaney Funeral Home in Marceline.\n\nF
+ ull obituary and service details: https://www.delaneyfuneralhome.com/obitu
+ aries/Dennis-Ray-Wright?obId=49298351
+LOCATION:Marceline\, MO
+X-EVENT-TYPE:Obituary / Visitation
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Linn County Community Calendar (Auction / Estate Sale)
+X-PUBLISHED-TTL:PT4H
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Linn County\, MO Land Auction
+DTSTART:20260903T170000Z
+DTEND:20260903T180000Z
+DTSTAMP:20260830T135921Z
+UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
+ -1200@linn-county-scraper.local
+DESCRIPTION:See https://www.teterauction.com/ for full auction details.
+LOCATION:28558 Hwy 139 | Laclede\, MO
+X-EVENT-TYPE:Auction / Estate Sale
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Final Liquidation Auction
+DTSTART:20260919T150000Z
+DTEND:20260919T160000Z
+DTSTAMP:20260830T135921Z
+UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
+ 19-1000@linn-county-scraper.local
+DESCRIPTION:See https://www.teterauction.com/ for full auction details.
+LOCATION:Ryan Lane | Chillicothe\, MO
+X-EVENT-TYPE:Auction / Estate Sale
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Real Estate & Personal Property Auction
+DTSTART:20260926T150000Z
+DTEND:20260926T160000Z
+DTSTAMP:20260830T135921Z
+UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
+ ld-2026-09-26-1000@linn-county-scraper.local
+DESCRIPTION:See https://www.teterauction.com/ for full auction details.
+LOCATION:102 Markham Dr. | Brookfield\, MO
+X-EVENT-TYPE:Auction / Estate Sale
+END:VEVENT
+END:VCALENDAR
