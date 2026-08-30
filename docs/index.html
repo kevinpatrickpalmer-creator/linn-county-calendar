@@ -210,20 +210,28 @@
   <section>
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
-    <label for="subscribeTown">Which events?</label>
+    <label for="subscribeTown">Which town?</label>
     <select id="subscribeTown">
       <option value="">Whole county (all towns)</option>
     </select>
 
-    <label>Include:</label>
-    <div class="checkbox-row">
-      <input type="checkbox" id="includeSports" checked>
-      <label for="includeSports">School sports games</label>
+    <label for="subscribeType">Which type of events?</label>
+    <select id="subscribeType">
+      <option value="">Every type</option>
+    </select>
+
+    <div id="includeCategories">
+      <label>Include:</label>
+      <div class="checkbox-row">
+        <input type="checkbox" id="includeSports" checked>
+        <label for="includeSports">School sports games</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="includeObituaries" checked>
+        <label for="includeObituaries">Obituaries</label>
+      </div>
     </div>
-    <div class="checkbox-row">
-      <input type="checkbox" id="includeObituaries" checked>
-      <label for="includeObituaries">Obituaries</label>
-    </div>
+    <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
 
     <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="#stayInLoop">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
 
@@ -372,12 +380,20 @@
     return town.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   }
 
+  // Matches _type_slug() in scrape_linn_county_calendar.py exactly.
+  function typeSlug(type) {
+    return type.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
   const subscribeBtn = document.getElementById("subscribeBtn");
   const downloadLink = document.getElementById("downloadLink");
   const subscribeTown = document.getElementById("subscribeTown");
+  const subscribeType = document.getElementById("subscribeType");
   const unsubscribeHint = document.getElementById("unsubscribeHint");
   const includeSports = document.getElementById("includeSports");
   const includeObituaries = document.getElementById("includeObituaries");
+  const includeCategories = document.getElementById("includeCategories");
+  const typeOverrideHint = document.getElementById("typeOverrideHint");
 
   // Order matters here -- it has to match FILTERABLE_CATEGORIES in
   // scrape_linn_county_calendar.py, since that's the order
@@ -390,11 +406,25 @@
     return excluded.map((c) => `-no-${c}`).join("");
   }
 
+  // A specific type already fully determines whether sports/obituaries
+  // are in it, so the two choices are mutually exclusive -- picking a
+  // type hides (rather than combines with) the sports/obituary
+  // checkboxes, since crossing every town x category-combo x type would
+  // explode into hundreds of extra pre-built files. See
+  // _write_type_variant_ics_files()'s docstring for the full reasoning.
+  function syncTypeOverride() {
+    const hasType = !!subscribeType.value;
+    includeCategories.style.display = hasType ? "none" : "";
+    typeOverrideHint.style.display = hasType ? "block" : "none";
+  }
+
   function updateSubscribeLinks() {
     const town = subscribeTown.value;
-    const suffix = categorySuffix();
+    const type = subscribeType.value;
+    const suffix = type ? `-type-${typeSlug(type)}` : categorySuffix();
     const icsPath = town ? `towns/${townSlug(town)}${suffix}.ics` : `linn_county_events${suffix}.ics`;
-    const calName = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
+    const calNameBase = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
+    const calName = type ? `${calNameBase} (${type})` : calNameBase;
     subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
     downloadLink.href = icsPath;
     unsubscribeHint.textContent =
@@ -407,7 +437,14 @@
     opt.textContent = town;
     subscribeTown.appendChild(opt);
   }
+  for (const type of config.event_types) {
+    const opt = document.createElement("option");
+    opt.value = type;
+    opt.textContent = type;
+    subscribeType.appendChild(opt);
+  }
   subscribeTown.addEventListener("change", updateSubscribeLinks);
+  subscribeType.addEventListener("change", () => { syncTypeOverride(); updateSubscribeLinks(); });
   includeSports.addEventListener("change", updateSubscribeLinks);
   includeObituaries.addEventListener("change", updateSubscribeLinks);
   updateSubscribeLinks();

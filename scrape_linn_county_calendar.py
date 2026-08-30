@@ -1715,6 +1715,34 @@ def _write_category_variant_ics_files(events, base_path, calname_base):
                 f.write(calendar.to_ical())
 
 
+def _type_slug(event_type):
+    return re.sub(r"[^a-z0-9]+", "-", event_type.lower()).strip("-")
+
+
+def _write_type_variant_ics_files(events, base_path, calname_base):
+    """Write one .ics per entry in config.json's event_types (e.g.
+    "{base_path}-type-meeting.ics"), each containing ONLY events of that
+    one type. This is the inclusion-based counterpart to
+    _write_category_variant_ics_files()'s exclusion-based sports/obituary
+    toggles -- lets a subscriber combine a town choice with a single
+    specific type choice (see the "Which type of events?" dropdown on
+    index.html) instead of an all-or-nothing subscription.
+
+    Deliberately kept as its own separate, parallel set of files rather
+    than crossed with the sports/obituary exclusion combinations above --
+    town x category-combo x type would explode combinatorially, so
+    index.html's UI keeps the two choices mutually exclusive (picking a
+    specific type hides the sports/obituary checkboxes, since a single
+    type already fully determines whether sports/obituaries are in it)."""
+    for event_type in CONFIG["event_types"]:
+        slug = _type_slug(event_type)
+        calname = f"{calname_base} ({event_type})"
+        filtered = [ev for ev in events if ev.get("event_type") == event_type]
+        calendar = build_calendar(filtered, calname=calname)
+        with open(f"{base_path}-type-{slug}.ics", "wb") as f:
+            f.write(calendar.to_ical())
+
+
 def write_town_ics_files(events):
     """One filtered .ics per town in docs/towns/, so someone can subscribe
     their phone/computer calendar to just their own town's events instead
@@ -1740,6 +1768,7 @@ def write_town_ics_files(events):
             f.write(calendar.to_ical())
 
         _write_category_variant_ics_files(town_events, base_path, calname_base)
+        _write_type_variant_ics_files(town_events, base_path, calname_base)
 
 
 def send_mass_failure_alert(new_count, previous_count, source_health):
@@ -2026,6 +2055,7 @@ def main():
         f.write(ics_bytes)
 
     _write_category_variant_ics_files(events, ICS_PATH.removesuffix(".ics"), CONFIG["calendar_title"])
+    _write_type_variant_ics_files(events, ICS_PATH.removesuffix(".ics"), CONFIG["calendar_title"])
 
     write_town_ics_files(events)
     print(f"Wrote per-town .ics files to {TOWN_ICS_DIR}/\n")
