@@ -4,138 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Submit a Community Event</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f5f5f2;
-    color: #1a1a1a;
-    padding: 1.25rem;
-    display: flex;
-    justify-content: center;
-  }
-  main {
-    width: 100%;
-    max-width: 480px;
-  }
-  .mo-badge {
-    width: 56px;
-    height: 56px;
-    border-radius: 999px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto .6rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.12);
-  }
-  .mo-badge img { width: 40px; height: auto; display: block; }
-  h1 {
-    font-size: 1.4rem;
-    margin: 0 0 .25rem;
-    text-align: center;
-  }
-  p.sub {
-    margin: 0 0 .6rem;
-    color: #555;
-    font-size: .95rem;
-    text-align: center;
-  }
-  p.stats-line {
-    margin: 0 0 1.5rem;
-    text-align: center;
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: #1e3a8a;
-  }
-  form {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.25rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.08);
-  }
-  label {
-    display: block;
-    font-weight: 600;
-    font-size: .9rem;
-    margin: 1rem 0 .35rem;
-  }
-  label:first-of-type { margin-top: 0; }
-  input, textarea, select {
-    width: 100%;
-    padding: .65rem .7rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: inherit;
-    background: #fff;
-  }
-  textarea { resize: vertical; min-height: 5rem; }
+  form { margin: 0; }
   .row { display: flex; gap: .75rem; }
   .row > div { flex: 1; }
-  button {
-    width: 100%;
-    margin-top: 1.5rem;
-    padding: .85rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    background: #a71a2d;
-    color: #fff;
-    cursor: pointer;
-  }
-  button:disabled { opacity: .6; }
-  #status {
-    margin-top: 1rem;
-    font-size: .95rem;
-    text-align: center;
-  }
-  #status.ok { color: #1a7d3c; }
-  #status.err { color: #a71a2d; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
   .hp { position: absolute; left: -9999px; }
-  .hint { margin: .35rem 0 0; font-size: .8rem; color: #666; line-height: 1.4; }
-  .hint.err { color: #a71a2d; font-weight: 600; }
-  .hint a { color: #1e3a8a; }
-  .site-credit {
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e5e5e0;
-    font-size: .8rem;
-    color: #888;
-  }
-  .site-credit .powered-by { display: block; margin-top: .3rem; color: #aaa; font-size: .75rem; }
-  .site-credit a { color: inherit; text-decoration: underline; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #15151a; color: #eee; }
-    form { background: #202027; box-shadow: none; }
-    input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
-    p.sub { color: #aaa; }
-    p.stats-line { color: #8fa5ff; }
-    .hint { color: #999; }
-    .hint.err { color: #d99a44; }
-    .hint a { color: #8fa5ff; }
-    #status.err { color: #d99a44; }
-    .site-credit { border-top-color: #333; color: #999; }
-    .site-credit .powered-by { color: #666; }
-  }
+  .hint.err { color: var(--primary); font-weight: 600; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
-<body>
+<body class="themed">
 <script src="nav.js"></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
   <h1>Submit a Community Event</h1>
   <p class="sub" id="pageSub">Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening locally, it belongs here. A person reviews every submission before it goes live. Calendar is updated daily.</p>
   <p class="stats-line" id="statsLine"></p>
 
-  <form id="eventForm">
+  <form id="eventForm" class="card">
     <label for="name">Event name *</label>
     <input id="name" name="name" type="text" maxlength="120" required>
 
@@ -229,6 +120,7 @@
   const config = await (await fetch("config.json")).json();
 
   document.title = `Submit a Community Event | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("pageSub").textContent =
     `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live. Calendar is updated daily.`;
 

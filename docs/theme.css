@@ -1,0 +1,379 @@
+/* Shared visual system for every resident-facing page (index, calendar-view,
+   submit, privacy, unsubscribe, flyer). One file so the look stays
+   consistent as more sections get added, the same reasoning as nav.js for
+   navigation. Internal tools (admin, manage-events, status) are plain and
+   intentionally don't use this.
+
+   Design direction: small-town civic, not startup-SaaS -- a warm parchment
+   background, an editorial serif for headings, hairline-bordered cards
+   instead of floating shadow cards, and a wheat-gold rule as the one
+   recurring accent motif. Meant to read as "the town paper's events page,
+   done right" to a resident and "professionally run public infrastructure"
+   to a city official or business sponsor. */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light dark;
+
+  --ink: #241f18;
+  --ink-soft: #5b543f;
+  --ink-faint: #8a8168;
+  --paper: #f6f1e4;
+  --surface: #fffdf8;
+  --surface-border: #e5dabd;
+  --rule: #ddd0ac;
+
+  --primary: #9c2b28;
+  --primary-dark: #7c211f;
+  --primary-tint: #f6e6e2;
+  --navy: #1f3a54;
+  --navy-dark: #16293e;
+  --gold: #a8791f;
+  --gold-soft: #cf9d3f;
+  --success: #1f7a3d;
+  --success-tint: #e4f2e7;
+
+  --shadow-sm: 0 1px 2px rgba(48, 34, 10, .06), 0 1px 1px rgba(48, 34, 10, .04);
+  --shadow-md: 0 4px 16px rgba(48, 34, 10, .08);
+  --radius: 10px;
+  --radius-sm: 7px;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #ede6d4;
+    --ink-soft: #c3b89a;
+    --ink-faint: #8d846a;
+    --paper: #161310;
+    --surface: #201c17;
+    --surface-border: #3a3225;
+    --rule: #3a3225;
+
+    --primary: #e0716a;
+    --primary-dark: #eb9490;
+    --primary-tint: #33201d;
+    --navy: #90aecf;
+    --navy-dark: #b7cbe4;
+    --gold: #d8ab55;
+    --gold-soft: #d8ab55;
+    --success: #5cbf7d;
+    --success-tint: #16281b;
+
+    --shadow-sm: none;
+    --shadow-md: none;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body.themed {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 1px 1px, rgba(36, 31, 24, .05) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  body.themed { background-image: radial-gradient(circle at 1px 1px, rgba(237, 230, 212, .045) 1px, transparent 0); }
+}
+
+/* Not flex -- a nav.js page inserts a plain block spacer div before <main>
+   to offset the fixed nav bar, which only stacks correctly above it in
+   normal block flow. A row-direction flex body would put them side by
+   side instead, so centering is done on main itself, not the body. */
+body.themed main {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+body.themed main.wide { max-width: 900px; }
+
+/* Seal-style badge (used for the county emblem on index/submit/etc). */
+.mo-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 2px solid var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto .7rem;
+  box-shadow: var(--shadow-sm);
+}
+.mo-badge img { width: 40px; height: auto; display: block; }
+
+.eyebrow {
+  display: block;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 .35rem;
+}
+
+body.themed h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  margin: 0 0 .4rem;
+  text-align: center;
+  color: var(--ink);
+}
+
+body.themed p.sub {
+  margin: 0 0 .9rem;
+  color: var(--ink-soft);
+  font-size: .96rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+body.themed p.stats-line {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  justify-content: center;
+  margin: 0 0 1.6rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+body.themed p.stats-line::before,
+body.themed p.stats-line::after {
+  content: "";
+  height: 1px;
+  flex: 1 1 24px;
+  max-width: 3rem;
+  background: var(--rule);
+}
+
+body.themed section {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+  scroll-margin-top: 4rem;
+}
+
+body.themed h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 .75rem;
+  padding-left: .7rem;
+  border-left: 3px solid var(--gold-soft);
+  color: var(--ink);
+}
+
+body.themed p.hint { margin: 0 0 1rem; color: var(--ink-soft); font-size: .85rem; line-height: 1.45; }
+body.themed p.hint a { color: var(--navy); font-weight: 500; }
+body.themed p.hint:last-child { margin-bottom: 0; }
+
+body.themed p.callout {
+  margin: 0 0 1rem;
+  padding: .8rem .9rem;
+  background: var(--primary-tint);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+body.themed p.callout a { color: var(--primary); font-weight: 600; }
+
+body.themed .btn {
+  display: block;
+  width: 100%;
+  padding: .9rem;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff9f4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+body.themed .btn:hover { background: var(--primary-dark); }
+body.themed .btn.secondary {
+  background: var(--surface);
+  color: var(--navy);
+  border: 1px solid var(--surface-border);
+  box-shadow: none;
+  margin-top: .6rem;
+}
+body.themed .btn.secondary:hover { border-color: var(--navy); }
+
+body.themed .or-divider {
+  text-align: center;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: .6rem 0 .15rem;
+}
+
+body.themed .share-label { margin: 1.1rem 0 .55rem; font-size: .85rem; font-weight: 600; color: var(--ink-soft); text-align: center; }
+body.themed .share-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+body.themed .share-btn {
+  flex: 1 1 auto;
+  min-width: 6rem;
+  padding: .6rem .7rem;
+  font-size: .85rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--navy);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+body.themed .share-btn:hover { background: var(--navy-dark); }
+body.themed .share-btn.copied { background: var(--success); }
+
+body.themed label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .4rem; color: var(--ink); }
+body.themed label:first-of-type { margin-top: 0; }
+
+body.themed input:not([type="checkbox"]):not([type="radio"]),
+body.themed select,
+body.themed textarea {
+  width: 100%;
+  padding: .68rem .75rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  color: inherit;
+  background: var(--surface);
+}
+body.themed input:not([type="checkbox"]):not([type="radio"]):focus,
+body.themed select:focus,
+body.themed textarea:focus {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 1px;
+}
+body.themed select { margin-bottom: .75rem; }
+body.themed textarea { resize: vertical; min-height: 5rem; }
+body.themed .card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+body.themed .checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  margin: .9rem 0;
+}
+body.themed .checkbox-row input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: .15rem;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+}
+body.themed .checkbox-row label {
+  margin: 0;
+  font-weight: 400;
+  font-size: .9rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+body.themed button[type="submit"] {
+  width: 100%;
+  margin-top: 1rem;
+  padding: .9rem;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--success);
+  color: #fff;
+  cursor: pointer;
+}
+body.themed button[type="submit"]:hover { filter: brightness(1.05); }
+body.themed button[type="submit"]:disabled { opacity: .6; }
+
+body.themed .status-msg { margin-top: 1rem; font-size: .9rem; text-align: center; }
+body.themed .status-msg.ok { color: var(--success); }
+
+body.themed .town-picker {
+  margin-left: 1.75rem;
+  padding-left: .75rem;
+  border-left: 2px solid var(--surface-border);
+}
+body.themed .town-picker.hidden { display: none; }
+body.themed .town-hint { margin: 0 0 .5rem; font-size: .8rem; }
+body.themed .town-picker .checkbox-row { margin: .5rem 0; }
+
+body.themed .footer-link { text-align: center; margin-top: .5rem; }
+body.themed .footer-link a { color: var(--navy); font-size: .9rem; font-weight: 500; }
+
+body.themed .submit-qr { text-align: center; margin-top: .6rem; }
+body.themed .submit-qr .qr-box {
+  display: inline-block;
+  background: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  line-height: 0;
+  border: 1px solid var(--surface-border);
+}
+body.themed .submit-qr .qr-box svg { width: 92px; height: 92px; display: block; }
+body.themed .submit-qr p { margin: .35rem 0 0; font-size: .75rem; color: var(--ink-faint); }
+
+body.themed .site-credit {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--surface-border);
+  font-size: .8rem;
+  color: var(--ink-faint);
+}
+body.themed .site-credit a { color: inherit; text-decoration: underline; }
+body.themed .site-credit .powered-by { display: block; margin-top: .3rem; color: var(--ink-faint); font-size: .75rem; }
+
+/* Small colored pill used for event-type labels (calendar list/detail
+   views), kept here so the same look works everywhere it's used. */
+.type-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  background: var(--primary-tint);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+@media print {
+  body.themed { background-image: none; }
+}

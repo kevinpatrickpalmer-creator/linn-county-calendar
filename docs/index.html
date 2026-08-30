@@ -4,206 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Community Calendar</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f5f5f2;
-    color: #1a1a1a;
-    padding: 1.25rem;
-    display: flex;
-    justify-content: center;
-  }
-  main { width: 100%; max-width: 480px; }
-  .mo-badge {
-    width: 56px;
-    height: 56px;
-    border-radius: 999px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto .6rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.12);
-  }
-  .mo-badge img { width: 40px; height: auto; display: block; }
-  h1 { font-size: 1.5rem; margin: 0 0 .35rem; text-align: center; }
-  p.sub { margin: 0 0 .6rem; color: #555; font-size: .95rem; line-height: 1.4; text-align: center; }
-  p.stats-line { margin: 0 0 1.5rem; text-align: center; font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #1e3a8a; }
-  section {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.25rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.08);
-    margin-bottom: 1.25rem;
-    scroll-margin-top: 1rem;
-  }
-  h2 { font-size: 1.05rem; margin: 0 0 .5rem; }
-  p.hint { margin: 0 0 1rem; color: #666; font-size: .85rem; line-height: 1.4; }
-  p.hint a { color: #1e3a8a; }
-  p.callout {
-    margin: 0 0 1rem;
-    padding: .75rem .9rem;
-    background: #eef1fb;
-    border-left: 3px solid #1e3a8a;
-    border-radius: 6px;
-    font-size: .85rem;
-    line-height: 1.4;
-    color: #333;
-  }
-  p.callout a { color: #1e3a8a; }
-  .btn {
-    display: block;
-    width: 100%;
-    padding: .85rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    background: #a71a2d;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .btn.secondary {
-    background: #1e3a8a;
-    color: #fff;
-    border: none;
-    margin-top: .6rem;
-  }
-  .or-divider {
-    text-align: center;
-    font-size: .72rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    color: #999;
-    margin: .5rem 0 .1rem;
-  }
-  .share-label { margin: 1rem 0 .5rem; font-size: .85rem; font-weight: 600; color: #444; text-align: center; }
-  .share-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
-  .share-btn {
-    flex: 1 1 auto;
-    min-width: 6rem;
-    padding: .55rem .7rem;
-    font-size: .85rem;
-    font-weight: 600;
-    font-family: inherit;
-    border: none;
-    border-radius: 8px;
-    background: #1e3a8a;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .share-btn:hover { background: #16296b; }
-  .share-btn.copied { background: #1a7d3c; }
-  label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
-  label:first-of-type { margin-top: 0; }
-  input[type="email"], select {
-    width: 100%;
-    padding: .65rem .7rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: inherit;
-    color: inherit;
-    background: #fff;
-  }
-  select { margin-bottom: .75rem; }
-  .checkbox-row {
-    display: flex;
-    align-items: flex-start;
-    gap: .6rem;
-    margin: .9rem 0;
-  }
-  .checkbox-row input[type="checkbox"] {
-    width: 1.15rem;
-    height: 1.15rem;
-    margin-top: .15rem;
-    flex-shrink: 0;
-    accent-color: #a71a2d;
-  }
-  .checkbox-row label {
-    margin: 0;
-    font-weight: 400;
-    font-size: .9rem;
-    line-height: 1.35;
-  }
-  button[type="submit"] {
-    width: 100%;
-    margin-top: 1rem;
-    padding: .85rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    background: #1a7d3c;
-    color: #fff;
-    cursor: pointer;
-  }
-  button[type="submit"]:disabled { opacity: .6; }
-  #prefStatus { margin-top: 1rem; font-size: .9rem; text-align: center; }
-  #prefStatus.ok { color: #1a7d3c; }
-  .town-picker {
-    margin-left: 1.75rem;
-    padding-left: .75rem;
-    border-left: 2px solid #e5e5e0;
-  }
-  .town-picker.hidden { display: none; }
-  .town-hint { margin: 0 0 .5rem; font-size: .8rem; }
-  .town-picker .checkbox-row { margin: .5rem 0; }
-  @media (prefers-color-scheme: dark) {
-    .town-picker { border-left-color: #333; }
-  }
-  .footer-link { text-align: center; margin-top: .5rem; }
-  .footer-link a { color: #1e3a8a; font-size: .9rem; }
-  .submit-qr { text-align: center; margin-top: .6rem; }
-  .submit-qr .qr-box {
-    display: inline-block;
-    background: #fff;
-    padding: 8px;
-    border-radius: 6px;
-    line-height: 0;
-  }
-  .submit-qr .qr-box svg { width: 92px; height: 92px; display: block; }
-  .submit-qr p { margin: .3rem 0 0; font-size: .75rem; color: #888; }
-  .site-credit {
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e5e5e0;
-    font-size: .8rem;
-    color: #888;
-  }
-  .site-credit .powered-by { display: block; margin-top: .3rem; color: #aaa; font-size: .75rem; }
-  .site-credit a { color: inherit; text-decoration: underline; }
-  @media (prefers-color-scheme: dark) {
-    .site-credit { border-top-color: #333; color: #999; }
-    .site-credit .powered-by { color: #666; }
-    body { background: #15151a; color: #eee; }
-    section { background: #202027; box-shadow: none; }
-    input[type="email"], select { background: #15151a; color: #eee; border-color: #444; }
-    p.sub, p.hint { color: #aaa; }
-    p.hint a { color: #8fa5ff; }
-    .footer-link a { color: #8fa5ff; }
-    p.stats-line { color: #8fa5ff; }
-    .submit-qr p { color: #999; }
-    .share-label { color: #ccc; }
-    p.callout { background: #1a2340; border-left-color: #8fa5ff; color: #ddd; }
-    p.callout a { color: #8fa5ff; }
-  }
+  #prefStatus.ok { color: var(--success); }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="qrcode.js"></script>
 </head>
-<body>
+<body class="themed">
 <script src="nav.js"></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
   <h1 id="pageTitle">Community Calendar</h1>
   <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
   <p class="stats-line" id="statsLine"></p>
@@ -319,6 +131,7 @@
   const config = await (await fetch("config.json")).json();
 
   document.title = config.calendar_title;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("pageTitle").textContent = config.calendar_title;
   document.getElementById("pageSub").textContent =
     `Local events, meetings, and happenings around ${config.county_display_name}, kept up to date automatically.`;

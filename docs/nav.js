@@ -22,21 +22,20 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
       overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-      background: #a71a2d; box-shadow: 0 1px 4px rgba(0,0,0,.15);
+      background: #2a1210; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+      border-bottom: 2px solid #a8791f;
     }
     .site-nav::-webkit-scrollbar { display: none; }
     .site-nav a {
       flex-shrink: 0; display: flex; align-items: center;
-      padding: 0 .9rem; font-size: .85rem; font-weight: 600; white-space: nowrap;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #f3c9cf; text-decoration: none; border-bottom: 3px solid transparent;
+      padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
+      letter-spacing: .01em;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #d9b98f; text-decoration: none; border-bottom: 3px solid transparent;
     }
-    .site-nav a.active { color: #fff; border-bottom-color: #fff; }
+    .site-nav a.active { color: #f7ead2; border-bottom-color: #cf9d3f; }
     .site-nav a:hover { color: #fff; }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
-    @media (prefers-color-scheme: dark) {
-      .site-nav { background: #4a1119; }
-    }
     @media print {
       .site-nav, .site-nav-spacer { display: none !important; }
     }
