@@ -3,19 +3,19 @@ VERSION:2.0
 PRODID:-//Linn County Events Scraper//linn-county-scraper.local//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Laclede Events (Linn County Community Calendar) (No Sports, N
- o Obituary)
+X-WR-CALNAME:Other Events (Linn County Community Calendar) (Auction / Esta
+ te Sale)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Linn County\, MO Land Auction
-DTSTART:20260903T170000Z
-DTEND:20260903T180000Z
+SUMMARY:Final Liquidation Auction
+DTSTART:20260919T150000Z
+DTEND:20260919T160000Z
 DTSTAMP:20260830T224459Z
-UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
- -1200@linn-county-scraper.local
+UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
+ 19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
-LOCATION:28558 Hwy 139 | Laclede\, MO
+LOCATION:Ryan Lane | Chillicothe\, MO
 X-EVENT-TYPE:Auction / Estate Sale
 END:VEVENT
 END:VCALENDAR
