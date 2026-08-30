@@ -267,6 +267,11 @@
         <div id="townCheckboxes"></div>
       </div>
 
+      <div id="typePicker" class="town-picker hidden">
+        <p class="hint town-hint">Only for reminders and the weekly summary, leave all unchecked to get every type of event.</p>
+        <div id="typeCheckboxes"></div>
+      </div>
+
       <div class="checkbox-row">
         <input type="checkbox" id="newsletter" name="newsletter">
         <label for="newsletter" id="newsletterLabel">Notify me when the Community App launches</label>
@@ -417,6 +422,16 @@
     townCheckboxes.appendChild(row);
   }
 
+  const typeCheckboxes = document.getElementById("typeCheckboxes");
+  for (const type of config.event_types) {
+    const row = document.createElement("div");
+    row.className = "checkbox-row";
+    const id = `type-${type.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    row.innerHTML = `<input type="checkbox" class="type-checkbox" id="${id}" value="${type}">
+      <label for="${id}">${type}</label>`;
+    typeCheckboxes.appendChild(row);
+  }
+
   // Direct-post to a Google Form (bypasses its visible UI, lands in the
   // linked Sheet). Google's formResponse endpoint doesn't send CORS
   // headers, so this request is fire-and-forget (mode: "no-cors") -- we
@@ -427,9 +442,12 @@
   const reminderCheckbox = document.getElementById("reminder");
   const weeklyDigestCheckbox = document.getElementById("weeklyDigest");
   const townPicker = document.getElementById("townPicker");
+  const typePicker = document.getElementById("typePicker");
 
   function syncTownPickerVisibility() {
-    townPicker.classList.toggle("hidden", !reminderCheckbox.checked && !weeklyDigestCheckbox.checked);
+    const show = reminderCheckbox.checked || weeklyDigestCheckbox.checked;
+    townPicker.classList.toggle("hidden", !show);
+    typePicker.classList.toggle("hidden", !show);
   }
   reminderCheckbox.addEventListener("change", syncTownPickerVisibility);
   weeklyDigestCheckbox.addEventListener("change", syncTownPickerVisibility);
@@ -446,6 +464,9 @@
     const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
       .map((el) => el.value)
       .join(",");
+    const types = Array.from(document.querySelectorAll(".type-checkbox:checked"))
+      .map((el) => el.value)
+      .join(",");
 
     const data = new FormData();
     data.append(config.google_form.entry_email, email);
@@ -453,6 +474,7 @@
     data.append(config.google_form.entry_weekly_digest, weeklyDigest ? "yes" : "no");
     data.append(config.google_form.entry_newsletter, newsletter ? "yes" : "no");
     data.append(config.google_form.entry_towns, towns); // blank = all towns
+    data.append(config.google_form.entry_types, types); // blank = all types
 
     try {
       await fetch(`https://docs.google.com/forms/d/e/${config.google_form.form_id}/formResponse`, {

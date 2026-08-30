@@ -4,15 +4,15 @@ Daily job: email a reminder to everyone who opted in, for every event
 happening tomorrow.
 
 Subscriber opt-ins (email + reminder + newsletter checkboxes, plus an
-optional set of towns for the reminder) are collected by docs/index.html,
-which posts directly to a Google Form; that form's linked Google Sheet is
-published to the web as CSV, which this script reads with a plain HTTP GET
--- no Google API/auth needed. The newsletter opt-in column is stored here
-but not otherwise used yet.
+optional set of towns and event types for the reminder) are collected by
+docs/index.html, which posts directly to a Google Form; that form's
+linked Google Sheet is published to the web as CSV, which this script
+reads with a plain HTTP GET -- no Google API/auth needed. The newsletter
+opt-in column is stored here but not otherwise used yet.
 
-A subscriber with no towns selected gets every town's events (that's the
-default/simple path). One with specific towns checked only gets events
-whose LOCATION resolves to one of those towns.
+A subscriber with no towns/types selected gets every town's/type's events
+(that's the default/simple path). One with specific towns and/or types
+checked only gets events matching all of the filters they picked.
 
 Sending uses Brevo's API, from an address at communitycalendarconnect.com
 (domain-authenticated with SPF/DKIM/DMARC for proper deliverability).
@@ -87,6 +87,7 @@ def tomorrows_events():
                 "time": time_str,
                 "location": location,
                 "town": extract_town(location, CONFIG),
+                "event_type": str(component.get("x-event-type", "")),
             }
         )
 
@@ -94,9 +95,9 @@ def tomorrows_events():
 
 
 def load_reminder_subscribers():
-    """Returns a list of (email, towns) tuples for everyone who opted into
-    reminders. towns is a set of town names to filter to, or an empty set
-    meaning "every town" (the default when nothing's checked)."""
+    """Returns a list of (email, towns, types) tuples for everyone who
+    opted into reminders. towns/types are each a set to filter to, or an
+    empty set meaning "everything" (the default when nothing's checked)."""
     if SUBSCRIBERS_CSV_URL.startswith("YOUR_"):
         print("SUBSCRIBERS_CSV_URL isn't configured yet -- skipping reminder sends.", file=sys.stderr)
         return []
@@ -120,7 +121,9 @@ def load_reminder_subscribers():
             continue
         towns_raw = (row.get("Towns") or "").strip()
         towns = {t.strip() for t in towns_raw.split(",") if t.strip()}
-        subscribers.append((email, towns))
+        types_raw = (row.get("Types") or "").strip()
+        types = {t.strip() for t in types_raw.split(",") if t.strip()}
+        subscribers.append((email, towns, types))
 
     return subscribers
 
@@ -174,10 +177,11 @@ def main():
 
     print(f"Considering {len(subscribers)} reminder subscriber(s)...")
     sent, skipped, failed = 0, 0, 0
-    for email, towns in subscribers:
-        subscriber_events = (
-            events if not towns else [ev for ev in events if ev["town"] in towns]
-        )
+    for email, towns, types in subscribers:
+        subscriber_events = [
+            ev for ev in events
+            if (not towns or ev["town"] in towns) and (not types or ev["event_type"] in types)
+        ]
         if not subscriber_events:
             skipped += 1
             continue
@@ -188,7 +192,7 @@ def main():
             print(f"  WARNING: failed to email {email}: {e}", file=sys.stderr)
             failed += 1
 
-    print(f"Done. Sent {sent}, skipped (no matching town events) {skipped}, failed {failed}.")
+    print(f"Done. Sent {sent}, skipped (no matching events) {skipped}, failed {failed}.")
 
 
 if __name__ == "__main__":

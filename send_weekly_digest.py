@@ -16,6 +16,10 @@ google_form.entry_weekly_digest needs that question's real entry ID
 (same as entry_towns, still a placeholder as of this writing -- see
 docs/index.html's submit handler for where entry IDs are used).
 
+Also reads a "Types" column the same way "Towns" already works, matching
+docs/index.html's Types checkbox list -- a subscriber with none checked
+gets every type, same "unchecked = everything" convention as towns.
+
 "This week" means the next 7 days starting today, not the calendar's
 Monday-Sunday week -- avoids ambiguity about which day the digest runs on.
 
@@ -90,6 +94,7 @@ def week_ahead_events():
                 "time": time_str,
                 "location": location,
                 "town": extract_town(location, CONFIG),
+                "event_type": str(component.get("x-event-type", "")),
             }
         )
 
@@ -98,9 +103,10 @@ def week_ahead_events():
 
 
 def load_digest_subscribers():
-    """Returns a list of (email, towns) tuples for everyone who opted into
-    the weekly digest. towns is a set of town names to filter to, or an
-    empty set meaning "every town" (the default when nothing's checked)."""
+    """Returns a list of (email, towns, types) tuples for everyone who
+    opted into the weekly digest. towns/types are each a set to filter
+    to, or an empty set meaning "everything" (the default when nothing's
+    checked)."""
     if SUBSCRIBERS_CSV_URL.startswith("YOUR_"):
         print("SUBSCRIBERS_CSV_URL isn't configured yet -- skipping weekly digest sends.", file=sys.stderr)
         return []
@@ -124,7 +130,9 @@ def load_digest_subscribers():
             continue
         towns_raw = (row.get("Towns") or "").strip()
         towns = {t.strip() for t in towns_raw.split(",") if t.strip()}
-        subscribers.append((email, towns))
+        types_raw = (row.get("Types") or "").strip()
+        types = {t.strip() for t in types_raw.split(",") if t.strip()}
+        subscribers.append((email, towns, types))
 
     return subscribers
 
@@ -201,10 +209,11 @@ def main():
 
     print(f"Considering {len(subscribers)} weekly digest subscriber(s)...")
     sent, skipped, failed = 0, 0, 0
-    for email, towns in subscribers:
-        subscriber_events = (
-            events if not towns else [ev for ev in events if ev["town"] in towns]
-        )
+    for email, towns, types in subscribers:
+        subscriber_events = [
+            ev for ev in events
+            if (not towns or ev["town"] in towns) and (not types or ev["event_type"] in types)
+        ]
         if not subscriber_events:
             skipped += 1
             continue
@@ -215,7 +224,7 @@ def main():
             print(f"  WARNING: failed to email {email}: {e}", file=sys.stderr)
             failed += 1
 
-    print(f"Done. Sent {sent}, skipped (no matching town events) {skipped}, failed {failed}.")
+    print(f"Done. Sent {sent}, skipped (no matching events) {skipped}, failed {failed}.")
 
 
 if __name__ == "__main__":

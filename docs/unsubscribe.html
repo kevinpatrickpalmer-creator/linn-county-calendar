@@ -127,6 +127,7 @@
     data.append(config.google_form.entry_weekly_digest, "no");
     data.append(config.google_form.entry_newsletter, "no");
     data.append(config.google_form.entry_towns, "");
+    data.append(config.google_form.entry_types, "");
 
     try {
       await fetch(`https://docs.google.com/forms/d/e/${config.google_form.form_id}/formResponse`, {
