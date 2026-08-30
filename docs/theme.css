@@ -159,6 +159,37 @@ body.themed p.stats-line::after {
   background: var(--rule);
 }
 
+/* The event count is the one number here that actually moves (the
+   scraper adds to it continuously); county/town/calendar counts don't,
+   so this is styled to visually pop out from the rest of the line
+   instead of blending in as one more static stat. */
+body.themed .stats-line .live-count,
+.stats-line .live-count {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 1.15em;
+}
+body.themed .stats-line .live-dot,
+.stats-line .live-dot {
+  width: .5em;
+  height: .5em;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .35; transform: scale(1.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.themed .stats-line .live-dot,
+  .stats-line .live-dot { animation: none; }
+}
+
 body.themed section {
   background: var(--surface);
   border: 1px solid var(--surface-border);

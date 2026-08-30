@@ -127,8 +127,9 @@
   try {
     const icsText = await (await fetch("linn_county_events.ics")).text();
     const eventCount = (icsText.match(/^BEGIN:VEVENT/gm) || []).length;
-    document.getElementById("statsLine").textContent =
-      `1 County · ${config.towns.length} Towns · ${eventCount} Events · 1 Calendar`;
+    document.getElementById("statsLine").innerHTML =
+      `1 County · ${config.towns.length} Towns · ` +
+      `<span class="live-count"><span class="live-dot"></span>${eventCount} Events</span> · 1 Calendar`;
   } catch (err) {
     document.getElementById("statsLine").textContent =
       `1 County · ${config.towns.length} Towns · 1 Calendar`;

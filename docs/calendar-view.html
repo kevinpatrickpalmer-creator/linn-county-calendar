@@ -732,8 +732,8 @@ function renderMonth(year, month) {
       const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
       monthTotal += (eventsByDay.get(key) || []).length;
     }
-    document.getElementById("monthCount").textContent =
-      `${monthTotal} event${monthTotal === 1 ? "" : "s"} in ${monthLabel}`;
+    document.getElementById("monthCount").innerHTML =
+      `<span class="live-count">${monthTotal} event${monthTotal === 1 ? "" : "s"}</span> in ${monthLabel}`;
   }
 }
 
@@ -914,8 +914,9 @@ async function main() {
     allEvents = parseICS(text);
     eventsByDay = buildDayIndex(allEvents);
     if (siteConfig) {
-      document.getElementById("statsLine").textContent =
-        `1 County · ${siteConfig.towns.length} Towns · ${allEvents.length} Events · 1 Calendar`;
+      document.getElementById("statsLine").innerHTML =
+        `1 County · ${siteConfig.towns.length} Towns · ` +
+        `<span class="live-count"><span class="live-dot"></span>${allEvents.length} Events</span> · 1 Calendar`;
     }
   } catch (err) {
     document.getElementById("status").textContent = "Couldn't load the calendar. Please try refreshing.";
