@@ -7,27 +7,8 @@
 <link rel="stylesheet" href="theme.css">
 <style>
   :root { --backdrop: #ded2b4; }
-
-  /* This is a printable sheet, meant to look the same regardless of the
-     viewer's system theme, like a physical page on a table -- pin the
-     shared tokens back to their light values even when the OS is dark. */
   @media (prefers-color-scheme: dark) {
-    :root {
-      --ink: #241f18;
-      --ink-soft: #5b543f;
-      --ink-faint: #8a8168;
-      --paper: #f6f1e4;
-      --surface: #fffdf8;
-      --surface-border: #e5dabd;
-      --rule: #ddd0ac;
-      --primary: #9c2b28;
-      --primary-dark: #7c211f;
-      --primary-tint: #f6e6e2;
-      --navy: #1f3a54;
-      --navy-dark: #16293e;
-      --gold: #a8791f;
-      --gold-soft: #cf9d3f;
-    }
+    :root { --backdrop: #0e0c0a; }
   }
 
   * { box-sizing: border-box; }
@@ -60,13 +41,13 @@
     font-size: .85rem;
     font-weight: 600;
     color: var(--navy);
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--navy);
     border-radius: 6px;
     padding: .5rem .9rem;
     cursor: pointer;
   }
-  .print-btn:hover { background: #eef1fb; }
+  .print-btn:hover { background: var(--paper); }
   .print-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 
   .page {
@@ -82,7 +63,9 @@
 
   /* ---------- Masthead ---------- */
   .masthead-band {
-    background: var(--primary);
+    /* Fixed, not var(--primary) -- that token lightens in dark mode for
+       text contrast, which would wash out this large solid fill. */
+    background: #9c2b28;
     /* Bleed edge-to-edge by cancelling .page's own padding, then add it
        back internally -- this is the block that has to read as a solid
        color rectangle from across a room, not just accent text. */
@@ -308,6 +291,25 @@
   }
 
   @media print {
+    /* The printed page is paper, not a screen -- force every token back
+       to its light value here regardless of on-screen dark mode, same
+       as forcing html/body to #fff below. */
+    :root {
+      --ink: #241f18;
+      --ink-soft: #5b543f;
+      --ink-faint: #8a8168;
+      --paper: #f6f1e4;
+      --surface: #fffdf8;
+      --surface-border: #e5dabd;
+      --rule: #ddd0ac;
+      --primary: #9c2b28;
+      --primary-dark: #7c211f;
+      --primary-tint: #f6e6e2;
+      --navy: #1f3a54;
+      --navy-dark: #16293e;
+      --gold: #a8791f;
+      --gold-soft: #cf9d3f;
+    }
     @page { size: letter; margin: 0; }
     html, body { background: #fff; padding: 0; }
     .toolbar { display: none; }
