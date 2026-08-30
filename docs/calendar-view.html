@@ -61,13 +61,14 @@
     cursor: pointer;
   }
   .stats-line {
-    display: flex; align-items: center; gap: .6rem; justify-content: center;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; justify-content: center;
     margin: 0 0 .7rem; font-size: .72rem; font-weight: 700; letter-spacing: .05em;
     text-transform: uppercase; color: var(--gold);
   }
   .stats-line::before, .stats-line::after {
     content: ""; height: 1px; flex: 1 1 24px; max-width: 3rem; background: var(--rule);
   }
+  .stats-line .stat-seg { white-space: nowrap; }
   .month-count { margin: 0 0 .6rem; text-align: center; font-size: .78rem; color: var(--ink-soft); }
   .filterbar { margin-bottom: .6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .filterbar input[type="checkbox"] { accent-color: var(--primary); }
@@ -303,8 +304,8 @@
     .day { background: #fff; min-height: 1.35in; font-size: .8rem; }
     .day.other-month { background: #fafafa; color: #aaa; }
     .day.today { background: #fff4e8; }
-    .pill { background: #9c2b28; color: #fff; font-size: .72rem; }
-    .more-link { color: #9c2b28; font-size: .68rem; }
+    .pill { background: #3d9966; color: #fff; font-size: .72rem; }
+    .more-link { color: #3d9966; font-size: .68rem; }
     .list-view { gap: .9rem; }
     .list-row { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
     .list-day-heading { break-after: avoid; }
@@ -915,8 +916,9 @@ async function main() {
     eventsByDay = buildDayIndex(allEvents);
     if (siteConfig) {
       document.getElementById("statsLine").innerHTML =
-        `1 County · ${siteConfig.towns.length} Towns · ` +
-        `<span class="live-count"><span class="live-dot"></span>${allEvents.length} Events</span> · 1 Calendar`;
+        `<span class="stat-seg">1 County · ${siteConfig.towns.length} Towns ·</span> ` +
+        `<span class="live-count"><span class="live-dot"></span>${allEvents.length} Events</span>` +
+        `<span class="stat-seg">· 1 Calendar</span>`;
     }
   } catch (err) {
     document.getElementById("status").textContent = "Couldn't load the calendar. Please try refreshing.";

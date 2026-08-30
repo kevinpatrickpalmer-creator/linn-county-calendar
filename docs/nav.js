@@ -31,7 +31,7 @@
       flex-shrink: 0; display: flex; align-items: center;
       padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
       letter-spacing: .01em;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #d9b98f; text-decoration: none; border-bottom: 3px solid transparent;
     }
     .site-nav a.active { color: #f7ead2; border-bottom-color: #cf9d3f; }

@@ -5,13 +5,13 @@
    intentionally don't use this.
 
    Design direction: small-town civic, not startup-SaaS -- a warm parchment
-   background, an editorial serif for headings, hairline-bordered cards
-   instead of floating shadow cards, and a wheat-gold rule as the one
-   recurring accent motif. Meant to read as "the town paper's events page,
-   done right" to a resident and "professionally run public infrastructure"
-   to a city official or business sponsor. */
+   background, a clean geometric sans (Montserrat) throughout, hairline-
+   bordered cards instead of floating shadow cards, and a wheat-gold rule as
+   the one recurring accent motif. Meant to read as "the town paper's events
+   page, done right" to a resident and "professionally run public
+   infrastructure" to a city official or business sponsor. */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 :root {
   color-scheme: light dark;
@@ -24,23 +24,23 @@
   --surface-border: #e5dabd;
   --rule: #ddd0ac;
 
-  --primary: #9c2b28;
-  --primary-dark: #7c211f;
-  --primary-tint: #f6e6e2;
+  --primary: #3d9966;
+  --primary-dark: #2f7a51;
+  --primary-tint: #e3f3ea;
   --navy: #1f3a54;
   --navy-dark: #16293e;
   --gold: #a8791f;
   --gold-soft: #cf9d3f;
-  --success: #1f7a3d;
-  --success-tint: #e4f2e7;
+  --success: #3d9966;
+  --success-tint: #e3f3ea;
 
   --shadow-sm: 0 1px 2px rgba(48, 34, 10, .06), 0 1px 1px rgba(48, 34, 10, .04);
   --shadow-md: 0 4px 16px rgba(48, 34, 10, .08);
   --radius: 10px;
   --radius-sm: 7px;
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -53,14 +53,14 @@
     --surface-border: #3a3225;
     --rule: #3a3225;
 
-    --primary: #e0716a;
-    --primary-dark: #eb9490;
-    --primary-tint: #33201d;
+    --primary: #5fb583;
+    --primary-dark: #7bc79b;
+    --primary-tint: #16281b;
     --navy: #90aecf;
     --navy-dark: #b7cbe4;
     --gold: #d8ab55;
     --gold-soft: #d8ab55;
-    --success: #5cbf7d;
+    --success: #5fb583;
     --success-tint: #16281b;
 
     --shadow-sm: none;
@@ -140,8 +140,9 @@ body.themed p.sub {
 
 body.themed p.stats-line {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: .6rem;
+  gap: .5rem .6rem;
   justify-content: center;
   margin: 0 0 1.6rem;
   font-size: .78rem;
@@ -150,6 +151,11 @@ body.themed p.stats-line {
   text-transform: uppercase;
   color: var(--gold);
 }
+/* Each text run is its own flex item and stays on one line -- without
+   this, bare text between the live-count span becomes anonymous flex
+   items that can shrink and wrap mid-phrase instead of the whole line
+   wrapping as clean chunks. */
+body.themed p.stats-line .stat-seg { white-space: nowrap; }
 body.themed p.stats-line::before,
 body.themed p.stats-line::after {
   content: "";

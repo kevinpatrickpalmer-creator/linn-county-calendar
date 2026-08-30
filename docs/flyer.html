@@ -64,8 +64,10 @@
   /* ---------- Masthead ---------- */
   .masthead-band {
     /* Fixed, not var(--primary) -- that token lightens in dark mode for
-       text contrast, which would wash out this large solid fill. */
-    background: #9c2b28;
+       text contrast, which would wash out this large solid fill. Uses
+       the darker of the two site greens so white nameplate text stays
+       legible against a big block of it. */
+    background: #2f7a51;
     /* Bleed edge-to-edge by cancelling .page's own padding, then add it
        back internally -- this is the block that has to read as a solid
        color rectangle from across a room, not just accent text. */
@@ -302,9 +304,9 @@
       --surface: #fffdf8;
       --surface-border: #e5dabd;
       --rule: #ddd0ac;
-      --primary: #9c2b28;
-      --primary-dark: #7c211f;
-      --primary-tint: #f6e6e2;
+      --primary: #3d9966;
+      --primary-dark: #2f7a51;
+      --primary-tint: #e3f3ea;
       --navy: #1f3a54;
       --navy-dark: #16293e;
       --gold: #a8791f;
