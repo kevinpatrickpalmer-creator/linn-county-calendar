@@ -222,7 +222,7 @@ except ImportError:
     )
     sys.exit(1)
 
-from calendar_config import extract_town, load_config
+from calendar_config import load_config, town_or_other
 
 CONFIG = load_config()
 
@@ -1748,18 +1748,21 @@ def write_town_ics_files(events):
     their phone/computer calendar to just their own town's events instead
     of always getting the whole county's -- the calendar-app equivalent
     of the town filter already in calendar-view.html and the per-town
-    email filtering already in send_reminders.py. Events with no
-    resolvable town (a bare "Marceline, MO"-only match is fine; blank/
-    unparseable locations are not) are simply omitted from every town
-    file rather than guessed at.
+    email filtering already in send_reminders.py. Also writes an
+    "Other" bucket (docs/towns/other.ics) for events outside the
+    county's 8 incorporated towns -- a neighboring town a game is played
+    in, an unincorporated place, a lake, or nowhere resolvable at all --
+    via town_or_other(), so those events are still subscribable rather
+    than just omitted from every town file.
 
-    Also writes every FILTERABLE_CATEGORIES exclusion combination per
-    town via _write_category_variant_ics_files() -- e.g.
-    docs/towns/brookfield-no-sports.ics -- the same idea as main() does
-    for the county-wide file, just per-town."""
+    Also writes every FILTERABLE_CATEGORIES exclusion combination and
+    every event type per town (and per Other) via
+    _write_category_variant_ics_files()/_write_type_variant_ics_files()
+    -- e.g. docs/towns/brookfield-no-sports.ics -- the same idea as
+    main() does for the county-wide file, just per-town."""
     os.makedirs(TOWN_ICS_DIR, exist_ok=True)
-    for town in CONFIG["towns"]:
-        town_events = [ev for ev in events if extract_town(ev.get("location", ""), CONFIG) == town]
+    for town in CONFIG["towns"] + ["Other"]:
+        town_events = [ev for ev in events if town_or_other(ev.get("location", ""), CONFIG) == town]
         calname_base = f"{town} Events ({CONFIG['calendar_title']})"
         calendar = build_calendar(town_events, calname=calname_base)
         slug = re.sub(r"[^a-z0-9]+", "-", town.lower()).strip("-")

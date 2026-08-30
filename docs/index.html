@@ -438,6 +438,14 @@
     opt.textContent = town;
     subscribeTown.appendChild(opt);
   }
+  // Events outside the county's 8 incorporated towns (a neighboring
+  // town, an unincorporated place, a lake) all land in this bucket --
+  // see town_or_other() in calendar_config.py and the matching
+  // docs/towns/other.ics write_town_ics_files() generates.
+  const otherSubscribeOpt = document.createElement("option");
+  otherSubscribeOpt.value = "Other";
+  otherSubscribeOpt.textContent = "Other (outside the 8 towns)";
+  subscribeTown.appendChild(otherSubscribeOpt);
   for (const type of config.event_types) {
     const opt = document.createElement("option");
     opt.value = type;
@@ -451,12 +459,13 @@
   updateSubscribeLinks();
 
   const townCheckboxes = document.getElementById("townCheckboxes");
-  for (const town of config.towns) {
+  for (const town of [...config.towns, "Other"]) {
     const row = document.createElement("div");
     row.className = "checkbox-row";
     const id = `town-${town.toLowerCase()}`;
+    const displayLabel = town === "Other" ? "Other (outside the 8 towns)" : town;
     row.innerHTML = `<input type="checkbox" class="town-checkbox" id="${id}" value="${town}">
-      <label for="${id}">${town}</label>`;
+      <label for="${id}">${displayLabel}</label>`;
     townCheckboxes.appendChild(row);
   }
 

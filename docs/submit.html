@@ -182,6 +182,11 @@
       <option value="" disabled selected>Select a town</option>
     </select>
 
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
     <label for="venue">Venue / address (optional)</label>
     <input id="venue" name="venue" type="text" maxlength="120" placeholder="e.g. City Park, or the school gym">
 
@@ -244,6 +249,18 @@
     option.textContent = town;
     townSelect.appendChild(option);
   }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
 
   const eventTypeSelect = document.getElementById("eventType");
   for (const type of config.event_types) {
@@ -316,7 +333,8 @@
     const rawDate = data.get("date") || "";
     const rawTime = data.get("time") || "";
     const rawEndTime = data.get("end_time") || "";
-    const town = (data.get("town") || "").trim();
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
     const venue = (data.get("venue") || "").trim();
     const onlineLink = (data.get("online_link") || "").trim();
     const rawDescription = (data.get("description") || "").trim();

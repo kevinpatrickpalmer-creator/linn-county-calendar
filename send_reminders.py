@@ -40,7 +40,7 @@ except ImportError:
     print("This script requires Python 3.9+ (for the zoneinfo module).")
     sys.exit(1)
 
-from calendar_config import extract_town, load_config
+from calendar_config import load_config, town_or_other
 
 CONFIG = load_config()
 
@@ -86,7 +86,7 @@ def tomorrows_events():
                 "name": str(component.get("summary", "")),
                 "time": time_str,
                 "location": location,
-                "town": extract_town(location, CONFIG),
+                "town": town_or_other(location, CONFIG),
                 "event_type": str(component.get("x-event-type", "")),
             }
         )

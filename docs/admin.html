@@ -139,6 +139,11 @@
       <option value="" disabled selected>Select a town</option>
     </select>
 
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
     <label for="venue">Venue / address (optional)</label>
     <input id="venue" name="venue" type="text" placeholder="e.g. City Park, or the school gym">
 
@@ -177,6 +182,18 @@
     option.textContent = town;
     townSelect.appendChild(option);
   }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
 
   const eventTypeSelect = document.getElementById("event_type");
   for (const type of config.event_types) {
@@ -217,7 +234,7 @@
     const params = new URLSearchParams(window.location.search);
     if (![...params.keys()].length) return;
 
-    const fields = ["name", "event_type", "date", "time", "end_time", "town", "venue", "online_link", "description", "website", "recurrence", "repeat_until"];
+    const fields = ["name", "event_type", "date", "time", "end_time", "venue", "online_link", "description", "website", "recurrence", "repeat_until"];
     let filledAny = false;
     for (const field of fields) {
       if (!params.has(field)) continue;
@@ -229,6 +246,25 @@
       }
     }
     syncRepeatUntilVisibility();
+
+    // The town might be a place submit.html's "Other" free-text field
+    // produced (e.g. "Hurricane Branch"), not one of config.towns -- if
+    // it doesn't match a real <option>, select Other here too and put
+    // the actual place name in the companion text box instead of
+    // silently failing to select anything.
+    const townValue = params.get("town");
+    if (townValue) {
+      const matchesKnownTown = [...townSelect.options].some((opt) => opt.value === townValue);
+      if (matchesKnownTown) {
+        townSelect.value = townValue;
+      } else {
+        townSelect.value = "__other__";
+        townOtherInput.value = townValue;
+        townOtherWrap.style.display = "block";
+        townOtherInput.required = true;
+      }
+      filledAny = true;
+    }
 
     // Contact email/phone come as separate params but combine into one
     // editable "contact" field here, since that's what ends up on the
@@ -260,7 +296,8 @@
     const name = data.get("name").trim();
     const date = data.get("date");
 
-    const town = (data.get("town") || "").trim();
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
     const venue = (data.get("venue") || "").trim();
     const location = venue && town ? `${venue} | ${town}, ${config.state}` : town ? `${town}, ${config.state}` : "";
 

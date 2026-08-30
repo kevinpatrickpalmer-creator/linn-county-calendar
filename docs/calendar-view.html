@@ -411,11 +411,20 @@ let STATE = "MO"; // overwritten from config.json before first render
 // "Venue Name | Town, ST" or just "Town, ST" -- take the last "|"-separated
 // segment (the actual address part) so a venue name that happens to
 // contain another town's name doesn't get misread.
+// Mirrors town_or_other() in calendar_config.py: collapses anything
+// that isn't one of siteConfig.towns (a neighboring town, an
+// unincorporated place, a lake, or nowhere resolvable at all) into
+// "Other" -- the filter bucket, not the raw extracted text -- so those
+// events are still findable via the Towns filter rather than just
+// missing from every real town's results.
 function extractTown(location) {
-  if (!location) return null;
+  if (!location) return "Other";
   const lastSegment = location.split("|").pop().trim();
   const m = lastSegment.match(new RegExp(`([A-Za-z .]+?),\\s*${STATE}\\b`));
-  return m ? m[1].trim() : null;
+  const town = m ? m[1].trim() : null;
+  if (!town) return "Other";
+  if (siteConfig && !siteConfig.towns.includes(town)) return "Other";
+  return town;
 }
 
 function unescapeText(s) {
@@ -874,7 +883,11 @@ async function main() {
 
     const townFilterCtl = setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
-      options: config.towns, selectedSet: selectedTowns, label: "Towns",
+      // "Other" covers events outside the county's 8 incorporated towns
+      // (a neighboring town, an unincorporated place, a lake) -- see
+      // extractTown()'s fallback and town_or_other() in
+      // calendar_config.py for the matching bucketing logic.
+      options: [...config.towns, "Other"], selectedSet: selectedTowns, label: "Towns",
       onChange: () => { applyTownFilter(); updateEmbedSnippet(); },
     });
     setupMultiSelectFilter({

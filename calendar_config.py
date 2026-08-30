@@ -30,9 +30,27 @@ def extract_town(location, config):
     send_reminders.py (per-town email filtering) and
     scrape_linn_county_calendar.py (per-town .ics files) so both stay
     in sync with the same logic -- docs/calendar-view.html's
-    extractTown() is a JS mirror of this for the web view's town filter."""
+    extractTown() is a JS mirror of this for the web view's town filter.
+
+    Returns whatever place name it can read out of LOCATION -- which
+    might not be one of config['towns'] at all (a game played in a
+    neighboring town, an unincorporated place like Hurricane Branch, a
+    lake) -- see town_or_other() below for the filter/subscription-bucket
+    version of this that collapses those into "Other"."""
     if not location:
         return None
     last_segment = location.split("|")[-1].strip()
     m = re.search(rf"([A-Za-z .]+?),\s*{re.escape(config['state'])}\b", last_segment)
     return m.group(1).strip() if m else None
+
+
+def town_or_other(location, config):
+    """The bucket a "town" filter/subscription choice should use: one of
+    config['towns'], or "Other" for anything that isn't -- an event with
+    no resolvable location, one outside the county's 8 incorporated
+    towns, or at a place like a lake or unincorporated community. As a
+    rule, every event should fall into exactly one of these buckets
+    rather than silently vanishing from every town-based view the way a
+    bare None from extract_town() would."""
+    town = extract_town(location, config)
+    return town if town in config["towns"] else "Other"
