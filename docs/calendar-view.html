@@ -12,12 +12,7 @@
     height: 100%;
     font-family: var(--font-body);
     background-color: var(--paper);
-    background-image: radial-gradient(circle at 1px 1px, rgba(36, 31, 24, .05) 1px, transparent 0);
-    background-size: 24px 24px;
     color: var(--ink);
-  }
-  @media (prefers-color-scheme: dark) {
-    html, body { background-image: radial-gradient(circle at 1px 1px, rgba(237, 230, 212, .045) 1px, transparent 0); }
   }
   .wrap { padding: .9rem .75rem; max-width: 900px; margin: 0 auto; }
   .topbar {
@@ -34,7 +29,7 @@
     height: 36px;
     border-radius: 999px;
     background: var(--surface);
-    border: 2px solid var(--gold-soft);
+    border: 1px solid var(--surface-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,7 +58,7 @@
   .stats-line {
     display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; justify-content: center;
     margin: 0 0 .7rem; font-size: .72rem; font-weight: 700; letter-spacing: .05em;
-    text-transform: uppercase; color: var(--gold);
+    text-transform: uppercase; color: var(--ink-soft);
   }
   .stats-line::before, .stats-line::after {
     content: ""; height: 1px; flex: 1 1 24px; max-width: 3rem; background: var(--rule);
@@ -83,7 +78,7 @@
     color: var(--ink);
     cursor: pointer;
   }
-  .ms-btn.active { border-color: var(--gold); color: var(--gold); }
+  .ms-btn.active { border-color: var(--primary); color: var(--primary); }
   .ms-panel {
     position: absolute;
     top: calc(100% + .3rem);

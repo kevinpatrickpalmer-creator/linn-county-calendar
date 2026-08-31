@@ -23,8 +23,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
       overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-      background: #2a1210; box-shadow: 0 1px 4px rgba(0,0,0,.2);
-      border-bottom: 2px solid #a8791f;
+      background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
     }
     .site-nav::-webkit-scrollbar { display: none; }
     .site-nav a {
@@ -32,10 +31,10 @@
       padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
       letter-spacing: .01em;
       font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #d9b98f; text-decoration: none; border-bottom: 3px solid transparent;
+      color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
     }
-    .site-nav a.active { color: #f7ead2; border-bottom-color: #cf9d3f; }
-    .site-nav a:hover { color: #fff; }
+    .site-nav a.active { color: var(--primary, #3d9966); border-bottom-color: var(--primary, #3d9966); }
+    .site-nav a:hover { color: var(--ink, #1a1a1a); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     @media print {
       .site-nav, .site-nav-spacer { display: none !important; }

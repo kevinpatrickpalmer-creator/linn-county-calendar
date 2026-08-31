@@ -6,9 +6,9 @@
 <title>Community Calendar Flyer</title>
 <link rel="stylesheet" href="theme.css">
 <style>
-  :root { --backdrop: #ded2b4; }
+  :root { --backdrop: #e8e8e8; }
   @media (prefers-color-scheme: dark) {
-    :root { --backdrop: #0e0c0a; }
+    :root { --backdrop: #0a0a0a; }
   }
 
   * { box-sizing: border-box; }
@@ -78,7 +78,6 @@
   .masthead-band .masthead-logo {
     display: inline-flex;
     background: #fff;
-    border: 2px solid var(--gold-soft);
     border-radius: 999px;
     padding: .55rem .7rem .4rem;
     margin: 0 0 .5rem;
@@ -113,8 +112,8 @@
 
   .masthead-rule {
     border: none;
-    border-top: 3px solid var(--gold);
-    border-bottom: 1px solid var(--gold-soft);
+    border-top: 3px solid var(--primary);
+    border-bottom: 1px solid var(--surface-border);
     height: 4px;
     margin: 0;
   }
@@ -227,7 +226,7 @@
   .col-benefits .mark {
     font-family: var(--font-display);
     font-weight: 700;
-    color: var(--gold);
+    color: var(--primary);
   }
 
   .qr-block {
@@ -297,20 +296,18 @@
        to its light value here regardless of on-screen dark mode, same
        as forcing html/body to #fff below. */
     :root {
-      --ink: #241f18;
-      --ink-soft: #5b543f;
-      --ink-faint: #8a8168;
-      --paper: #f6f1e4;
-      --surface: #fffdf8;
-      --surface-border: #e5dabd;
-      --rule: #ddd0ac;
+      --ink: #1a1a1a;
+      --ink-soft: #555555;
+      --ink-faint: #888888;
+      --paper: #ffffff;
+      --surface: #ffffff;
+      --surface-border: #e2e2e2;
+      --rule: #e2e2e2;
       --primary: #3d9966;
       --primary-dark: #2f7a51;
       --primary-tint: #e3f3ea;
       --navy: #1f3a54;
       --navy-dark: #16293e;
-      --gold: #a8791f;
-      --gold-soft: #cf9d3f;
     }
     @page { size: letter; margin: 0; }
     html, body { background: #fff; padding: 0; }

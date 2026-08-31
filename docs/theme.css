@@ -4,38 +4,37 @@
    navigation. Internal tools (admin, manage-events, status) are plain and
    intentionally don't use this.
 
-   Design direction: small-town civic, not startup-SaaS -- a warm parchment
-   background, a clean geometric sans (Montserrat) throughout, hairline-
-   bordered cards instead of floating shadow cards, and a wheat-gold rule as
-   the one recurring accent motif. Meant to read as "the town paper's events
-   page, done right" to a resident and "professionally run public
-   infrastructure" to a city official or business sponsor. */
+   Design direction: clean and modern, closer to a state tourism board site
+   than a startup -- a plain white background, a geometric sans (Montserrat)
+   throughout, and one accent color (green) doing all the work that color
+   does: buttons, links-within-text, badges, emphasis. No background
+   texture, no second decorative accent color. Meant to read as
+   "professionally run public infrastructure" to a city official or
+   business sponsor, and effortless to a resident. */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 :root {
   color-scheme: light dark;
 
-  --ink: #241f18;
-  --ink-soft: #5b543f;
-  --ink-faint: #8a8168;
-  --paper: #f6f1e4;
-  --surface: #fffdf8;
-  --surface-border: #e5dabd;
-  --rule: #ddd0ac;
+  --ink: #1a1a1a;
+  --ink-soft: #555555;
+  --ink-faint: #888888;
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --surface-border: #e2e2e2;
+  --rule: #e2e2e2;
 
   --primary: #3d9966;
   --primary-dark: #2f7a51;
   --primary-tint: #e3f3ea;
   --navy: #1f3a54;
   --navy-dark: #16293e;
-  --gold: #a8791f;
-  --gold-soft: #cf9d3f;
   --success: #3d9966;
   --success-tint: #e3f3ea;
 
-  --shadow-sm: 0 1px 2px rgba(48, 34, 10, .06), 0 1px 1px rgba(48, 34, 10, .04);
-  --shadow-md: 0 4px 16px rgba(48, 34, 10, .08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .06), 0 1px 1px rgba(0, 0, 0, .04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .08);
   --radius: 10px;
   --radius-sm: 7px;
 
@@ -45,21 +44,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #ede6d4;
-    --ink-soft: #c3b89a;
-    --ink-faint: #8d846a;
-    --paper: #161310;
-    --surface: #201c17;
-    --surface-border: #3a3225;
-    --rule: #3a3225;
+    --ink: #f0f0f0;
+    --ink-soft: #b0b0b0;
+    --ink-faint: #888888;
+    --paper: #121212;
+    --surface: #1c1c1c;
+    --surface-border: #333333;
+    --rule: #333333;
 
     --primary: #5fb583;
     --primary-dark: #7bc79b;
     --primary-tint: #16281b;
     --navy: #90aecf;
     --navy-dark: #b7cbe4;
-    --gold: #d8ab55;
-    --gold-soft: #d8ab55;
     --success: #5fb583;
     --success-tint: #16281b;
 
@@ -74,12 +71,7 @@ body.themed {
   margin: 0;
   font-family: var(--font-body);
   background-color: var(--paper);
-  background-image: radial-gradient(circle at 1px 1px, rgba(36, 31, 24, .05) 1px, transparent 0);
-  background-size: 24px 24px;
   color: var(--ink);
-}
-@media (prefers-color-scheme: dark) {
-  body.themed { background-image: radial-gradient(circle at 1px 1px, rgba(237, 230, 212, .045) 1px, transparent 0); }
 }
 
 /* Not flex -- a nav.js page inserts a plain block spacer div before <main>
@@ -94,13 +86,13 @@ body.themed main {
 }
 body.themed main.wide { max-width: 900px; }
 
-/* Seal-style badge (used for the county emblem on index/submit/etc). */
+/* Badge (used for the county emblem on index/submit/etc). */
 .mo-badge {
   width: 60px;
   height: 60px;
   border-radius: 999px;
   background: var(--surface);
-  border: 2px solid var(--gold-soft);
+  border: 1px solid var(--surface-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +108,7 @@ body.themed main.wide { max-width: 900px; }
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--primary);
   margin: 0 0 .35rem;
 }
 
@@ -149,7 +141,7 @@ body.themed p.stats-line {
   font-weight: 600;
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ink-soft);
 }
 /* Each text run is its own flex item and stays on one line -- without
    this, bare text between the live-count span becomes anonymous flex
@@ -212,7 +204,7 @@ body.themed h2 {
   font-size: 1.15rem;
   margin: 0 0 .75rem;
   padding-left: .7rem;
-  border-left: 3px solid var(--gold-soft);
+  border-left: 3px solid var(--primary);
   color: var(--ink);
 }
 
@@ -332,7 +324,7 @@ body.themed textarea {
 body.themed input:not([type="checkbox"]):not([type="radio"]):focus,
 body.themed select:focus,
 body.themed textarea:focus {
-  outline: 2px solid var(--gold-soft);
+  outline: 2px solid var(--primary);
   outline-offset: 1px;
 }
 body.themed select { margin-bottom: .75rem; }
