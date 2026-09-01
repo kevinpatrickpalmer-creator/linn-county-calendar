@@ -7,10 +7,148 @@ X-WR-CALNAME:Other Events (Linn County Community Calendar) (No Sports)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
+SUMMARY:HS XC @ Salisbury
+DTSTART:20260901T210000Z
+DTEND:20260901T220000Z
+DTSTAMP:20260901T045108Z
+UID:19046890-2026-09-01-400@linn-county-scraper.local
+LOCATION:Salisbury\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:V/JV BB vs. Bevier
+DTSTART:20260904T220000Z
+DTEND:20260905T023000Z
+DTSTAMP:20260901T045108Z
+UID:19652829-2026-09-04-500@linn-county-scraper.local
+LOCATION:Bevier\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:MS Softball @ Brunswick
+DTSTART:20260909T220000Z
+DTEND:20260910T000000Z
+DTSTAMP:20260901T045108Z
+UID:19046901-2026-09-09-500@linn-county-scraper.local
+LOCATION:Brunswick\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:7th WARRIOR COURSE Obstacle Course (Power In Me Conference\, Inc.)
+DTSTART:20260912T140000Z
+DTEND:20260912T210000Z
+DTSTAMP:20260901T045108Z
+UID:19781655-2026-09-12-900@linn-county-scraper.local
+DESCRIPTION:Who: Power In Me Conference\, Inc. Come DISCOVER what the exci
+ tement and energy is all about in this notably unique event\, tucked right
+  here in your backyard. This event is perfect for sports teams\, businesse
+ s and leadership groups as a team-building and growth event. Our course is
+  mobility inclusive\, with obstacle modifications for all body types and c
+ apabilities. Again this year\, FINISHERS will receive another super cool r
+ eward and State Farm sponsored Swag Bag and other gifts from valued nation
+ al and regional sponsors.
+LOCATION:Bevier\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:JV/V Softball @ Salisbury
+DTSTART:20260921T220000Z
+DTEND:20260922T000000Z
+DTSTAMP:20260901T045108Z
+UID:19046918-2026-09-21-500@linn-county-scraper.local
+LOCATION:Salisbury\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Girls Golf - Salisbury Invitational
+DTSTART:20260922T140000Z
+DTEND:20260922T150000Z
+DTSTAMP:20260901T045108Z
+UID:18990317-2026-09-22-900@linn-county-scraper.local
+LOCATION:Salisbury Municipal Golf | Salisbury\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.
+DTSTART:20260721T230000Z
+DTEND:20260722T000000Z
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-07-21-piecemakers-quilt-guild-meets-every-3rd-tue
+ sday-at-6-p-m-2026-07-21-600@linn-county-scraper.local
+DESCRIPTION:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.\, at
+  410 W John – Catholic elementary school basement\, enter off of Caldwel
+ l Street. For More information call Laura Carr at 660-258-8225.
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Primary Election
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
+ nty-scraper.local
+DESCRIPTION:Primary Election.
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:92nd Bevier Homecoming. Carnival rides
+DTSTART;VALUE=DATE:20260805
+DTEND;VALUE=DATE:20260806
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-08-05-92nd-bevier-homecoming-carnival-rides-2026-
+ 08-05-allday@linn-county-scraper.local
+DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
+ usic.
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:92nd Bevier Homecoming. Carnival rides
+DTSTART;VALUE=DATE:20260806
+DTEND;VALUE=DATE:20260807
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-08-06-92nd-bevier-homecoming-carnival-rides-2026-
+ 08-06-allday@linn-county-scraper.local
+DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
+ usic.
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:92nd Bevier Homecoming. Carnival rides
+DTSTART;VALUE=DATE:20260807
+DTEND;VALUE=DATE:20260808
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-08-07-92nd-bevier-homecoming-carnival-rides-2026-
+ 08-07-allday@linn-county-scraper.local
+DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
+ usic.
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:92nd Bevier Homecoming. Carnival rides
+DTSTART;VALUE=DATE:20260808
+DTEND;VALUE=DATE:20260809
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-08-08-92nd-bevier-homecoming-carnival-rides-2026-
+ 08-08-allday@linn-county-scraper.local
+DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
+ usic.
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:General Election
+DTSTART;VALUE=DATE:20261103
+DTEND;VALUE=DATE:20261104
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
+ nty-scraper.local
+DESCRIPTION:General Election.
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260830T224459Z
+DTSTAMP:20260901T045108Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.

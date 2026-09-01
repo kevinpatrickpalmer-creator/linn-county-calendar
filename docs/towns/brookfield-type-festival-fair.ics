@@ -8,10 +8,22 @@ X-WR-CALNAME:Brookfield Events (Linn County Community Calendar) (Festival
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
+SUMMARY:Brookfield High School Homecoming vs
+DTSTART;VALUE=DATE:20260918
+DTEND;VALUE=DATE:20260919
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-09-18-brookfield-high-school-homecoming-vs-2026-0
+ 9-18-allday@linn-county-scraper.local
+DESCRIPTION:Brookfield High School Homecoming vs. Trenton. More details to
+  come.
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:1st Annual Ministries in Linn County Craft Fair
 DTSTART:20260926T140000Z
 DTEND:20260926T210000Z
-DTSTAMP:20260830T224459Z
+DTSTAMP:20260901T045108Z
 UID:bfchamber-1st-annual-ministries-in-linn-county-craft-fair-2026-09-26-0
  900@linn-county-scraper.local
 DESCRIPTION:Click the Link for more info!
@@ -19,32 +31,10 @@ LOCATION:Trinity Fellowship Hall | Brookfield\, MO
 X-EVENT-TYPE:Festival / Fair
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Brookfield Homecoming Football Game
-DTSTART:20260919T000000Z
-DTEND:20260919T020000Z
-DTSTAMP:20260830T224459Z
-UID:bfchamber-brookfield-homecoming-football-game-2026-09-18-0700@linn-cou
- nty-scraper.local
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Brookfield Homecoming Parade
-DTSTART:20260918T190000Z
-DTEND:20260918T200000Z
-DTSTAMP:20260830T224459Z
-UID:bfchamber-brookfield-homecoming-parade-2026-09-18-0200@linn-county-scr
- aper.local
-DESCRIPTION:Bring your lawn chairs & blankets to sit & enjoy the Brookfiel
- d Homecoming Parade on Main Street!
-LOCATION:Main Street Brookfield | Brookfield\, MO
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Great Pershing Balloon Derby Weekend
 DTSTART:20260904T165400Z
 DTEND:20260904T175400Z
-DTSTAMP:20260830T224459Z
+DTSTAMP:20260901T045108Z
 UID:bfchamber-great-pershing-balloon-derby-weekend-2026-09-04-1154@linn-co
  unty-scraper.local
 LOCATION:Brookfield\, MO
@@ -54,7 +44,7 @@ BEGIN:VEVENT
 SUMMARY:Railroad Days 2026
 DTSTART:20260905T172300Z
 DTEND:20260905T182300Z
-DTSTAMP:20260830T224459Z
+DTSTAMP:20260901T045108Z
 UID:bfchamber-railroad-days-2026-2026-09-05-1223@linn-county-scraper.local
 DESCRIPTION:More info to come.
 LOCATION:Brookfield\, MO

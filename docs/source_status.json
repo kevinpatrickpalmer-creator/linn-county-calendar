@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-30T22:44:59.717067+00:00",
+  "generated_at": "2026-09-01T04:51:08.655729+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -39,7 +39,7 @@
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 77,
+      "count": 78,
       "ok": true,
       "error": null
     },
@@ -51,7 +51,7 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
       "ok": true,
       "error": null
     },

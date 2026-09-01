@@ -6,4 +6,15 @@ METHOD:PUBLISH
 X-WR-CALNAME:Linn County Community Calendar (Arts & Entertainment)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Dakota Hale in concert at 8 p.m.
+DTSTART:20260725T010000Z
+DTEND:20260725T020000Z
+DTSTAMP:20260901T045108Z
+UID:leadereditorial-2026-07-24-dakota-hale-in-concert-at-8-p-m-2026-07-24-
+ 800@linn-county-scraper.local
+DESCRIPTION:Dakota Hale in concert at 8 p.m.\, during Browning Homecoming.
+LOCATION:Browning\, MO
+X-EVENT-TYPE:Arts & Entertainment
+END:VEVENT
 END:VCALENDAR
