@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T04:51:08.655729+00:00",
+  "generated_at": "2026-09-01T13:26:44.115773+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,19 +15,19 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 6,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 256,
+      "count": 253,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 132,
+      "count": 130,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 11,
+      "count": 0,
       "ok": true,
       "error": null
     },
@@ -81,13 +81,13 @@
     },
     {
       "name": "Wright Funeral Home",
-      "count": 3,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Delaney Funeral Home",
-      "count": 1,
+      "count": 0,
       "ok": true,
       "error": null
     }
