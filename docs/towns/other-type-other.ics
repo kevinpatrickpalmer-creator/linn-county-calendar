@@ -6,16 +6,4 @@ METHOD:PUBLISH
 X-WR-CALNAME:Other Events (Linn County Community Calendar) (Other)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
-BEGIN:VEVENT
-SUMMARY:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.
-DTSTART:20260721T230000Z
-DTEND:20260722T000000Z
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-07-21-piecemakers-quilt-guild-meets-every-3rd-tue
- sday-at-6-p-m-2026-07-21-600@linn-county-scraper.local
-DESCRIPTION:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.\, at
-  410 W John – Catholic elementary school basement\, enter off of Caldwel
- l Street. For More information call Laura Carr at 660-258-8225.
-X-EVENT-TYPE:Other
-END:VEVENT
 END:VCALENDAR

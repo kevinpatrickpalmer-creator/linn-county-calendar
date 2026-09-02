@@ -7,86 +7,10 @@ X-WR-CALNAME:Other Events (Linn County Community Calendar) (No Obituary)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.
-DTSTART:20260721T230000Z
-DTEND:20260722T000000Z
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-07-21-piecemakers-quilt-guild-meets-every-3rd-tue
- sday-at-6-p-m-2026-07-21-600@linn-county-scraper.local
-DESCRIPTION:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.\, at
-  410 W John – Catholic elementary school basement\, enter off of Caldwel
- l Street. For More information call Laura Carr at 660-258-8225.
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Primary Election
-DTSTART;VALUE=DATE:20260804
-DTEND;VALUE=DATE:20260805
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:Primary Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:92nd Bevier Homecoming. Carnival rides
-DTSTART;VALUE=DATE:20260805
-DTEND;VALUE=DATE:20260806
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-05-92nd-bevier-homecoming-carnival-rides-2026-
- 08-05-allday@linn-county-scraper.local
-DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
- usic.
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:92nd Bevier Homecoming. Carnival rides
-DTSTART;VALUE=DATE:20260806
-DTEND;VALUE=DATE:20260807
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-06-92nd-bevier-homecoming-carnival-rides-2026-
- 08-06-allday@linn-county-scraper.local
-DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
- usic.
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:92nd Bevier Homecoming. Carnival rides
-DTSTART;VALUE=DATE:20260807
-DTEND;VALUE=DATE:20260808
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-07-92nd-bevier-homecoming-carnival-rides-2026-
- 08-07-allday@linn-county-scraper.local
-DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
- usic.
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:92nd Bevier Homecoming. Carnival rides
-DTSTART;VALUE=DATE:20260808
-DTEND;VALUE=DATE:20260809
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-08-92nd-bevier-homecoming-carnival-rides-2026-
- 08-08-allday@linn-county-scraper.local
-DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
- usic.
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:General Election
-DTSTART;VALUE=DATE:20261103
-DTEND;VALUE=DATE:20261104
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:General Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260902T041341Z
+DTSTAMP:20260902T124727Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.

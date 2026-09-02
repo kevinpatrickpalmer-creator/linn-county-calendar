@@ -7,24 +7,4 @@ X-WR-CALNAME:Other Events (Linn County Community Calendar) (Government Not
  ice)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
-BEGIN:VEVENT
-SUMMARY:Primary Election
-DTSTART;VALUE=DATE:20260804
-DTEND;VALUE=DATE:20260805
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:Primary Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:General Election
-DTSTART;VALUE=DATE:20261103
-DTEND;VALUE=DATE:20261104
-DTSTAMP:20260902T041341Z
-UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:General Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
 END:VCALENDAR
