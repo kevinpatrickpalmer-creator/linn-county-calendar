@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Linn County\, MO Land Auction
 DTSTART:20260903T170000Z
 DTEND:20260903T180000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
  -1200@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -21,7 +21,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -32,7 +32,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.

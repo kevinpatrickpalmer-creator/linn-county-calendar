@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Main Street Brookfield’s Sip & Stroll
 DTSTART:20260919T223000Z
 DTEND:20260920T003000Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-main-street-brookfields-sip-stroll-2026-09-19-0530@linn-county-
  scraper.local
 DESCRIPTION:On Saturday\, September 19\, from 5:30–7:30 PM\, attendee
@@ -23,7 +23,7 @@ BEGIN:VEVENT
 SUMMARY:Bell Game 🏈🔔
 DTSTART:20261024T000000Z
 DTEND:20261024T020000Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bell-game-%f0%9f%8f%88%f0%9f%94%94-2026-10-23-0700@linn-coun
  ty-scraper.local
 DESCRIPTION:Come out & enjoy the annual rivalry between the Brookfield Bul
@@ -36,7 +36,7 @@ BEGIN:VEVENT
 SUMMARY:Pink Out Game 🩷🥎
 DTSTART:20260924T220000Z
 DTEND:20260925T020000Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-pink-out-game-%f0%9f%a9%b7%f0%9f%a5%8e-2026-09-24-0500@linn-
  county-scraper.local
 DESCRIPTION:Pink Out Softball Game played by the Brookfield Lady Bulldogs 
@@ -49,7 +49,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Prom
 DTSTART:20270410T144300Z
 DTEND:20270410T154300Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bhs-prom-2027-04-10-0943@linn-county-scraper.local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
 X-EVENT-TYPE:Other
@@ -58,7 +58,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Graduation Ceremony
 DTSTART:20270509T180000Z
 DTEND:20270509T200000Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bhs-graduation-ceremony-2027-05-09-0100@linn-county-scraper.
  local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
@@ -68,7 +68,7 @@ BEGIN:VEVENT
 SUMMARY:Customer Appreciation Day - Chartion Valley
 DTSTART:20260904T160000Z
 DTEND:20260904T180000Z
-DTSTAMP:20260902T124727Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-customer-appreciation-day-chartion-valley-2026-09-04-1100@li
  nn-county-scraper.local
 DESCRIPTION:Celebrate Customer Appreciation Day with Chariton Valley! Enjo

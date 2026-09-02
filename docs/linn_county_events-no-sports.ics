@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20260922T223000Z
 DTEND:20260923T010000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-city-council-meeting-15-2026-09-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -26,7 +26,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261027T223000Z
 DTEND:20261028T010000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-city-council-meeting-16-2026-10-27-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -42,7 +42,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261124T233000Z
 DTEND:20261125T020000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-city-council-meeting-17-2026-11-24-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -58,7 +58,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261222T233000Z
 DTEND:20261223T020000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-city-council-meeting-18-2026-12-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -74,7 +74,7 @@ BEGIN:VEVENT
 SUMMARY:Main Street Brookfield’s Sip & Stroll
 DTSTART:20260919T223000Z
 DTEND:20260920T003000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfcity-main-street-brookfields-sip-stroll-2026-09-19-0530@linn-county-
  scraper.local
 DESCRIPTION:On Saturday\, September 19\, from 5:30–7:30 PM\, attendee
@@ -87,7 +87,7 @@ BEGIN:VEVENT
 SUMMARY:1st Annual Ministries in Linn County Craft Fair
 DTSTART:20260926T140000Z
 DTEND:20260926T210000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-1st-annual-ministries-in-linn-county-craft-fair-2026-09-26-0
  900@linn-county-scraper.local
 DESCRIPTION:Click the Link for more info!
@@ -98,7 +98,7 @@ BEGIN:VEVENT
 SUMMARY:Brookfield Homecoming Football Game
 DTSTART:20260919T000000Z
 DTEND:20260919T020000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-brookfield-homecoming-football-game-2026-09-18-0700@linn-cou
  nty-scraper.local
 LOCATION:Brookfield\, MO
@@ -108,7 +108,7 @@ BEGIN:VEVENT
 SUMMARY:Brookfield Homecoming Parade
 DTSTART:20260918T190000Z
 DTEND:20260918T200000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-brookfield-homecoming-parade-2026-09-18-0200@linn-county-scr
  aper.local
 DESCRIPTION:Bring your lawn chairs & blankets to sit & enjoy the Brookfiel
@@ -120,7 +120,7 @@ BEGIN:VEVENT
 SUMMARY:Bell Game 🏈🔔
 DTSTART:20261024T000000Z
 DTEND:20261024T020000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bell-game-%f0%9f%8f%88%f0%9f%94%94-2026-10-23-0700@linn-coun
  ty-scraper.local
 DESCRIPTION:Come out & enjoy the annual rivalry between the Brookfield Bul
@@ -133,7 +133,7 @@ BEGIN:VEVENT
 SUMMARY:Pink Out Game 🩷🥎
 DTSTART:20260924T220000Z
 DTEND:20260925T020000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-pink-out-game-%f0%9f%a9%b7%f0%9f%a5%8e-2026-09-24-0500@linn-
  county-scraper.local
 DESCRIPTION:Pink Out Softball Game played by the Brookfield Lady Bulldogs 
@@ -146,7 +146,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Prom
 DTSTART:20270410T144300Z
 DTEND:20270410T154300Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bhs-prom-2027-04-10-0943@linn-county-scraper.local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
 X-EVENT-TYPE:Other
@@ -155,7 +155,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Graduation Ceremony
 DTSTART:20270509T180000Z
 DTEND:20270509T200000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-bhs-graduation-ceremony-2027-05-09-0100@linn-county-scraper.
  local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
@@ -165,7 +165,7 @@ BEGIN:VEVENT
 SUMMARY:Great Pershing Balloon Derby Weekend
 DTSTART:20260904T165400Z
 DTEND:20260904T175400Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-great-pershing-balloon-derby-weekend-2026-09-04-1154@linn-co
  unty-scraper.local
 LOCATION:Brookfield\, MO
@@ -173,11 +173,10 @@ X-EVENT-TYPE:Festival / Fair
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Railroad Days 2026
-DTSTART:20260905T172300Z
-DTEND:20260905T182300Z
-DTSTAMP:20260902T124726Z
-UID:bfchamber-railroad-days-2026-2026-09-05-1223@linn-county-scraper.local
-DESCRIPTION:More info to come.
+DTSTART:20260905T150000Z
+DTEND:20260905T190000Z
+DTSTAMP:20260902T223748Z
+UID:bfchamber-railroad-days-2026-2026-09-05-1000@linn-county-scraper.local
 LOCATION:Brookfield\, MO
 X-EVENT-TYPE:Festival / Fair
 END:VEVENT
@@ -185,7 +184,7 @@ BEGIN:VEVENT
 SUMMARY:Customer Appreciation Day - Chartion Valley
 DTSTART:20260904T160000Z
 DTEND:20260904T180000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:bfchamber-customer-appreciation-day-chartion-valley-2026-09-04-1100@li
  nn-county-scraper.local
 DESCRIPTION:Celebrate Customer Appreciation Day with Chariton Valley! Enjo
@@ -196,40 +195,23 @@ LOCATION:Brookfield\, MO
 X-EVENT-TYPE:Other
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261012
-DTEND;VALUE=DATE:20261013
-DTSTAMP:20260902T124726Z
-UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261126
-DTEND;VALUE=DATE:20261127
-DTSTAMP:20260902T124726Z
-UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261111
-DTEND;VALUE=DATE:20261112
-DTSTAMP:20260902T124726Z
-UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-X-EVENT-TYPE:Government Notice
+SUMMARY:Commerce & Connections Meeting
+DTSTART:20260910T160000Z
+DTEND:20260910T170000Z
+DTSTAMP:20260902T223748Z
+UID:bfchamber-commerce-connections-meeting-2026-09-10-1100@linn-county-scr
+ aper.local
+DESCRIPTION:Chamber of Commerce members meeting will be held at Quinn Even
+ t Center starting at 11am. Please RSVP to Jenna by 9/3. **This event is fo
+ r chamber members only.**
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Meeting
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:linncogov-0cd2tcs0sc41j2sns17nere6in@google.com-2026-09-07-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -239,8 +221,38 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261225
 DTEND;VALUE=DATE:20261226
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+DTSTAMP:20260902T223748Z
+UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+DTSTAMP:20260902T223748Z
+UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+DTSTAMP:20260902T223748Z
+UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
@@ -249,7 +261,7 @@ BEGIN:VEVENT
 SUMMARY:Linn County\, MO Land Auction
 DTSTART:20260903T170000Z
 DTEND:20260903T180000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-03-linn-county-mo-land-auction-laclede-2026-09-03
  -1200@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -260,7 +272,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -271,7 +283,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -282,7 +294,7 @@ BEGIN:VEVENT
 SUMMARY:Kevin Palmer's birthday party
 DTSTART:20261124T013000Z
 DTEND:20261124T023000Z
-DTSTAMP:20260902T124726Z
+DTSTAMP:20260902T223748Z
 UID:manual-2026-11-23-kevin-palmer-s-birthday-party-2026-11-23-730@linn-co
  unty-scraper.local
 DESCRIPTION:by invitation only
