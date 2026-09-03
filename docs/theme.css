@@ -446,6 +446,39 @@ body.themed details p:last-child { margin-bottom: 0; }
 body.themed details strong { color: var(--ink); }
 body.themed details a { color: var(--navy); }
 
+/* Responsive 16:9 video embed with a "coming soon" placeholder shown
+   until a real video file exists -- see the JS next to the <video> tag
+   for how the swap happens. */
+body.themed .video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: var(--surface-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+body.themed .video-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+body.themed .video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+body.themed .video-placeholder svg { width: 40px; height: 40px; }
+body.themed .video-placeholder span { font-size: .85rem; font-weight: 600; }
+
 /* Small colored pill used for event-type labels (calendar list/detail
    views), kept here so the same look works everywhere it's used. */
 .type-badge {

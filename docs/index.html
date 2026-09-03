@@ -93,6 +93,26 @@
     <a class="btn secondary" href="alerts.html">Set up email alerts &rarr;</a>
   </section>
 
+  <section>
+    <h2>See how it works</h2>
+    <p class="hint">A quick rundown of what this is and how to get started.</p>
+    <!-- Once the explainer video exists, put the file at docs/explainer.mp4
+         (self-hosted -- GitHub Pages serves it directly, no other setup) and
+         this starts playing it automatically, no other changes needed. To
+         host on YouTube/Vimeo instead, replace the <video> element below
+         with an <iframe> embed, keeping the same wrapper div so it stays
+         responsive. -->
+    <div class="video-frame">
+      <video id="explainerVideo" controls preload="metadata" poster="video-poster.jpg" style="visibility:hidden;">
+        <source src="explainer.mp4" type="video/mp4">
+      </video>
+      <div class="video-placeholder" id="videoPlaceholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg>
+        <span>Video coming soon</span>
+      </div>
+    </div>
+  </section>
+
   <div class="footer-link">
     <a href="submit.html">Submit a community event &rarr;</a>
   </div>
@@ -269,6 +289,17 @@
   includeObituaries.addEventListener("change", updateSubscribeLinks);
   updateSubscribeLinks();
 
+  // Shows the "coming soon" placeholder until docs/explainer.mp4 actually
+  // exists -- preload="metadata" makes the browser fetch just enough to
+  // fire loadedmetadata on page load without downloading the whole file,
+  // so this swaps over automatically the moment a real video is added,
+  // no other change needed.
+  const explainerVideo = document.getElementById("explainerVideo");
+  const videoPlaceholder = document.getElementById("videoPlaceholder");
+  explainerVideo.addEventListener("loadedmetadata", () => {
+    videoPlaceholder.style.display = "none";
+    explainerVideo.style.visibility = "visible";
+  });
 })();
 </script>
 </body>
