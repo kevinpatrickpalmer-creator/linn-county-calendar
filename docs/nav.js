@@ -9,6 +9,7 @@
 (function () {
   const NAV_ITEMS = [
     { label: "Subscribe", href: "index.html" },
+    { label: "Email Alerts", href: "alerts.html" },
     { label: "Calendar", href: "calendar-view.html" },
     { label: "Submit Event", href: "submit.html" },
     { label: "Flyer", href: "flyer.html" },

@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Community Calendar</title>
 <link rel="stylesheet" href="theme.css">
-<style>
-  #prefStatus.ok { color: var(--success); }
-</style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="qrcode.js"></script>
 </head>
@@ -46,14 +43,14 @@
     </div>
     <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
 
-    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="#stayInLoop">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
+    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="alerts.html">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
 
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <p class="or-divider">OR</p>
     <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
     <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
     <p class="hint">To check it worked, open your phone or computer's own calendar app. You should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
-    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or <a href="#stayInLoop">sign up for email reminders</a> instead.</p>
+    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
 
     <details>
@@ -61,7 +58,7 @@
       <p><strong>Mac (Apple Calendar):</strong> Click "Subscribe to Calendar" above. The Calendar app opens with an "Add Subscription" window. Set "Auto-refresh" to something like every hour, then click OK. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
       <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest email reminders below instead.</p>
       <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, email reminders below are the only way to get a heads-up.</p>
-      <p>Notification support varies a lot by calendar app, and several of them don't handle it well for subscribed calendars like this one. If you want something that reliably notifies you, <a href="#stayInLoop">sign up for email reminders</a> below, that always works regardless of which calendar app you use.</p>
+      <p>Notification support varies a lot by calendar app, and several of them don't handle it well for subscribed calendars like this one. If you want something that reliably notifies you, <a href="alerts.html">sign up for email reminders</a>, that always works regardless of which calendar app you use.</p>
     </details>
 
     <p class="share-label">Know someone who'd want this? Share it:</p>
@@ -90,41 +87,10 @@
     <p class="hint">Instagram doesn't support direct share links, tap its button above to copy your link, then paste it into your bio, a story, or a DM.</p>
   </section>
 
-  <section id="stayInLoop">
-    <h2>Stay in the loop</h2>
-    <p class="hint">All optional and independent of subscribing to the calendar above.</p>
-    <form id="prefForm">
-      <label for="email">Email address</label>
-      <input id="email" type="email" required placeholder="you@example.com">
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="reminder" name="reminder">
-        <label for="reminder">Email me a reminder the day before each event</label>
-      </div>
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="weeklyDigest" name="weeklyDigest">
-        <label for="weeklyDigest">Email me a weekly summary of the week's events</label>
-      </div>
-
-      <div id="townPicker" class="town-picker hidden">
-        <p class="hint town-hint">Only for reminders and the weekly summary, leave all unchecked to get every town's events.</p>
-        <div id="townCheckboxes"></div>
-      </div>
-
-      <div id="typePicker" class="town-picker hidden">
-        <p class="hint town-hint">Only for reminders and the weekly summary, leave all unchecked to get every type of event.</p>
-        <div id="typeCheckboxes"></div>
-      </div>
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="newsletter" name="newsletter">
-        <label for="newsletter" id="newsletterLabel">Notify me when the Community App launches</label>
-      </div>
-
-      <button type="submit" id="prefSubmit">Save preferences</button>
-      <div id="prefStatus" role="status"></div>
-    </form>
+  <section>
+    <h2>Stay in the loop by email</h2>
+    <p class="hint">A separate, optional option: get a reminder email the day before each event, or a weekly summary, instead of (or in addition to) subscribing to the calendar above.</p>
+    <a class="btn secondary" href="alerts.html">Set up email alerts &rarr;</a>
   </section>
 
   <div class="footer-link">
@@ -159,8 +125,6 @@
   document.getElementById("pageTitle").textContent = config.calendar_title;
   document.getElementById("pageSub").textContent =
     `Local events, meetings, and happenings around ${config.county_display_name}, kept up to date automatically.`;
-  document.getElementById("newsletterLabel").textContent =
-    `Notify me when the ${config.county_display_name} Community App launches`;
 
   try {
     const icsText = await (await fetch("linn_county_events.ics")).text();
@@ -305,101 +269,6 @@
   includeObituaries.addEventListener("change", updateSubscribeLinks);
   updateSubscribeLinks();
 
-  const townCheckboxes = document.getElementById("townCheckboxes");
-  for (const town of [...config.towns, "Other"]) {
-    const row = document.createElement("div");
-    row.className = "checkbox-row";
-    const id = `town-${town.toLowerCase()}`;
-    const displayLabel = town === "Other" ? "Other (outside the 8 towns)" : town;
-    row.innerHTML = `<input type="checkbox" class="town-checkbox" id="${id}" value="${town}">
-      <label for="${id}">${displayLabel}</label>`;
-    townCheckboxes.appendChild(row);
-  }
-
-  const typeCheckboxes = document.getElementById("typeCheckboxes");
-  for (const type of config.event_types) {
-    const row = document.createElement("div");
-    row.className = "checkbox-row";
-    const id = `type-${type.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-    row.innerHTML = `<input type="checkbox" class="type-checkbox" id="${id}" value="${type}">
-      <label for="${id}">${type}</label>`;
-    typeCheckboxes.appendChild(row);
-  }
-
-  // Direct-post to a Google Form (bypasses its visible UI, lands in the
-  // linked Sheet). Google's formResponse endpoint doesn't send CORS
-  // headers, so this request is fire-and-forget (mode: "no-cors") -- we
-  // can't read back success/failure, only that the request was sent.
-  const form = document.getElementById("prefForm");
-  const statusEl = document.getElementById("prefStatus");
-  const submitBtn = document.getElementById("prefSubmit");
-  const reminderCheckbox = document.getElementById("reminder");
-  const weeklyDigestCheckbox = document.getElementById("weeklyDigest");
-  const townPicker = document.getElementById("townPicker");
-  const typePicker = document.getElementById("typePicker");
-
-  function syncTownPickerVisibility() {
-    const show = reminderCheckbox.checked || weeklyDigestCheckbox.checked;
-    townPicker.classList.toggle("hidden", !show);
-    typePicker.classList.toggle("hidden", !show);
-  }
-  reminderCheckbox.addEventListener("change", syncTownPickerVisibility);
-  weeklyDigestCheckbox.addEventListener("change", syncTownPickerVisibility);
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Saving...";
-
-    const email = document.getElementById("email").value.trim();
-    const reminder = reminderCheckbox.checked;
-    const weeklyDigest = weeklyDigestCheckbox.checked;
-    const newsletter = document.getElementById("newsletter").checked;
-    const towns = Array.from(document.querySelectorAll(".town-checkbox:checked"))
-      .map((el) => el.value)
-      .join(",");
-    const types = Array.from(document.querySelectorAll(".type-checkbox:checked"))
-      .map((el) => el.value)
-      .join(",");
-
-    const data = new FormData();
-    data.append(config.google_form.entry_email, email);
-    data.append(config.google_form.entry_reminder, reminder ? "yes" : "no");
-    data.append(config.google_form.entry_weekly_digest, weeklyDigest ? "yes" : "no");
-    data.append(config.google_form.entry_newsletter, newsletter ? "yes" : "no");
-    data.append(config.google_form.entry_towns, towns); // blank = all towns
-    data.append(config.google_form.entry_types, types); // blank = all types
-
-    try {
-      await fetch(`https://docs.google.com/forms/d/e/${config.google_form.form_id}/formResponse`, {
-        method: "POST",
-        mode: "no-cors",
-        body: data,
-      });
-      const nextSteps = [];
-      if (reminder) {
-        nextSteps.push(
-          "You'll get your first reminder email the evening before an event you're tracking is happening. A quiet inbox until then just means nothing's coming up yet."
-        );
-      }
-      if (weeklyDigest) {
-        nextSteps.push("You'll get your first weekly summary email the next time it goes out.");
-      }
-      if (newsletter) {
-        nextSteps.push("We'll email you the moment the Community App is ready. There's no set timeline yet.");
-      }
-      const nextStepsText = nextSteps.length ? ` ${nextSteps.join(" ")}` : "";
-      statusEl.textContent =
-        `Saved!${nextStepsText} You can update your preferences any time by submitting this form again.`;
-      statusEl.className = "ok";
-    } catch (err) {
-      statusEl.textContent = "Something went wrong saving your preferences. Please try again.";
-      statusEl.className = "";
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Save preferences";
-    }
-  });
 })();
 </script>
 </body>
