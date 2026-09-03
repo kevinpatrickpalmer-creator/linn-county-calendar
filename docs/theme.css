@@ -412,6 +412,24 @@ body.themed .site-credit {
 body.themed .site-credit a { color: inherit; text-decoration: underline; }
 body.themed .site-credit .powered-by { display: block; margin-top: .3rem; color: var(--ink-faint); font-size: .75rem; }
 
+body.themed details {
+  margin: 1rem 0 0;
+  padding-top: .9rem;
+  border-top: 1px solid var(--surface-border);
+  font-size: .85rem;
+  color: var(--ink-soft);
+}
+body.themed details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+body.themed details > :not(summary) { margin-top: .7rem; }
+body.themed details p { margin: 0 0 .7rem; line-height: 1.5; }
+body.themed details p:last-child { margin-bottom: 0; }
+body.themed details strong { color: var(--ink); }
+body.themed details a { color: var(--navy); }
+
 /* Small colored pill used for event-type labels (calendar list/detail
    views), kept here so the same look works everywhere it's used. */
 .type-badge {
