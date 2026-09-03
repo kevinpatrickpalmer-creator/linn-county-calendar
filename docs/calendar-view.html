@@ -164,10 +164,19 @@
   .list-row .list-location { font-size: .8rem; color: var(--ink-soft); margin-top: .1rem; }
   .list-type {
     display: inline-block; margin-top: .3rem; font-size: .68rem; font-weight: 700;
-    letter-spacing: .03em; text-transform: uppercase; color: var(--primary);
-    background: var(--primary-tint); border: 1px solid var(--primary);
-    padding: .15rem .5rem; border-radius: 999px;
+    letter-spacing: .03em; text-transform: uppercase;
+    padding: .15rem .5rem; border-radius: 999px; border: 1px solid;
+    color: var(--primary); background: var(--primary-tint); border-color: var(--primary);
   }
+  /* Event types are grouped into a handful of color families rather than
+     each getting its own color (there are 12 types, only a few hues) --
+     civic/institutional, energetic, money-related, community/fun, and a
+     deliberately muted neutral for obituaries so that one doesn't end up
+     bright red or yellow. */
+  .list-type.cat-red { color: var(--cat-red-text); background: var(--cat-red-tint); border-color: var(--cat-red); }
+  .list-type.cat-yellow { color: var(--cat-yellow-text); background: var(--cat-yellow-tint); border-color: var(--cat-yellow); }
+  .list-type.cat-green { color: var(--success); background: var(--success-tint); border-color: var(--success); }
+  .list-type.cat-gray { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
   #listEmpty { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: var(--navy); text-decoration: none; margin-left: .75rem; font-weight: 500; }
@@ -416,6 +425,24 @@ function extractTown(location) {
   return town;
 }
 
+// Groups the 12 event types into a handful of badge colors -- see the
+// .list-type.cat-* rules above for the actual colors. Obituary/Visitation
+// and Other are deliberately left out of the red/yellow/green rotation
+// (cat-gray) rather than landing on whatever's left over.
+const TYPE_COLOR_GROUPS = {
+  blue: ["Meeting", "Government Notice", "Business / Chamber", "Religious / Church"],
+  red: ["Sports"],
+  yellow: ["Fundraiser / Benefit", "Garage Sale", "Auction / Estate Sale"],
+  green: ["Festival / Fair", "Arts & Entertainment"],
+  gray: ["Obituary / Visitation", "Other"],
+};
+function typeColorClass(eventType) {
+  for (const [color, types] of Object.entries(TYPE_COLOR_GROUPS)) {
+    if (types.includes(eventType)) return color === "blue" ? "" : `cat-${color}`;
+  }
+  return "";
+}
+
 function unescapeText(s) {
   return s
     .replace(/\\n/gi, "\n")
@@ -553,6 +580,7 @@ function showDetail(ev) {
   document.getElementById("detailLocation").textContent = ev.location || "";
   document.getElementById("detailLocation").style.display = ev.location ? "block" : "none";
   document.getElementById("detailType").textContent = ev.eventType || "";
+  document.getElementById("detailType").className = `list-type ${typeColorClass(ev.eventType)}`;
   document.getElementById("detailType").style.display = ev.eventType ? "inline-block" : "none";
   document.getElementById("detailDescription").textContent = ev.description || "";
   document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
@@ -688,7 +716,7 @@ function renderListView(year, month, todayKey) {
       }
       if (ev.eventType) {
         const type = document.createElement("div");
-        type.className = "list-type";
+        type.className = `list-type ${typeColorClass(ev.eventType)}`;
         type.textContent = ev.eventType;
         main.appendChild(type);
       }

@@ -25,13 +25,22 @@
   --surface-border: #e2e2e2;
   --rule: #e2e2e2;
 
-  --primary: #3d9966;
-  --primary-dark: #2f7a51;
-  --primary-tint: #e3f3ea;
+  --primary: #4285f4;
+  --primary-dark: #2b6fd1;
+  --primary-tint: #e6f1fb;
   --navy: #1f3a54;
   --navy-dark: #16293e;
-  --success: #3d9966;
-  --success-tint: #e3f3ea;
+  --success: #34a853;
+  --success-tint: #e6f4ea;
+
+  /* Category colors for event-type badges only -- not part of the site
+     chrome/button system above, which stays on --primary. */
+  --cat-red: #ea4335;
+  --cat-red-tint: #fcebea;
+  --cat-red-text: #a52f26;
+  --cat-yellow: #fbbc04;
+  --cat-yellow-tint: #fef7e0;
+  --cat-yellow-text: #8a6a00;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .06), 0 1px 1px rgba(0, 0, 0, .04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, .08);
@@ -52,13 +61,20 @@
     --surface-border: #333333;
     --rule: #333333;
 
-    --primary: #5fb583;
-    --primary-dark: #7bc79b;
-    --primary-tint: #16281b;
+    --primary: #7bb0f7;
+    --primary-dark: #9dc4f7;
+    --primary-tint: #16283d;
     --navy: #90aecf;
     --navy-dark: #b7cbe4;
     --success: #5fb583;
     --success-tint: #16281b;
+
+    --cat-red: #f2867c;
+    --cat-red-tint: #3d1917;
+    --cat-red-text: #f5a89f;
+    --cat-yellow: #f2c94c;
+    --cat-yellow-tint: #3d3115;
+    --cat-yellow-text: #f5d878;
 
     --shadow-sm: none;
     --shadow-md: none;
