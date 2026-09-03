@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T04:11:22.176318+00:00",
+  "generated_at": "2026-09-03T12:52:00.469334+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 88,
+      "count": 87,
       "ok": true,
       "error": null
     },

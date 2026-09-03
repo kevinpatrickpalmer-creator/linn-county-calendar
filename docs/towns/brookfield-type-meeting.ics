@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Airport Board Meeting
 DTSTART:20260908T233000Z
 DTEND:20260909T003000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:19447226-2026-09-08-630@linn-county-scraper.local
 LOCATION:North Central | Brookfield\, MO
 X-EVENT-TYPE:Meeting
@@ -19,7 +19,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20260922T223000Z
 DTEND:20260923T010000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:bfcity-city-council-meeting-15-2026-09-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -35,7 +35,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261027T223000Z
 DTEND:20261028T010000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:bfcity-city-council-meeting-16-2026-10-27-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -51,7 +51,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261124T233000Z
 DTEND:20261125T020000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:bfcity-city-council-meeting-17-2026-11-24-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -67,7 +67,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261222T233000Z
 DTEND:20261223T020000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:bfcity-city-council-meeting-18-2026-12-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -83,7 +83,7 @@ BEGIN:VEVENT
 SUMMARY:Commerce & Connections Meeting
 DTSTART:20260910T160000Z
 DTEND:20260910T170000Z
-DTSTAMP:20260903T041121Z
+DTSTAMP:20260903T125159Z
 UID:bfchamber-commerce-connections-meeting-2026-09-10-1100@linn-county-scr
  aper.local
 DESCRIPTION:Chamber of Commerce members meeting will be held at Quinn Even
