@@ -33,7 +33,7 @@
       font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
     }
-    .site-nav a.active { color: var(--primary, #3d9966); border-bottom-color: var(--primary, #3d9966); }
+    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); }
     .site-nav a:hover { color: var(--ink, #1a1a1a); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     @media print {

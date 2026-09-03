@@ -117,5 +117,5 @@
 <path id="Worth" d="M -12426,-21980 l 7,1119 144,10 -29,967 -974,-29 -1881,-47 -421,-20 -82,-5 19,-962 -190,-4 29,-1100 1156,36 200,3 z" />
 <path id="Wright" d="M 4564,12462 l -4,498 2,800 3,1127 62,-1 -25,2159 -2437,-23 -964,-33 -451,-3 50,-2174 -118,0 24,-2410 2406,39 646,8 z" />
 </g>
-<use xlink:href="#Linn" stroke="#3a352c" stroke-width="92" stroke-linejoin="round" fill="#3d9966" />
+<use xlink:href="#Linn" stroke="#3a352c" stroke-width="92" stroke-linejoin="round" fill="#4285f4" />
 </svg>
