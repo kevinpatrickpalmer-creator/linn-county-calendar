@@ -383,7 +383,7 @@ body.themed button[type="submit"] {
   font-weight: 600;
   border: none;
   border-radius: var(--radius-sm);
-  background: var(--success);
+  background: var(--primary);
   color: #fff;
   cursor: pointer;
 }
