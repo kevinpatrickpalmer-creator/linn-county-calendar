@@ -8,46 +8,10 @@ X-WR-CALNAME:Brookfield Events (Linn County Community Calendar) (No Sports
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:JV Football @ Brookfield
-DTSTART:20260907T230000Z
-DTEND:20260908T010000Z
-DTSTAMP:20260903T192006Z
-UID:19046896-2026-09-07-600@linn-county-scraper.local
-LOCATION:Burlington Field | Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Airport Board Meeting
-DTSTART:20260908T233000Z
-DTEND:20260909T003000Z
-DTSTAMP:20260903T192006Z
-UID:19447226-2026-09-08-630@linn-county-scraper.local
-LOCATION:North Central | Brookfield\, MO
-X-EVENT-TYPE:Meeting
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf - Tri w/ Brookfield & Putnam Co
-DTSTART:20260917T210000Z
-DTEND:20260917T220000Z
-DTSTAMP:20260903T192006Z
-UID:19046913-2026-09-17-400@linn-county-scraper.local
-LOCATION:Brookfield Country Club | Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:HS Girls Golf @ Brookfield Invitational
-DTSTART:20261001T140000Z
-DTEND:20261001T200000Z
-DTSTAMP:20260903T192006Z
-UID:19046936-2026-10-01-900@linn-county-scraper.local
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20260922T223000Z
 DTEND:20260923T010000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfcity-city-council-meeting-15-2026-09-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -63,7 +27,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261027T223000Z
 DTEND:20261028T010000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfcity-city-council-meeting-16-2026-10-27-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -79,7 +43,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261124T233000Z
 DTEND:20261125T020000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfcity-city-council-meeting-17-2026-11-24-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -95,7 +59,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261222T233000Z
 DTEND:20261223T020000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfcity-city-council-meeting-18-2026-12-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -111,7 +75,7 @@ BEGIN:VEVENT
 SUMMARY:Main Street Brookfield’s Sip & Stroll
 DTSTART:20260919T223000Z
 DTEND:20260920T003000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfcity-main-street-brookfields-sip-stroll-2026-09-19-0530@linn-county-
  scraper.local
 DESCRIPTION:On Saturday\, September 19\, from 5:30–7:30 PM\, attendee
@@ -121,104 +85,10 @@ LOCATION:Main Street - Brookfield | Brookfield\, MO
 X-EVENT-TYPE:Other
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
- blic
-DTSTART:20260711T153000Z
-DTEND:20260711T163000Z
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-07-11-linn-county-historical-society-tillman-hous
- e-museum-open-to--2026-07-11-1030@linn-county-scraper.local
-DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
- e public. Saturdays. 10:30 a.m.\, – 3 p.m\, 303 N. Livingston St.\, Broo
- kfield. Admission is free.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
- blic
-DTSTART:20260718T153000Z
-DTEND:20260718T163000Z
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-07-18-linn-county-historical-society-tillman-hous
- e-museum-open-to--2026-07-18-1030@linn-county-scraper.local
-DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
- e public. Saturdays. 10:30 a.m.\, – 3 p.m\, 303 N. Livingston St.\, Broo
- kfield. Admission is free.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Blake Banks
-DTSTART;VALUE=DATE:20260725
-DTEND;VALUE=DATE:20260726
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-07-25-blake-banks-2026-07-25-allday@linn-county-s
- craper.local
-DESCRIPTION:Blake Banks\, The Hicks\, DJ Kiki in concert at 32980 Galley D
- rive\, Brookfield. There will be food trucks and vendors along with the li
- ve music throughout the evening. Tickets are $15 in advance and are availa
- ble through Skeletix. Tickets are $30 at the gate.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
- blic
-DTSTART:20260725T153000Z
-DTEND:20260725T163000Z
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-07-25-linn-county-historical-society-tillman-hous
- e-museum-open-to--2026-07-25-1030@linn-county-scraper.local
-DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
- e public. Saturdays. 10:30 a.m.\, – 3 p.m\, 303 N. Livingston St.\, Broo
- kfield. Admission is free.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
- blic
-DTSTART:20260801T153000Z
-DTEND:20260801T163000Z
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-08-01-linn-county-historical-society-tillman-hous
- e-museum-open-to--2026-08-01-1030@linn-county-scraper.local
-DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
- e public. Saturdays. 10:30 a.m.\, – 3 p.m\, 303 N. Livingston St.\, Broo
- kfield. Admission is free.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Brookfield High School Homecoming vs
-DTSTART;VALUE=DATE:20260918
-DTEND;VALUE=DATE:20260919
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-09-18-brookfield-high-school-homecoming-vs-2026-0
- 9-18-allday@linn-county-scraper.local
-DESCRIPTION:Brookfield High School Homecoming vs. Trenton. More details to
-  come.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Festival / Fair
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Annual Marceline vs. Brookfield Bell Game
-DTSTART;VALUE=DATE:20261023
-DTEND;VALUE=DATE:20261024
-DTSTAMP:20260903T192006Z
-UID:leadereditorial-2026-10-23-annual-marceline-vs-brookfield-bell-game-20
- 26-10-23-allday@linn-county-scraper.local
-DESCRIPTION:Annual Marceline vs. Brookfield Bell Game\, at Marceline’s C
- hester Ray Stadium. More details to come.
-LOCATION:Brookfield\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:1st Annual Ministries in Linn County Craft Fair
 DTSTART:20260926T140000Z
 DTEND:20260926T210000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-1st-annual-ministries-in-linn-county-craft-fair-2026-09-26-0
  900@linn-county-scraper.local
 DESCRIPTION:Click the Link for more info!
@@ -226,10 +96,58 @@ LOCATION:Trinity Fellowship Hall | Brookfield\, MO
 X-EVENT-TYPE:Festival / Fair
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:Brookfield Homecoming Football Game
+DTSTART:20260919T000000Z
+DTEND:20260919T020000Z
+DTSTAMP:20260904T041538Z
+UID:bfchamber-brookfield-homecoming-football-game-2026-09-18-0700@linn-cou
+ nty-scraper.local
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Brookfield Homecoming Parade
+DTSTART:20260918T190000Z
+DTEND:20260918T200000Z
+DTSTAMP:20260904T041538Z
+UID:bfchamber-brookfield-homecoming-parade-2026-09-18-0200@linn-county-scr
+ aper.local
+DESCRIPTION:Bring your lawn chairs & blankets to sit & enjoy the Brookfiel
+ d Homecoming Parade on Main Street!
+LOCATION:Main Street Brookfield | Brookfield\, MO
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Bell Game 🏈🔔
+DTSTART:20261024T000000Z
+DTEND:20261024T020000Z
+DTSTAMP:20260904T041538Z
+UID:bfchamber-bell-game-%f0%9f%8f%88%f0%9f%94%94-2026-10-23-0700@linn-coun
+ ty-scraper.local
+DESCRIPTION:Come out & enjoy the annual rivalry between the Brookfield Bul
+ ldogs & the Marceline Tigers! Marceline will host this year's game at Ches
+ ter Ray Stadium - 314 E Santa Fe Ave\, Marceline\, MO 64658
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Pink Out Game 🩷🥎
+DTSTART:20260924T220000Z
+DTEND:20260925T020000Z
+DTSTAMP:20260904T041538Z
+UID:bfchamber-pink-out-game-%f0%9f%a9%b7%f0%9f%a5%8e-2026-09-24-0500@linn-
+ county-scraper.local
+DESCRIPTION:Pink Out Softball Game played by the Brookfield Lady Bulldogs 
+ & Marceline Lady TigersLions Field\, Marceline\, MOOne Cause. One Communit
+ y.
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:BHS Prom
 DTSTART:20270410T144300Z
 DTEND:20270410T154300Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-bhs-prom-2027-04-10-0943@linn-county-scraper.local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
 X-EVENT-TYPE:Other
@@ -238,7 +156,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Graduation Ceremony
 DTSTART:20270509T180000Z
 DTEND:20270509T200000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-bhs-graduation-ceremony-2027-05-09-0100@linn-county-scraper.
  local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
@@ -248,7 +166,7 @@ BEGIN:VEVENT
 SUMMARY:Great Pershing Balloon Derby Weekend
 DTSTART:20260904T165400Z
 DTEND:20260904T175400Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-great-pershing-balloon-derby-weekend-2026-09-04-1154@linn-co
  unty-scraper.local
 LOCATION:Brookfield\, MO
@@ -258,7 +176,7 @@ BEGIN:VEVENT
 SUMMARY:Railroad Days 2026
 DTSTART:20260905T150000Z
 DTEND:20260905T190000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-railroad-days-2026-2026-09-05-1000@linn-county-scraper.local
 LOCATION:Brookfield\, MO
 X-EVENT-TYPE:Festival / Fair
@@ -267,7 +185,7 @@ BEGIN:VEVENT
 SUMMARY:Customer Appreciation Day - Chartion Valley
 DTSTART:20260904T160000Z
 DTEND:20260904T180000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-customer-appreciation-day-chartion-valley-2026-09-04-1100@li
  nn-county-scraper.local
 DESCRIPTION:Celebrate Customer Appreciation Day with Chariton Valley! Enjo
@@ -281,7 +199,7 @@ BEGIN:VEVENT
 SUMMARY:Commerce & Connections Meeting
 DTSTART:20260910T160000Z
 DTEND:20260910T170000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:bfchamber-commerce-connections-meeting-2026-09-10-1100@linn-county-scr
  aper.local
 DESCRIPTION:Chamber of Commerce members meeting will be held at Quinn Even
@@ -291,10 +209,35 @@ LOCATION:Brookfield\, MO
 X-EVENT-TYPE:Meeting
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:Community Rock Painting
+DTSTART:20260917T180000Z
+DTEND:20260917T200000Z
+DTSTAMP:20260904T041538Z
+UID:bfchamber-community-rock-painting-2026-09-17-0100@linn-county-scraper.
+ local
+DESCRIPTION:💜 Paint a rock. Share a message. Spread a little hope.In re
+ cognition of Suicide Prevention Month\, Pershing Health System’s Senior 
+ Life Solutions team invites you to join us for a special Community Rock Pa
+ inting event on Thursday\, September 17.Sometimes a few simple words can m
+ ake a difference. Come paint positive and encouraging messages on rocks th
+ at can help remind someone that they matter\, they are not alone and there
+  is always hope.This is a FREE\, family-friendly event\, and all ages are 
+ welcome. All painting materials will be provided\, so all you need to brin
+ g is yourself and a little creativity!While you’re here\, you’ll also 
+ have an opportunity to learn more about suicide prevention\, mental health
+  awareness and resources available in our community.📅 Thursday\, Septem
+ ber 17\, 2026⏰ 1:00–3:00 p.m.📍 Pershing Health System Dining Room
+ 🎨 FREE | All ages welcome | Materials providedBring a friend\, bring yo
+ ur family or simply stop by. Together\, we can help break the silence\, su
+ pport one another and spread kindness throughout our community. 💜🩵
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260903T192006Z
+DTSTAMP:20260904T041538Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
