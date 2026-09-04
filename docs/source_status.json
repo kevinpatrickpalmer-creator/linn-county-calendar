@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-04T04:15:39.343202+00:00",
+  "generated_at": "2026-09-04T13:35:04.893109+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -15,19 +15,19 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 5,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 252,
+      "count": 251,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 128,
+      "count": 126,
       "ok": true,
       "error": null
     },
@@ -39,25 +39,25 @@
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 81,
+      "count": 80,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 88,
+      "count": 87,
       "ok": true,
       "error": null
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 13,
+      "count": 0,
       "ok": true,
       "error": null
     },
@@ -75,7 +75,7 @@
     },
     {
       "name": "Teter Auction Company",
-      "count": 3,
+      "count": 2,
       "ok": true,
       "error": null
     },

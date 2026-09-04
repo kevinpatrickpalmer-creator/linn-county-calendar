@@ -7,4 +7,26 @@ X-WR-CALNAME:Browning Events (Linn County Community Calendar) (Festival /
  Fair)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Browning Homecoming
+DTSTART;VALUE=DATE:20260724
+DTEND;VALUE=DATE:20260725
+DTSTAMP:20260904T133504Z
+UID:leadereditorial-2026-07-24-browning-homecoming-2026-07-24-allday@linn-
+ county-scraper.local
+DESCRIPTION:Browning Homecoming
+LOCATION:Browning\, MO
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Browning Homecoming
+DTSTART;VALUE=DATE:20260725
+DTEND;VALUE=DATE:20260726
+DTSTAMP:20260904T133504Z
+UID:leadereditorial-2026-07-25-browning-homecoming-2026-07-25-allday@linn-
+ county-scraper.local
+DESCRIPTION:Browning Homecoming.
+LOCATION:Browning\, MO
+X-EVENT-TYPE:Festival / Fair
+END:VEVENT
 END:VCALENDAR
