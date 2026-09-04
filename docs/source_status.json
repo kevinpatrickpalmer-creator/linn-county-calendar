@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T13:35:04.893109+00:00",
+  "generated_at": "2026-09-04T19:04:14.462192+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,7 +15,7 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 0,
+      "count": 5,
       "ok": true,
       "error": null
     },
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 87,
+      "count": 88,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 0,
+      "count": 13,
       "ok": true,
       "error": null
     },
