@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20260919T150000Z
 DTEND:20260919T160000Z
-DTSTAMP:20260904T222510Z
+DTSTAMP:20260905T150618Z
 UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
  19-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -21,7 +21,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260904T222510Z
+DTSTAMP:20260905T150618Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
