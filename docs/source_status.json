@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-06T04:18:17.417927+00:00",
+  "generated_at": "2026-09-07T04:17:45.711603+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.linncountyleader.com/calendar/\", waiting until \"domcontentloaded\"\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -21,7 +21,7 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 250,
+      "count": 249,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 11,
+      "count": 10,
       "ok": true,
       "error": null
     },
