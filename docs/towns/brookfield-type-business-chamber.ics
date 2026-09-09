@@ -7,4 +7,18 @@ X-WR-CALNAME:Brookfield Events (Linn County Community Calendar) (Business
  / Chamber)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Tailgate with the Chamber 🐾🏈
+DTSTART:20260925T223000Z
+DTEND:20260926T000000Z
+DTSTAMP:20260909T191928Z
+UID:bfchamber-tailgate-with-the-chamber-%f0%9f%90%be%f0%9f%8f%88-2026-09-2
+ 5-0530@linn-county-scraper.local
+DESCRIPTION:Join the Chamber and local Chamber business members for a pre-
+ game celebration at Grand River Welding Institute! Local businesses will b
+ e hosting activities and handing out swag for everyone! Location: Grand Ri
+ ver Welding Institute Parking LotTime: 5:30pm-Kickoff
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Business / Chamber
+END:VEVENT
 END:VCALENDAR
