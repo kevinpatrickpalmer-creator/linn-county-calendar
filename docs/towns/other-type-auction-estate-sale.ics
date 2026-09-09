@@ -9,13 +9,13 @@ X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
-DTSTART:20260919T150000Z
-DTEND:20260919T160000Z
-DTSTAMP:20260907T225043Z
-UID:teterauction-2026-09-19-final-liquidation-auction-chillicothe-2026-09-
- 19-1000@linn-county-scraper.local
+DTSTART:20261010T150000Z
+DTEND:20261010T160000Z
+DTSTAMP:20260909T042453Z
+UID:teterauction-2026-10-10-final-liquidation-auction-chillicothe-2026-10-
+ 10-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
-LOCATION:Ryan Lane | Chillicothe\, MO
+LOCATION:242 Ryan Lane | Chillicothe\, MO
 X-EVENT-TYPE:Auction / Estate Sale
 END:VEVENT
 END:VCALENDAR
