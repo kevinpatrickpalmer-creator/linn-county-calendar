@@ -7,13 +7,4 @@ X-WR-CALNAME:Marceline Events (Linn County Community Calendar) (Fundraiser
   / Benefit)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
-BEGIN:VEVENT
-SUMMARY:Red Cross Blood Drive
-DTSTART:20261013T183000Z
-DTEND:20261013T223000Z
-DTSTAMP:20260909T191928Z
-UID:17292415-2026-10-13-130@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Fundraiser / Benefit
-END:VEVENT
 END:VCALENDAR
