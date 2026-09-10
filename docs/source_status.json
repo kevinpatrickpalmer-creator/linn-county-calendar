@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-10T12:58:38.243932+00:00",
+  "generated_at": "2026-09-10T22:30:33.328633+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.linncountyleader.com/calendar/\", waiting until \"domcontentloaded\"\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -39,13 +39,13 @@
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 76,
+      "count": 74,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 85,
+      "count": 84,
       "ok": true,
       "error": null
     },
