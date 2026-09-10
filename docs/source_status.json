@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-09T22:32:46.793318+00:00",
+  "generated_at": "2026-09-10T12:58:38.243932+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
       "count": 0,
       "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "error": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.linncountyleader.com/calendar/\", waiting until \"domcontentloaded\"\n"
     },
     {
       "name": "Rhodes Funeral Home",
@@ -21,13 +21,13 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 240,
+      "count": 238,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 122,
+      "count": 121,
       "ok": true,
       "error": null
     },
@@ -51,7 +51,7 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
       "ok": true,
       "error": null
     },
