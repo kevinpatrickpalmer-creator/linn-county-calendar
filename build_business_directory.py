@@ -32,15 +32,15 @@ def load_businesses():
     """A malformed or incomplete file is skipped with a warning rather
     than failing the whole build -- one bad listing shouldn't take down
     the rest of the directory. A listing whose town is literally "Other"
-    (scrape_home_services.py's fallback for a service-area business
-    Google's own data doesn't tie to any town) is held back from the
-    public site entirely rather than published with that label -- the
-    file stays in data/businesses/ so it isn't lost, just not shown until
-    someone resolves it to a real town (the business's own site, usually)
-    and corrects the file by hand. Manually-submitted listings never hit
-    this: admin-business.html's "Other (not on this list)" option stores
-    the actual place name typed in (e.g. "Hurricane Branch"), never the
-    literal string "Other"."""
+    is held back from the public site entirely rather than published with
+    that unhelpful label, the file staying in data/businesses/ so it
+    isn't lost. In practice this shouldn't fire often: scrape_businesses.py's
+    fallback for a service-area business Google's own data doesn't tie to
+    a specific town is "Linn County" (still true, unlike "Other"), and
+    admin-business.html's "Other (not on this list)" option for a manual
+    submission stores the actual place name typed in (e.g. "Hurricane
+    Branch"), never the literal string "Other" -- this check is a
+    backstop for old/stale data rather than the everyday mechanism."""
     businesses = []
     held_back = 0
     for path in sorted(glob.glob(os.path.join(BUSINESS_DIR, "*.json"))):

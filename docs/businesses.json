@@ -1,5 +1,12 @@
 [
   {
+    "name": "'red Barn Getaway' Chillicothe Countryside Home",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "4452 US-65, Chillicothe, MO 64601",
+    "phone": "+1 877-818-1014"
+  },
+  {
     "name": "7th Heaven Convenience Store",
     "town": "Brookfield",
     "category": "Retail & Shopping",
@@ -21,11 +28,26 @@
     "website": "https://www.lawncareandyardlandscaping.com/gardener-in-brookfield/"
   },
   {
+    "name": "Abeln Farms LLC",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "35783 Birch St, New Cambria, MO 63558",
+    "phone": "+1 660-226-5681"
+  },
+  {
     "name": "Acme Termite & Pest Control LLC",
     "town": "Brookfield",
     "category": "Pest Control",
     "phone": "+1 660-258-3837",
     "website": "https://acmetermiteandpestllc.com/"
+  },
+  {
+    "name": "Ag Products LLC.",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "61998 Sunrise Rd, Milan, MO 63556",
+    "phone": "+1 660-874-4455",
+    "website": "http://agproductsllc.com/"
   },
   {
     "name": "Ag-Land Inc",
@@ -34,6 +56,14 @@
     "address": "118 E Helm St, Brookfield, MO 64628",
     "phone": "+1 660-258-7493",
     "website": "http://www.agriservices.com/"
+  },
+  {
+    "name": "AGRIServices Brunswick",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "40135 US-24, De Witt, MO 64639",
+    "phone": "+1 660-549-3351",
+    "website": "http://agriservices.com/"
   },
   {
     "name": "Alberts Electric",
@@ -65,6 +95,13 @@
     "category": "Church & Religious Organization",
     "address": "1204 N Missouri Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2145"
+  },
+  {
+    "name": "B J's Country Club",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "205 N Macon St, Bevier, MO 63532",
+    "phone": "+1 660-773-6643"
   },
   {
     "name": "Bartlett's L.L.C.",
@@ -110,6 +147,19 @@
     "address": "Almond Ave, Marceline, MO 64658"
   },
   {
+    "name": "Binder Back Auto Body & Auto Wash",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "901 N Macon St #2021, Bevier, MO 63532",
+    "phone": "+1 660-773-5503"
+  },
+  {
+    "name": "Blue Mound Cowboy Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "24001-24025 Hwy Z, Dawn, MO 64638"
+  },
+  {
     "name": "Bob's the Builder, LLC",
     "town": "Marceline",
     "category": "General Contractor",
@@ -122,6 +172,13 @@
     "category": "Automotive",
     "address": "Linneus, MO 64653",
     "phone": "+1 660-895-5530"
+  },
+  {
+    "name": "Bonnette Clinic",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "1025 Washington St, Chillicothe, MO 64601",
+    "phone": "+1 660-646-1748"
   },
   {
     "name": "Boston Street Peddler",
@@ -200,6 +257,12 @@
     "website": "http://www.browerelectricmo.com/"
   },
   {
+    "name": "Brush Creek Primitive Baptist Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "14457 State Hwy J, Ethel, MO 63539"
+  },
+  {
     "name": "Bullen and Sons roofing and construction",
     "town": "Brookfield",
     "category": "Roofing",
@@ -214,19 +277,35 @@
     "website": "https://www.facebook.com/share/1FNAdqVcx5/"
   },
   {
+    "name": "Chariton Abstract & Title Co",
+    "town": "Linn County",
+    "category": "Real Estate & Insurance",
+    "address": "209 S Ash St, Keytesville, MO 65261",
+    "phone": "+1 660-288-3446"
+  },
+  {
+    "name": "Chariton County Community Foundation",
+    "town": "Linn County",
+    "category": "Nonprofit & Civic Organization",
+    "address": "201 S Cherry St, Keytesville, MO 65261",
+    "phone": "+1 660-288-2223",
+    "website": "http://www.charitoncountyfoundation.org/"
+  },
+  {
+    "name": "Chillicothe Area Arts Council",
+    "town": "Linn County",
+    "category": "Arts, Recreation & Entertainment",
+    "address": "514 Washington St, Chillicothe, MO 64601",
+    "phone": "+1 660-646-1173",
+    "website": "http://www.chillicothearts.com/"
+  },
+  {
     "name": "Chuck's Pest Control",
     "town": "Chillicothe",
     "category": "Pest Control",
     "address": "724 Locust St, Chillicothe, MO 64601",
     "phone": "+1 660-646-2074",
     "website": "http://chuckspestcontrol.com/"
-  },
-  {
-    "name": "Chuck's Pest Control, LLC",
-    "town": "Chillicothe",
-    "category": "Pest Control",
-    "address": "8534 Liv 510, Chillicothe, MO 64601",
-    "phone": "+1 855-235-0518"
   },
   {
     "name": "Church of God 7th Day",
@@ -241,6 +320,22 @@
     "category": "HVAC & Cooling",
     "address": "201 E Robard St, Brookfield, MO 64628",
     "phone": "+1 660-258-2383"
+  },
+  {
+    "name": "Comfort Inn & Suites Chillicothe",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "250 E Business 36, Chillicothe, MO 64601",
+    "phone": "+1 660-646-9900",
+    "website": "https://www.choicehotels.com/missouri/chillicothe/comfort-inn-hotels/mo285%3Fmc%3Dllgoxxpx"
+  },
+  {
+    "name": "Community Options",
+    "town": "Linn County",
+    "category": "Nonprofit & Civic Organization",
+    "address": "801B Washington St B, Chillicothe, MO 64601",
+    "phone": "+1 660-646-0109",
+    "website": "https://communityoptions-chilli.org/"
   },
   {
     "name": "Compass Health Network - Family Health Center - Marceline",
@@ -274,6 +369,14 @@
     "phone": "+1 660-258-3122"
   },
   {
+    "name": "Crooked Hill Beekeeping",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "19133 355th, Chillicothe, MO 64601",
+    "phone": "+1 660-214-0132",
+    "website": "http://www.chbeekeeping.com/"
+  },
+  {
     "name": "Custom Air of Missouri LLC",
     "town": "Ethel",
     "category": "HVAC & Cooling",
@@ -286,6 +389,13 @@
     "category": "Garage Door Service",
     "address": "224 Church St, Chillicothe, MO 64601",
     "phone": "+1 660-646-6616"
+  },
+  {
+    "name": "D & D Farm Supply",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "33120 MO-129, Winigan, MO 63566",
+    "phone": "+1 660-857-4467"
   },
   {
     "name": "D.Peyton-Roberts Contracting",
@@ -316,12 +426,24 @@
     "phone": "+1 660-591-2134"
   },
   {
+    "name": "Double K Plumbing & Drain Cleaning",
+    "town": "Linn County",
+    "category": "Plumbing",
+    "phone": "+1 660-412-2963"
+  },
+  {
     "name": "Downtown Marceline Foundation",
     "town": "Marceline",
     "category": "Nonprofit & Civic Organization",
     "address": "207 N Main Street USA, Marceline, MO 64658",
     "phone": "+1 660-460-5366",
     "website": "https://www.downtownmarceline.org/"
+  },
+  {
+    "name": "DyLaney Health and Wellness Group",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "409 Locust St, Chillicothe, MO 64601"
   },
   {
     "name": "E & M Equipment Repair",
@@ -338,11 +460,40 @@
     "phone": "+1 660-938-4555"
   },
   {
+    "name": "Early Learning Center",
+    "town": "Linn County",
+    "category": "Education & Childcare",
+    "address": "900 Coach K Street, Chillicothe, MO 64601",
+    "phone": "+1 660-240-3316",
+    "website": "https://www.chillicotheschools.org/o/eclc"
+  },
+  {
+    "name": "Elmer Christian Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "118 S Chariton St, Elmer, MO 63538",
+    "phone": "+1 660-591-6050",
+    "website": "https://www.facebook.com/share/1HWcCgVBX7/"
+  },
+  {
     "name": "EMCO Metals Roofing & Siding",
     "town": "Wheeling",
     "category": "Roofing",
     "address": "State Hwy BB, Wheeling, MO 64688",
     "phone": "+1 660-659-2468"
+  },
+  {
+    "name": "Ethel Christian Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "107 W Main St, Ethel, MO 63539",
+    "phone": "+1 660-486-3323"
+  },
+  {
+    "name": "Ethel Community Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "203 E Main St, Ethel, MO 63539"
   },
   {
     "name": "Extreme Voltage Electric, LLC",
@@ -358,6 +509,14 @@
     "address": "112 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-8225",
     "website": "http://fabricchateau.com/"
+  },
+  {
+    "name": "Fairfield by Marriott Inn & Suites Chillicothe",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "220 W Business 36, Chillicothe, MO 64601",
+    "phone": "+1 660-646-3100",
+    "website": "https://www.marriott.com/en-us/hotels/trxfi-fairfield-inn-and-suites-chillicothe/overview/%3Fscid%3Df2ae0541-1279-4f24-b197-a979c79310b0"
   },
   {
     "name": "Farmers Mutual Insurance of Linn County",
@@ -397,6 +556,51 @@
     "website": "https://www.facebook.com/fordhvac/"
   },
   {
+    "name": "Fries Ag and Turf",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "14024 Liv 249, Chillicothe, MO 64601",
+    "phone": "+1 660-646-2150",
+    "website": "https://www.friesagandturf.com/"
+  },
+  {
+    "name": "Gabrielson Truck Repair and Towing LLC",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "14046 Liv 249, Chillicothe, MO 64601",
+    "phone": "+1 660-646-6707",
+    "website": "http://gabrielsontruckrepair.com/"
+  },
+  {
+    "name": "Galt Christian Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "209 NW Border St, Galt, MO 64641",
+    "phone": "+1 660-673-6690"
+  },
+  {
+    "name": "Galt Country Cafe",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "111 E N St, Galt, MO 64641",
+    "phone": "+1 660-673-6677"
+  },
+  {
+    "name": "Gary Dickinson Performing Arts Center",
+    "town": "Linn County",
+    "category": "Arts, Recreation & Entertainment",
+    "address": "Chillicothe, MO 64601",
+    "phone": "+1 660-646-0700"
+  },
+  {
+    "name": "GHE Automotive",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "430 E 3rd St, Milan, MO 63556",
+    "phone": "+1 660-265-4916",
+    "website": "http://www.facebook.com/gheautomotive"
+  },
+  {
     "name": "Goad Heating and Air Conditioning LLC",
     "town": "Chillicothe",
     "category": "HVAC & Cooling",
@@ -413,6 +617,13 @@
     "website": "https://grayelectricsvcs.com/"
   },
   {
+    "name": "Grins & Giggles Day Care",
+    "town": "Linn County",
+    "category": "Education & Childcare",
+    "address": "347 Webster St, Chillicothe, MO 64601",
+    "phone": "+1 660-707-0415"
+  },
+  {
     "name": "H&R Block",
     "town": "Brookfield",
     "category": "Professional & Financial Services",
@@ -421,12 +632,27 @@
     "website": "https://www.hrblock.com/tax-office-near-me/missouri/brookfield/24372/%3Fotppartnerid%3D9308%26campaignid%3Dpw_mcm_9308_9762%26utm_medium%3Dlocal"
   },
   {
+    "name": "Hale Hangout Local Bar & Grill",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "219 Main St, Hale, MO 64643",
+    "phone": "+1 660-565-2424"
+  },
+  {
     "name": "Hauser Electric Company",
     "town": "Brookfield",
     "category": "Electrical",
     "address": "105 E Canal St, Brookfield, MO 64628",
     "phone": "+1 660-258-3314",
     "website": "https://electricmotor.space/"
+  },
+  {
+    "name": "Healthy Living Store",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "609 Locust St, Chillicothe, MO 64601",
+    "phone": "+1 660-646-0400",
+    "website": "http://hometownfamilystores.com/"
   },
   {
     "name": "Helm Street Inn",
@@ -457,6 +683,13 @@
     "address": "101 W Ira St, Marceline, MO 64658",
     "phone": "+1 660-376-3517",
     "website": "http://hotelmarceline.com/"
+  },
+  {
+    "name": "Hotel Stanley",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "116 N Water St, Milan, MO 63556",
+    "phone": "+1 660-265-3771"
   },
   {
     "name": "Hueffmeier's Fine Pines",
@@ -514,6 +747,13 @@
     "website": "https://www.ktreasures88.com/"
   },
   {
+    "name": "La Casita de Chave",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "117 E 2nd St, Milan, MO 63556",
+    "phone": "+1 660-265-3126"
+  },
+  {
     "name": "Laclede United Methodist Church",
     "town": "Laclede",
     "category": "Church & Religious Organization",
@@ -564,6 +804,13 @@
     "address": "15533 Co Rd KK, Purdin, MO 64674",
     "phone": "+1 660-895-1234",
     "website": "https://www.linnr1.k12.mo.us/"
+  },
+  {
+    "name": "Linn County Electric",
+    "town": "Linn County",
+    "category": "Electrical",
+    "phone": "+1 660-413-2005",
+    "website": "https://linncoelectric.alibidealer.com/"
   },
   {
     "name": "Linn County Fairgrounds",
@@ -668,6 +915,21 @@
     "phone": "+1 660-258-9595"
   },
   {
+    "name": "Lost Quarter Farms",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "17890 Pin Oak Lane, Mendon, MO 64660",
+    "phone": "+1 660-553-1344",
+    "website": "https://lostquarterfarm.com/"
+  },
+  {
+    "name": "Lukes Auto Repair",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "600 Fellows St `, Utica, MO 64686",
+    "phone": "+1 660-973-7459"
+  },
+  {
     "name": "M S Contracting",
     "town": "Marceline",
     "category": "Fencing",
@@ -733,6 +995,14 @@
     "address": "106 W Crandall St, Meadville, MO 64659"
   },
   {
+    "name": "MFA Agri Services",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "1035 Industrial Rd, Chillicothe, MO 64601",
+    "phone": "+1 660-646-5000",
+    "website": "https://mfa-inc.com/"
+  },
+  {
     "name": "Mid Missouri Forestry Mulching",
     "town": "Salisbury",
     "category": "Tree Service",
@@ -741,11 +1011,25 @@
     "website": "https://midmissouriforestrymulching.com/"
   },
   {
+    "name": "Midtown Cafe",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "208 Main St, Hale, MO 64643",
+    "phone": "+1 660-565-2345"
+  },
+  {
     "name": "Midwest Liquidation LLC",
     "town": "Brookfield",
     "category": "Retail & Shopping",
     "address": "660 W Lockling Ave #626, Brookfield, MO 64628",
     "phone": "+1 660-258-9095"
+  },
+  {
+    "name": "Milan Motel",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "23209 Eclipse Rd, Milan, MO 63556",
+    "phone": "+1 660-265-5400"
   },
   {
     "name": "Milford's Service Station",
@@ -769,12 +1053,27 @@
     "phone": "+1 660-258-7071"
   },
   {
+    "name": "Minute Key",
+    "town": "Linn County",
+    "category": "Locksmith",
+    "address": "100 W Business 36, Chillicothe, MO 64601",
+    "phone": "+1 203-490-6206"
+  },
+  {
     "name": "Missouri Land & Farm",
     "town": "Brookfield",
     "category": "Farm & Agriculture",
     "address": "216 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-3185",
     "website": "https://missourilandandfarm.com/"
+  },
+  {
+    "name": "Motel 6 Chillicothe, MO",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "1020 Washington St, Chillicothe, MO 64601",
+    "phone": "+1 660-646-0572",
+    "website": "https://www.motel6.com/property/motel-kansas-city-mo-missouri-us-356823%3Flid%3DLocal_Milestone%26travelAgentNumber%3DTA001305%26corporatePlusNumber%3DCP792N5W%26utm_source%3Dgoogle%2520my%2520business%26utm_medium%3Dorganic%2520listing%26utm_campaign%3Dvisit%2520website%26utm_content%3Dglobal"
   },
   {
     "name": "Nature's Grace and Wellness, Missouri",
@@ -800,6 +1099,14 @@
     "website": "http://www.ncmmh.org/"
   },
   {
+    "name": "Northwest Health Chillicothe",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "300 BUS, US-36, Chillicothe, MO 64601",
+    "phone": "+1 660-280-2500",
+    "website": "https://www.nwhealth-services.org/locations/chillicothe-health-center/"
+  },
+  {
     "name": "Nourishing family farm",
     "town": "Linneus",
     "category": "Farm & Agriculture",
@@ -822,11 +1129,25 @@
     "website": "http://oktavern.com/%3Futm_source%3Dgmb%26utm_medium%3Dreferral"
   },
   {
+    "name": "Opie\u2019s Sumner Bar & Grill LLC",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "114 Centre St, Sumner, MO 64681",
+    "phone": "+1 660-856-3000"
+  },
+  {
     "name": "Outback Saloon",
     "town": "Marceline",
     "category": "Restaurant & Food",
     "address": "10031 MO-5, Marceline, MO 64658",
     "phone": "+1 660-376-3531"
+  },
+  {
+    "name": "Paintco",
+    "town": "Linn County",
+    "category": "Painting",
+    "address": "1123 Clay St, Chillicothe, MO 64601",
+    "phone": "+1 660-646-5905"
   },
   {
     "name": "PB5",
@@ -859,6 +1180,12 @@
     "website": "http://pgbcmo.com/"
   },
   {
+    "name": "Prairie View Mennonite Church (Groffdale Conference)",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "Abbey Dr, Wheeling, MO 64688"
+  },
+  {
     "name": "Precision Auto Diagnostics",
     "town": "Brookfield",
     "category": "Automotive",
@@ -882,12 +1209,34 @@
     "website": "http://www.prengerfoods.com/"
   },
   {
+    "name": "Primitive Wellness",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "13614 Liv 430, Dawn, MO 64638",
+    "phone": "+1 816-824-6635"
+  },
+  {
+    "name": "Pro Harvest - Resor Seeds",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "12513 Liv 255, Chillicothe, MO 64601",
+    "phone": "+1 660-247-5298",
+    "website": "http://www.resorseeds.com/"
+  },
+  {
     "name": "Professional Land Title Corporation",
     "town": "Brookfield",
     "category": "Real Estate & Insurance",
     "address": "113 E Brooks St, Brookfield, MO 64628",
     "phone": "+1 660-258-3125",
     "website": "http://www.prolandtitlecorp.com/"
+  },
+  {
+    "name": "Pupuser\u00eda La Bendici\u00f3n",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "101 N Market St, Milan, MO 63556",
+    "phone": "+1 660-348-9918"
   },
   {
     "name": "Quinn Lumber Co",
@@ -897,12 +1246,26 @@
     "phone": "+1 660-258-7511"
   },
   {
+    "name": "R & R's Lakvue Cottages",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "39464 Glider Ave, Excello, MO 65247"
+  },
+  {
     "name": "Raspberry's BBQ",
     "town": "Brookfield",
     "category": "Restaurant & Food",
     "address": "323 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-9888",
     "website": "https://www.raspberrysbbq.com/"
+  },
+  {
+    "name": "Recess Inn Bed & Breakfast",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "203 E Main St, Ethel, MO 63539",
+    "phone": "+1 660-486-3328",
+    "website": "http://www.therecessinn.com/"
   },
   {
     "name": "Reihner Electric",
@@ -919,12 +1282,36 @@
     "phone": "+1 660-376-3331"
   },
   {
+    "name": "Renew You Loft 365",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "610 Jackson St, Chillicothe, MO 64601",
+    "phone": "+1 660-214-9002",
+    "website": "https://renewyouloft365.com/"
+  },
+  {
     "name": "Revive Hydration & Wellness",
     "town": "Marceline",
     "category": "Health & Wellness",
     "address": "102 E Howell Ave, Marceline, MO 64658",
     "phone": "+1 816-210-4328",
     "website": "https://revivehydrationwellness.com/"
+  },
+  {
+    "name": "Rick's Service & Tire",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "954 N Macon St, Bevier, MO 63532",
+    "phone": "+1 660-773-5113",
+    "website": "https://www.ricksserviceandtire.com/"
+  },
+  {
+    "name": "Ricketts Farm",
+    "town": "Linn County",
+    "category": "Farm & Agriculture",
+    "address": "111 W Railroad St, Dalton, MO 65246",
+    "phone": "+1 660-544-2551",
+    "website": "https://www.rickettsfarm.com/"
   },
   {
     "name": "Ritter's Ultimate Tree Service LLC",
@@ -948,6 +1335,20 @@
     "category": "Automotive",
     "address": "19093 Edin Rd, Linneus, MO 64653",
     "phone": "+1 660-654-4363"
+  },
+  {
+    "name": "Sale Barn Cafe",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "29262 MO-149, New Cambria, MO 63558",
+    "phone": "+1 660-226-5612"
+  },
+  {
+    "name": "Seaman's Repair Shop",
+    "town": "Linn County",
+    "category": "Appliance Repair",
+    "address": "328 John F Kennedy Ave, Chillicothe, MO 64601",
+    "phone": "+1 660-973-5026"
   },
   {
     "name": "Sears Appliance Repair",
@@ -988,6 +1389,13 @@
     "website": "http://smithslawnandtreeservicemo.com/"
   },
   {
+    "name": "Smith's Tree Services.",
+    "town": "Linn County",
+    "category": "Tree Service",
+    "address": "244 W 3rd St, Milan, MO 63556",
+    "phone": "+1 660-265-5382"
+  },
+  {
     "name": "SON HVAC LLC",
     "town": "Brookfield",
     "category": "HVAC & Cooling",
@@ -1004,11 +1412,43 @@
     "website": "https://www.visitmarceline.com/marceline/automotive/spencers-auto-repair/"
   },
   {
+    "name": "St Mary's Catholic Church",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "101 W Baker St, Milan, MO 63556",
+    "phone": "+1 660-265-4110",
+    "website": "https://stmary.church/about-us"
+  },
+  {
+    "name": "St. Mary of the Angels Church & Monastery",
+    "town": "Linn County",
+    "category": "Church & Religious Organization",
+    "address": "Wien, Missouri, St Mary's Ave, New Cambria, MO 63558",
+    "phone": "+1 660-226-5243",
+    "website": "https://diojeffcity.org/st-mary-angels-wien/"
+  },
+  {
+    "name": "Sullivan County Health Department",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "101 Hawthorne Dr, Milan, MO 63556",
+    "phone": "+1 660-265-4141",
+    "website": "http://schdmilanmo.com/"
+  },
+  {
     "name": "Summers Refresh",
     "town": "Chillicothe",
     "category": "Painting",
     "phone": "+1 660-973-9109",
     "website": "https://www.facebook.com/share/18wVbgZtFX/"
+  },
+  {
+    "name": "Super 8 by Wyndham Chillicothe",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "580 E Business 36, Chillicothe, MO 64601",
+    "phone": "+1 660-646-7888",
+    "website": "https://www.wyndhamhotels.com/super-8/chillicothe-missouri/super-8-chillicothe-mo/overview%3FCID%3DLC:yytq4fvvehxh7se:08047%26iata%3D00093796"
   },
   {
     "name": "T.H.E. Bar",
@@ -1046,6 +1486,13 @@
     "address": "33883 State Hwy FF, Bevier, MO 63532"
   },
   {
+    "name": "The Community Shop",
+    "town": "Linn County",
+    "category": "Automotive",
+    "address": "202 Elm St, Sumner, MO 64681",
+    "phone": "+1 660-856-3050"
+  },
+  {
     "name": "The Farmhouse Butcher Shop & Deli",
     "town": "Brookfield",
     "category": "Retail & Shopping",
@@ -1059,6 +1506,14 @@
     "category": "Retail & Shopping",
     "address": "112 S Main St, Brookfield, MO 64628",
     "phone": "+1 951-334-5485"
+  },
+  {
+    "name": "The Well-House Chiropractic, LLC",
+    "town": "Linn County",
+    "category": "Health & Wellness",
+    "address": "519 Locust St, Chillicothe, MO 64601",
+    "phone": "+1 740-823-9355",
+    "website": "https://thewell-housechiro.com/"
   },
   {
     "name": "Tooey H Merc Co",
@@ -1083,6 +1538,26 @@
     "website": "https://www.tractorsupply.com/tsc/store_Brookfield-MO-64628_2835"
   },
   {
+    "name": "True Blue Bar-BQ",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "101 E Front St, New Cambria, MO 63558",
+    "phone": "+1 660-226-5999"
+  },
+  {
+    "name": "True Light Electric & Plumbing",
+    "town": "Linn County",
+    "category": "Electrical",
+    "phone": "+1 660-734-0531"
+  },
+  {
+    "name": "Ugo's Pizzaland",
+    "town": "Linn County",
+    "category": "Restaurant & Food",
+    "address": "200 N Macon St, Bevier, MO 63532",
+    "phone": "+1 660-773-5334"
+  },
+  {
     "name": "UnWined & Shop",
     "town": "Brookfield",
     "category": "Retail & Shopping",
@@ -1103,5 +1578,13 @@
     "address": "124 E Ritchie Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2249",
     "website": "https://www.walsworthcc.org/"
+  },
+  {
+    "name": "Young's Lodge on The Chariton",
+    "town": "Linn County",
+    "category": "Lodging & Hospitality",
+    "address": "25331 Echo Ave, Callao, MO 63534",
+    "phone": "+1 660-768-5654",
+    "website": "http://www.youngslodge.com/"
   }
 ]

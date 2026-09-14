@@ -184,10 +184,11 @@ def build_listing(result, category, config):
     city at all, just a lat/long and a service radius -- Google itself
     doesn't tie them to a town. Those still become listings (dropping a
     business for every service-area plumber/electrician would gut this
-    category), just bucketed under "Other" the same way any other
-    un-pinnable location is elsewhere in this codebase (see
-    town_or_other() in calendar_config.py) -- they just aren't findable
-    by a specific-town filter."""
+    category), just bucketed under "Linn County" -- true (everything here
+    already passed the distance filter above) even when the specific town
+    isn't -- rather than a fixed town or the unhelpful word "Other". Still
+    findable, just not by a specific-town filter, unless someone later
+    resolves the real town by hand (see data/businesses/README.md)."""
     status = (result.get("business_status") or "").upper()
     if status and status != "OPERATIONAL":
         return None
@@ -201,7 +202,7 @@ def build_listing(result, category, config):
         return None
 
     city = (_get(result, "city") or "").strip()
-    town = city if city in config["towns"] else "Other"
+    town = city if city in config["towns"] else "Linn County"
 
     listing = {
         "name": name,
@@ -215,6 +216,14 @@ def build_listing(result, category, config):
         # name+town.
         "source": "google_maps",
     }
+
+    # Review count only, never the review text itself -- used solely to
+    # pick a winner when the same real business turns up as two separate
+    # Google listings (see _dedupe_against_existing()), not shown on the
+    # public site.
+    reviews = result.get("reviews")
+    if isinstance(reviews, (int, float)):
+        listing["reviews"] = int(reviews)
 
     # "address" is already the full "street, city, state zip" string when
     # present, not just a street -- no reassembly needed.
@@ -243,18 +252,43 @@ def build_listing(result, category, config):
     return listing
 
 
+def normalize_business_name(name):
+    """Loose match key for spotting the same real business listed twice
+    under two separate Google profiles (different place_id, sometimes a
+    slightly different name) -- e.g. "Botts & Tye Air Conditioning and
+    Heating" and "Botts & Tye Air Conditioning & Heating, Brookfield, MO"
+    turned up as two distinct scrape results for the real Chillicothe
+    business. Lowercased, punctuation and common entity suffixes
+    stripped."""
+    text = re.sub(r"[^a-z0-9 ]+", " ", name.lower())
+    for suffix in (" llc", " inc", " incorporated", " corp", " co", " ltd", " lc", " pc"):
+        text = text.replace(suffix, " ")
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def _load_existing_index(business_dir):
-    """(slugs, place_ids) already on file. Checked by both -- a listing's
-    own file might get hand-edited after this script first wrote it (e.g.
-    correcting a service-area business's "Other" town to the real one a
-    person found on the business's own site, something Google's data
-    just didn't have), which changes what slug build_listing() would
-    compute for the exact same business today even though nothing about
-    the business itself changed. place_id is stable across that, so
-    matching on it too is what actually keeps a hand-corrected listing
-    from getting silently re-added under its old slug next run."""
+    """(slugs, place_ids, by_name_town) already on file.
+
+    slugs/place_ids are checked on every new result -- a listing's own
+    file might get hand-edited after this script first wrote it (e.g.
+    correcting a service-area business's generic "Linn County" town to
+    the real one a person found on the business's own site, something
+    Google's data just didn't have), which changes what slug
+    build_listing() would compute for the exact same business today even
+    though nothing about the business itself changed. place_id is stable
+    across that, so matching on it too is what actually keeps a
+    hand-corrected listing from getting silently re-added under its old
+    slug next run.
+
+    by_name_town maps (normalize_business_name(name), town) -> (path,
+    reviews) -- a *different* place_id under a name/town that matches an
+    existing listing is (per Kevin) almost always the same real business
+    on a duplicate Google profile rather than two actual businesses, so
+    main() uses this to keep only whichever one has more reviews instead
+    of publishing both."""
     slugs = set()
     place_ids = set()
+    by_name_town = {}
     for path in glob.glob(os.path.join(business_dir, "*.json")):
         slugs.add(os.path.splitext(os.path.basename(path))[0])
         try:
@@ -265,7 +299,10 @@ def _load_existing_index(business_dir):
         place_id = data.get("place_id")
         if place_id:
             place_ids.add(str(place_id))
-    return slugs, place_ids
+        name, town = data.get("name"), data.get("town")
+        if name and town:
+            by_name_town[(normalize_business_name(name), town)] = (path, data.get("reviews") or 0)
+    return slugs, place_ids, by_name_town
 
 
 def main():
@@ -274,9 +311,10 @@ def main():
         sys.exit(1)
 
     config = load_config()
-    existing_slugs, existing_place_ids = _load_existing_index(BUSINESS_DIR)
+    existing_slugs, existing_place_ids, by_name_town = _load_existing_index(BUSINESS_DIR)
 
     added = 0
+    replaced = 0
     for category, search_phrase in BUSINESS_QUERIES:
         query = f"{search_phrase} in {config['county_display_name']}, {config['state']}"
         print(f"Searching: {query}")
@@ -295,8 +333,24 @@ def main():
             if place_id and place_id in existing_place_ids:
                 continue  # already have this business on file, possibly under a hand-corrected town/slug
 
+            # A different place_id under a name/town that already matches
+            # something on file -- almost always a duplicate Google
+            # profile for the same real business (see
+            # normalize_business_name()), not two real businesses. Keep
+            # whichever has more reviews.
+            name_town_key = (normalize_business_name(listing["name"]), listing["town"])
+            dupe = by_name_town.get(name_town_key)
+            if dupe:
+                dupe_path, dupe_reviews = dupe
+                if listing.get("reviews", 0) <= dupe_reviews:
+                    continue  # existing listing has as many or more reviews -- keep it, skip this one
+                os.remove(dupe_path)
+                existing_slugs.discard(os.path.splitext(os.path.basename(dupe_path))[0])
+                print(f"  ~ {listing['name']}: replacing {os.path.basename(dupe_path)} ({dupe_reviews} reviews) with {listing.get('reviews', 0)}-review duplicate")
+                replaced += 1
+
             slug = f"{slugify(listing['town'])}-{slugify(listing['name'])}"
-            if slug.strip("-") == "" or slug in existing_slugs:
+            if slug.strip("-") == "" or (not dupe and slug in existing_slugs):
                 continue  # no usable name/town, or already have a file -- a hand-edited listing wins
 
             path = os.path.join(BUSINESS_DIR, f"{slug}.json")
@@ -306,12 +360,13 @@ def main():
             existing_slugs.add(slug)
             if place_id:
                 existing_place_ids.add(place_id)
+            by_name_town[name_town_key] = (path, listing.get("reviews", 0))
             added += 1
             print(f"  + {listing['name']} ({listing['town']})")
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
-    print(f"\nAdded {added} new listing(s).")
+    print(f"\nAdded {added} new listing(s), replaced {replaced} duplicate(s) with a higher-reviewed profile.")
 
 
 if __name__ == "__main__":
