@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-13T22:25:02.709700+00:00",
+  "generated_at": "2026-09-14T04:39:15.892774+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 75,
-      "ok": true,
-      "error": null
+      "count": 0,
+      "ok": false,
+      "error": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.linncountyleader.com/calendar/\", waiting until \"domcontentloaded\"\n"
     },
     {
       "name": "Rhodes Funeral Home",
