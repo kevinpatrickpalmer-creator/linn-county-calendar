@@ -280,7 +280,12 @@
 
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
-      options: config.towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+      // "Other" covers listings outside the county's 8 incorporated towns
+      // (a neighboring town, or a service-area business -- a truck, no
+      // storefront -- Google Maps doesn't tie to any specific town) --
+      // see town assignment in scrape_home_services.py and the matching
+      // "Other" bucket calendar-view.html's own town filter uses.
+      options: [...config.towns, "Other"], selectedSet: selectedTowns, label: "Towns", onChange: render,
     });
     setupMultiSelectFilter({
       btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",

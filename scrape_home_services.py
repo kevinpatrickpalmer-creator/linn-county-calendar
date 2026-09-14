@@ -18,12 +18,13 @@ A business already on file (whether from a previous run of this script or
 a manually-approved submission) is never overwritten -- a hand-edited
 listing should always win over a re-scrape.
 
-NOTE ON FIELD NAMES: Outscraper's exact response shape isn't verified
-against a live call here (no API key available while writing this) --
-_get() tries several plausible key spellings per field, and unexpected
-shapes are skipped with a warning rather than crashing the run, but the
-first real run should be watched closely and this adjusted if fields come
-back empty that shouldn't be.
+Field names and the distance filter below were both checked against a
+real Outscraper pull (2026-09-14, "plumbers in Linn County, MO"): a plain
+"<county>, <state>" text query is matched loosely enough that Google
+returned plumbers as far off as Boonville and Warsaw, MO (90-140 miles
+away), so results are only kept within MAX_DISTANCE_MILES of the county.
+Results also skew heavily "service area" (a truck, no storefront) -- see
+build_listing()'s docstring.
 
 Run:
     OUTSCRAPER_API_KEY=... python scrape_home_services.py
@@ -34,10 +35,11 @@ import os
 import re
 import sys
 import time
+from math import atan2, cos, radians, sin, sqrt
 
 import requests
 
-from calendar_config import load_config, town_or_other
+from calendar_config import load_config
 
 OUTSCRAPER_API_KEY = os.environ.get("OUTSCRAPER_API_KEY", "")
 OUTSCRAPER_SEARCH_URL = "https://api.outscraper.com/maps/search-v3"
@@ -47,6 +49,17 @@ POLL_INTERVAL_SECONDS = 6
 REQUEST_DELAY_SECONDS = 2  # be polite between queries, not a rate-limit workaround
 
 BUSINESS_DIR = "data/businesses"
+
+# Roughly the geographic center of Linn County's own 8 towns (Linneus, the
+# county seat, sits close to the middle of the cluster) -- used only to
+# reject results a loose "<county>, <state>" text query pulls in from well
+# outside the area. 30 miles comfortably covers the county itself plus
+# the same neighboring-town radius already accepted elsewhere in this
+# codebase (see Teter Auction's widened Macon/Chillicothe match in
+# scrape_linn_county_calendar.py).
+COUNTY_CENTER_LAT = 39.80
+COUNTY_CENTER_LON = -93.10
+MAX_DISTANCE_MILES = 30
 
 # (directory category, what to search Google Maps for) -- category also
 # becomes one of the checkboxes in docs/directory.html's filter, so keep
@@ -82,6 +95,14 @@ def _get(result, *keys):
         if value:
             return value
     return None
+
+
+def _distance_miles(lat, lon):
+    earth_radius_miles = 3958.8
+    lat1, lon1, lat2, lon2 = map(radians, [COUNTY_CENTER_LAT, COUNTY_CENTER_LON, lat, lon])
+    dlat, dlon = lat2 - lat1, lon2 - lon1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    return earth_radius_miles * 2 * atan2(sqrt(a), sqrt(1 - a))
 
 
 def _flatten_results(payload):
@@ -134,22 +155,37 @@ def run_outscraper_query(query):
 def build_listing(result, category, config):
     """Returns a listing dict in the same shape as a manually-approved
     data/businesses/*.json file, or None if RESULT shouldn't become one
-    (permanently/temporarily closed, or missing what's actually
-    required)."""
+    (permanently/temporarily closed, or missing even a name).
+
+    Confirmed against a real Outscraper response (2026-09-14, "plumbers in
+    Linn County, MO"): roughly 60% of home-service results are "service
+    area" businesses (a truck, no public storefront) with no address or
+    city at all, just a lat/long and a service radius -- Google itself
+    doesn't tie them to a town. Those still become listings (dropping a
+    business for every service-area plumber/electrician would gut this
+    category), just bucketed under "Other" the same way any other
+    un-pinnable location is elsewhere in this codebase (see
+    town_or_other() in calendar_config.py) -- they just aren't findable
+    by a specific-town filter."""
     status = (result.get("business_status") or "").upper()
     if status and status != "OPERATIONAL":
         return None
 
     name = (_get(result, "name") or "").strip()
-    address = (_get(result, "full_address", "address", "formatted_address") or "").strip()
-    if not name or not address:
+    if not name:
         return None
+
+    lat, lon = result.get("latitude"), result.get("longitude")
+    if lat is not None and lon is not None and _distance_miles(lat, lon) > MAX_DISTANCE_MILES:
+        return None
+
+    city = (_get(result, "city") or "").strip()
+    town = city if city in config["towns"] else "Other"
 
     listing = {
         "name": name,
         "category": category,
-        "town": town_or_other(address, config),
-        "address": address,
+        "town": town,
         # Bookkeeping only -- build_business_directory.py whitelists which
         # fields reach the public docs/businesses.json, so these never
         # show up on the site itself. Kept so a stale/incorrect scraped
@@ -159,11 +195,17 @@ def build_listing(result, category, config):
         "source": "google_maps",
     }
 
+    # "address" is already the full "street, city, state zip" string when
+    # present, not just a street -- no reassembly needed.
+    address = (_get(result, "address", "full_address", "formatted_address") or "").strip()
+    if address:
+        listing["address"] = address
+
     phone = (_get(result, "phone", "phone_number", "international_phone_number") or "").strip()
     if phone:
         listing["phone"] = phone
 
-    website = (_get(result, "site", "website", "domain") or "").strip()
+    website = (_get(result, "website", "site", "domain") or "").strip()
     if website:
         listing["website"] = website
 
