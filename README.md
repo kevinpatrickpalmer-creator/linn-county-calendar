@@ -148,9 +148,12 @@ Linn-County-specific values hardcoded into it.
 
 - **Python scripts** load it via `calendar_config.load_config()`.
 - **HTML pages** (`index.html`, `submit.html`, `admin.html`,
-  `manage-events.html`, `calendar-view.html`) fetch it client-side with
-  `fetch("config.json")` before rendering anything that depends on it
-  (town dropdowns, page titles, links back to GitHub, etc.).
+  `manage-events.html`, `calendar-view.html`, `directory.html`,
+  `submit-business.html`, `admin-business.html`, `manage-businesses.html`)
+  fetch it client-side with `fetch("config.json")` before rendering
+  anything that depends on it (town dropdowns, page titles, links back to
+  GitHub, etc.). `business_categories` is the directory's equivalent of
+  `event_types`.
 
 To stand up a new instance for another town or county: copy this repo,
 edit `docs/config.json`, set up that community's own Web3Forms account /
@@ -214,6 +217,50 @@ site, not the deployment.
   -- cancelling a recurring event's one file removes every future
   occurrence at once. Scraped events aren't listed -- those aren't ours
   to change, and track the newspaper's own site automatically.
+
+## Business & organization directory
+
+A second, independent feature living alongside the calendar: a free
+countywide directory of local businesses, shops, trades, churches, clubs,
+and nonprofits, on the theory that it belongs to the same "push
+information to people" mission as the calendar itself, and is a free
+goodwill entry point rather than the main product (see `CLAUDE.md`).
+Follows the exact same submit-then-hand-approve pattern as community
+events, just with its own set of files so the two never collide:
+
+- **Public submission form:** `docs/submit-business.html` — posts to the
+  same Web3Forms account as `submit.html`, which emails the admin a
+  review link.
+- **Admin approval helper:** `docs/admin-business.html` — mirrors
+  `admin.html`: pre-filled from the review link, "Prepare for GitHub"
+  opens a pre-filled "create file" page, and committing it there is the
+  entire approval step.
+- **Approved listings:** live as one JSON file per listing under
+  `data/businesses/` (see the README in that folder), keyed by
+  `<town>-<name>` slug rather than event's `<date>-<name>` since there's
+  no date to disambiguate by.
+- **Building the public directory:** unlike events, nothing here is
+  scraped, so there's no reason for `docs/directory.html` to walk the
+  GitHub API itself the way `manage-businesses.html` does (fine for an
+  admin tool, but would rate-limit fast against real public traffic).
+  Instead, `build_business_directory.py` combines every file in
+  `data/businesses/` into one `docs/businesses.json`, which the directory
+  page fetches in a single request. `.github/workflows/update-directory.yml`
+  runs that script and commits the result automatically on every push
+  that touches `data/businesses/**` — so approving a listing on GitHub is
+  still the entire workflow; the rebuild happens on its own a few moments
+  later.
+- **Rejecting** a submission means simply not creating a file for it —
+  same as events, pending/rejected submissions never touch
+  `data/businesses/` or the public `docs/businesses.json`.
+- **Editing or removing** a live listing: `docs/manage-businesses.html`
+  lists every current listing (pulled live from GitHub) with direct Edit
+  / Remove links to GitHub's file editor and delete-confirm pages.
+- **Browsing:** `docs/directory.html` — search by name plus multi-select
+  Town/Category filters (the same checkbox-dropdown pattern
+  `calendar-view.html` uses for its own Town/Type filters), reusing
+  `theme.css` so it looks and feels like the rest of the site rather than
+  a bolted-on section.
 
 ## Viewing the calendar online
 

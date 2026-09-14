@@ -1,0 +1,36 @@
+name: Update business directory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/businesses/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-directory
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build docs/businesses.json
+        run: python build_business_directory.py
+
+      - name: Commit updated directory file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/businesses.json
+          git diff --cached --quiet || git commit -m "Update business directory"
+          git push
