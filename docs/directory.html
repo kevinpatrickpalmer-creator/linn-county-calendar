@@ -98,7 +98,7 @@
   <p class="callout">Own a business or run a local group? <a href="submit-business.html">Get listed free &rarr;</a> No catch, just another way for people around here to find you.</p>
 
   <div class="dir-controls">
-    <input type="search" id="searchInput" placeholder="Search by name...">
+    <input type="search" id="searchInput" placeholder="What are you looking for?">
     <div class="ms-filter">
       <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
       <div class="ms-panel hidden" id="townFilterPanel">
@@ -140,6 +140,100 @@
 
   const selectedTowns = new Set();
   const selectedCategories = new Set();
+
+  // Common words for what a category actually does, in the plural/longer
+  // form where one exists ("churches" not "church") so a shorter query
+  // still matches as a substring -- "churches".includes("church") is
+  // true, so this one list covers both "church" and "churches" without
+  // listing each form separately. Not exhaustive, just the terms someone
+  // is likely to actually type; extend a category's list as gaps turn up.
+  const CATEGORY_SYNONYMS = {
+    "Plumbing": ["plumbers", "leaky pipe", "clogged drain", "water heater", "sewer"],
+    "Electrical": ["electricians", "wiring", "breaker", "outlet"],
+    "HVAC & Cooling": ["hvac", "air conditioning", "furnace", "heating", "cooling", "ac"],
+    "Roofing": ["roofers", "shingles", "gutters", "leaky roof"],
+    "Tree Service": ["trees", "stump", "arborist"],
+    "Lawn Care & Landscaping": ["lawns", "mowing", "grass", "landscaping", "yard work"],
+    "Pest Control": ["pests", "bugs", "exterminator", "termites", "rodents"],
+    "Handyman": ["handymen", "odd jobs", "repairs"],
+    "General Contractor": ["contractors", "remodeling", "construction", "builders"],
+    "Painting": ["painters"],
+    "Locksmith": ["locksmiths", "keys", "locks", "lockout"],
+    "Appliance Repair": ["appliances", "fridge", "refrigerator", "washer", "dryer", "dishwasher"],
+    "Fencing": ["fences"],
+    "Garage Door Service": ["garage doors", "overhead door"],
+    // Deliberately no cuisine/venue words here (pizza, cafe, diner, bar,
+    // bbq, mexican...) -- those describe one kind of restaurant, not
+    // "restaurant" itself, so attaching them at the category level would
+    // match every restaurant in the county on a search for just one kind.
+    // A business serving pizza is still found fine through its own
+    // name/description (e.g. "Marceline Pizza Company").
+    "Restaurant & Food": ["restaurants", "food", "eat", "dinner", "lunch"],
+    "Retail & Shopping": ["shops", "stores", "shopping"],
+    "Automotive": ["cars", "auto repair", "mechanic", "vehicle", "tires"],
+    // Same reasoning as Restaurant & Food above -- "dentist" and
+    // "chiropractor" are specific specialties within Health & Wellness,
+    // not synonyms for the category as a whole, so they're left out here
+    // and rely on a business's own name/description to match instead.
+    "Health & Wellness": ["doctors", "clinic", "medical", "hospital"],
+    "Professional & Financial Services": ["lawyers", "attorney", "accountant", "cpa", "taxes", "financial advisor"],
+    "Real Estate & Insurance": ["real estate", "insurance", "realtor", "agent"],
+    "Lodging & Hospitality": ["hotels", "motel", "lodging", "inn", "bed and breakfast"],
+    "Farm & Agriculture": ["farms", "farming", "agriculture", "tractor", "feed"],
+    "Nonprofit & Civic Organization": ["nonprofit", "charity", "civic"],
+    "Church & Religious Organization": ["churches", "worship", "pastor"],
+    "Education & Childcare": ["schools", "daycare", "preschool", "childcare"],
+    "Arts, Recreation & Entertainment": ["museum", "park", "recreation", "arts", "entertainment"],
+  };
+
+  // Filler words stripped out of a typed-out question ("where can I find
+  // a good plumber near me") so what's left ("plumber") is what actually
+  // has to match -- without this, a business would need "where", "can",
+  // "good", and "near" to literally appear somewhere on its listing,
+  // which none ever will.
+  const SEARCH_STOPWORDS = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
+    "we", "us", "me", "my", "mine", "our", "looking", "look", "for", "find", "need",
+    "needed", "want", "wanted", "who", "what", "where", "when", "why", "how", "can",
+    "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
+    "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
+    "show", "get", "open", "right", "now", "today",
+    // Generic "something's wrong with it" words that come up across almost
+    // every trade's natural-phrasing query ("get my roof fixed", "need my
+    // pipes repaired") without actually distinguishing one category from
+    // another -- the category-specific noun (roof, pipes) is what should
+    // decide the match, not the verb wrapped around it.
+    "fix", "fixed", "fixing", "repair", "repaired", "repairing", "broken", "problem",
+    "issue", "help", "service", "services", "work", "done",
+  ]);
+
+  function searchTokens(query) {
+    return query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOPWORDS.has(word));
+  }
+
+  // A business matches a query if every remaining word (after stripping
+  // filler) turns up somewhere in its own name/description/category/town,
+  // OR is one of its category's synonym phrases -- so "plumber in
+  // brookfield" narrows correctly to Brookfield's own plumbers, since
+  // "plumber" is satisfied by the category-synonym check while
+  // "brookfield" still has to match the business's actual town.
+  //
+  // matchAny relaxes this from "every word must match" to "at least one
+  // word matches" -- render() tries strict matching first and only falls
+  // back to matchAny if that comes back empty, so a query that includes
+  // some word this file's stopword/synonym lists didn't anticipate still
+  // surfaces something instead of a dead end.
+  function matchesSearch(b, tokens, matchAny) {
+    if (!tokens.length) return true;
+    const haystack = `${b.name} ${b.description || ""} ${b.category || ""} ${b.town}`.toLowerCase();
+    const synonyms = CATEGORY_SYNONYMS[b.category] || [];
+    const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
+    return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
 
   // Same multi-checkbox dropdown pattern as calendar-view.html's town/type
   // filters: a button that toggles a panel of checkboxes, backed by a Set
@@ -262,14 +356,22 @@
     const container = document.getElementById("dirGrid");
     const empty = document.getElementById("dirEmpty");
     const resultsCount = document.getElementById("resultsCount");
-    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+    const tokens = searchTokens(document.getElementById("searchInput").value);
 
-    const filtered = businesses.filter((b) => {
-      if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
-      if (selectedCategories.size && !selectedCategories.has(b.category || "Other")) return false;
-      if (query && !`${b.name} ${b.description || ""}`.toLowerCase().includes(query)) return false;
-      return true;
-    });
+    function applyFilters(matchAny) {
+      return businesses.filter((b) => {
+        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
+        if (selectedCategories.size && !selectedCategories.has(b.category || "Other")) return false;
+        if (!matchesSearch(b, tokens, matchAny)) return false;
+        return true;
+      });
+    }
+
+    // Strict (every search word must match) first; if a multi-word query
+    // comes back empty, loosen to "at least one word matches" rather than
+    // showing a dead end -- see matchesSearch()'s matchAny param.
+    let filtered = applyFilters(false);
+    if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
 
     // Grouped by category (Kevin's ask: once every Town/Category filter
     // is cleared, a flat alphabetical wall of unrelated businesses isn't
