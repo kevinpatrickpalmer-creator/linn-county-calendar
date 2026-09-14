@@ -50,7 +50,20 @@ scraper's own `place_id` field are bookkeeping only:
 the public `docs/businesses.json`, so neither ever reaches the site
 itself.
 
-The scraper never overwrites a file that already exists (matched by the
-same `<town>-<name>` slug `docs/admin-business.html` uses) — a listing
-someone hand-edited, whether originally scraped or manually approved,
-always wins over a re-scrape.
+The scraper never overwrites a file that already exists, matched by
+either its `<town>-<name>` slug (same convention `docs/admin-business.html`
+uses) or its `place_id` — a listing someone hand-edited, whether
+originally scraped or manually approved, always wins over a re-scrape.
+Matching on `place_id` too (not just the slug) matters because a
+service-area business (a truck, no storefront) often comes back from
+Google with no city at all and lands under "Other" -- if you find its
+real town elsewhere (its own website, say) and correct the file by hand,
+the slug that correction implies no longer matches what the scraper
+would compute for that same business next time (still no city, still
+"Other" in Google's own data), so matching by `place_id` as well is what
+actually stops it from being silently re-added as a duplicate under its
+old "Other" slug on the next run. When you hand-correct a listing like
+this, it's worth setting `"source"` to something other than
+`"google_maps"` (e.g. `"google_maps_corrected"`) so it's visibly not what
+the scraper originally wrote — cosmetic only, `build_business_directory.py`
+doesn't look at the value.

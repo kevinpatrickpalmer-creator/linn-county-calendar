@@ -222,16 +222,38 @@ def build_listing(result, category, config):
     return listing
 
 
+def _load_existing_index(business_dir):
+    """(slugs, place_ids) already on file. Checked by both -- a listing's
+    own file might get hand-edited after this script first wrote it (e.g.
+    correcting a service-area business's "Other" town to the real one a
+    person found on the business's own site, something Google's data
+    just didn't have), which changes what slug build_listing() would
+    compute for the exact same business today even though nothing about
+    the business itself changed. place_id is stable across that, so
+    matching on it too is what actually keeps a hand-corrected listing
+    from getting silently re-added under its old slug next run."""
+    slugs = set()
+    place_ids = set()
+    for path in glob.glob(os.path.join(business_dir, "*.json")):
+        slugs.add(os.path.splitext(os.path.basename(path))[0])
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        place_id = data.get("place_id")
+        if place_id:
+            place_ids.add(str(place_id))
+    return slugs, place_ids
+
+
 def main():
     if not OUTSCRAPER_API_KEY:
         print("ERROR: set OUTSCRAPER_API_KEY", file=sys.stderr)
         sys.exit(1)
 
     config = load_config()
-    existing_slugs = {
-        os.path.splitext(os.path.basename(p))[0]
-        for p in glob.glob(os.path.join(BUSINESS_DIR, "*.json"))
-    }
+    existing_slugs, existing_place_ids = _load_existing_index(BUSINESS_DIR)
 
     added = 0
     for category, search_phrase in HOME_SERVICE_QUERIES:
@@ -248,6 +270,10 @@ def main():
             if not listing:
                 continue
 
+            place_id = listing.get("place_id")
+            if place_id and place_id in existing_place_ids:
+                continue  # already have this business on file, possibly under a hand-corrected town/slug
+
             slug = f"{slugify(listing['town'])}-{slugify(listing['name'])}"
             if slug.strip("-") == "" or slug in existing_slugs:
                 continue  # no usable name/town, or already have a file -- a hand-edited listing wins
@@ -257,6 +283,8 @@ def main():
                 json.dump(listing, f, indent=2)
                 f.write("\n")
             existing_slugs.add(slug)
+            if place_id:
+                existing_place_ids.add(place_id)
             added += 1
             print(f"  + {listing['name']} ({listing['town']})")
 
