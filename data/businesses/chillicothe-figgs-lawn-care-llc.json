@@ -1,8 +1,8 @@
 {
   "name": "Figgs Lawn Care LLC",
   "category": "Lawn Care & Landscaping",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Chillicothe",
+  "source": "google_maps_corrected",
   "phone": "+1 660-752-6787",
   "website": "https://figgslawncare.com/",
   "place_id": "ChIJ3-gJSIt68WURWKklrqfKXcY"

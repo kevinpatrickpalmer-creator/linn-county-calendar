@@ -31,8 +31,18 @@ FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "h
 def load_businesses():
     """A malformed or incomplete file is skipped with a warning rather
     than failing the whole build -- one bad listing shouldn't take down
-    the rest of the directory."""
+    the rest of the directory. A listing whose town is literally "Other"
+    (scrape_home_services.py's fallback for a service-area business
+    Google's own data doesn't tie to any town) is held back from the
+    public site entirely rather than published with that label -- the
+    file stays in data/businesses/ so it isn't lost, just not shown until
+    someone resolves it to a real town (the business's own site, usually)
+    and corrects the file by hand. Manually-submitted listings never hit
+    this: admin-business.html's "Other (not on this list)" option stores
+    the actual place name typed in (e.g. "Hurricane Branch"), never the
+    literal string "Other"."""
     businesses = []
+    held_back = 0
     for path in sorted(glob.glob(os.path.join(BUSINESS_DIR, "*.json"))):
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -46,6 +56,9 @@ def load_businesses():
         if not name or not town:
             print(f"  WARNING: skipping {path}, missing required name/town", file=sys.stderr)
             continue
+        if town == "Other":
+            held_back += 1
+            continue
 
         listing = {"name": name, "town": town}
         for field in FIELDS:
@@ -57,15 +70,17 @@ def load_businesses():
         businesses.append(listing)
 
     businesses.sort(key=lambda b: b["name"].lower())
-    return businesses
+    return businesses, held_back
 
 
 def main():
     config = load_config()
-    businesses = load_businesses()
+    businesses, held_back = load_businesses()
 
     towns = sorted({b["town"] for b in businesses if b["town"] in config["towns"]} | set())
-    print(f"Building directory: {len(businesses)} listing(s) across {len(towns)} of {len(config['towns'])} towns")
+    print(f"Building directory: {len(businesses)} listing(s) across {len(towns)} of {len(config['towns'])} official towns")
+    if held_back:
+        print(f"  ({held_back} listing(s) held back -- town unresolved, still \"Other\" in data/businesses/)")
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(businesses, f, indent=2)

@@ -1,8 +1,8 @@
 {
   "name": "Hickory Creek Tree Services",
   "category": "Tree Service",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Chillicothe",
+  "source": "google_maps_corrected",
   "phone": "+1 660-646-1959",
   "website": "https://www.facebook.com/hickorycreektreeservice/",
   "place_id": "ChIJVzwREqUPwocRWk7wrTB-Sxw"

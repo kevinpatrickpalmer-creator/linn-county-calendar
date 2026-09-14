@@ -279,20 +279,11 @@
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     setupMultiSelectFilter({
-      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
-      // "Other" covers listings outside the county's 8 incorporated towns
-      // (a neighboring town, or a service-area business -- a truck, no
-      // storefront -- Google Maps doesn't tie to any specific town) --
-      // see town assignment in scrape_home_services.py and the matching
-      // "Other" bucket calendar-view.html's own town filter uses.
-      options: [...config.towns, "Other"], selectedSet: selectedTowns, label: "Towns", onChange: render,
-    });
-    setupMultiSelectFilter({
       btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
       options: config.business_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
     });
   } catch (err) {
-    // Filters just won't populate; the directory itself can still load below.
+    // Category filter just won't populate; the directory itself can still load below.
   }
 
   document.getElementById("searchInput").addEventListener("input", render);
@@ -304,6 +295,20 @@
       `<span class="stat-seg">1 County ·</span> ` +
       `<span class="live-count"><span class="live-dot"></span>${businesses.length} Listing${businesses.length === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
+
+    // Built from whatever real towns are actually in the data, not a
+    // fixed list -- build_business_directory.py never publishes a
+    // listing whose town couldn't be resolved to a real place (see its
+    // load_businesses() docstring), so there's no "Other" bucket to
+    // account for here, and this naturally picks up a nearby town (e.g.
+    // Chillicothe) the moment the first listing there is confirmed,
+    // with no code change needed.
+    const towns = [...new Set(businesses.map((b) => b.town))].sort();
+    setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+    });
+
     render();
   } catch (err) {
     document.getElementById("dirStatus").textContent = "Couldn't load the directory. Please try refreshing.";

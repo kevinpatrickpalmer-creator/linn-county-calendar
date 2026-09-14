@@ -1,8 +1,8 @@
 {
   "name": "Teter Plumbing",
   "category": "Plumbing",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Bevier",
+  "source": "google_maps_corrected",
   "address": "33883 State Hwy FF, Bevier, MO 63532",
   "place_id": "ChIJ5dTA7Um3wocRJ4NglTsCrl8"
 }

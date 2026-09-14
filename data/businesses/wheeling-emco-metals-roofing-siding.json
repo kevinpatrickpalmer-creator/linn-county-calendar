@@ -1,8 +1,8 @@
 {
   "name": "EMCO Metals Roofing & Siding",
   "category": "Roofing",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Wheeling",
+  "source": "google_maps_corrected",
   "address": "State Hwy BB, Wheeling, MO 64688",
   "phone": "+1 660-659-2468",
   "place_id": "ChIJNaz8w-91wocRQ_RgedjqrjE"

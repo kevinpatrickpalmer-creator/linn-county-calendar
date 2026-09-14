@@ -1,8 +1,8 @@
 {
   "name": "Ford's Heating & Air Conditioning",
   "category": "HVAC & Cooling",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Milan",
+  "source": "google_maps_corrected",
   "phone": "+1 660-265-8056",
   "website": "https://www.facebook.com/fordhvac/",
   "place_id": "ChIJuY5kPm7L6YcReXdq2jvZpEM"

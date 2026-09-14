@@ -1,8 +1,8 @@
 {
   "name": "Chuck's Pest Control",
   "category": "Pest Control",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Chillicothe",
+  "source": "google_maps_corrected",
   "address": "724 Locust St, Chillicothe, MO 64601",
   "phone": "+1 660-646-2074",
   "website": "http://chuckspestcontrol.com/",

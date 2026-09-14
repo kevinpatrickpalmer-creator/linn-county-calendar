@@ -1,8 +1,8 @@
 {
   "name": "Bob's the Builder, LLC",
   "category": "General Contractor",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Marceline",
+  "source": "google_maps_corrected",
   "phone": "+1 660-734-1096",
   "website": "http://bobsthebuilderllc.com/",
   "place_id": "ChIJHSH7YQWOwocRjltxc7OPYbI"

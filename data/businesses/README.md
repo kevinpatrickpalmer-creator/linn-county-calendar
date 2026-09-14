@@ -56,14 +56,27 @@ uses) or its `place_id` — a listing someone hand-edited, whether
 originally scraped or manually approved, always wins over a re-scrape.
 Matching on `place_id` too (not just the slug) matters because a
 service-area business (a truck, no storefront) often comes back from
-Google with no city at all and lands under "Other" -- if you find its
-real town elsewhere (its own website, say) and correct the file by hand,
-the slug that correction implies no longer matches what the scraper
-would compute for that same business next time (still no city, still
-"Other" in Google's own data), so matching by `place_id` as well is what
-actually stops it from being silently re-added as a duplicate under its
-old "Other" slug on the next run. When you hand-correct a listing like
-this, it's worth setting `"source"` to something other than
+Google with no city at all and lands under `"town": "Other"` -- if you
+find its real town elsewhere (its own website, say) and correct the file
+by hand, the slug that correction implies no longer matches what the
+scraper would compute for that same business next time (still no city,
+still `"Other"` in Google's own data), so matching by `place_id` as well
+is what actually stops it from being silently re-added as a duplicate
+under its old `"Other"` slug on the next run. When you hand-correct a
+listing like this, it's worth setting `"source"` to something other than
 `"google_maps"` (e.g. `"google_maps_corrected"`) so it's visibly not what
 the scraper originally wrote — cosmetic only, `build_business_directory.py`
 doesn't look at the value.
+
+**`"town": "Other"` never reaches the public site.** A listing still at
+that fallback is held back by `build_business_directory.py` — the file
+stays here, just excluded from `docs/businesses.json`, rather than
+publishing a real business under a label that isn't its actual town.
+Resolving one usually means checking its own website or a BBB/Chamber-of
+-commerce listing for a stated city, then editing `"town"` by hand (see
+above) — worth doing periodically after a scrape run, since roughly
+60% of home-service results come back this way and Google's own data
+just doesn't say more. The town doesn't have to be one of the county's 8
+official towns; a real nearby place (Chillicothe, Milan, Bevier, etc.)
+is what `docs/directory.html`'s town filter is built from — the point is
+that whatever it says is true, not that it's confined to a fixed list.

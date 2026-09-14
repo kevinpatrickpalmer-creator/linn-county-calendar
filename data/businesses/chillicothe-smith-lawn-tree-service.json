@@ -1,8 +1,8 @@
 {
   "name": "Smith Lawn & Tree Service",
   "category": "Tree Service",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Chillicothe",
+  "source": "google_maps_corrected",
   "address": "9681 MO-190, Chillicothe, MO 64601",
   "phone": "+1 660-247-2422",
   "website": "http://smithslawnandtreeservicemo.com/",

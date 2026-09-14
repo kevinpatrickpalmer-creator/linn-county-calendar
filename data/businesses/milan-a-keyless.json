@@ -1,8 +1,8 @@
 {
   "name": "A-keyless",
   "category": "Locksmith",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Milan",
+  "source": "google_maps_corrected",
   "phone": "+1 660-292-2710",
   "place_id": "ChIJN3GRnMNww4sRDGTqA4vuFxQ"
 }

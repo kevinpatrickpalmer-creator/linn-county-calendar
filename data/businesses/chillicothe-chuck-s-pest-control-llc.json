@@ -1,8 +1,8 @@
 {
   "name": "Chuck's Pest Control, LLC",
   "category": "Pest Control",
-  "town": "Other",
-  "source": "google_maps",
+  "town": "Chillicothe",
+  "source": "google_maps_corrected",
   "address": "8534 Liv 510, Chillicothe, MO 64601",
   "phone": "+1 855-235-0518",
   "place_id": "ChIJD53yj3QHwocRM_B_CcTTI0A"

@@ -1,7 +1,7 @@
 [
   {
     "name": "A-keyless",
-    "town": "Other",
+    "town": "Milan",
     "category": "Locksmith",
     "phone": "+1 660-292-2710"
   },
@@ -38,7 +38,7 @@
   },
   {
     "name": "Bob's the Builder, LLC",
-    "town": "Other",
+    "town": "Marceline",
     "category": "General Contractor",
     "phone": "+1 660-734-1096",
     "website": "http://bobsthebuilderllc.com/"
@@ -53,7 +53,7 @@
   },
   {
     "name": "Botts & Tye Air Conditioning and Heating",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "HVAC & Cooling",
     "address": "1021 Washington St, Chillicothe, MO 64601",
     "phone": "+1 660-646-0540",
@@ -76,7 +76,7 @@
   },
   {
     "name": "Brower Electric",
-    "town": "Other",
+    "town": "Bevier",
     "category": "Electrical",
     "address": "26602 State Hwy O, Bevier, MO 63532",
     "phone": "+1 660-773-6760",
@@ -84,7 +84,7 @@
   },
   {
     "name": "Bullen and Sons roofing and construction",
-    "town": "Other",
+    "town": "Brookfield",
     "category": "Roofing",
     "phone": "+1 660-734-3967"
   },
@@ -98,7 +98,7 @@
   },
   {
     "name": "Chuck's Pest Control",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Pest Control",
     "address": "724 Locust St, Chillicothe, MO 64601",
     "phone": "+1 660-646-2074",
@@ -106,7 +106,7 @@
   },
   {
     "name": "Chuck's Pest Control, LLC",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Pest Control",
     "address": "8534 Liv 510, Chillicothe, MO 64601",
     "phone": "+1 855-235-0518"
@@ -120,7 +120,7 @@
   },
   {
     "name": "Copeland Development & Construction Co., Inc.",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "General Contractor",
     "address": "101 Vine St, Chillicothe, MO 64601",
     "phone": "+1 660-707-1412",
@@ -128,21 +128,21 @@
   },
   {
     "name": "Custom Air of Missouri LLC",
-    "town": "Other",
+    "town": "Ethel",
     "category": "HVAC & Cooling",
     "phone": "+1 319-883-9863",
     "website": "https://customairofmissouri.com/"
   },
   {
     "name": "Custom Door",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Garage Door Service",
     "address": "224 Church St, Chillicothe, MO 64601",
     "phone": "+1 660-646-6616"
   },
   {
     "name": "D.Peyton-Roberts Contracting",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Roofing",
     "address": "311 Madison St, Chillicothe, MO 64601",
     "phone": "+1 660-646-6402",
@@ -150,19 +150,13 @@
   },
   {
     "name": "Diamond Pavon Construction LLC",
-    "town": "Other",
+    "town": "Milan",
     "category": "General Contractor",
     "phone": "+1 660-292-0923"
   },
   {
-    "name": "Double K Plumbing & Drain Cleaning",
-    "town": "Other",
-    "category": "Plumbing",
-    "phone": "+1 660-412-2963"
-  },
-  {
     "name": "EMCO Metals Roofing & Siding",
-    "town": "Other",
+    "town": "Wheeling",
     "category": "Roofing",
     "address": "State Hwy BB, Wheeling, MO 64688",
     "phone": "+1 660-659-2468"
@@ -176,21 +170,21 @@
   },
   {
     "name": "Figgs Lawn Care LLC",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Lawn Care & Landscaping",
     "phone": "+1 660-752-6787",
     "website": "https://figgslawncare.com/"
   },
   {
     "name": "Ford's Heating & Air Conditioning",
-    "town": "Other",
+    "town": "Milan",
     "category": "HVAC & Cooling",
     "phone": "+1 660-265-8056",
     "website": "https://www.facebook.com/fordhvac/"
   },
   {
     "name": "Goad Heating and Air Conditioning LLC",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "HVAC & Cooling",
     "address": "713 Calhoun St, Chillicothe, MO 64601",
     "phone": "+1 660-973-7338",
@@ -214,14 +208,14 @@
   },
   {
     "name": "Hickory Creek Tree Services",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Tree Service",
     "phone": "+1 660-646-1959",
     "website": "https://www.facebook.com/hickorycreektreeservice/"
   },
   {
     "name": "Irvinbilt Constructors",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "General Contractor",
     "address": "10 Hickory St, Chillicothe, MO 64601",
     "phone": "+1 660-247-5804",
@@ -237,7 +231,7 @@
   },
   {
     "name": "LaPlata Lawn Services LLC",
-    "town": "Other",
+    "town": "La Plata",
     "category": "Lawn Care & Landscaping",
     "address": "11567 Macon St, La Plata, MO 63549",
     "phone": "+1 660-785-9735",
@@ -259,17 +253,10 @@
   },
   {
     "name": "Linhart Pest Control",
-    "town": "Other",
+    "town": "Milan",
     "category": "Pest Control",
     "address": "57819 State Hwy C, Milan, MO 63556",
     "phone": "+1 833-546-3574"
-  },
-  {
-    "name": "Linn County Electric",
-    "town": "Other",
-    "category": "Electrical",
-    "phone": "+1 660-413-2005",
-    "website": "https://linncoelectric.alibidealer.com/"
   },
   {
     "name": "M S Contracting",
@@ -288,29 +275,15 @@
   },
   {
     "name": "Mid Missouri Forestry Mulching",
-    "town": "Other",
+    "town": "Salisbury",
     "category": "Tree Service",
     "address": "13169 State Rte DD, Salisbury, MO 65281",
     "phone": "+1 660-900-2256",
     "website": "https://midmissouriforestrymulching.com/"
   },
   {
-    "name": "Minute Key",
-    "town": "Other",
-    "category": "Locksmith",
-    "address": "100 W Business 36, Chillicothe, MO 64601",
-    "phone": "+1 203-490-6206"
-  },
-  {
-    "name": "Paintco",
-    "town": "Other",
-    "category": "Painting",
-    "address": "1123 Clay St, Chillicothe, MO 64601",
-    "phone": "+1 660-646-5905"
-  },
-  {
     "name": "Reihner Electric",
-    "town": "Other",
+    "town": "Chula",
     "category": "Electrical",
     "address": "305 Mansur St, Chula, MO 64635",
     "phone": "+1 660-973-6478"
@@ -332,13 +305,6 @@
     "website": "http://www.rudysroofing.com/"
   },
   {
-    "name": "Seaman's Repair Shop",
-    "town": "Other",
-    "category": "Appliance Repair",
-    "address": "328 John F Kennedy Ave, Chillicothe, MO 64601",
-    "phone": "+1 660-973-5026"
-  },
-  {
     "name": "Sears Appliance Repair",
     "town": "Brookfield",
     "category": "Appliance Repair",
@@ -348,32 +314,25 @@
   },
   {
     "name": "Shaver Flat Roof Services LLC",
-    "town": "Other",
+    "town": "Bevier",
     "category": "Roofing",
     "address": "800 N Macon St, Bevier, MO 63532",
     "phone": "+1 660-773-5159"
   },
   {
     "name": "Shaver Roofing & Seamless Gutter",
-    "town": "Other",
+    "town": "Callao",
     "category": "Roofing",
     "address": "22709 Old Hwy 36, Callao, MO 63534",
     "phone": "+1 660-768-5524"
   },
   {
     "name": "Smith Lawn & Tree Service",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Tree Service",
     "address": "9681 MO-190, Chillicothe, MO 64601",
     "phone": "+1 660-247-2422",
     "website": "http://smithslawnandtreeservicemo.com/"
-  },
-  {
-    "name": "Smith's Tree Services.",
-    "town": "Other",
-    "category": "Tree Service",
-    "address": "244 W 3rd St, Milan, MO 63556",
-    "phone": "+1 660-265-5382"
   },
   {
     "name": "SON HVAC LLC",
@@ -385,28 +344,22 @@
   },
   {
     "name": "Summers Refresh",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Painting",
     "phone": "+1 660-973-9109",
     "website": "https://www.facebook.com/share/18wVbgZtFX/"
   },
   {
     "name": "Teter Plumbing",
-    "town": "Other",
+    "town": "Bevier",
     "category": "Plumbing",
     "address": "33883 State Hwy FF, Bevier, MO 63532"
   },
   {
     "name": "Town & Country Plumbing & Trnchng",
-    "town": "Other",
+    "town": "Chillicothe",
     "category": "Plumbing",
     "address": "1033 International Rd, Chillicothe, MO 64601",
     "phone": "+1 660-646-1894"
-  },
-  {
-    "name": "True Light Electric & Plumbing",
-    "town": "Other",
-    "category": "Electrical",
-    "phone": "+1 660-734-0531"
   }
 ]
