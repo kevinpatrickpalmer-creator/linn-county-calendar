@@ -1,4 +1,4 @@
-name: Scrape home service businesses
+name: Scrape local businesses
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: scrape-home-services
+  group: scrape-businesses
   cancel-in-progress: false
 
 jobs:
@@ -28,12 +28,12 @@ jobs:
       - name: Run scraper
         env:
           OUTSCRAPER_API_KEY: ${{ secrets.OUTSCRAPER_API_KEY }}
-        run: python scrape_home_services.py
+        run: python scrape_businesses.py
 
       - name: Commit any new listings
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/businesses/
-          git diff --cached --quiet || git commit -m "Add home service businesses from Google Maps"
+          git diff --cached --quiet || git commit -m "Add businesses from Google Maps"
           git push

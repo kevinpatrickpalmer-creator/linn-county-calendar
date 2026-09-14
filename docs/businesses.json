@@ -1,5 +1,12 @@
 [
   {
+    "name": "7th Heaven Convenience Store",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "104 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2220"
+  },
+  {
     "name": "A-keyless",
     "town": "Milan",
     "category": "Locksmith",
@@ -21,12 +28,66 @@
     "website": "https://acmetermiteandpestllc.com/"
   },
   {
+    "name": "Ag-Land Inc",
+    "town": "Brookfield",
+    "category": "Farm & Agriculture",
+    "address": "118 E Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7493",
+    "website": "http://www.agriservices.com/"
+  },
+  {
     "name": "Alberts Electric",
     "town": "Brookfield",
     "category": "Plumbing",
     "address": "106 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-675-0021",
     "website": "http://albertselectric.net/"
+  },
+  {
+    "name": "Anderson's Auto Body",
+    "town": "Linneus",
+    "category": "Automotive",
+    "address": "730 S Main St, Linneus, MO 64653",
+    "phone": "+1 660-895-5369",
+    "website": "https://www.facebook.com/AndersonsAutoBody.LinneusMO"
+  },
+  {
+    "name": "Animal Shelter of Linn County",
+    "town": "Brookfield",
+    "category": "Nonprofit & Civic Organization",
+    "address": "29205 MO-11, Brookfield, MO 64628",
+    "phone": "+1 660-258-3322",
+    "website": "http://www.animalshelteroflinncounty.com/"
+  },
+  {
+    "name": "Assembly of God",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "1204 N Missouri Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2145"
+  },
+  {
+    "name": "Bartlett's L.L.C.",
+    "town": "Brookfield",
+    "category": "Automotive",
+    "address": "110 Market St, Brookfield, MO 64628",
+    "phone": "+1 660-591-3286",
+    "website": "https://www.facebook.com/Bartletts-LLC-111290843604105/"
+  },
+  {
+    "name": "Bear Branch Church",
+    "town": "Purdin",
+    "category": "Church & Religious Organization",
+    "address": "17238 Inlet Dr, Purdin, MO 64674",
+    "phone": "+1 660-244-5632"
+  },
+  {
+    "name": "Best Western Brookfield",
+    "town": "Brookfield",
+    "category": "Lodging & Hospitality",
+    "address": "28622 MO-11, Brookfield, MO 64628",
+    "phone": "+1 660-258-4900",
+    "website": "https://www.bestwestern.com/en_US/book/hotel-rooms.26150.html%3Fiata%3D00171880%26ssob%3DBLBWI0004G%26cid%3DBLBWI0004G:google:gmb:26150"
   },
   {
     "name": "Better By Design LLC",
@@ -37,11 +98,37 @@
     "website": "https://betterbydesignllc.com/"
   },
   {
+    "name": "Bills Shooting Supply",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "642 S Livingston St, Brookfield, MO 64628"
+  },
+  {
+    "name": "Billups and Sons LLC",
+    "town": "Marceline",
+    "category": "Automotive",
+    "address": "Almond Ave, Marceline, MO 64658"
+  },
+  {
     "name": "Bob's the Builder, LLC",
     "town": "Marceline",
     "category": "General Contractor",
     "phone": "+1 660-734-1096",
     "website": "http://bobsthebuilderllc.com/"
+  },
+  {
+    "name": "Boley's Auto Center",
+    "town": "Linneus",
+    "category": "Automotive",
+    "address": "Linneus, MO 64653",
+    "phone": "+1 660-895-5530"
+  },
+  {
+    "name": "Boston Street Peddler",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "102 Linn St, Brookfield, MO 64628",
+    "phone": "+1 816-288-3945"
   },
   {
     "name": "Botts & Tye Air Conditioning & Heating, Brookfield, MO",
@@ -58,6 +145,36 @@
     "address": "1021 Washington St, Chillicothe, MO 64601",
     "phone": "+1 660-646-0540",
     "website": "https://bottsandtye.com/%3Futm_source%3Dgoogle%26utm_medium%3Dorganic%26utm_campaign%3Dgbp-profile"
+  },
+  {
+    "name": "Bowerman Auto LLC",
+    "town": "Brookfield",
+    "category": "Automotive",
+    "address": "321 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-9303",
+    "website": "https://www.facebook.com/share/18TM9igRJo/"
+  },
+  {
+    "name": "Brad's Welding Shop: ag equipment manufacturer",
+    "town": "Marceline",
+    "category": "Farm & Agriculture",
+    "address": "12673 almond ave, Marceline, MO 64658",
+    "phone": "+1 660-376-1158",
+    "website": "http://www.bradsweldingshop.com/%3Futm_source%3DGoogle%26utm_medium%3Dbusinesslisting%26utm_campaign%3Dtracking"
+  },
+  {
+    "name": "Brookfield Church of Chirst",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "1018 N Main St, Brookfield, MO 64628",
+    "website": "http://thegospelsaves.me/churches/brookfield-church-of-christ/"
+  },
+  {
+    "name": "Brookfield family restaurant",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "520 W Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-258-9444"
   },
   {
     "name": "Brookfield Heating & Cooling",
@@ -112,11 +229,34 @@
     "phone": "+1 855-235-0518"
   },
   {
+    "name": "Church of God 7th Day",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "1200 N Kansas Ave, Marceline, MO 64658",
+    "website": "http://www.marcelinechurchofgodseventhday.org/"
+  },
+  {
     "name": "Clark Bros Heating & AC",
     "town": "Brookfield",
     "category": "HVAC & Cooling",
     "address": "201 E Robard St, Brookfield, MO 64628",
     "phone": "+1 660-258-2383"
+  },
+  {
+    "name": "Compass Health Network - Family Health Center - Marceline",
+    "town": "Marceline",
+    "category": "Health & Wellness",
+    "address": "1600 N Missouri Ave, Marceline, MO 64658",
+    "phone": "+1 844-853-8937",
+    "website": "http://www.compasshealthnetwork.org/"
+  },
+  {
+    "name": "Complete Family Medicine- Brookfield/Urgent Care Brookfield",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "624 W Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-268-4006",
+    "website": "https://www.cfmcares.com/"
   },
   {
     "name": "Copeland Development & Construction Co., Inc.",
@@ -125,6 +265,13 @@
     "address": "101 Vine St, Chillicothe, MO 64601",
     "phone": "+1 660-707-1412",
     "website": "https://www.copelanddevelopment.com/"
+  },
+  {
+    "name": "County Line Convenience",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "322 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-3122"
   },
   {
     "name": "Custom Air of Missouri LLC",
@@ -149,10 +296,46 @@
     "website": "http://www.dpeytonroberts.com/"
   },
   {
+    "name": "DaKine Creek Findz",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "W Canal St, Brookfield, MO 64628",
+    "phone": "+1 660-412-1976"
+  },
+  {
     "name": "Diamond Pavon Construction LLC",
     "town": "Milan",
     "category": "General Contractor",
     "phone": "+1 660-292-0923"
+  },
+  {
+    "name": "Double d Auto",
+    "town": "Marceline",
+    "category": "Automotive",
+    "address": "200 S Missouri Ave, Marceline, MO 64658",
+    "phone": "+1 660-591-2134"
+  },
+  {
+    "name": "Downtown Marceline Foundation",
+    "town": "Marceline",
+    "category": "Nonprofit & Civic Organization",
+    "address": "207 N Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-460-5366",
+    "website": "https://www.downtownmarceline.org/"
+  },
+  {
+    "name": "E & M Equipment Repair",
+    "town": "Linneus",
+    "category": "Automotive",
+    "address": "345 E Collins St, Linneus, MO 64653",
+    "phone": "+1 660-734-3933"
+  },
+  {
+    "name": "Eagles Nest Cafe",
+    "town": "Meadville",
+    "category": "Restaurant & Food",
+    "address": "13126 US-36, Meadville, MO 64659",
+    "phone": "+1 660-938-4555"
   },
   {
     "name": "EMCO Metals Roofing & Siding",
@@ -169,11 +352,42 @@
     "phone": "+1 660-734-4438"
   },
   {
+    "name": "Fabric Chateau",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "112 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-8225",
+    "website": "http://fabricchateau.com/"
+  },
+  {
+    "name": "Farmers Mutual Insurance of Linn County",
+    "town": "Meadville",
+    "category": "Real Estate & Insurance",
+    "address": "211 Macon St, Meadville, MO 64659",
+    "phone": "+1 660-938-4415",
+    "website": "https://www.fmilc.com/"
+  },
+  {
     "name": "Figgs Lawn Care LLC",
     "town": "Chillicothe",
     "category": "Lawn Care & Landscaping",
     "phone": "+1 660-752-6787",
     "website": "https://figgslawncare.com/"
+  },
+  {
+    "name": "First Christian Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "1416 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2253",
+    "website": "http://www.fccbrookfield.org/"
+  },
+  {
+    "name": "First Christian Church of Marceline",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "116 W Gracia Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2446"
   },
   {
     "name": "Ford's Heating & Air Conditioning",
@@ -199,6 +413,14 @@
     "website": "https://grayelectricsvcs.com/"
   },
   {
+    "name": "H&R Block",
+    "town": "Brookfield",
+    "category": "Professional & Financial Services",
+    "address": "904 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7240",
+    "website": "https://www.hrblock.com/tax-office-near-me/missouri/brookfield/24372/%3Fotppartnerid%3D9308%26campaignid%3Dpw_mcm_9308_9762%26utm_medium%3Dlocal"
+  },
+  {
     "name": "Hauser Electric Company",
     "town": "Brookfield",
     "category": "Electrical",
@@ -207,11 +429,50 @@
     "website": "https://electricmotor.space/"
   },
   {
+    "name": "Helm Street Inn",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "107 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-9832",
+    "website": "https://topusadetails.com/details/helm-street-inn-ChIJEbp"
+  },
+  {
     "name": "Hickory Creek Tree Services",
     "town": "Chillicothe",
     "category": "Tree Service",
     "phone": "+1 660-646-1959",
     "website": "https://www.facebook.com/hickorycreektreeservice/"
+  },
+  {
+    "name": "Hometown Hardware",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "116 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7272"
+  },
+  {
+    "name": "Hotel Marceline",
+    "town": "Marceline",
+    "category": "Lodging & Hospitality",
+    "address": "101 W Ira St, Marceline, MO 64658",
+    "phone": "+1 660-376-3517",
+    "website": "http://hotelmarceline.com/"
+  },
+  {
+    "name": "Hueffmeier's Fine Pines",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "27905 Hwy FF, Brookfield, MO 64628",
+    "phone": "+1 660-258-3244",
+    "website": "http://etsy.com/finepinequilts"
+  },
+  {
+    "name": "Immaculate Conception Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "313 N Livingston St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2507",
+    "website": "https://www.icbrookfieldchurch.org/"
   },
   {
     "name": "Irvinbilt Constructors",
@@ -222,12 +483,43 @@
     "website": "http://www.irvinbilt.com/"
   },
   {
+    "name": "J&J on Main",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "116 S Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-376-9028",
+    "website": "https://www.facebook.com/jjonmain"
+  },
+  {
     "name": "KeyMe Locksmiths",
     "town": "Brookfield",
     "category": "Locksmith",
     "address": "937 Park Cir Dr, Brookfield, MO 64628",
     "phone": "+1 660-869-2926",
     "website": "https://key.me/partners/walmart/kiosks/missouri/brookfield/brookfield/locksmith-key-copy-brookfield-walmart-64628-missouri"
+  },
+  {
+    "name": "Kinderland Preschool",
+    "town": "Marceline",
+    "category": "Education & Childcare",
+    "address": "223 E Santa Fe Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2422"
+  },
+  {
+    "name": "Ktreasures88",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "1510 N State St, Brookfield, MO 64628",
+    "phone": "+1 660-234-5950",
+    "website": "https://www.ktreasures88.com/"
+  },
+  {
+    "name": "Laclede United Methodist Church",
+    "town": "Laclede",
+    "category": "Church & Religious Organization",
+    "address": "504 Pershing Dr, Laclede, MO 64651",
+    "phone": "+1 660-963-2249",
+    "website": "http://www.umc.org/find-a-church/church/70038"
   },
   {
     "name": "LaPlata Lawn Services LLC",
@@ -252,6 +544,13 @@
     "phone": "+1 660-349-6942"
   },
   {
+    "name": "Lewis & Wallace, CPA",
+    "town": "Brookfield",
+    "category": "Professional & Financial Services",
+    "address": "215 E Brooks St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2202"
+  },
+  {
     "name": "Linhart Pest Control",
     "town": "Milan",
     "category": "Pest Control",
@@ -259,11 +558,128 @@
     "phone": "+1 833-546-3574"
   },
   {
+    "name": "Linn Co R1 School",
+    "town": "Purdin",
+    "category": "Education & Childcare",
+    "address": "15533 Co Rd KK, Purdin, MO 64674",
+    "phone": "+1 660-895-1234",
+    "website": "https://www.linnr1.k12.mo.us/"
+  },
+  {
+    "name": "Linn County Fairgrounds",
+    "town": "Brookfield",
+    "category": "Arts, Recreation & Entertainment",
+    "address": "Idalis Dr, Brookfield, MO 64628"
+  },
+  {
+    "name": "Linn County Health Department",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "635 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7251",
+    "website": "http://linncohealth.com/"
+  },
+  {
+    "name": "Linn County Historical Society",
+    "town": "Brookfield",
+    "category": "Arts, Recreation & Entertainment",
+    "address": "303 N Livingston St, Brookfield, MO 64628",
+    "website": "https://www.facebook.com/people/The-Tillman-House/100095048053617/"
+  },
+  {
+    "name": "Linn County Nutrition Site",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "143 Clawson Dr, Brookfield, MO 64628",
+    "phone": "+1 660-258-2577"
+  },
+  {
+    "name": "Linn County Senate Bill 40",
+    "town": "Brookfield",
+    "category": "Nonprofit & Civic Organization",
+    "address": "102 Fairground Rd, Brookfield, MO 64628",
+    "phone": "+1 660-258-2877",
+    "website": "https://www.facebook.com/linncosb40/"
+  },
+  {
+    "name": "Linn County Title, LLC",
+    "town": "Brookfield",
+    "category": "Real Estate & Insurance",
+    "address": "116 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2260",
+    "website": "https://www.missouricentraltitle.com/"
+  },
+  {
+    "name": "Linneus Baptist Church",
+    "town": "Linneus",
+    "category": "Church & Religious Organization",
+    "address": "240 E State St, Linneus, MO 64653",
+    "phone": "+1 660-895-5480"
+  },
+  {
+    "name": "Linneus Farm Equipment",
+    "town": "Linneus",
+    "category": "Retail & Shopping",
+    "address": "130 E Smith St, Linneus, MO 64653",
+    "phone": "+1 660-895-5163",
+    "website": "https://linneusfarmequipment.com/"
+  },
+  {
+    "name": "Linneus Methodist Church",
+    "town": "Linneus",
+    "category": "Church & Religious Organization",
+    "address": "308 N High St, Linneus, MO 64653",
+    "phone": "+1 660-895-5167"
+  },
+  {
+    "name": "Living Faith Christian Fellowship",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "27216 Ingel Rd, Brookfield, MO 64628",
+    "phone": "+1 660-258-2201",
+    "website": "http://www.thefaithoncedelivered.info/"
+  },
+  {
+    "name": "Local Luxuries Boutique",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "314 N Main St, Brookfield, MO 64628"
+  },
+  {
+    "name": "Locust Creek Mennonite Church",
+    "town": "Linneus",
+    "category": "Church & Religious Organization",
+    "address": "20790 Co Rd P, Linneus, MO 64653",
+    "phone": "+1 660-734-2105",
+    "website": "https://locustcreekchurch.wordpress.com/"
+  },
+  {
+    "name": "Los Chimas Mexican Restaurant",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "112 N Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-402-5050"
+  },
+  {
+    "name": "Los Chimas of Brookfield",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "620 W Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-258-9595"
+  },
+  {
     "name": "M S Contracting",
     "town": "Marceline",
     "category": "Fencing",
     "address": "Marceline, MO 64658",
     "phone": "+1 660-375-1886"
+  },
+  {
+    "name": "Ma Vic's Corner Cafe",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "122 N Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-376-3773"
   },
   {
     "name": "Macon HVAC",
@@ -274,6 +690,49 @@
     "website": "http://www.maconelectricgeothermal.com/"
   },
   {
+    "name": "Marceline Auto Repair & Sales",
+    "town": "Marceline",
+    "category": "Automotive",
+    "address": "1401 N Missouri Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-4095"
+  },
+  {
+    "name": "Marceline Mural Motel",
+    "town": "Marceline",
+    "category": "Lodging & Hospitality",
+    "address": "100 E Howell Ave, Marceline, MO 64658",
+    "phone": "+1 816-824-4210"
+  },
+  {
+    "name": "Marceline Pizza Company",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "211 N Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-376-9030"
+  },
+  {
+    "name": "Marceline United Methodist Church",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "321 N Kansas Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2444",
+    "website": "http://www.marcelineumc.com/"
+  },
+  {
+    "name": "Martin House Motel",
+    "town": "Brookfield",
+    "category": "Lodging & Hospitality",
+    "address": "731 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7257",
+    "website": "https://www.martinhousemotel.com/"
+  },
+  {
+    "name": "Meadville Community Center",
+    "town": "Meadville",
+    "category": "Nonprofit & Civic Organization",
+    "address": "106 W Crandall St, Meadville, MO 64659"
+  },
+  {
     "name": "Mid Missouri Forestry Mulching",
     "town": "Salisbury",
     "category": "Tree Service",
@@ -282,11 +741,190 @@
     "website": "https://midmissouriforestrymulching.com/"
   },
   {
+    "name": "Midwest Liquidation LLC",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "660 W Lockling Ave #626, Brookfield, MO 64628",
+    "phone": "+1 660-258-9095"
+  },
+  {
+    "name": "Milford's Service Station",
+    "town": "Laclede",
+    "category": "Automotive",
+    "address": "1105 Grove St, Laclede, MO 64651",
+    "phone": "+1 660-963-2331"
+  },
+  {
+    "name": "Miller Garage",
+    "town": "Browning",
+    "category": "Automotive",
+    "address": "307 W Main St, Browning, MO 64630",
+    "phone": "+1 660-946-4310"
+  },
+  {
+    "name": "Ministries in Linn County Food Pantry",
+    "town": "Brookfield",
+    "category": "Nonprofit & Civic Organization",
+    "address": "122 W Clark St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7071"
+  },
+  {
+    "name": "Missouri Land & Farm",
+    "town": "Brookfield",
+    "category": "Farm & Agriculture",
+    "address": "216 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-3185",
+    "website": "https://missourilandandfarm.com/"
+  },
+  {
+    "name": "Nature's Grace and Wellness, Missouri",
+    "town": "Marceline",
+    "category": "Health & Wellness",
+    "address": "3015 North Runway Drive, Marceline, MO 64658",
+    "website": "https://naturesgraceandwellness.com/"
+  },
+  {
+    "name": "North Central Missouri Branch YMCA",
+    "town": "Brookfield",
+    "category": "Nonprofit & Civic Organization",
+    "address": "1140 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2388",
+    "website": "http://www.ncmymca.com/"
+  },
+  {
+    "name": "North Central Mo Mental Health",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "1102 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7810",
+    "website": "http://www.ncmmh.org/"
+  },
+  {
+    "name": "Nourishing family farm",
+    "town": "Linneus",
+    "category": "Farm & Agriculture",
+    "address": "20619 Co Rd P, Linneus, MO 64653",
+    "phone": "+1 816-351-6686",
+    "website": "https://www.nourishingfamilyfarm.com/"
+  },
+  {
+    "name": "Oak Grove Enterprise Farm Feed Store",
+    "town": "Linneus",
+    "category": "Retail & Shopping",
+    "address": "19999 Bow Dr, Linneus, MO 64653",
+    "phone": "+1 660-895-5151"
+  },
+  {
+    "name": "OK Tavern",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "126 E Howell Ave, Marceline, MO 64658",
+    "website": "http://oktavern.com/%3Futm_source%3Dgmb%26utm_medium%3Dreferral"
+  },
+  {
+    "name": "Outback Saloon",
+    "town": "Marceline",
+    "category": "Restaurant & Food",
+    "address": "10031 MO-5, Marceline, MO 64658",
+    "phone": "+1 660-376-3531"
+  },
+  {
+    "name": "PB5",
+    "town": "Linneus",
+    "category": "Retail & Shopping",
+    "address": "110 S Main St, Linneus, MO 64653",
+    "phone": "+1 660-895-5555"
+  },
+  {
+    "name": "Pershing Memorial Hospital",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "130 E Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-258-2222",
+    "website": "http://www.phsmo.org/"
+  },
+  {
+    "name": "Pigskin Pub & Pizza",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "119 E Brooks St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2600"
+  },
+  {
+    "name": "Pleasant Grove Church",
+    "town": "Bucklin",
+    "category": "Church & Religious Organization",
+    "address": "Bucklin, MO 64631",
+    "phone": "+1 660-695-3818",
+    "website": "http://pgbcmo.com/"
+  },
+  {
+    "name": "Precision Auto Diagnostics",
+    "town": "Brookfield",
+    "category": "Automotive",
+    "address": "301 W Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-5447"
+  },
+  {
+    "name": "Preferred Family Healthcare",
+    "town": "Brookfield",
+    "category": "Health & Wellness",
+    "address": "614 W Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-258-4188",
+    "website": "http://www.pfh.org/"
+  },
+  {
+    "name": "Prenger Foods",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "542 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2653",
+    "website": "http://www.prengerfoods.com/"
+  },
+  {
+    "name": "Professional Land Title Corporation",
+    "town": "Brookfield",
+    "category": "Real Estate & Insurance",
+    "address": "113 E Brooks St, Brookfield, MO 64628",
+    "phone": "+1 660-258-3125",
+    "website": "http://www.prolandtitlecorp.com/"
+  },
+  {
+    "name": "Quinn Lumber Co",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "101 E Helm St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7511"
+  },
+  {
+    "name": "Raspberry's BBQ",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "323 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-9888",
+    "website": "https://www.raspberrysbbq.com/"
+  },
+  {
     "name": "Reihner Electric",
     "town": "Chula",
     "category": "Electrical",
     "address": "305 Mansur St, Chula, MO 64635",
     "phone": "+1 660-973-6478"
+  },
+  {
+    "name": "Relief Chiropractic LLC",
+    "town": "Marceline",
+    "category": "Health & Wellness",
+    "address": "127 S Main Street USA, Marceline, MO 64658",
+    "phone": "+1 660-376-3331"
+  },
+  {
+    "name": "Revive Hydration & Wellness",
+    "town": "Marceline",
+    "category": "Health & Wellness",
+    "address": "102 E Howell Ave, Marceline, MO 64658",
+    "phone": "+1 816-210-4328",
+    "website": "https://revivehydrationwellness.com/"
   },
   {
     "name": "Ritter's Ultimate Tree Service LLC",
@@ -303,6 +941,13 @@
     "address": "224 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-7163",
     "website": "http://www.rudysroofing.com/"
+  },
+  {
+    "name": "RunninRight LLC",
+    "town": "Linneus",
+    "category": "Automotive",
+    "address": "19093 Edin Rd, Linneus, MO 64653",
+    "phone": "+1 660-654-4363"
   },
   {
     "name": "Sears Appliance Repair",
@@ -327,6 +972,14 @@
     "phone": "+1 660-768-5524"
   },
   {
+    "name": "Shop Show-Me",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "110 E Brooks St, Brookfield, MO 64628",
+    "phone": "+1 660-351-3792",
+    "website": "http://www.shopshowme.com/"
+  },
+  {
     "name": "Smith Lawn & Tree Service",
     "town": "Chillicothe",
     "category": "Tree Service",
@@ -343,11 +996,48 @@
     "website": "https://www.sonhvac.com/"
   },
   {
+    "name": "Spencer's Auto Repair",
+    "town": "Marceline",
+    "category": "Automotive",
+    "address": "701 S Missouri Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2121",
+    "website": "https://www.visitmarceline.com/marceline/automotive/spencers-auto-repair/"
+  },
+  {
     "name": "Summers Refresh",
     "town": "Chillicothe",
     "category": "Painting",
     "phone": "+1 660-973-9109",
     "website": "https://www.facebook.com/share/18wVbgZtFX/"
+  },
+  {
+    "name": "T.H.E. Bar",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "113 N Main St, Brookfield, MO 64628"
+  },
+  {
+    "name": "Tall Paul\u2019s Pub & Grub LLC",
+    "town": "Bucklin",
+    "category": "Restaurant & Food",
+    "address": "5 Livingston St, Bucklin, MO 64631",
+    "phone": "+1 660-695-4416"
+  },
+  {
+    "name": "Tastee Treat",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "301 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7741",
+    "website": "http://tastee-treat.edan.io/"
+  },
+  {
+    "name": "Tequila Jalisco | Mexican Restaurant",
+    "town": "Brookfield",
+    "category": "Restaurant & Food",
+    "address": "517 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2226",
+    "website": "https://www.facebook.com/Tequila-Jalisco-241328335914289/"
   },
   {
     "name": "Teter Plumbing",
@@ -356,10 +1046,62 @@
     "address": "33883 State Hwy FF, Bevier, MO 63532"
   },
   {
+    "name": "The Farmhouse Butcher Shop & Deli",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "222 W Lockling Ave, Brookfield, MO 64628",
+    "phone": "+1 660-258-9600",
+    "website": "https://thefarmhousemo.com/"
+  },
+  {
+    "name": "The Time Warp Antiques and Thrift Store",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "112 S Main St, Brookfield, MO 64628",
+    "phone": "+1 951-334-5485"
+  },
+  {
+    "name": "Tooey H Merc Co",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "304 N Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-9090"
+  },
+  {
     "name": "Town & Country Plumbing & Trnchng",
     "town": "Chillicothe",
     "category": "Plumbing",
     "address": "1033 International Rd, Chillicothe, MO 64601",
     "phone": "+1 660-646-1894"
+  },
+  {
+    "name": "Tractor Supply Co.",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "Linn Shopping Ctr, 710 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2055",
+    "website": "https://www.tractorsupply.com/tsc/store_Brookfield-MO-64628_2835"
+  },
+  {
+    "name": "UnWined & Shop",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "113 S Main St, Brookfield, MO 64628"
+  },
+  {
+    "name": "Walmart Supercenter",
+    "town": "Brookfield",
+    "category": "Retail & Shopping",
+    "address": "937 Park Cir Dr, Brookfield, MO 64628",
+    "phone": "+1 660-258-7416",
+    "website": "https://www.walmart.com/store/203-brookfield-mo/%3Fveh%3Dseo_loc"
+  },
+  {
+    "name": "Walsworth Community Center",
+    "town": "Marceline",
+    "category": "Arts, Recreation & Entertainment",
+    "address": "124 E Ritchie Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-2249",
+    "website": "https://www.walsworthcc.org/"
   }
 ]

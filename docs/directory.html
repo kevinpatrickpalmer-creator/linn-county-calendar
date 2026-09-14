@@ -49,6 +49,16 @@
     font-family: var(--font-body);
   }
   #resultsCount { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .75rem; }
+  .dir-category-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 1.5rem 0 .75rem;
+    padding-left: .7rem;
+    border-left: 3px solid var(--primary);
+    color: var(--ink);
+  }
+  .dir-category-heading:first-child { margin-top: 0; }
   .dir-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -107,7 +117,7 @@
 
   <p id="resultsCount"></p>
   <div id="dirStatus">Loading directory...</div>
-  <div class="dir-grid" id="dirGrid"></div>
+  <div id="dirGrid"></div>
   <div id="dirEmpty">No listings match your search yet. Try clearing a filter, or <a href="submit-business.html">be the first to add one &rarr;</a></div>
 
   <div class="footer-link">
@@ -191,8 +201,65 @@
     });
   });
 
+  // One business -> one card. No category badge on the card itself --
+  // render() groups cards under a category heading instead, so repeating
+  // the same word on every card under it would just be noise.
+  function buildCard(b) {
+    const card = document.createElement("div");
+    card.className = "biz-card";
+
+    const name = document.createElement("div");
+    name.className = "biz-name";
+    name.textContent = b.name;
+    card.appendChild(name);
+
+    const town = document.createElement("div");
+    town.className = "biz-town";
+    town.textContent = [b.address, b.town].filter(Boolean).join(" · ") || b.town;
+    card.appendChild(town);
+
+    if (b.description) {
+      const desc = document.createElement("div");
+      desc.className = "biz-desc";
+      desc.textContent = b.description;
+      card.appendChild(desc);
+    }
+
+    const meta = document.createElement("div");
+    meta.className = "biz-meta";
+    if (b.phone) {
+      const a = document.createElement("a");
+      a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
+      a.textContent = b.phone;
+      meta.appendChild(a);
+    }
+    if (b.website) {
+      const a = document.createElement("a");
+      a.href = b.website;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "Visit website →";
+      meta.appendChild(a);
+    }
+    if (b.email) {
+      const a = document.createElement("a");
+      a.href = `mailto:${b.email}`;
+      a.textContent = b.email;
+      meta.appendChild(a);
+    }
+    if (b.hours) {
+      const span = document.createElement("span");
+      span.className = "biz-hours";
+      span.textContent = b.hours;
+      meta.appendChild(span);
+    }
+    if (meta.childNodes.length) card.appendChild(meta);
+
+    return card;
+  }
+
   function render() {
-    const grid = document.getElementById("dirGrid");
+    const container = document.getElementById("dirGrid");
     const empty = document.getElementById("dirEmpty");
     const resultsCount = document.getElementById("resultsCount");
     const query = document.getElementById("searchInput").value.trim().toLowerCase();
@@ -204,67 +271,44 @@
       return true;
     });
 
-    grid.innerHTML = "";
+    // Grouped by category (Kevin's ask: once every Town/Category filter
+    // is cleared, a flat alphabetical wall of unrelated businesses isn't
+    // as useful as browsing by what they actually do) rather than one
+    // flat list -- each bucket keeps businesses.json's existing
+    // alphabetical-by-name order, so nothing needs re-sorting here.
+    const byCategory = new Map();
     for (const b of filtered) {
-      const card = document.createElement("div");
-      card.className = "biz-card";
+      const cat = b.category || "Other";
+      if (!byCategory.has(cat)) byCategory.set(cat, []);
+      byCategory.get(cat).push(b);
+    }
 
-      if (b.category) {
-        const badge = document.createElement("span");
-        badge.className = "type-badge";
-        badge.style.alignSelf = "flex-start";
-        badge.textContent = b.category;
-        card.appendChild(badge);
-      }
+    // Section order follows business_categories' own curated order in
+    // config.json rather than alphabetical -- any category value found
+    // in the data but missing from that list (shouldn't happen) still
+    // sorts in, just after the known ones, so nothing is silently lost.
+    const categoryOrder = config.business_categories || [];
+    const categories = [...byCategory.keys()].sort((a, b) => {
+      const ai = categoryOrder.indexOf(a), bi = categoryOrder.indexOf(b);
+      if (ai === -1 && bi === -1) return a.localeCompare(b);
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
 
-      const name = document.createElement("div");
-      name.className = "biz-name";
-      name.textContent = b.name;
-      card.appendChild(name);
+    container.innerHTML = "";
+    for (const cat of categories) {
+      const heading = document.createElement("div");
+      heading.className = "dir-category-heading";
+      heading.textContent = cat;
+      container.appendChild(heading);
 
-      const town = document.createElement("div");
-      town.className = "biz-town";
-      town.textContent = [b.address, b.town].filter(Boolean).join(" · ") || b.town;
-      card.appendChild(town);
-
-      if (b.description) {
-        const desc = document.createElement("div");
-        desc.className = "biz-desc";
-        desc.textContent = b.description;
-        card.appendChild(desc);
+      const grid = document.createElement("div");
+      grid.className = "dir-grid";
+      for (const b of byCategory.get(cat)) {
+        grid.appendChild(buildCard(b));
       }
-
-      const meta = document.createElement("div");
-      meta.className = "biz-meta";
-      if (b.phone) {
-        const a = document.createElement("a");
-        a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
-        a.textContent = b.phone;
-        meta.appendChild(a);
-      }
-      if (b.website) {
-        const a = document.createElement("a");
-        a.href = b.website;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.textContent = "Visit website →";
-        meta.appendChild(a);
-      }
-      if (b.email) {
-        const a = document.createElement("a");
-        a.href = `mailto:${b.email}`;
-        a.textContent = b.email;
-        meta.appendChild(a);
-      }
-      if (b.hours) {
-        const span = document.createElement("span");
-        span.className = "biz-hours";
-        span.textContent = b.hours;
-        meta.appendChild(span);
-      }
-      if (meta.childNodes.length) card.appendChild(meta);
-
-      grid.appendChild(card);
+      container.appendChild(grid);
     }
 
     resultsCount.textContent = businesses.length

@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """
-Pulls home service businesses (plumbers, electricians, roofers, etc.) from
-Google Maps via Outscraper (https://outscraper.com) -- a paid third-party
-API that does the actual Google Maps scraping/anti-blocking work, so this
-script is just "send a search, get structured results back." Requires
-OUTSCRAPER_API_KEY in the environment.
+Pulls local businesses and organizations -- restaurants, shops, churches,
+farms, home service trades, and everything else in BUSINESS_QUERIES --
+from Google Maps via Outscraper (https://outscraper.com), a paid
+third-party API that does the actual Google Maps scraping/anti-blocking
+work, so this script is just "send a search, get structured results
+back." Requires OUTSCRAPER_API_KEY in the environment.
+
+Started out covering only home service trades (plumbers, electricians,
+etc.) -- see git history for scrape_home_services.py if useful -- and
+was broadened to every category in business_categories.
 
 Writes one file per business straight into data/businesses/ -- same shape
 and location as a listing approved by hand through admin-business.html
@@ -27,7 +32,7 @@ Results also skew heavily "service area" (a truck, no storefront) -- see
 build_listing()'s docstring.
 
 Run:
-    OUTSCRAPER_API_KEY=... python scrape_home_services.py
+    OUTSCRAPER_API_KEY=... python scrape_businesses.py
 """
 import glob
 import json
@@ -63,8 +68,12 @@ MAX_DISTANCE_MILES = 30
 
 # (directory category, what to search Google Maps for) -- category also
 # becomes one of the checkboxes in docs/directory.html's filter, so keep
-# these in sync with business_categories in docs/config.json.
-HOME_SERVICE_QUERIES = [
+# these in sync with business_categories in docs/config.json. No query for
+# "Home & Trade Services" (the specific trades below supersede that
+# generic bucket -- it's still available for a manual submission that
+# doesn't fit one of them) or "Other" (submission-form fallback only,
+# never something to search Google Maps for).
+BUSINESS_QUERIES = [
     ("Plumbing", "plumbers"),
     ("Electrical", "electricians"),
     ("HVAC & Cooling", "HVAC contractors"),
@@ -79,6 +88,18 @@ HOME_SERVICE_QUERIES = [
     ("Appliance Repair", "appliance repair services"),
     ("Fencing", "fence contractors"),
     ("Garage Door Service", "garage door repair services"),
+    ("Restaurant & Food", "restaurants"),
+    ("Retail & Shopping", "retail stores and shops"),
+    ("Automotive", "auto repair shops"),
+    ("Health & Wellness", "health and wellness services"),
+    ("Professional & Financial Services", "accounting, legal, and financial services"),
+    ("Real Estate & Insurance", "real estate and insurance agencies"),
+    ("Lodging & Hospitality", "hotels and lodging"),
+    ("Farm & Agriculture", "farm and agriculture businesses"),
+    ("Nonprofit & Civic Organization", "nonprofit organizations and civic groups"),
+    ("Church & Religious Organization", "churches"),
+    ("Education & Childcare", "schools and daycare centers"),
+    ("Arts, Recreation & Entertainment", "arts and recreation venues"),
 ]
 
 
@@ -256,7 +277,7 @@ def main():
     existing_slugs, existing_place_ids = _load_existing_index(BUSINESS_DIR)
 
     added = 0
-    for category, search_phrase in HOME_SERVICE_QUERIES:
+    for category, search_phrase in BUSINESS_QUERIES:
         query = f"{search_phrase} in {config['county_display_name']}, {config['state']}"
         print(f"Searching: {query}")
         try:

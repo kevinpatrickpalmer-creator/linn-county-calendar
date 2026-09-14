@@ -38,10 +38,10 @@ left blank. `category` should match one of `business_categories` in
 but a listing with an unrecognized or missing category still shows up
 under "Other".
 
-## Home service listings (`scrape_home_services.py`)
+## Listings scraped from Google Maps (`scrape_businesses.py`)
 
 Files whose `"source"` field is `"google_maps"` were added automatically
-by `scrape_home_services.py` (pulled from Google Maps via
+by `scrape_businesses.py` (pulled from Google Maps via
 [Outscraper](https://outscraper.com), see that script's module docstring)
 rather than through the submit/approve flow above — these publish with no
 human review, unlike everything else in this directory. `source` and the
