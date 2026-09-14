@@ -1,0 +1,39 @@
+name: Scrape home service businesses
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"  # weekly, Monday ~9am Central (drifts to 8am during standard time)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-home-services
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run scraper
+        env:
+          OUTSCRAPER_API_KEY: ${{ secrets.OUTSCRAPER_API_KEY }}
+        run: python scrape_home_services.py
+
+      - name: Commit any new listings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/businesses/
+          git diff --cached --quiet || git commit -m "Add home service businesses from Google Maps"
+          git push

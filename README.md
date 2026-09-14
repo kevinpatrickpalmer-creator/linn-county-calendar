@@ -261,6 +261,26 @@ events, just with its own set of files so the two never collide:
   `calendar-view.html` uses for its own Town/Type filters), reusing
   `theme.css` so it looks and feels like the rest of the site rather than
   a bolted-on section.
+- **Home service listings, auto-pulled from Google Maps:**
+  `scrape_home_services.py` — a deliberate second on-ramp alongside the
+  submit-then-approve flow above, specifically for the "find a plumber"
+  use case, using [Outscraper](https://outscraper.com) (a paid API that
+  does the actual Google Maps scraping/anti-blocking work) rather than
+  scraping Google's pages directly, which would violate Google's Terms of
+  Service. Needs an `OUTSCRAPER_API_KEY` secret. Runs weekly
+  (`.github/workflows/scrape-home-services.yml`, `workflow_dispatch` also
+  available for an on-demand run) across the categories in
+  `HOME_SERVICE_QUERIES` there (plumbing, electrical, HVAC, roofing, tree
+  service, lawn care, pest control, handyman, general contractor,
+  painting, locksmith, appliance repair, fencing, garage door service —
+  keep this list in sync with `business_categories` in `config.json`).
+  Unlike a manual submission, **these publish with no human review** —
+  that tradeoff (volume over an approval bottleneck, at the cost of
+  occasionally listing something stale or miscategorized) was a
+  deliberate call, matching how scraped calendar events already work.
+  Never overwrites a file that already exists for the same business (see
+  `data/businesses/README.md`), and skips anything Google itself doesn't
+  mark as currently operating.
 
 ## Viewing the calendar online
 
