@@ -6,4 +6,30 @@ METHOD:PUBLISH
 X-WR-CALNAME:Linn County Community Calendar (Religious / Church)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Trevor Thomas LIVE at First Baptist Church
+DTSTART:20260717T000000Z
+DTEND:20260717T010000Z
+DTSTAMP:20260914T202248Z
+UID:leadereditorial-2026-07-16-trevor-thomas-live-at-first-baptist-church-
+ 2026-07-16-700@linn-county-scraper.local
+DESCRIPTION:Trevor Thomas LIVE at First Baptist Church\, Marceline. Show s
+ tarts at 7 p.m.
+LOCATION:Marceline\, MO
+X-EVENT-TYPE:Religious / Church
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Movie Night - Crossroads Christian Church
+DTSTART:20261024T210000Z
+DTEND:20261025T000000Z
+DTSTAMP:20260914T202248Z
+UID:bfchamber-movie-night-crossroads-christian-church-2026-10-24-0400@linn
+ -county-scraper.local
+DESCRIPTION:Free movie night by Crossroads Christian Church at Brookfield 
+ Campus with Toy Story 5! October 24th @ 4pm - 414 W Lockling Ave\, Brookfi
+ eldPopcorn provided by Reel Time CinemaMore questions? Contact Colt at 661
+ -367-0874
+LOCATION:Brookfield\, MO
+X-EVENT-TYPE:Religious / Church
+END:VEVENT
 END:VCALENDAR

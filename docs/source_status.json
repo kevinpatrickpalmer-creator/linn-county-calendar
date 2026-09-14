@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-14T15:04:47.625961+00:00",
+  "generated_at": "2026-09-14T20:22:49.601911+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
-      "count": 0,
-      "ok": false,
-      "error": "Page.wait_for_selector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\".csEvWrap\") to be visible\n"
+      "count": 75,
+      "ok": true,
+      "error": null
     },
     {
       "name": "Rhodes Funeral Home",
@@ -33,13 +33,13 @@
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 68,
+      "count": 69,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 76,
+      "count": 77,
       "ok": true,
       "error": null
     },
@@ -51,13 +51,13 @@
     },
     {
       "name": "Newspaper's Community Calendar page",
-      "count": 0,
+      "count": 32,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 12,
+      "count": 13,
       "ok": true,
       "error": null
     },
