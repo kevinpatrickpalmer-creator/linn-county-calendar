@@ -97,11 +97,24 @@
     "phone": "+1 660-376-2145"
   },
   {
+    "name": "Assembly of God Church",
+    "town": "Bucklin",
+    "category": "Church & Religious Organization",
+    "address": "Bucklin, MO 64631",
+    "phone": "+1 660-695-3746"
+  },
+  {
     "name": "B J's Country Club",
     "town": "Linn County",
     "category": "Restaurant & Food",
     "address": "205 N Macon St, Bevier, MO 63532",
     "phone": "+1 660-773-6643"
+  },
+  {
+    "name": "Baker Christian Church",
+    "town": "Browning",
+    "category": "Church & Religious Organization",
+    "address": "32HC+VX, Browning, MO 64630"
   },
   {
     "name": "Bartlett's L.L.C.",
@@ -125,6 +138,14 @@
     "address": "28622 MO-11, Brookfield, MO 64628",
     "phone": "+1 660-258-4900",
     "website": "https://www.bestwestern.com/en_US/book/hotel-rooms.26150.html%3Fiata%3D00171880%26ssob%3DBLBWI0004G%26cid%3DBLBWI0004G:google:gmb:26150"
+  },
+  {
+    "name": "Bethany Baptist Church SBC",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "305 E Howell Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-3377",
+    "website": "https://bethanymarceline.com/"
   },
   {
     "name": "Better By Design LLC",
@@ -220,11 +241,25 @@
     "website": "http://www.bradsweldingshop.com/%3Futm_source%3DGoogle%26utm_medium%3Dbusinesslisting%26utm_campaign%3Dtracking"
   },
   {
+    "name": "Brookfield Assembly of God",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "26603 Ira Dr, Brookfield, MO 64628",
+    "phone": "+1 660-258-5673"
+  },
+  {
     "name": "Brookfield Church of Chirst",
     "town": "Brookfield",
     "category": "Church & Religious Organization",
     "address": "1018 N Main St, Brookfield, MO 64628",
     "website": "http://thegospelsaves.me/churches/brookfield-church-of-christ/"
+  },
+  {
+    "name": "Brookfield Church Of The Nazarene",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "23227 US-36, Brookfield, MO 64628",
+    "phone": "+1 660-258-2525"
   },
   {
     "name": "Brookfield family restaurant",
@@ -257,10 +292,30 @@
     "website": "http://www.browerelectricmo.com/"
   },
   {
+    "name": "Browning First Baptist Church",
+    "town": "Browning",
+    "category": "Church & Religious Organization",
+    "address": "411 W Main St, Browning, MO 64630",
+    "phone": "+1 660-946-4373"
+  },
+  {
+    "name": "Browning Methodist Church",
+    "town": "Browning",
+    "category": "Church & Religious Organization",
+    "address": "118 N 6th St, Browning, MO 64630",
+    "phone": "+1 660-946-4405"
+  },
+  {
     "name": "Brush Creek Primitive Baptist Church",
     "town": "Linn County",
     "category": "Church & Religious Organization",
     "address": "14457 State Hwy J, Ethel, MO 63539"
+  },
+  {
+    "name": "Bucklin Christian Church",
+    "town": "Bucklin",
+    "category": "Church & Religious Organization",
+    "address": "20 Oak St, Bucklin, MO 64631"
   },
   {
     "name": "Bullen and Sons roofing and construction",
@@ -306,6 +361,14 @@
     "address": "724 Locust St, Chillicothe, MO 64601",
     "phone": "+1 660-646-2074",
     "website": "http://chuckspestcontrol.com/"
+  },
+  {
+    "name": "Church of Christ",
+    "town": "Meadville",
+    "category": "Church & Religious Organization",
+    "address": "400 Macon St, Meadville, MO 64659",
+    "phone": "+1 660-938-4721",
+    "website": "http://thegospelsaves.me/churches/meadville-church-of-christ/"
   },
   {
     "name": "Church of God 7th Day",
@@ -534,6 +597,41 @@
     "website": "https://figgslawncare.com/"
   },
   {
+    "name": "Fire Revival Church",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "210 Hayden St, Marceline, MO 64658"
+  },
+  {
+    "name": "First Baptist Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "314 S Caldwell St, Brookfield, MO 64628"
+  },
+  {
+    "name": "First Baptist Church",
+    "town": "Laclede",
+    "category": "Church & Religious Organization",
+    "address": "Worlow St, Laclede, MO 64651",
+    "phone": "+1 660-963-2634"
+  },
+  {
+    "name": "First Baptist Church Meadville",
+    "town": "Meadville",
+    "category": "Church & Religious Organization",
+    "address": "101 Macon St, Meadville, MO 64659",
+    "phone": "+1 660-938-4501",
+    "website": "http://www.fbcmeadville.com/"
+  },
+  {
+    "name": "First Baptist Church of Marceline",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "First Baptist Church, 119 W Ritchie Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-3573",
+    "website": "https://sites.google.com/site/fbcmarceline/home"
+  },
+  {
     "name": "First Christian Church",
     "town": "Brookfield",
     "category": "Church & Religious Organization",
@@ -547,6 +645,20 @@
     "category": "Church & Religious Organization",
     "address": "116 W Gracia Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2446"
+  },
+  {
+    "name": "First Presbyterian Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "123 W John St, Brookfield, MO 64628",
+    "phone": "+1 660-258-3949"
+  },
+  {
+    "name": "Five corners church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "715 S Brunswick St, Brookfield, MO 64628",
+    "phone": "+1 660-258-9002"
   },
   {
     "name": "Ford's Heating & Air Conditioning",
@@ -607,6 +719,13 @@
     "address": "713 Calhoun St, Chillicothe, MO 64601",
     "phone": "+1 660-973-7338",
     "website": "https://www.goadhvac.com/"
+  },
+  {
+    "name": "God's Garden Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "122 N Monroe St, Brookfield, MO 64628",
+    "phone": "+1 660-258-2275"
   },
   {
     "name": "Gray Electric LLC",
@@ -739,6 +858,14 @@
     "phone": "+1 660-376-2422"
   },
   {
+    "name": "Kodesh Mishkan Ministry Group",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "715 S Brunswick St, Brookfield, MO 64628",
+    "phone": "+1 816-286-4801",
+    "website": "https://kmmg.org/"
+  },
+  {
     "name": "Ktreasures88",
     "town": "Brookfield",
     "category": "Retail & Shopping",
@@ -857,6 +984,14 @@
     "website": "https://www.missouricentraltitle.com/"
   },
   {
+    "name": "Linn-Livingston Baptist Associates",
+    "town": "Meadville",
+    "category": "Church & Religious Organization",
+    "address": "304 W Crandall St, Meadville, MO 64659",
+    "phone": "+1 660-938-4294",
+    "website": "http://www.llba.org/"
+  },
+  {
     "name": "Linneus Baptist Church",
     "town": "Linneus",
     "category": "Church & Religious Organization",
@@ -973,6 +1108,12 @@
     "phone": "+1 660-376-9030"
   },
   {
+    "name": "Marceline Seventh-day Adventist Church",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "560 N Chestnut St, Marceline, MO 64658"
+  },
+  {
     "name": "Marceline United Methodist Church",
     "town": "Marceline",
     "category": "Church & Religious Organization",
@@ -1076,6 +1217,12 @@
     "website": "https://www.motel6.com/property/motel-kansas-city-mo-missouri-us-356823%3Flid%3DLocal_Milestone%26travelAgentNumber%3DTA001305%26corporatePlusNumber%3DCP792N5W%26utm_source%3Dgoogle%2520my%2520business%26utm_medium%3Dorganic%2520listing%26utm_campaign%3Dvisit%2520website%26utm_content%3Dglobal"
   },
   {
+    "name": "Mt Olive Baptist Church",
+    "town": "Purdin",
+    "category": "Church & Religious Organization",
+    "address": "14457 Clark Dr, Purdin, MO 64674"
+  },
+  {
     "name": "Nature's Grace and Wellness, Missouri",
     "town": "Marceline",
     "category": "Health & Wellness",
@@ -1150,6 +1297,14 @@
     "phone": "+1 660-646-5905"
   },
   {
+    "name": "Park Baptist Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "121 E Park St, Brookfield, MO 64628",
+    "phone": "+1 660-258-3391",
+    "website": "https://www.parkbaptist.com/"
+  },
+  {
     "name": "PB5",
     "town": "Linneus",
     "category": "Retail & Shopping",
@@ -1178,6 +1333,18 @@
     "address": "Bucklin, MO 64631",
     "phone": "+1 660-695-3818",
     "website": "http://pgbcmo.com/"
+  },
+  {
+    "name": "Pleasant Grove UMC",
+    "town": "Purdin",
+    "category": "Church & Religious Organization",
+    "address": "Purdin, MO 64674"
+  },
+  {
+    "name": "Pleasant Street Church of Christ",
+    "town": "Laclede",
+    "category": "Church & Religious Organization",
+    "address": "307 Pleasant St, Laclede, MO 64651"
   },
   {
     "name": "Prairie View Mennonite Church (Groffdale Conference)",
@@ -1404,6 +1571,13 @@
     "website": "https://www.sonhvac.com/"
   },
   {
+    "name": "SonLight Mennonite Church",
+    "town": "Purdin",
+    "category": "Church & Religious Organization",
+    "address": "413 D St, Purdin, MO 64674",
+    "phone": "+1 660-244-3100"
+  },
+  {
     "name": "Spencer's Auto Repair",
     "town": "Marceline",
     "category": "Automotive",
@@ -1418,6 +1592,14 @@
     "address": "101 W Baker St, Milan, MO 63556",
     "phone": "+1 660-265-4110",
     "website": "https://stmary.church/about-us"
+  },
+  {
+    "name": "St. Bonaventure Catholic Church",
+    "town": "Marceline",
+    "category": "Church & Religious Organization",
+    "address": "409 S Kansas Ave, Marceline, MO 64658",
+    "phone": "+1 660-376-3239",
+    "website": "http://www.stbonaventure-frmccartan.org/"
   },
   {
     "name": "St. Mary of the Angels Church & Monastery",
@@ -1538,6 +1720,13 @@
     "website": "https://www.tractorsupply.com/tsc/store_Brookfield-MO-64628_2835"
   },
   {
+    "name": "Trinity United Methodist Church",
+    "town": "Brookfield",
+    "category": "Church & Religious Organization",
+    "address": "300 S Main St, Brookfield, MO 64628",
+    "phone": "+1 660-258-7719"
+  },
+  {
     "name": "True Blue Bar-BQ",
     "town": "Linn County",
     "category": "Restaurant & Food",
@@ -1556,6 +1745,22 @@
     "category": "Restaurant & Food",
     "address": "200 N Macon St, Bevier, MO 63532",
     "phone": "+1 660-773-5334"
+  },
+  {
+    "name": "United Methodist Church",
+    "town": "Bucklin",
+    "category": "Church & Religious Organization",
+    "address": "35 Oak St, Bucklin, MO 64631",
+    "phone": "+1 660-695-3287",
+    "website": "https://www.facebook.com/BucklinUnitedMethodist"
+  },
+  {
+    "name": "United Methodist Church",
+    "town": "Meadville",
+    "category": "Church & Religious Organization",
+    "address": "107 E Crandall St, Meadville, MO 64659",
+    "phone": "+1 660-938-4595",
+    "website": "http://www.umc.org/"
   },
   {
     "name": "UnWined & Shop",

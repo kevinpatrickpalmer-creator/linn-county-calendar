@@ -305,66 +305,98 @@ def _load_existing_index(business_dir):
     return slugs, place_ids, by_name_town
 
 
+def _run_query(query, category, config, state):
+    """Runs one Outscraper search and writes/replaces files for whatever
+    in it is new -- shared by both the county-wide and the per-town
+    passes in main() so they go through identical filtering/dedup logic.
+    Mutates STATE's index sets/dict in place; returns (added, replaced)
+    counts for this query alone."""
+    print(f"Searching: {query}")
+    try:
+        results = run_outscraper_query(query)
+    except requests.RequestException as e:
+        print(f"  WARNING: request failed for {query!r}: {e}", file=sys.stderr)
+        return 0, 0
+
+    added = replaced = 0
+    for result in results:
+        listing = build_listing(result, category, config)
+        if not listing:
+            continue
+
+        place_id = listing.get("place_id")
+        if place_id and place_id in state["place_ids"]:
+            continue  # already have this business on file, possibly under a hand-corrected town/slug
+
+        # A different place_id under a name/town that already matches
+        # something on file -- almost always a duplicate Google profile
+        # for the same real business (see normalize_business_name()),
+        # not two real businesses, or the same business turning up again
+        # in a different pass (county-wide vs. per-town) of this same
+        # run. Keep whichever has more reviews.
+        name_town_key = (normalize_business_name(listing["name"]), listing["town"])
+        dupe = state["by_name_town"].get(name_town_key)
+        if dupe:
+            dupe_path, dupe_reviews = dupe
+            if listing.get("reviews", 0) <= dupe_reviews:
+                continue  # existing listing has as many or more reviews -- keep it, skip this one
+            os.remove(dupe_path)
+            state["slugs"].discard(os.path.splitext(os.path.basename(dupe_path))[0])
+            print(f"  ~ {listing['name']}: replacing {os.path.basename(dupe_path)} ({dupe_reviews} reviews) with {listing.get('reviews', 0)}-review duplicate")
+            replaced += 1
+
+        slug = f"{slugify(listing['town'])}-{slugify(listing['name'])}"
+        if slug.strip("-") == "" or (not dupe and slug in state["slugs"]):
+            continue  # no usable name/town, or already have a file -- a hand-edited listing wins
+
+        path = os.path.join(BUSINESS_DIR, f"{slug}.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(listing, f, indent=2)
+            f.write("\n")
+        state["slugs"].add(slug)
+        if place_id:
+            state["place_ids"].add(place_id)
+        state["by_name_town"][name_town_key] = (path, listing.get("reviews", 0))
+        added += 1
+        print(f"  + {listing['name']} ({listing['town']})")
+
+    time.sleep(REQUEST_DELAY_SECONDS)
+    return added, replaced
+
+
 def main():
     if not OUTSCRAPER_API_KEY:
         print("ERROR: set OUTSCRAPER_API_KEY", file=sys.stderr)
         sys.exit(1)
 
     config = load_config()
-    existing_slugs, existing_place_ids, by_name_town = _load_existing_index(BUSINESS_DIR)
+    slugs, place_ids, by_name_town = _load_existing_index(BUSINESS_DIR)
+    state = {"slugs": slugs, "place_ids": place_ids, "by_name_town": by_name_town}
 
-    added = 0
-    replaced = 0
+    added = replaced = 0
     for category, search_phrase in BUSINESS_QUERIES:
-        query = f"{search_phrase} in {config['county_display_name']}, {config['state']}"
-        print(f"Searching: {query}")
-        try:
-            results = run_outscraper_query(query)
-        except requests.RequestException as e:
-            print(f"  WARNING: request failed for {query!r}: {e}", file=sys.stderr)
-            continue
+        # A single "<phrase> in Linn County, MO" search sounds like it
+        # should cover the whole county, but Google's relevance ranking
+        # for a broad area query buries small-town results -- confirmed
+        # 2026-09-15: a plain county-wide "churches" search surfaced only
+        # 4 of Marceline's real 9 churches. Querying each town by name
+        # too (Google resolves a specific town far more completely) is
+        # what actually gets full coverage; the county-wide pass on top
+        # still catches genuine service-area/regional businesses that
+        # aren't pinned to one town at all. A business found by more than
+        # one of these passes is caught by the same place_id/name+town
+        # dedup as a re-run of the whole script, so this costs extra
+        # Outscraper queries but never produces duplicate listings.
+        county_query = f"{search_phrase} in {config['county_display_name']}, {config['state']}"
+        a, r = _run_query(county_query, category, config, state)
+        added += a
+        replaced += r
 
-        for result in results:
-            listing = build_listing(result, category, config)
-            if not listing:
-                continue
-
-            place_id = listing.get("place_id")
-            if place_id and place_id in existing_place_ids:
-                continue  # already have this business on file, possibly under a hand-corrected town/slug
-
-            # A different place_id under a name/town that already matches
-            # something on file -- almost always a duplicate Google
-            # profile for the same real business (see
-            # normalize_business_name()), not two real businesses. Keep
-            # whichever has more reviews.
-            name_town_key = (normalize_business_name(listing["name"]), listing["town"])
-            dupe = by_name_town.get(name_town_key)
-            if dupe:
-                dupe_path, dupe_reviews = dupe
-                if listing.get("reviews", 0) <= dupe_reviews:
-                    continue  # existing listing has as many or more reviews -- keep it, skip this one
-                os.remove(dupe_path)
-                existing_slugs.discard(os.path.splitext(os.path.basename(dupe_path))[0])
-                print(f"  ~ {listing['name']}: replacing {os.path.basename(dupe_path)} ({dupe_reviews} reviews) with {listing.get('reviews', 0)}-review duplicate")
-                replaced += 1
-
-            slug = f"{slugify(listing['town'])}-{slugify(listing['name'])}"
-            if slug.strip("-") == "" or (not dupe and slug in existing_slugs):
-                continue  # no usable name/town, or already have a file -- a hand-edited listing wins
-
-            path = os.path.join(BUSINESS_DIR, f"{slug}.json")
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(listing, f, indent=2)
-                f.write("\n")
-            existing_slugs.add(slug)
-            if place_id:
-                existing_place_ids.add(place_id)
-            by_name_town[name_town_key] = (path, listing.get("reviews", 0))
-            added += 1
-            print(f"  + {listing['name']} ({listing['town']})")
-
-        time.sleep(REQUEST_DELAY_SECONDS)
+        for town in config["towns"]:
+            town_query = f"{search_phrase} in {town}, {config['state']}"
+            a, r = _run_query(town_query, category, config, state)
+            added += a
+            replaced += r
 
     print(f"\nAdded {added} new listing(s), replaced {replaced} duplicate(s) with a higher-reviewed profile.")
 
