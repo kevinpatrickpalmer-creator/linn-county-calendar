@@ -1,0 +1,13 @@
+{
+  "name": "Cleveland Real Estate Agency",
+  "category": "Real Estate & Insurance",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 4.6,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1tVUhFozeE65Aw-4LgQpdA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=70.722176&pitch=0&thumbfov=100",
+  "address": "102 N Main St, Brookfield, MO 64628",
+  "phone": "+1 660-258-7040",
+  "website": "http://northeastmissourirealty.com/RealtorPages/CLA-listings.shtml",
+  "place_id": "ChIJg4EExtyHwocRazGF13Z7CuA"
+}

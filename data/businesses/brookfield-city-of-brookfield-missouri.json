@@ -1,0 +1,13 @@
+{
+  "name": "City of Brookfield, Missouri",
+  "category": "Government & Public Services",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 3.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=CF8bxpPM0Zuh9OChP4Qk9w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=19.361923&pitch=0&thumbfov=100",
+  "address": "116 W Brooks St, Brookfield, MO 64628",
+  "phone": "+1 660-258-3377",
+  "website": "https://brookfieldcity.com/",
+  "place_id": "ChIJWSzlEL6HwocR333ljjz3FOU"
+}

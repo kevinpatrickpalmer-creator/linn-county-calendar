@@ -1,0 +1,11 @@
+{
+  "name": "The Country Store",
+  "category": "Retail & Shopping",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 4,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=HSvQxYDzmjuCir_HyzO-6Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=31.517344&pitch=0&thumbfov=100",
+  "address": "Marceline, MO 64658",
+  "place_id": "ChIJ9XnPPUftwocR-NZbflEWjh4"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Iman Realty",
+  "category": "Real Estate & Insurance",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 3.4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=whCJU_wbuqly2ZhBnQVxog&cb_client=search.gws-prod.gps&w=800&h=500&yaw=146.88278&pitch=0&thumbfov=100",
+  "address": "1410 N Kansas Ave, Marceline, MO 64658",
+  "phone": "+1 660-376-4777",
+  "website": "https://imanrealty.com/",
+  "place_id": "ChIJgQVGeyaOwocRovBFvBTT5c4"
+}

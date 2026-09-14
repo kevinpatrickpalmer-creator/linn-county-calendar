@@ -1,0 +1,12 @@
+{
+  "name": "Finch Auto & Trucking",
+  "category": "Automotive",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 4.6,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=5bUaPCM5XWpzI-RyyOIZzQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=8.775296&pitch=0&thumbfov=100",
+  "address": "30001-29501, MO-5, Brookfield, MO 64628",
+  "phone": "+1 660-258-9005",
+  "place_id": "ChIJ0xCziCSPwocRxiNmGHKRif0"
+}

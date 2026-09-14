@@ -1,0 +1,13 @@
+{
+  "name": "Rhodes Funeral Home",
+  "category": "Funeral Homes & Cemeteries",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 15,
+  "rating": 3.3,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=x4jBv8nNsaLG7sx8hv75Pg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=68.500496&pitch=0&thumbfov=100",
+  "address": "216 Linn St, Brookfield, MO 64628",
+  "phone": "+1 660-258-7221",
+  "website": "http://www.rhodesfh.com/",
+  "place_id": "ChIJTT6UT8OHwocR6oZsW7E58M8"
+}

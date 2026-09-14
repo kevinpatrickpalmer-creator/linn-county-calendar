@@ -1,0 +1,12 @@
+{
+  "name": "Charlie's Barber Shop",
+  "category": "Salons & Personal Care",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 52,
+  "rating": 4.9,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4RtHOKDLqL4aCvingNn81Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=70.39292&pitch=0&thumbfov=100",
+  "address": "123 S Main St, Brookfield, MO 64628",
+  "phone": "+1 660-258-7306",
+  "place_id": "ChIJF7QLe9yHwocRtdHQNvlBR3k"
+}

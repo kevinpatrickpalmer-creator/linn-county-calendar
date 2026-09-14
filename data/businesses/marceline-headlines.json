@@ -1,0 +1,12 @@
+{
+  "name": "Headlines",
+  "category": "Salons & Personal Care",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 16,
+  "rating": 4.7,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=2r6Ns9s2MBkweYT_-ZSY2Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=122.6248&pitch=0&thumbfov=100",
+  "address": "121 S Main Street USA, Marceline, MO 64658",
+  "phone": "+1 660-376-2900",
+  "place_id": "ChIJDRhIYpSFwocRiSuzTxTz_cM"
+}

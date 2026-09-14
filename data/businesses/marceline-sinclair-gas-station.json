@@ -1,0 +1,13 @@
+{
+  "name": "Sinclair Gas Station",
+  "category": "Retail & Shopping",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 11,
+  "rating": 4.5,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=tsHj_RmthQj7PAOckF668g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=282.3491&pitch=0&thumbfov=100",
+  "address": "110 S Missouri Ave, Marceline, MO 64658",
+  "phone": "+1 660-413-5210",
+  "website": "https://stations.sinclairoil.com/mo/marceline/110-s-missouri-ave%3Futm_source%3Dgoogle%26utm_medium%3Dyext",
+  "place_id": "ChIJb22hUxeOwocRYC3jTkkRgac"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Edd's Plumbing",
+  "category": "Plumbing",
+  "town": "Linn County",
+  "source": "google_maps",
+  "reviews": 4,
+  "rating": 4.8,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=samrOwPth40yWjz--QHcpw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=88.03679&pitch=0&thumbfov=100",
+  "address": "11334 Liv 233, Chillicothe, MO 64601",
+  "phone": "+1 660-646-1761",
+  "place_id": "ChIJf8TSNY8FwocRJ5u_TxknC8A"
+}

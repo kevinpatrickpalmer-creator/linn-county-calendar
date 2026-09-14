@@ -27,6 +27,9 @@ Expected shape of each file:
   "phone": "(660) 555-0142",
   "website": "https://knottstreeservice.com",
   "email": "info@knottstreeservice.com",
+  "photo": "https://lh3.googleusercontent.com/...",
+  "rating": 4.8,
+  "reviews": 23,
   "hours": "Mon-Fri 8am-5pm",
   "description": "Tree removal, trimming, and stump grinding."
 }
@@ -37,6 +40,15 @@ left blank. `category` should match one of `business_categories` in
 `docs/config.json` when possible (it's what the directory's filter uses),
 but a listing with an unrecognized or missing category still shows up
 under "Other".
+
+`photo`, `rating`, and `reviews` come from Google Maps via
+`scrape_businesses.py` -- not every business has all (or any) of these on
+Google, and there's no manual-submission equivalent (`submit-business.html`
+doesn't collect a photo -- this site has no image upload/hosting
+infrastructure), so they're expected to be missing on plenty of
+listings, scraped or hand-added alike. `docs/directory.html` renders
+whichever of these a listing actually has and simply omits what it
+doesn't; nothing here is required for a listing to publish.
 
 ## Listings scraped from Google Maps (`scrape_businesses.py`)
 

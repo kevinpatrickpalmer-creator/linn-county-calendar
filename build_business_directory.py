@@ -24,8 +24,11 @@ OUTPUT_PATH = "docs/businesses.json"
 
 # Written in this order for every listing that has a file, regardless of
 # what order its own JSON keys were in -- keeps docs/businesses.json diffs
-# stable from run to run.
-FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "hours", "description"]
+# stable from run to run. "place_id" and "source" are deliberately not
+# here -- see data/businesses/README.md -- they're bookkeeping for the
+# scraper's own dedup, never meant for the public site.
+FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "rating", "reviews", "hours", "description"]
+NUMERIC_FIELDS = {"rating", "reviews"}
 
 
 def load_businesses():
@@ -64,7 +67,12 @@ def load_businesses():
         for field in FIELDS:
             if field in ("name", "town"):
                 continue
-            value = (data.get(field) or "").strip()
+            raw_value = data.get(field)
+            if field in NUMERIC_FIELDS:
+                if isinstance(raw_value, (int, float)):
+                    listing[field] = raw_value
+                continue
+            value = (raw_value or "").strip()
             if value:
                 listing[field] = value
         businesses.append(listing)

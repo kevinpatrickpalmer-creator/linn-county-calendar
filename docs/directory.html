@@ -75,7 +75,17 @@
     flex-direction: column;
     gap: .4rem;
   }
+  .biz-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface-border);
+    display: block;
+  }
   .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
+  .biz-rating { display: flex; align-items: center; gap: .35rem; font-size: .82rem; color: var(--ink-soft); }
+  .biz-rating .stars { color: var(--primary); font-weight: 700; }
   .biz-town { font-size: .8rem; color: var(--ink-soft); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
@@ -162,6 +172,8 @@
     "Appliance Repair": ["appliances", "fridge", "refrigerator", "washer", "dryer", "dishwasher"],
     "Fencing": ["fences"],
     "Garage Door Service": ["garage doors", "overhead door"],
+    "Septic, Well & Excavation": ["septic", "well drilling", "excavating", "excavation", "sewer line"],
+    "Movers & Storage": ["movers", "moving", "storage units", "self storage"],
     // Deliberately no cuisine/venue words here (pizza, cafe, diner, bar,
     // bbq, mexican...) -- those describe one kind of restaurant, not
     // "restaurant" itself, so attaching them at the category level would
@@ -176,12 +188,22 @@
     // not synonyms for the category as a whole, so they're left out here
     // and rely on a business's own name/description to match instead.
     "Health & Wellness": ["doctors", "clinic", "medical", "hospital"],
+    // Not "hair" or "nails" alone here -- same over-broad risk as
+    // cuisine words above (a hardware store selling nails would
+    // false-match). "Salon"/"barbershop"/"spa" are specific enough on
+    // their own to stay category-wide.
+    "Salons & Personal Care": ["salon", "barbershop", "spa", "haircut"],
+    "Veterinary & Pet Services": ["veterinarian", "vet", "pets", "animal hospital", "kennel", "groomer"],
     "Professional & Financial Services": ["lawyers", "attorney", "accountant", "cpa", "taxes", "financial advisor"],
+    "Banks & Credit Unions": ["bank", "credit union", "atm"],
     "Real Estate & Insurance": ["real estate", "insurance", "realtor", "agent"],
     "Lodging & Hospitality": ["hotels", "motel", "lodging", "inn", "bed and breakfast"],
     "Farm & Agriculture": ["farms", "farming", "agriculture", "tractor", "feed"],
     "Nonprofit & Civic Organization": ["nonprofit", "charity", "civic"],
     "Church & Religious Organization": ["churches", "worship", "pastor"],
+    "Government & Public Services": ["city hall", "post office", "courthouse", "government", "fire department", "police", "sheriff", "library"],
+    "Funeral Homes & Cemeteries": ["funeral home", "funeral", "cemetery", "cremation"],
+    "Auctions & Estate Sales": ["auction", "estate sale", "auctioneer", "consignment"],
     "Education & Childcare": ["schools", "daycare", "preschool", "childcare"],
     "Arts, Recreation & Entertainment": ["museum", "park", "recreation", "arts", "entertainment"],
   };
@@ -302,10 +324,39 @@
     const card = document.createElement("div");
     card.className = "biz-card";
 
+    if (b.photo) {
+      const img = document.createElement("img");
+      img.className = "biz-photo";
+      img.src = b.photo;
+      img.alt = "";
+      img.loading = "lazy";
+      // A hotlinked Google photo URL can 404 or expire -- drop the
+      // element rather than show a broken-image icon on the card.
+      img.addEventListener("error", () => img.remove());
+      card.appendChild(img);
+    }
+
     const name = document.createElement("div");
     name.className = "biz-name";
     name.textContent = b.name;
     card.appendChild(name);
+
+    if (b.rating || b.reviews) {
+      const rating = document.createElement("div");
+      rating.className = "biz-rating";
+      if (b.rating) {
+        const stars = document.createElement("span");
+        stars.className = "stars";
+        stars.textContent = `★ ${b.rating}`;
+        rating.appendChild(stars);
+      }
+      if (b.reviews) {
+        const count = document.createElement("span");
+        count.textContent = b.rating ? `(${b.reviews})` : `${b.reviews} review${b.reviews === 1 ? "" : "s"}`;
+        rating.appendChild(count);
+      }
+      card.appendChild(rating);
+    }
 
     const town = document.createElement("div");
     town.className = "biz-town";

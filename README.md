@@ -272,11 +272,22 @@ events, just with its own set of files so the two never collide:
   `BUSINESS_QUERIES` there — the home service trades it started with
   (plumbing, electrical, HVAC, roofing, tree service, lawn care, pest
   control, handyman, general contractor, painting, locksmith, appliance
-  repair, fencing, garage door service) plus restaurants, retail,
-  automotive, health & wellness, professional/financial services, real
-  estate & insurance, lodging, farm & agriculture, nonprofits, churches &
-  religious organizations, education & childcare, and arts/recreation
-  (keep this list in sync with `business_categories` in `config.json`).
+  repair, fencing, garage door service, septic/well/excavation, movers &
+  storage) plus restaurants, retail, automotive, health & wellness,
+  salons & personal care, veterinary & pet services, professional/
+  financial services, banks & credit unions, real estate & insurance,
+  lodging, farm & agriculture, nonprofits, churches & religious
+  organizations, government & public services, funeral homes &
+  cemeteries, education & childcare, and arts/recreation (keep this list
+  in sync with `business_categories` in `config.json`). For every
+  category, `main()` queries each of the county's 8 towns by name
+  individually in addition to one county-wide query — confirmed
+  necessary 2026-09-15: a plain "churches in Linn County, MO" search
+  surfaced only 4 of Marceline's real 9 churches, since Google's
+  relevance ranking for a broad area buries small-town results that a
+  town-specific search resolves completely. Costs roughly 9x the query
+  volume a single county-wide pass would, which is what that scale of
+  coverage costs.
   Unlike a manual submission, **these publish with no human review** —
   that tradeoff (volume over an approval bottleneck, at the cost of
   occasionally listing something stale or miscategorized) was a

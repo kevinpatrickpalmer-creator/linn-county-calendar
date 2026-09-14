@@ -1,0 +1,13 @@
+{
+  "name": "Kelly's Fireworks",
+  "category": "Retail & Shopping",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 4.8,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=La8SO_PS2MFBD7-TuhGkwg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=121.71923&pitch=0&thumbfov=100",
+  "address": "601 S State St, Brookfield, MO 64628",
+  "phone": "+1 660-258-5125",
+  "website": "https://kellysfireworks.wixsite.com/kellysfireworks",
+  "place_id": "ChIJC2qThAqIwocRmo0Rh0poDNc"
+}

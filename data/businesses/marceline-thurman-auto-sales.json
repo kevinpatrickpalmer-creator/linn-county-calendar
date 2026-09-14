@@ -1,0 +1,11 @@
+{
+  "name": "Thurman Auto Sales",
+  "category": "Automotive",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 4.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=q96ESsEJ3l1hrBBlVWVgMQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=265.46307&pitch=0&thumbfov=100",
+  "address": "Marceline, MO 64658",
+  "place_id": "ChIJNaRATwmOwocRDqkD1zwqkVI"
+}

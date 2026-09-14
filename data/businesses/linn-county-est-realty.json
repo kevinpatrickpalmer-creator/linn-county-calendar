@@ -1,0 +1,12 @@
+{
+  "name": "Est Realty",
+  "category": "Real Estate & Insurance",
+  "town": "Linn County",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=i2pdq0aO80bVkkIDGUQffw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=10.1119795&pitch=0&thumbfov=100",
+  "address": "801 Adam Dr, Chillicothe, MO 64601",
+  "phone": "+1 660-646-6688",
+  "place_id": "ChIJqZJEsbsPwocR01vY3kJFGsQ"
+}

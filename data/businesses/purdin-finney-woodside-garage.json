@@ -1,0 +1,12 @@
+{
+  "name": "Finney & Woodside Garage",
+  "category": "Automotive",
+  "town": "Purdin",
+  "source": "google_maps",
+  "reviews": 10,
+  "rating": 4.5,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=dNzYyUcpZFCgGUBL-oaLjA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=183.06758&pitch=0&thumbfov=100",
+  "address": "27998 Co Rd C, Purdin, MO 64674",
+  "phone": "+1 660-244-3195",
+  "place_id": "ChIJrUufYjZ_wocRgAStc3rp1uI"
+}

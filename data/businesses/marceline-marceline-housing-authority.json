@@ -1,0 +1,13 @@
+{
+  "name": "Marceline Housing Authority",
+  "category": "Nonprofit & Civic Organization",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 8,
+  "rating": 4.4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=bFelkVcKzwprFXjybXbffQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=207.29413&pitch=0&thumbfov=100",
+  "address": "229 W Hauser St, Marceline, MO 64658",
+  "phone": "+1 660-376-3101",
+  "website": "https://marcelinehousing.com/",
+  "place_id": "ChIJmXLzyTyOwocRfHspaGawdp8"
+}

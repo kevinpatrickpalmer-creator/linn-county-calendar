@@ -1,0 +1,13 @@
+{
+  "name": "Subway",
+  "category": "Restaurant & Food",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 174,
+  "rating": 4.1,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkxVQ8THdqZke2ZooZ8RW1zH5xOq62l94GWoE4UgxRFBSyKBdGfhNE-SaSPQXBxQT3V3TMLR5ZvHl7QtH9clmFdPYCwFzaaOutoX2e58prU_SjICg3U7OM3Z8e-R9D3tHSnd0zT=w800-h500-k-no",
+  "address": "202 W Lockling Ave, Brookfield, MO 64628",
+  "phone": "+1 660-258-3766",
+  "website": "https://restaurants.subway.com/united-states/mo/brookfield/202-w-lockling-street%3Futm_source%3Dyxt-goog%26utm_medium%3Dlocal%26utm_term%3Dacq%26utm_content%3D26094%26utm_campaign%3Devergreen-2020%26y_source%3D1_MTQ4OTc2NzEtNzE1LWxvY2F0aW9uLndlYnNpdGU%253D",
+  "place_id": "ChIJW66JvNiHwocRvPf9G-APz1w"
+}

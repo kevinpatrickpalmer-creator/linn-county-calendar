@@ -1,0 +1,13 @@
+{
+  "name": "Brookfield Health Care Center",
+  "category": "Health & Wellness",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=EZHO4PYR_3q8lIB5aFDpYA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=355.76926&pitch=0&thumbfov=100",
+  "address": "215 E Pratt St, Brookfield, MO 64628",
+  "phone": "+1 660-675-0600",
+  "website": "https://www.reliantcaremgmt.com/brookfield-health-care-center",
+  "place_id": "ChIJYQTlYQCHwocRv_LZ4f03NUk"
+}

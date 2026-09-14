@@ -1,0 +1,12 @@
+{
+  "name": "Brad Coin Bricklaying",
+  "category": "General Contractor",
+  "town": "Meadville",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=cUurNXWSsvO4McQ1EJuQ_w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=278.76013&pitch=0&thumbfov=100",
+  "address": "101 Lewis St, Meadville, MO 64659",
+  "phone": "+1 660-938-5673",
+  "place_id": "ChIJHZtHasxxwocRyPPNSRKTV8o"
+}

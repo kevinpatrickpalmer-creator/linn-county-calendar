@@ -1,0 +1,12 @@
+{
+  "name": "Great Outdoors",
+  "category": "General Contractor",
+  "town": "Bucklin",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 4.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=RY835YSs-meLlXuLsVmTsw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=266.84357&pitch=0&thumbfov=100",
+  "address": "512 Livingston St, Bucklin, MO 64631",
+  "phone": "+1 660-695-3800",
+  "place_id": "ChIJvd-W6oaQwocRoXltCHnRDj4"
+}

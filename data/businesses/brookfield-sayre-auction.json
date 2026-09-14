@@ -1,0 +1,13 @@
+{
+  "name": "Sayre Auction",
+  "category": "Auctions & Estate Sales",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=-zT0JFu5ipmEwcheI0z8xw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=174.9005&pitch=0&thumbfov=100",
+  "address": "809 W Dake St, Brookfield, MO 64628",
+  "phone": "+1 660-734-8782",
+  "website": "http://sayreauction.com/",
+  "place_id": "ChIJvbbs_eyHwocR7803QJ7j6g0"
+}

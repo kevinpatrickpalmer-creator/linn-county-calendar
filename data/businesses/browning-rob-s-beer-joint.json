@@ -1,0 +1,12 @@
+{
+  "name": "Rob's Beer Joint",
+  "category": "Restaurant & Food",
+  "town": "Browning",
+  "source": "google_maps",
+  "reviews": 17,
+  "rating": 4.5,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=5XoVR4X-hRHrmxp8crLbIQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=154.02129&pitch=0&thumbfov=100",
+  "address": "310 W Main St, Browning, MO 64630",
+  "phone": "+1 660-946-9905",
+  "place_id": "ChIJn-0IBuzT6YcR_o3PfCjcTRE"
+}

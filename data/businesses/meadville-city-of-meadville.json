@@ -1,0 +1,13 @@
+{
+  "name": "City of Meadville",
+  "category": "Government & Public Services",
+  "town": "Meadville",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=-AM2GU9wcvC8XM4UVjXfQQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=281.1114&pitch=0&thumbfov=100",
+  "address": "310 Macon St, Meadville, MO 64659",
+  "phone": "+1 660-938-4999",
+  "website": "http://www.meadvillemo.com/",
+  "place_id": "ChIJSSzb0tNxwocRFoVHJnowknc"
+}

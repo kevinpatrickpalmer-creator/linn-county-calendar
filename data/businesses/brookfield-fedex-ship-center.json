@@ -1,0 +1,13 @@
+{
+  "name": "FedEx Ship Center",
+  "category": "Retail & Shopping",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 5,
+  "rating": 3.0,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWleX2Y9sjDZyR3z8ensDI3p4PjE5WBLeWzYclZBmmbFlRTi-zUdRO_ItLo81Sz4XdogPsfkmZMQw4MCoRCX4O4ENdjHYpMbWCUZyjdgTG8dkpVV1jXTDgoc_BAZ0GbnwlvcwXcSgCmDYZz_=w800-h500-k-no",
+  "address": "28832 MO-11, Brookfield, MO 64628",
+  "phone": "+1 800-463-3339",
+  "website": "https://local.fedex.com/en-us/mo/brookfield/aiza%3Fcmp%3DLOC-1001545-3-2-971-1110000-US-US-EN-YEXTLISTFEDEXSC",
+  "place_id": "ChIJ-znP8NuJwocRIYVGtn_b5jI"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "City Manager",
+  "category": "Government & Public Services",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 2,
+  "rating": 3.5,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=CF8bxpPM0Zuh9OChP4Qk9w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=356.66495&pitch=0&thumbfov=100",
+  "address": "116 W Brooks St, Brookfield, MO 64628",
+  "phone": "+1 660-258-3377",
+  "place_id": "ChIJJ0Bd1MKHwocR5W07aCJVYYc"
+}

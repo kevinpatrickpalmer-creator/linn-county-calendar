@@ -1,0 +1,12 @@
+{
+  "name": "Site-Rite",
+  "category": "General Contractor",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=QjYCGF8v6N8D-n_A7eogUA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=89.69762&pitch=0&thumbfov=100",
+  "address": "440 E Helm St, Brookfield, MO 64628",
+  "phone": "+1 816-728-7300",
+  "place_id": "ChIJq5NCLdCHwocRHfn6zc9rB2o"
+}

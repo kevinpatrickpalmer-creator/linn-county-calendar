@@ -1,0 +1,12 @@
+{
+  "name": "First Choice MO",
+  "category": "Health & Wellness",
+  "town": "Marceline",
+  "source": "google_maps",
+  "reviews": 3,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pTCuhk1FXqoTnhp3w7EkNg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=124.83411&pitch=0&thumbfov=100",
+  "address": "419 S Kansas Ave, Marceline, MO 64658",
+  "phone": "+1 660-376-2222",
+  "place_id": "ChIJVa4b7hOOwocReqEFRmje8vg"
+}

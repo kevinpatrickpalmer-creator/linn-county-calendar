@@ -1,0 +1,13 @@
+{
+  "name": "Koehly Electric",
+  "category": "Electrical",
+  "town": "Linn County",
+  "source": "google_maps",
+  "reviews": 1,
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=J48mSMu9AAHgqCZycgyilg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=90.23078&pitch=0&thumbfov=100",
+  "address": "501 Elm St, Chillicothe, MO 64601",
+  "phone": "+1 660-646-1845",
+  "website": "https://www.missouri-electrician.com/electrician-in-chillicothe/",
+  "place_id": "ChIJF4aHpLoPwocR97mG3O7FHI0"
+}

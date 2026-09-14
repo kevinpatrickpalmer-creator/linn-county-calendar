@@ -1,0 +1,13 @@
+{
+  "name": "McDonald's",
+  "category": "Restaurant & Food",
+  "town": "Brookfield",
+  "source": "google_maps",
+  "reviews": 978,
+  "rating": 3.5,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmGzbA1Cn-Q8LYmjon1LeXN-FaRt2G5CF7efN_M68JkiKzTzr6T18Y6bWrsss4t-EcBevwfMLoIjt5RVDQJH9SO8I-4z_9vlsdSNMYbJAXOjgZluOtAPH51OiG1gX53Lx-QyYS_=w800-h500-k-no",
+  "address": "640 S Main St, Brookfield, MO 64628",
+  "phone": "+1 660-258-3373",
+  "website": "https://www.mcdonalds.com/us/en-us/location/MO/BROOKFIELD/640-S-MAIN-ST/11917.html%3Fcid%3DRF:YXT:GMB::Clicks",
+  "place_id": "ChIJQ7F8fdiHwocRiZJntzGM_Tw"
+}

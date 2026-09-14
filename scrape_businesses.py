@@ -88,16 +88,24 @@ BUSINESS_QUERIES = [
     ("Appliance Repair", "appliance repair services"),
     ("Fencing", "fence contractors"),
     ("Garage Door Service", "garage door repair services"),
+    ("Septic, Well & Excavation", "septic, well, and excavation contractors"),
+    ("Movers & Storage", "moving and storage companies"),
     ("Restaurant & Food", "restaurants"),
     ("Retail & Shopping", "retail stores and shops"),
     ("Automotive", "auto repair shops"),
     ("Health & Wellness", "health and wellness services"),
+    ("Salons & Personal Care", "hair salons, barbershops, and spas"),
+    ("Veterinary & Pet Services", "veterinarians and pet services"),
     ("Professional & Financial Services", "accounting, legal, and financial services"),
+    ("Banks & Credit Unions", "banks and credit unions"),
     ("Real Estate & Insurance", "real estate and insurance agencies"),
     ("Lodging & Hospitality", "hotels and lodging"),
     ("Farm & Agriculture", "farm and agriculture businesses"),
     ("Nonprofit & Civic Organization", "nonprofit organizations and civic groups"),
     ("Church & Religious Organization", "churches"),
+    ("Government & Public Services", "city hall, post office, and government offices"),
+    ("Funeral Homes & Cemeteries", "funeral homes"),
+    ("Auctions & Estate Sales", "auction companies and estate sales"),
     ("Education & Childcare", "schools and daycare centers"),
     ("Arts, Recreation & Entertainment", "arts and recreation venues"),
 ]
@@ -217,13 +225,23 @@ def build_listing(result, category, config):
         "source": "google_maps",
     }
 
-    # Review count only, never the review text itself -- used solely to
-    # pick a winner when the same real business turns up as two separate
-    # Google listings (see _dedupe_against_existing()), not shown on the
-    # public site.
+    # Review count: used both to pick a winner when the same real
+    # business turns up as two separate Google listings (see
+    # _dedupe_against_existing()) and, now, shown on the public site
+    # alongside rating -- never the review text itself.
     reviews = result.get("reviews")
     if isinstance(reviews, (int, float)):
         listing["reviews"] = int(reviews)
+
+    rating = result.get("rating")
+    if isinstance(rating, (int, float)):
+        listing["rating"] = round(float(rating), 1)
+
+    # Direct link to a Google-hosted photo -- publicly hotlinkable, no API
+    # key or proxying needed, same as any other Google Maps image URL.
+    photo = (_get(result, "photo") or "").strip()
+    if photo:
+        listing["photo"] = photo
 
     # "address" is already the full "street, city, state zip" string when
     # present, not just a street -- no reassembly needed.
