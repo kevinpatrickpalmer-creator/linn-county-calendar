@@ -6,5 +6,7 @@
   "reviews": 3,
   "address": "118 N 6th St, Browning, MO 64630",
   "phone": "+1 660-946-4405",
-  "place_id": "ChIJUQWS1OjT6YcRqa-X3lS28wU"
+  "place_id": "ChIJUQWS1OjT6YcRqa-X3lS28wU",
+  "rating": 3.7,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KH2Z60G1ueTYr7iFWkSQqw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=210.17108&pitch=0&thumbfov=100"
 }

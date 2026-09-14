@@ -1,0 +1,27 @@
+{
+  "name": "Delaney Funeral Home",
+  "category": "Funeral Homes & Cemeteries",
+  "towns": [
+    "Bucklin",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.3,
+  "reviews": 13,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=S4sJdOk3TbYBBqTvGS3qWQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=73.85153&pitch=0&thumbfov=100",
+  "website": "https://www.delaneyfuneralhome.com/",
+  "locations": [
+    {
+      "town": "Bucklin",
+      "address": "41 Locust St, Bucklin, MO 64631",
+      "phone": "+1 660-695-3440",
+      "place_id": "ChIJj-eLf3eawocRYDwRQEc0u60"
+    },
+    {
+      "town": "Marceline",
+      "address": "1720 N Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 660-376-2040",
+      "place_id": "ChIJJ4li2iiOwocRpuCjEp2p-M8"
+    }
+  ]
+}

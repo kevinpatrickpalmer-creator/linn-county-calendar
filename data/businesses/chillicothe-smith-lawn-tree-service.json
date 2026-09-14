@@ -6,5 +6,8 @@
   "address": "9681 MO-190, Chillicothe, MO 64601",
   "phone": "+1 660-247-2422",
   "website": "http://smithslawnandtreeservicemo.com/",
-  "place_id": "ChIJC5_9bU4FwocRepu4UQQsdB0"
+  "place_id": "ChIJC5_9bU4FwocRepu4UQQsdB0",
+  "rating": 4.9,
+  "reviews": 9,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=DpPeh-FwLo7WJYZ8EOcY9Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=236.24538&pitch=0&thumbfov=100"
 }

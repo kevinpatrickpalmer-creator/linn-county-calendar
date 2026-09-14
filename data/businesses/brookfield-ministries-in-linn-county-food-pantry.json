@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "122 W Clark St, Brookfield, MO 64628",
   "phone": "+1 660-258-7071",
-  "place_id": "ChIJ0xX3DweHwocRhYp-RabsPss"
+  "place_id": "ChIJ0xX3DweHwocRhYp-RabsPss",
+  "rating": 5.0,
+  "reviews": 9,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmN10DjV9cfI-qv8YFxU7NeerUsA7HAGVrfhu1MUWb4Ldk3NCOPamY86vbLP5cMDmddolRpRMLiT1JGySa4w_wfcK2WGvXf6j7e96VzH4W7NDLtzx2qPLS0qJ15JdXs-OdpUbnn6A=w800-h500-k-no"
 }

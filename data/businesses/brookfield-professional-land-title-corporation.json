@@ -6,5 +6,8 @@
   "address": "113 E Brooks St, Brookfield, MO 64628",
   "phone": "+1 660-258-3125",
   "website": "http://www.prolandtitlecorp.com/",
-  "place_id": "ChIJF-rXMcOHwocRRBwKh4QDeE4"
+  "place_id": "ChIJF-rXMcOHwocRRBwKh4QDeE4",
+  "rating": 4.8,
+  "reviews": 12,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=FOga0J6o-un1qGHK9ZLG9w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=275.34595&pitch=0&thumbfov=100"
 }

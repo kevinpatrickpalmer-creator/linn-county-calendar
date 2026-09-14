@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "116 W Gracia Ave, Marceline, MO 64658",
   "phone": "+1 660-376-2446",
-  "place_id": "ChIJV-eEmBaOwocR7Q5RIGwyzHE"
+  "place_id": "ChIJV-eEmBaOwocR7Q5RIGwyzHE",
+  "rating": 5.0,
+  "reviews": 2,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=jrXGI4IanpLTa0U_yDHbLQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=32.383854&pitch=0&thumbfov=100"
 }

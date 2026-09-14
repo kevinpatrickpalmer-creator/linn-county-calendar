@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "100 W Wood St, Brookfield, MO 64628",
   "phone": "+1 660-208-1272",
-  "place_id": "ChIJu9nu0HOBwocR_XbCZHiVMD4"
+  "place_id": "ChIJu9nu0HOBwocR_XbCZHiVMD4",
+  "rating": 4.5,
+  "reviews": 8,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KOy4wIyD3jUi-Ey6gJMNDg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=65.60418&pitch=0&thumbfov=100"
 }

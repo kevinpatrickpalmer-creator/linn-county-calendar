@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "304 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-9090",
-  "place_id": "ChIJO4YkIMOHwocRghECk7_Ufso"
+  "place_id": "ChIJO4YkIMOHwocRghECk7_Ufso",
+  "rating": 4.3,
+  "reviews": 7,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=iejciX--y8faNeAs1maF2g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=86.10092&pitch=0&thumbfov=100"
 }

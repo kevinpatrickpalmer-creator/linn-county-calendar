@@ -5,5 +5,7 @@
   "source": "google_maps",
   "address": "19093 Edin Rd, Linneus, MO 64653",
   "phone": "+1 660-654-4363",
-  "place_id": "ChIJrxLBVTF5wocRxUGHCsUkz48"
+  "place_id": "ChIJrxLBVTF5wocRxUGHCsUkz48",
+  "rating": 5.0,
+  "reviews": 2
 }

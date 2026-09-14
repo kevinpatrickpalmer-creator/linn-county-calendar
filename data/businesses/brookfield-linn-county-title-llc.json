@@ -6,5 +6,8 @@
   "address": "116 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-2260",
   "website": "https://www.missouricentraltitle.com/",
-  "place_id": "ChIJKXglz9yHwocRZxBNdbJfl8M"
+  "place_id": "ChIJKXglz9yHwocRZxBNdbJfl8M",
+  "rating": 1.0,
+  "reviews": 1,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=aSRIF-3N2RUMEIUGD0cHXQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=130.41634&pitch=0&thumbfov=100"
 }

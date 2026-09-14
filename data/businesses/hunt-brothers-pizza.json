@@ -1,0 +1,39 @@
+{
+  "name": "Hunt Brothers Pizza",
+  "category": "Restaurant & Food",
+  "towns": [
+    "Bucklin",
+    "Linneus",
+    "Marceline",
+    "Meadville"
+  ],
+  "source": "google_maps_merged",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmoDpHolGcERtSdSLkHkW9OpHtPQexI3H7jd5kEjj2ZqowQqtp4LiDja4AOyp4Vc9tIW3D4CG8N-Ajh5Y5Yh_dFbUogEkEbPBW-HEi-gltacTuoMJBHvCzMeUbX6m4e8aMPQm8dEA=w800-h500-k-no",
+  "website": "http://www.huntbrotherspizza.com/",
+  "locations": [
+    {
+      "town": "Bucklin",
+      "address": "5 Livingston St, Bucklin, MO 64631",
+      "phone": "+1 660-695-3330",
+      "place_id": "ChIJY61fWS6bwocRXdRxd8otAnQ"
+    },
+    {
+      "town": "Linneus",
+      "address": "110 S Main St, Linneus, MO 64653",
+      "phone": "+1 660-895-5555",
+      "place_id": "ChIJH7v6crR5wocRUXyMPF-0jM4"
+    },
+    {
+      "town": "Marceline",
+      "address": "205 N Chestnut St, Marceline, MO 64658",
+      "phone": "+1 660-376-2322",
+      "place_id": "ChIJhbPDZ2SPwocR4T3izaAFg_8"
+    },
+    {
+      "town": "Meadville",
+      "address": "207 Macon St, Meadville, MO 64659",
+      "phone": "+1 660-938-4938",
+      "place_id": "ChIJeYITs3pxwocRS_FK_PZejvg"
+    }
+  ]
+}

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "347 Webster St, Chillicothe, MO 64601",
   "phone": "+1 660-707-0415",
-  "place_id": "ChIJ3T9wO64PwocRtUZf1mXJYBU"
+  "place_id": "ChIJ3T9wO64PwocRtUZf1mXJYBU",
+  "rating": 5.0,
+  "reviews": 1,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=2bbeY53jJ1Wpj0AhrXFKqQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=356.16556&pitch=0&thumbfov=100"
 }

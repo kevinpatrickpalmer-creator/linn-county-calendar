@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "201 E Robard St, Brookfield, MO 64628",
   "phone": "+1 660-258-2383",
-  "place_id": "ChIJLftRL9qHwocRGrnbPq2xi2I"
+  "place_id": "ChIJLftRL9qHwocRGrnbPq2xi2I",
+  "rating": 4.7,
+  "reviews": 25,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=61Ngm4MDaMWFh7NhR9kFFg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=333.43365&pitch=0&thumbfov=100"
 }

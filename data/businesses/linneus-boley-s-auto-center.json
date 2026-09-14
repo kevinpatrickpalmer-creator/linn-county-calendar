@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "Linneus, MO 64653",
   "phone": "+1 660-895-5530",
-  "place_id": "ChIJEXrj5Ft5wocRP0Jh7hQkXq8"
+  "place_id": "ChIJEXrj5Ft5wocRP0Jh7hQkXq8",
+  "rating": 3.0,
+  "reviews": 2,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnlGCRGRVqMt6LIQCdH5W2nGr1A_BEcCn0LntgVJ3-DdHKVVhKdKCXb4HitpL7AsbGO7U98rP8U9RGu6pnPHz27WNBFbT3HuX7s6CiF-ADYfr76gpboXKxR1T06dim6al6U1nU=w800-h500-k-no"
 }

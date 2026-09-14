@@ -5,5 +5,8 @@
   "source": "google_maps_corrected",
   "address": "State Hwy BB, Wheeling, MO 64688",
   "phone": "+1 660-659-2468",
-  "place_id": "ChIJNaz8w-91wocRQ_RgedjqrjE"
+  "place_id": "ChIJNaz8w-91wocRQ_RgedjqrjE",
+  "rating": 5.0,
+  "reviews": 10,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnzVWldpt7EuQQuRJsQQ29QVWGuEYcewbTPLSQo5tnjdK93Dn8PYzJC_ZNhERipLyuje5EQLw6spUDnvehzVZl5BYaRp1r_FCz0PQm0mRIBHW8m9PzZSNsLsOuS0j1n1Y06BCt4dQ=w800-h500-k-no"
 }

@@ -6,5 +6,8 @@
   "address": "26602 State Hwy O, Bevier, MO 63532",
   "phone": "+1 660-773-6760",
   "website": "http://www.browerelectricmo.com/",
-  "place_id": "ChIJR4D3AwqxwocRrty0CMNx1Cw"
+  "place_id": "ChIJR4D3AwqxwocRrty0CMNx1Cw",
+  "rating": 5.0,
+  "reviews": 9,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=cEA8LcmFcDP1EUP_xLr5bA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=165.54803&pitch=0&thumbfov=100"
 }

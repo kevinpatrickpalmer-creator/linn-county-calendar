@@ -4,5 +4,6 @@
   "town": "Purdin",
   "source": "google_maps",
   "address": "Purdin, MO 64674",
-  "place_id": "ChIJrfd9VYrV6YcR2T32eVio5X8"
+  "place_id": "ChIJrfd9VYrV6YcR2T32eVio5X8",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=NaCJPFVzdns3p_X7-EA1EA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=160.9964&pitch=0&thumbfov=100"
 }

@@ -1,0 +1,27 @@
+{
+  "name": "MFA Agri Services",
+  "category": "Farm & Agriculture",
+  "towns": [
+    "Brookfield",
+    "Chillicothe"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.9,
+  "reviews": 26,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=tCrtSMzogMQpUopqJdr-6w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=86.642715&pitch=0&thumbfov=100",
+  "website": "https://mfa-inc.com/",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "108 W Helm St, Brookfield, MO 64628",
+      "phone": "+1 660-258-2284",
+      "place_id": "ChIJwda0YdyHwocR2Hch9vzCRPM"
+    },
+    {
+      "town": "Chillicothe",
+      "address": "1035 Industrial Rd, Chillicothe, MO 64601",
+      "phone": "+1 660-646-5000",
+      "place_id": "ChIJGzcJVswPwocRKqkJq8IYHF0"
+    }
+  ]
+}

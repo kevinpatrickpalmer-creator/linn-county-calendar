@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "205 N Macon St, Bevier, MO 63532",
   "phone": "+1 660-773-6643",
-  "place_id": "ChIJGUm9s6CxwocRfasXuT0hpJM"
+  "place_id": "ChIJGUm9s6CxwocRfasXuT0hpJM",
+  "rating": 4.6,
+  "reviews": 27,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=tTNOLcfQFockpRvOXf5TqQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=56.23941&pitch=0&thumbfov=100"
 }

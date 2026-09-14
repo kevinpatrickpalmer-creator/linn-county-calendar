@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "116 N Water St, Milan, MO 63556",
   "phone": "+1 660-265-3771",
-  "place_id": "ChIJTXBTe2zL6YcRZ29bPZJv56U"
+  "place_id": "ChIJTXBTe2zL6YcRZ29bPZJv56U",
+  "rating": 4.4,
+  "reviews": 57,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk0HMd61hfHTdnSTl1y0LLSHzDJrTEgnq85MJAg70EhPOwYMgxZto_a5z6h13NsYkPykD10dWooiH7-W3p_mRw1yWY-8XPC6erlwfrunAnlEVJt8NoLfs6EDyolf18EgLivzXA=w800-h500-k-no"
 }

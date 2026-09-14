@@ -6,5 +6,8 @@
   "address": "730 S Main St, Linneus, MO 64653",
   "phone": "+1 660-895-5369",
   "website": "https://www.facebook.com/AndersonsAutoBody.LinneusMO",
-  "place_id": "ChIJa_eLYa95wocRdAMA_dnj15o"
+  "place_id": "ChIJa_eLYa95wocRdAMA_dnj15o",
+  "rating": 5.0,
+  "reviews": 4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pbPmiQnrL7O7LhafGfKWVw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=94.88273&pitch=0&thumbfov=100"
 }

@@ -4,5 +4,8 @@
   "town": "Brookfield",
   "source": "google_maps",
   "address": "113 S Main St, Brookfield, MO 64628",
-  "place_id": "ChIJE1NMMgeHwocRCaG2YswBx7I"
+  "place_id": "ChIJE1NMMgeHwocRCaG2YswBx7I",
+  "rating": 5.0,
+  "reviews": 6,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnXocQ76spnWmLgh6QX8xfKdE0otC2IWnLG5vbqIaX6NhGWIB3hTE111wN4fgrAqQaa1IlTk1AT56WCk33ezoSJb13tkAZ-xWiuTJ3Oy-4euSCXMnKgml4dC5Hgb0ZU0Fyg69LX=w800-h500-k-no"
 }

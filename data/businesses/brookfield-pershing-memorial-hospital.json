@@ -6,5 +6,8 @@
   "address": "130 E Lockling Ave, Brookfield, MO 64628",
   "phone": "+1 660-258-2222",
   "website": "http://www.phsmo.org/",
-  "place_id": "ChIJ5_IDJHiIwocRZQNjka1R5wc"
+  "place_id": "ChIJ5_IDJHiIwocRZQNjka1R5wc",
+  "rating": 2.3,
+  "reviews": 40,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=vFQnWO10qM5wyhnKYWBeBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=132.96082&pitch=0&thumbfov=100"
 }

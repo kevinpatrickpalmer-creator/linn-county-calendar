@@ -105,3 +105,50 @@ deleting the other. If you spot a pair it missed (different towns, or
 names too different to normalize-match), resolve it the same way by
 hand: check each one's review count on Google Maps and delete the
 lower-reviewed file.
+
+## Multi-town listings (chains, not coincidentally-shared names)
+
+A business that genuinely operates in more than one town -- Casey's,
+Hunt Brothers Pizza, a small regional bank with a branch in each of two
+towns -- gets **one** file with `"towns"` (an array) instead of `"town"`,
+plus a `"locations"` array carrying each branch's own address/phone
+(other fields -- category, website, rating, photo -- are treated as
+shared across every branch, since Google Maps generally does have a
+separate `place_id`/rating/photo per physical branch, and only one gets
+kept as representative):
+
+```json
+{
+  "name": "Casey's",
+  "category": "Restaurant & Food",
+  "towns": ["Brookfield", "Marceline"],
+  "source": "google_maps_merged",
+  "website": "https://caseys.com",
+  "rating": 4.2,
+  "reviews": 150,
+  "locations": [
+    { "town": "Brookfield", "address": "123 Main St, Brookfield, MO", "phone": "(660) 555-0100" },
+    { "town": "Marceline", "address": "456 Elm St, Marceline, MO", "phone": "(660) 555-0200" }
+  ]
+}
+```
+
+This listing shows up in `docs/directory.html` whenever any of its towns
+is selected in the Towns filter (or when none are, same as any other
+listing), and its card lists each branch's own address/phone separately
+rather than picking just one.
+
+**Don't merge on name alone.** Two businesses sharing a name across towns
+is common and usually *not* the same company -- "First Baptist Church"
+in Brookfield and "First Baptist Church" in Laclede are two unrelated
+congregations, not branches of one; the same goes for lodges, civic
+clubs, and (deliberately left as separate per-town listings) the Postal
+Service, where each town's own address/phone is exactly the point.
+Before merging, confirm it's a real chain (a recognizable commercial
+brand, or -- like Delaney Funeral Home in Bucklin and Marceline --
+already documented elsewhere in this codebase as one business). A
+national franchise/kiosk brand riding inside a different local host
+business at each location (a U-Haul Neighborhood Dealer, say) generally
+shouldn't be merged either, since the underlying host is a different
+real business at each site even though the franchise signage is the
+same.

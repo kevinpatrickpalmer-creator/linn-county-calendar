@@ -4,5 +4,6 @@
   "town": "Linn County",
   "source": "google_maps",
   "address": "409 Locust St, Chillicothe, MO 64601",
-  "place_id": "ChIJ8_BlsR4PwocRtBlhSXUy3FU"
+  "place_id": "ChIJ8_BlsR4PwocRtBlhSXUy3FU",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=fwfKuCrkHQ0tIHHhlKs0HQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=90.81297&pitch=0&thumbfov=100"
 }

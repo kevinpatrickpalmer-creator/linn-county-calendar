@@ -6,5 +6,8 @@
   "address": "713 Calhoun St, Chillicothe, MO 64601",
   "phone": "+1 660-973-7338",
   "website": "https://www.goadhvac.com/",
-  "place_id": "ChIJU1p6JMwPwocRREyJlrl9pfY"
+  "place_id": "ChIJU1p6JMwPwocRREyJlrl9pfY",
+  "rating": 4.7,
+  "reviews": 76,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=77bvP3_ctWWLN-tPvXTvRQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=48.854538&pitch=0&thumbfov=100"
 }

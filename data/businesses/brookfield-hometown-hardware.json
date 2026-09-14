@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "116 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7272",
-  "place_id": "ChIJdaYyY9yHwocRGTvnGMTvwCY"
+  "place_id": "ChIJdaYyY9yHwocRGTvnGMTvwCY",
+  "rating": 4.8,
+  "reviews": 66,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnT_3gR2D-MPfJ8jLdAN7SJ8w7-hoG4T-TH7UC0WakcR0PIG0rTi2tn9gHzSktK9poDBb0ksTdEOZy2qyTfysEOH1Lx-8ZXRJlUtIdfCiDjIHe5Fdw2X0PbNLKl2ZVblSVGyb4iA=w800-h500-k-no"
 }

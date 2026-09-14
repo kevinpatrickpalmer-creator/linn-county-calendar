@@ -6,5 +6,8 @@
   "address": "100 Macon St, Meadville, MO 64659",
   "phone": "+1 660-938-4567",
   "website": "https://grayelectricsvcs.com/",
-  "place_id": "ChIJIW4gustxwocRqQ_PR0fzuAs"
+  "place_id": "ChIJIW4gustxwocRqQ_PR0fzuAs",
+  "rating": 5.0,
+  "reviews": 4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=LU_LcDYeaNYXoX2E2uks3g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=250.94821&pitch=0&thumbfov=100"
 }

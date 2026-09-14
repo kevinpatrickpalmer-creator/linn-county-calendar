@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "101 N Market St, Milan, MO 63556",
   "phone": "+1 660-348-9918",
-  "place_id": "ChIJU59cYRjL6YcR5BWrIMJjh7w"
+  "place_id": "ChIJU59cYRjL6YcR5BWrIMJjh7w",
+  "rating": 4.9,
+  "reviews": 30,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlRlOVwXwmvncunEOVaYuNGjJ-mIwPPcOE0u3F1eHcGAmJwvT4V18jnpWOI-Wt7cwHcyI0jaZOty5R5_-L9bFA8PkmmjbZKUBoQw_1iEd-uTSpt6JKhcOjdAw63aA0DWDGCBaAz=w800-h500-k-no"
 }

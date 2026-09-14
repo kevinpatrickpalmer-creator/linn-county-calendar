@@ -5,5 +5,6 @@
   "source": "google_maps",
   "address": "715 S Brunswick St, Brookfield, MO 64628",
   "phone": "+1 660-258-9002",
-  "place_id": "ChIJh2UEYgCJwocRCduIqpmRpeg"
+  "place_id": "ChIJh2UEYgCJwocRCduIqpmRpeg",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Mm9slXD5OB4yJFYOWI1qGA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=87.67162&pitch=0&thumbfov=100"
 }

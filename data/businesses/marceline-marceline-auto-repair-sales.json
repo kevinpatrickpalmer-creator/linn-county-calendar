@@ -5,5 +5,7 @@
   "source": "google_maps",
   "address": "1401 N Missouri Ave, Marceline, MO 64658",
   "phone": "+1 660-376-4095",
-  "place_id": "ChIJ_WzwAyeOwocR-HabiEJZVLE"
+  "place_id": "ChIJ_WzwAyeOwocR-HabiEJZVLE",
+  "rating": 4.8,
+  "reviews": 23
 }

@@ -1,0 +1,34 @@
+{
+  "name": "Prenger Foods",
+  "category": "Retail & Shopping",
+  "towns": [
+    "Brookfield",
+    "Bucklin",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.3,
+  "reviews": 350,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnLmSPfnaNinwZ5hrFC2LYZkV_KuCT5M3S5kxhrlWbWz7xujW-cbmDcvBJe_-LaSDGtNq6BffuJIAwptM6FZwSp62w2lH_cAwc8BQ3zxbgohlv2W0DXaw5UBOuafFkIxiy6sFEP=w800-h500-k-no",
+  "website": "http://www.prengerfoods.com/",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "542 S Main St, Brookfield, MO 64628",
+      "phone": "+1 660-258-2653",
+      "place_id": "ChIJD72j49iHwocRnuFXqjV-xzQ"
+    },
+    {
+      "town": "Bucklin",
+      "address": "2 N, 5 Livingston St, Bucklin, MO 64631",
+      "phone": "+1 660-695-3330",
+      "place_id": "ChIJ7-eUx4aQwocR5itVVQzOvnk"
+    },
+    {
+      "town": "Marceline",
+      "address": "205 N Chestnut St, Marceline, MO 64658",
+      "phone": "+1 660-376-2322",
+      "place_id": "ChIJb7ulbRaOwocRMqMlcUppHoY"
+    }
+  ]
+}

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "512 Livingston St, Bucklin, MO 64631",
   "phone": "+1 660-349-6942",
-  "place_id": "ChIJUZjIz4aQwocRXVwwCzHoO58"
+  "place_id": "ChIJUZjIz4aQwocRXVwwCzHoO58",
+  "rating": 5.0,
+  "reviews": 5,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm2egPzWUtkv3cprE7V59PI6gzKkxIDAmD2Q3w_7fPQz_SqJQWQ9d-nqyPWNAoQYA6jP650cvyy-yqeJK5_8ox3_ZxB7uZPubee_4vyF8OSekC6CFZu3YPcsKzf7EVRSdXG-BRpVw=w800-h500-k-no"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "29262 MO-149, New Cambria, MO 63558",
   "phone": "+1 660-226-5612",
-  "place_id": "ChIJ0crNUCO9wocRNJESB8tUKVs"
+  "place_id": "ChIJ0crNUCO9wocRNJESB8tUKVs",
+  "rating": 4.6,
+  "reviews": 61,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmovQb_sf5cwejmWHF916VyWCPG9kvS9BUKvOJOR25u47uCzk2haVPL7VvfSKEpV3a5vCHN1aJhlGJnWNc3eE8Kn7nhAjzW9SkT4-usYZ4NwAO9QSy_ReePif2kKE7Yz_asskPDfQ=w800-h500-k-no"
 }

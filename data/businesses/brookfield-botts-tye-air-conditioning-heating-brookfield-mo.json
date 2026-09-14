@@ -6,5 +6,8 @@
   "address": "316 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-675-4044",
   "website": "http://www.bottsandtye.com/",
-  "place_id": "ChIJuxN_RXeHwocRnqyyui4mIxc"
+  "place_id": "ChIJuxN_RXeHwocRnqyyui4mIxc",
+  "rating": 5.0,
+  "reviews": 1,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KOy4wIyD3jUi-Ey6gJMNDg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=64.72379&pitch=0&thumbfov=100"
 }

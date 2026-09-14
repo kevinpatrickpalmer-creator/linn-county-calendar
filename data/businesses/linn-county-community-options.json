@@ -6,5 +6,8 @@
   "address": "801B Washington St B, Chillicothe, MO 64601",
   "phone": "+1 660-646-0109",
   "website": "https://communityoptions-chilli.org/",
-  "place_id": "ChIJPwQH_qQPwocRmz7Nr3j9vpg"
+  "place_id": "ChIJPwQH_qQPwocRmz7Nr3j9vpg",
+  "rating": 4.9,
+  "reviews": 7,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Ku0QfKG-IaTaguGSSptfHg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=74.802666&pitch=0&thumbfov=100"
 }

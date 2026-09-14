@@ -4,5 +4,8 @@
   "town": "Marceline",
   "source": "google_maps",
   "address": "Almond Ave, Marceline, MO 64658",
-  "place_id": "ChIJibZsVkWTwocRblpD8DSnv-c"
+  "place_id": "ChIJibZsVkWTwocRblpD8DSnv-c",
+  "rating": 4.6,
+  "reviews": 10,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=g9GL33_2bKF2X_gw4qzFJg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=354.13638&pitch=0&thumbfov=100"
 }

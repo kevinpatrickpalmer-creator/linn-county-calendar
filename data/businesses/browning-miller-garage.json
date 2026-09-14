@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "307 W Main St, Browning, MO 64630",
   "phone": "+1 660-946-4310",
-  "place_id": "ChIJYYAGrO7T6YcR_hmPPd_WNs0"
+  "place_id": "ChIJYYAGrO7T6YcR_hmPPd_WNs0",
+  "rating": 5.0,
+  "reviews": 10,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=xooiwPdm22RwRBB4rNkOGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=41.894936&pitch=0&thumbfov=100"
 }

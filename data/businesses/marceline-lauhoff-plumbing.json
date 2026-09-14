@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "509 E Hauser St, Marceline, MO 64658",
   "phone": "+1 660-376-2306",
-  "place_id": "ChIJA75kziiOwocRiltK4oTpgA8"
+  "place_id": "ChIJA75kziiOwocRiltK4oTpgA8",
+  "rating": 4.3,
+  "reviews": 7,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=l2mGx46dI0VUOiOwVy7Mxg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=42.74016&pitch=0&thumbfov=100"
 }

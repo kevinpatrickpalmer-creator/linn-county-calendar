@@ -29,6 +29,64 @@ OUTPUT_PATH = "docs/businesses.json"
 # scraper's own dedup, never meant for the public site.
 FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "rating", "reviews", "hours", "description"]
 NUMERIC_FIELDS = {"rating", "reviews"}
+# Fields that live per-branch on a multi-location listing's own
+# "locations" entries instead of at the top level -- see
+# _load_multi_location() below.
+PER_LOCATION_FIELDS = {"town", "address", "phone"}
+
+
+def _extract_fields(data, skip):
+    """FIELDS not in SKIP, present and non-empty on DATA, as a dict --
+    shared by both the single-town and multi-location loaders below so
+    they stay in sync."""
+    extracted = {}
+    for field in FIELDS:
+        if field in skip:
+            continue
+        raw_value = data.get(field)
+        if field in NUMERIC_FIELDS:
+            if isinstance(raw_value, (int, float)):
+                extracted[field] = raw_value
+            continue
+        value = (raw_value or "").strip()
+        if value:
+            extracted[field] = value
+    return extracted
+
+
+def _load_multi_location(path, data, name):
+    """A listing with a "towns" array instead of a single "town" -- the
+    same real business operating in more than one town (a chain like
+    Casey's or Hunt Brothers Pizza, not just a coincidentally-shared
+    name -- see data/businesses/README.md for how one of these gets
+    created). Its own "locations" array carries the per-branch
+    address/phone; whatever else the file has (category, rating, photo,
+    website...) is treated as shared across every branch."""
+    towns = [t.strip() for t in data["towns"] if isinstance(t, str) and t.strip() and t.strip() != "Other"]
+    if not towns:
+        print(f"  WARNING: skipping {path}, no usable towns", file=sys.stderr)
+        return None
+
+    listing = {"name": name, "towns": towns}
+    listing.update(_extract_fields(data, skip={"name", "town", "address", "phone"}))
+
+    locations = []
+    for loc in data.get("locations") or []:
+        if not isinstance(loc, dict):
+            continue
+        town = (loc.get("town") or "").strip()
+        if not town:
+            continue
+        entry = {"town": town}
+        for field in ("address", "phone"):
+            value = (loc.get(field) or "").strip()
+            if value:
+                entry[field] = value
+        locations.append(entry)
+    if locations:
+        listing["locations"] = locations
+
+    return listing
 
 
 def load_businesses():
@@ -55,8 +113,18 @@ def load_businesses():
             continue
 
         name = (data.get("name") or "").strip()
+        if not name:
+            print(f"  WARNING: skipping {path}, missing required name", file=sys.stderr)
+            continue
+
+        if isinstance(data.get("towns"), list):
+            listing = _load_multi_location(path, data, name)
+            if listing:
+                businesses.append(listing)
+            continue
+
         town = (data.get("town") or "").strip()
-        if not name or not town:
+        if not town:
             print(f"  WARNING: skipping {path}, missing required name/town", file=sys.stderr)
             continue
         if town == "Other":
@@ -64,17 +132,7 @@ def load_businesses():
             continue
 
         listing = {"name": name, "town": town}
-        for field in FIELDS:
-            if field in ("name", "town"):
-                continue
-            raw_value = data.get(field)
-            if field in NUMERIC_FIELDS:
-                if isinstance(raw_value, (int, float)):
-                    listing[field] = raw_value
-                continue
-            value = (raw_value or "").strip()
-            if value:
-                listing[field] = value
+        listing.update(_extract_fields(data, skip={"name", "town"}))
         businesses.append(listing)
 
     businesses.sort(key=lambda b: b["name"].lower())
@@ -85,8 +143,12 @@ def main():
     config = load_config()
     businesses, held_back = load_businesses()
 
-    towns = sorted({b["town"] for b in businesses if b["town"] in config["towns"]} | set())
-    print(f"Building directory: {len(businesses)} listing(s) across {len(towns)} of {len(config['towns'])} official towns")
+    def towns_of(b):
+        return b["towns"] if "towns" in b else [b["town"]]
+
+    towns = sorted({t for b in businesses for t in towns_of(b) if t in config["towns"]})
+    multi_location = sum(1 for b in businesses if "towns" in b)
+    print(f"Building directory: {len(businesses)} listing(s) ({multi_location} multi-town) across {len(towns)} of {len(config['towns'])} official towns")
     if held_back:
         print(f"  ({held_back} listing(s) held back -- town unresolved, still \"Other\" in data/businesses/)")
 

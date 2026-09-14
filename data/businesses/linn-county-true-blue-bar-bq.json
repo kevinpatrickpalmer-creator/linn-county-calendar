@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "101 E Front St, New Cambria, MO 63558",
   "phone": "+1 660-226-5999",
-  "place_id": "ChIJMb2JBji9wocRv1RlpO4e0bk"
+  "place_id": "ChIJMb2JBji9wocRv1RlpO4e0bk",
+  "rating": 4.7,
+  "reviews": 100,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnooP6ArYtLqwlqhi7JrN86f1qkTz0Q_3ScD11sfXiE2Xyvp4eYA4Y_zmUmOuDXOEeUwBYe6f0xOD_IEEylMvUuU83n3WbQ4IHzjB9-eYdwsOS_XPMF_bcGXvw32OtZIuGAuKxvIw=w800-h500-k-no"
 }

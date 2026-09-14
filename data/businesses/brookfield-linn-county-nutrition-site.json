@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "143 Clawson Dr, Brookfield, MO 64628",
   "phone": "+1 660-258-2577",
-  "place_id": "ChIJY4ZG_fiHwocR40vIMmazaRU"
+  "place_id": "ChIJY4ZG_fiHwocR40vIMmazaRU",
+  "rating": 5.0,
+  "reviews": 3,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkoIZH5HZdU0r-S5lWc1j9mhRVY5srRpBcWwAbjtVFfOQXa7WnRCbGovahilbQpH7gnrTSKN_drzMyzOncX0-2ziK2LNo6diI7lhjCi0wNpfXoUPqfS-tWwY7-kf9z2nDC_JFmT=w800-h500-k-no"
 }

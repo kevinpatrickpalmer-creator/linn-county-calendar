@@ -7,5 +7,7 @@
   "address": "304 W Crandall St, Meadville, MO 64659",
   "phone": "+1 660-938-4294",
   "website": "http://www.llba.org/",
-  "place_id": "ChIJoQADoslxwocRr9V5LULCtfg"
+  "place_id": "ChIJoQADoslxwocRr9V5LULCtfg",
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=jPvwW5tLpiNE1YL6PqG-Lg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=182.58142&pitch=0&thumbfov=100"
 }

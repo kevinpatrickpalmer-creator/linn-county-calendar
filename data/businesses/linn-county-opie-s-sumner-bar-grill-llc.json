@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "114 Centre St, Sumner, MO 64681",
   "phone": "+1 660-856-3000",
-  "place_id": "ChIJPwbr0A9nwocR-hfoIWJP0Rw"
+  "place_id": "ChIJPwbr0A9nwocR-hfoIWJP0Rw",
+  "rating": 4.9,
+  "reviews": 9,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkOWYBsnuK03tu5YkoTmGZoUSoki-lEeR0xeQqJQpQEutKbwZRbhXlV0AJwIcGfQPvTcA_R6MygaF5mzW_riZ9j3oZDDX6isMregGr7IniB09sbjqdpycvtnDKdWvbNo6SM-6-JY4xcerGX=w800-h500-k-no"
 }

@@ -5,5 +5,7 @@
   "source": "google_maps",
   "reviews": 1,
   "address": "560 N Chestnut St, Marceline, MO 64658",
-  "place_id": "ChIJHe3Bs5yPwocRVi0H5F8p8Ds"
+  "place_id": "ChIJHe3Bs5yPwocRVi0H5F8p8Ds",
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=lgu3s1faTZQ2VwOJShgXMg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=119.61453&pitch=0&thumbfov=100"
 }

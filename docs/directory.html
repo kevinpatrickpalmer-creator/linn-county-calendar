@@ -92,6 +92,16 @@
   .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
   .biz-meta a:hover { text-decoration: underline; }
   .biz-hours { color: var(--ink-soft); font-weight: 400 !important; }
+  .biz-location-row {
+    display: flex;
+    flex-direction: column;
+    gap: .05rem;
+    padding: .35rem 0;
+    border-top: 1px solid var(--surface-border);
+  }
+  .biz-location-row:first-child { border-top: none; padding-top: 0; }
+  .biz-location-row strong { font-size: .8rem; font-weight: 600; color: var(--ink); }
+  .biz-location-addr { font-size: .78rem; color: var(--ink-soft); font-weight: 400; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
@@ -251,10 +261,20 @@
   // surfaces something instead of a dead end.
   function matchesSearch(b, tokens, matchAny) {
     if (!tokens.length) return true;
-    const haystack = `${b.name} ${b.description || ""} ${b.category || ""} ${b.town}`.toLowerCase();
+    const haystack = `${b.name} ${b.description || ""} ${b.category || ""} ${listingTowns(b).join(" ")}`.toLowerCase();
     const synonyms = CATEGORY_SYNONYMS[b.category] || [];
     const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
     return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
+
+  // A listing normally has one "town" (a single string); a business
+  // operating in more than one -- a real chain, not just a
+  // coincidentally-shared name (see data/businesses/README.md) -- has a
+  // "towns" array instead. This is the one place that difference gets
+  // normalized away, so filtering/search/grouping never need to care
+  // which shape a given listing is.
+  function listingTowns(b) {
+    return b.towns || [b.town];
   }
 
   // Same multi-checkbox dropdown pattern as calendar-view.html's town/type
@@ -360,7 +380,9 @@
 
     const town = document.createElement("div");
     town.className = "biz-town";
-    town.textContent = [b.address, b.town].filter(Boolean).join(" · ") || b.town;
+    town.textContent = b.locations
+      ? `Locations in ${listingTowns(b).join(", ")}`
+      : [b.address, b.town].filter(Boolean).join(" · ") || b.town;
     card.appendChild(town);
 
     if (b.description) {
@@ -372,7 +394,34 @@
 
     const meta = document.createElement("div");
     meta.className = "biz-meta";
-    if (b.phone) {
+
+    // Multiple real locations (a chain like Casey's or Hunt Brothers
+    // Pizza, not just a coincidentally-shared name -- see
+    // data/businesses/README.md) each get their own address/phone line,
+    // since a single top-level phone number would only ever be right
+    // for one of the towns this listing covers.
+    if (b.locations) {
+      for (const loc of b.locations) {
+        const row = document.createElement("div");
+        row.className = "biz-location-row";
+        const label = document.createElement("strong");
+        label.textContent = loc.town;
+        row.appendChild(label);
+        if (loc.address) {
+          const addr = document.createElement("span");
+          addr.className = "biz-location-addr";
+          addr.textContent = loc.address;
+          row.appendChild(addr);
+        }
+        if (loc.phone) {
+          const a = document.createElement("a");
+          a.href = `tel:${loc.phone.replace(/[^0-9+]/g, "")}`;
+          a.textContent = loc.phone;
+          row.appendChild(a);
+        }
+        meta.appendChild(row);
+      }
+    } else if (b.phone) {
       const a = document.createElement("a");
       a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
       a.textContent = b.phone;
@@ -411,7 +460,7 @@
 
     function applyFilters(matchAny) {
       return businesses.filter((b) => {
-        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
+        if (selectedTowns.size && !listingTowns(b).some((t) => selectedTowns.has(t))) return false;
         if (selectedCategories.size && !selectedCategories.has(b.category || "Other")) return false;
         if (!matchesSearch(b, tokens, matchAny)) return false;
         return true;
@@ -500,7 +549,7 @@
     // account for here, and this naturally picks up a nearby town (e.g.
     // Chillicothe) the moment the first listing there is confirmed,
     // with no code change needed.
-    const towns = [...new Set(businesses.map((b) => b.town))].sort();
+    const towns = [...new Set(businesses.flatMap(listingTowns))].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,

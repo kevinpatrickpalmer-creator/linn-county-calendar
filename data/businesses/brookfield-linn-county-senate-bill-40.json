@@ -6,5 +6,8 @@
   "address": "102 Fairground Rd, Brookfield, MO 64628",
   "phone": "+1 660-258-2877",
   "website": "https://www.facebook.com/linncosb40/",
-  "place_id": "ChIJxShyjgqIwocRl4gF0fiiMgY"
+  "place_id": "ChIJxShyjgqIwocRl4gF0fiiMgY",
+  "rating": 4.5,
+  "reviews": 90,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=A0yQV4HZ-SUxNEzMkzpkGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=356.3385&pitch=0&thumbfov=100"
 }

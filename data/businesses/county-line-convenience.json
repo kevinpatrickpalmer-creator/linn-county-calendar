@@ -1,0 +1,26 @@
+{
+  "name": "County Line Convenience",
+  "category": "Retail & Shopping",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.6,
+  "reviews": 12,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkf9l2i6R4Hj03uNmVk7Ayl55H_110OZqZ9uYg2qraFEAY9NF_pEcyL_UpfcfAjUnim1UZ8QLyaz3JX3A0-Bm3zXCyRGM_J53hBuSCMfs1eMNunpJE3YWbHqW0e7E6qpoVwCKo=w800-h500-k-no",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "322 W Helm St, Brookfield, MO 64628",
+      "phone": "+1 660-258-3122",
+      "place_id": "ChIJyeuvvN2HwocRVxqV8HYpKJY"
+    },
+    {
+      "town": "Marceline",
+      "address": "110 S Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 660-376-3006",
+      "place_id": "ChIJjRHCVBeOwocRLvXgM3y3DIU"
+    }
+  ]
+}

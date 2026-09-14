@@ -270,6 +270,20 @@ def build_listing(result, category, config):
     return listing
 
 
+def _is_multi_location_file(path):
+    """True if PATH is a hand-merged multi-town listing (has "towns"
+    instead of a single "town" -- see data/businesses/README.md).
+    Auto-dedup treats these as always-winning rather than something a
+    fresh single-location duplicate can delete/replace, since deleting
+    the file would lose every other town on it, not just the one that
+    matched."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return isinstance(json.load(f).get("towns"), list)
+    except (OSError, json.JSONDecodeError):
+        return False
+
+
 def normalize_business_name(name):
     """Loose match key for spotting the same real business listed twice
     under two separate Google profiles (different place_id, sometimes a
@@ -303,7 +317,14 @@ def _load_existing_index(business_dir):
     existing listing is (per Kevin) almost always the same real business
     on a duplicate Google profile rather than two actual businesses, so
     main() uses this to keep only whichever one has more reviews instead
-    of publishing both."""
+    of publishing both.
+
+    A multi-town listing (a "towns" array + "locations" instead of a
+    single "town" -- see data/businesses/README.md) contributes every one
+    of its locations' place_id and (name, town) here too, keyed to the
+    one shared file -- otherwise a future run would rediscover, say,
+    Casey's in Brookfield under its old standalone place_id and add it
+    back as a second, separate, un-merged file."""
     slugs = set()
     place_ids = set()
     by_name_town = {}
@@ -314,12 +335,24 @@ def _load_existing_index(business_dir):
                 data = json.load(f)
         except (OSError, json.JSONDecodeError):
             continue
+
         place_id = data.get("place_id")
         if place_id:
             place_ids.add(str(place_id))
-        name, town = data.get("name"), data.get("town")
-        if name and town:
-            by_name_town[(normalize_business_name(name), town)] = (path, data.get("reviews") or 0)
+
+        name = data.get("name")
+        if isinstance(data.get("towns"), list):
+            for loc in data.get("locations") or []:
+                if not isinstance(loc, dict):
+                    continue
+                if loc.get("place_id"):
+                    place_ids.add(str(loc["place_id"]))
+                if name and loc.get("town"):
+                    by_name_town[(normalize_business_name(name), loc["town"])] = (path, data.get("reviews") or 0)
+        else:
+            town = data.get("town")
+            if name and town:
+                by_name_town[(normalize_business_name(name), town)] = (path, data.get("reviews") or 0)
     return slugs, place_ids, by_name_town
 
 
@@ -356,6 +389,8 @@ def _run_query(query, category, config, state):
         dupe = state["by_name_town"].get(name_town_key)
         if dupe:
             dupe_path, dupe_reviews = dupe
+            if _is_multi_location_file(dupe_path):
+                continue  # a merged multi-town listing is curated by hand -- never auto-replaced
             if listing.get("reviews", 0) <= dupe_reviews:
                 continue  # existing listing has as many or more reviews -- keep it, skip this one
             os.remove(dupe_path)

@@ -295,6 +295,13 @@ events, just with its own set of files so the two never collide:
   Never overwrites a file that already exists for the same business (see
   `data/businesses/README.md`), and skips anything Google itself doesn't
   mark as currently operating.
+- **Businesses in more than one town** (Casey's, Hunt Brothers Pizza, a
+  small bank with a Brookfield and a Marceline branch) get one listing
+  with a `"towns"` array instead of a single `"town"`, each branch's own
+  address/phone kept in a `"locations"` array -- see the "Multi-town
+  listings" section of `data/businesses/README.md`, including why a
+  shared name across towns (two different "First Baptist Church"s, the
+  Postal Service) usually should *not* be merged this way.
 
 ## Viewing the calendar online
 

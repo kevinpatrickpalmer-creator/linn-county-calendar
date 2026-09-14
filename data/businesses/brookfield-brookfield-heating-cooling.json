@@ -6,5 +6,8 @@
   "address": "119 W Helm St, Brookfield, MO 64628",
   "phone": "+1 660-258-2588",
   "website": "https://www.missourihvaccontractor.com/hvac-technician-in-brookfield/",
-  "place_id": "ChIJm6yOYdyHwocR2wta53iZdAo"
+  "place_id": "ChIJm6yOYdyHwocR2wta53iZdAo",
+  "rating": 3.8,
+  "reviews": 5,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=8pzykS2AR1Ovm4wkkcfF9g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=150.4796&pitch=0&thumbfov=100"
 }

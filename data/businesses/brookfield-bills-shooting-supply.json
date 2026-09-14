@@ -4,5 +4,8 @@
   "town": "Brookfield",
   "source": "google_maps",
   "address": "642 S Livingston St, Brookfield, MO 64628",
-  "place_id": "ChIJYw0SMZOHwocRmwAN0drB74M"
+  "place_id": "ChIJYw0SMZOHwocRmwAN0drB74M",
+  "rating": 5.0,
+  "reviews": 21,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWklrFGk4FWYacCGjWPZfnckBA_EFDJ5x_DGhZiE2U-QaXP2Xq_bQ0KdEkajoDC-HW5U2aP5SAY-nLPoOe1zlk75VSYgZB2nvCpZG9QyeSEJNUdDo5TsuTPgflm9xASuFn5J4WcN=w800-h500-k-no"
 }

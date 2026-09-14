@@ -1,0 +1,27 @@
+{
+  "name": "Casey's",
+  "category": "Restaurant & Food",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 3.9,
+  "reviews": 260,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnUmNBvk5RtGoVHafqnR-Mmylsi9ohB_EiF9bxwAy-mJKM10tg6CPLbdoZnooOx-o7GqCcvpeaFylHFhSDT0yDbHNTXwFRXVyUe6ZjbTvZaEeXdc1UKCe07glrpVnQ3_lvDtSX=w800-h500-k-no",
+  "website": "https://www.caseys.com/general-store/mo-brookfield/303-w-lockling/2602%3Futm_medium%3Dorganic%26utm_source%3Dgoogle%26utm_campaign%3DDAC",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "303 W Lockling Ave, Brookfield, MO 64628",
+      "phone": "+1 660-631-8937",
+      "place_id": "ChIJEcuAZnaIwocR-q3SsXbr63M"
+    },
+    {
+      "town": "Marceline",
+      "address": "1601 N Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 660-717-1308",
+      "place_id": "ChIJ0zBCryiOwocR1gHyuRkyduk"
+    }
+  ]
+}

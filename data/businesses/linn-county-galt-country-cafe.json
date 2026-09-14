@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "111 E N St, Galt, MO 64641",
   "phone": "+1 660-673-6677",
-  "place_id": "ChIJg6Oi1vrC6YcRz22Fmq1v1b0"
+  "place_id": "ChIJg6Oi1vrC6YcRz22Fmq1v1b0",
+  "rating": 4.7,
+  "reviews": 105,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn5wsMCuTh3PVjX2VqhmNRTCj6QrydLomJmkXKgNUPCBiXlu-Wg7VVbLhDS5d0zAX9UBMXzgXSNdbtF_OhfeNTPt-v_HRpuXaRLA0AoE0Zp59SZ-UALKnCLFBUcvE0japWPBocq7iuNMUWO=w800-h500-k-no"
 }

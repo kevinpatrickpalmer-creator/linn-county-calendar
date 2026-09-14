@@ -4,5 +4,8 @@
   "town": "Linn County",
   "source": "google_maps",
   "phone": "+1 660-412-2963",
-  "place_id": "ChIJB4TfdU6qJKwRsDQgMwAkW6A"
+  "place_id": "ChIJB4TfdU6qJKwRsDQgMwAkW6A",
+  "rating": 5.0,
+  "reviews": 2,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlTfnJXyjnFmhztIi0xULaIbgWmR_vywWHli2-yZU_O4Yzlkmuhkmi4x1jemAAASRh8UjXiX7bBkHrnywT366-6F_xjijHCG88dG5q1iN5GeesAjgaB2E90ihkOyuYYSGyiL5ZATZQ0p72r=w800-h500-k-no"
 }

@@ -6,5 +6,8 @@
   "address": "Bucklin, MO 64631",
   "phone": "+1 660-695-3818",
   "website": "http://pgbcmo.com/",
-  "place_id": "ChIJa_PkPEmcwocRHX-mGOYLO7c"
+  "place_id": "ChIJa_PkPEmcwocRHX-mGOYLO7c",
+  "rating": 5.0,
+  "reviews": 2,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4XCJCbRRfP_Vbg9zi6K-Tw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=7.6236124&pitch=0&thumbfov=100"
 }

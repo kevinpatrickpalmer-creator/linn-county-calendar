@@ -5,5 +5,6 @@
   "source": "google_maps",
   "address": "200 S Missouri Ave, Marceline, MO 64658",
   "phone": "+1 660-591-2134",
-  "place_id": "ChIJ21HwrviPwocRBaT8LynLGco"
+  "place_id": "ChIJ21HwrviPwocRBaT8LynLGco",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=dZpWhM65PvKI0Mnwa6nH9A&cb_client=search.gws-prod.gps&w=800&h=500&yaw=297.02567&pitch=0&thumbfov=100"
 }

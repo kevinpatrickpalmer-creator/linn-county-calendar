@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "520 W Lockling Ave, Brookfield, MO 64628",
   "phone": "+1 660-258-9444",
-  "place_id": "ChIJ44G_FQOJwocRf14xti8GFIE"
+  "place_id": "ChIJ44G_FQOJwocRf14xti8GFIE",
+  "rating": 4.3,
+  "reviews": 184,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlIJxXeJgNUS4zkXI6UJ0vJVSIInFv5UDP8m5KrPguWA25P7cIvQpF-yz2DcBcDBgG-aYT9TOlmRjIQkxIrQwUZj0kTjcymPTolASkB7Enwubm1A8b7NMRmln4Mjly25-ety6E=w800-h500-k-no"
 }

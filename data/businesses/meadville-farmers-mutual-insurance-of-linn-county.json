@@ -6,5 +6,8 @@
   "address": "211 Macon St, Meadville, MO 64659",
   "phone": "+1 660-938-4415",
   "website": "https://www.fmilc.com/",
-  "place_id": "ChIJ0SMSbspxwocRcgy5jG--rvc"
+  "place_id": "ChIJ0SMSbspxwocRcgy5jG--rvc",
+  "rating": 3.0,
+  "reviews": 2,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=p3pQxuYAcikJmagXRcjxXg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=75.32253&pitch=0&thumbfov=100"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "901 N Macon St #2021, Bevier, MO 63532",
   "phone": "+1 660-773-5503",
-  "place_id": "ChIJeZsdb6OxwocRHtsx667x1sg"
+  "place_id": "ChIJeZsdb6OxwocRHtsx667x1sg",
+  "rating": 4.8,
+  "reviews": 65,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmAkmq4O2pYX2nHFVtMmr5UbxC206dTHNGbS8IYk6fiGDtm4KscC1hzZf179QeTsa-p8ocVyoYORYu2Eo8AkVlRhpoOdSuHMMwWFGbLQaSCZgNHcYpD10QhkmIiDvma8yjwLIRl=w800-h500-k-no"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "33120 MO-129, Winigan, MO 63566",
   "phone": "+1 660-857-4467",
-  "place_id": "ChIJcdBV4skl6IcRssM_pcqhK4I"
+  "place_id": "ChIJcdBV4skl6IcRssM_pcqhK4I",
+  "rating": 5.0,
+  "reviews": 3,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1KOHSlUPcQ8N-g6vT-WxXQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=83.98666&pitch=0&thumbfov=100"
 }

@@ -6,5 +6,8 @@
   "address": "635 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7251",
   "website": "http://linncohealth.com/",
-  "place_id": "ChIJwZPyftiHwocRbkmweWQsrG0"
+  "place_id": "ChIJwZPyftiHwocRbkmweWQsrG0",
+  "rating": 4.3,
+  "reviews": 3,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=_7L-0nMN2d-JNN9QPMkHUQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.05212&pitch=0&thumbfov=100"
 }

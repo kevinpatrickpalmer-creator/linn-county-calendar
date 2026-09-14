@@ -5,5 +5,8 @@
   "source": "google_maps_corrected",
   "address": "224 Church St, Chillicothe, MO 64601",
   "phone": "+1 660-646-6616",
-  "place_id": "ChIJVzwREqUPwocRc7VRGmSFzzk"
+  "place_id": "ChIJVzwREqUPwocRc7VRGmSFzzk",
+  "rating": 4.5,
+  "reviews": 8,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=76_wP6kSKtoNOSimnf0EaQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=270.93622&pitch=0&thumbfov=100"
 }

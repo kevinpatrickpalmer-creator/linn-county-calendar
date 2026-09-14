@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "23209 Eclipse Rd, Milan, MO 63556",
   "phone": "+1 660-265-5400",
-  "place_id": "ChIJcZqMTH_L6YcRVZI_pYeXDDA"
+  "place_id": "ChIJcZqMTH_L6YcRVZI_pYeXDDA",
+  "rating": 4.2,
+  "reviews": 102,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmIwAkuIU1ijpDRFiNs5iEd9hoRqE7XpD4i_JDp9zkbG-fx3NJJVIyxJk40Si98wAYqph1pgfgzpwApZlqcdMsM_h_TEN2QuO_hfsQYwa_qPF59c9IaDs0HVKoH-q3oezdUZiP3=w800-h500-k-no"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "13126 US-36, Meadville, MO 64659",
   "phone": "+1 660-938-4555",
-  "place_id": "ChIJpSgjLdJxwocRQZFgbgxkJMw"
+  "place_id": "ChIJpSgjLdJxwocRQZFgbgxkJMw",
+  "rating": 4.7,
+  "reviews": 205,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlpyWcP6Q0xLPJeUF9mlloioX5zEyB4_eIzaRIlUBxbwNOvZs8T1qx8AcrlfEJl35tOo7O1c4qEJuCZvZNPVdVTSIh0Klw4PqWikQMASXzzC1VIDN4mWzWX4e4xm92ojKbkWNqW=w800-h500-k-no"
 }

@@ -1,0 +1,27 @@
+{
+  "name": "Regional Missouri Bank",
+  "category": "Banks & Credit Unions",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 2.5,
+  "reviews": 10,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmy8mZZUlRQaADMk-w9T6jU8KUk7bFpX_HiwnJyg97Tkxe3bOYI6wLnCzz1mLASlK8khVANPNjl7SlfM89qvCQZozEpA-jkTf7qPYZSNAAFcsNsA6HWl6stGJETfKhl2nUjFU55MSms9FCo=w800-h500-k-no",
+  "website": "http://www.regionalmo.bank/",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "216 N Main St, Brookfield, MO 64628",
+      "phone": "+1 660-258-9900",
+      "place_id": "ChIJq8KdpT6HwocRaqbNI04kO6o"
+    },
+    {
+      "town": "Marceline",
+      "address": "1201 S Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 660-376-2077",
+      "place_id": "ChIJCy9iyyCOwocRBh-N9iCM4Zs"
+    }
+  ]
+}

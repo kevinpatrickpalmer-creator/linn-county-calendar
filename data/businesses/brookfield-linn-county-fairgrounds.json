@@ -4,5 +4,8 @@
   "town": "Brookfield",
   "source": "google_maps",
   "address": "Idalis Dr, Brookfield, MO 64628",
-  "place_id": "ChIJ42CA6EeJwocRJsjE4MRWwR8"
+  "place_id": "ChIJ42CA6EeJwocRJsjE4MRWwR8",
+  "rating": 5.0,
+  "reviews": 5,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnsQKyPSVbGbzTRzCLjfshS1jpnbvJBG2f8oe3xOa74lxp_1N1CzfRE8inBZfcfgs0b5f5LNNaqVzl3NJ5ksAkx67j_a3O31QmQf1obbqEV6GxQA4GHTPPetavSozpT16s1B-dWEf0_YTfF=w800-h500-k-no"
 }

@@ -4,5 +4,8 @@
   "town": "Meadville",
   "source": "google_maps",
   "address": "106 W Crandall St, Meadville, MO 64659",
-  "place_id": "ChIJV21aSspxwocRWKTX3LmxIKY"
+  "place_id": "ChIJV21aSspxwocRWKTX3LmxIKY",
+  "rating": 5.0,
+  "reviews": 2,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=nGPSIJhRJ5kaHQUtkQXtNw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=185.46165&pitch=0&thumbfov=100"
 }

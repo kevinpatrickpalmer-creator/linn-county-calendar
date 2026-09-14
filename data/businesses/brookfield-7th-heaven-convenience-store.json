@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "104 W Helm St, Brookfield, MO 64628",
   "phone": "+1 660-258-2220",
-  "place_id": "ChIJdbR6YtyHwocRWJJpdQmHrwI"
+  "place_id": "ChIJdbR6YtyHwocRWJJpdQmHrwI",
+  "rating": 3.3,
+  "reviews": 31,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk__bOxj6pnw5b2FjU607cP9r0W4abTWafIn_hpQQrBX76ggs33hmlEAEqdIQBabifZy5Y7TyH-kcdjOcYnfuVcJtTyCD1NkHRpKTsNbMsassA_qF-TwwlcXZirbtoUVdyHwsk=w800-h500-k-no"
 }

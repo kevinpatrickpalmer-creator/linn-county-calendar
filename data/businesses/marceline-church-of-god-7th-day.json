@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "1200 N Kansas Ave, Marceline, MO 64658",
   "website": "http://www.marcelinechurchofgodseventhday.org/",
-  "place_id": "ChIJx7zeHySOwocRgeI5--KI_B4"
+  "place_id": "ChIJx7zeHySOwocRgeI5--KI_B4",
+  "rating": 5.0,
+  "reviews": 4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=QjnqByL2bMbQ78YO8s3oDg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=123.53328&pitch=0&thumbfov=100"
 }

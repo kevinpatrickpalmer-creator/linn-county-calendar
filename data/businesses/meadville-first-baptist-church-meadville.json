@@ -7,5 +7,7 @@
   "address": "101 Macon St, Meadville, MO 64659",
   "phone": "+1 660-938-4501",
   "website": "http://www.fbcmeadville.com/",
-  "place_id": "ChIJ_80tScpxwocR1WDu1AMWCgg"
+  "place_id": "ChIJ_80tScpxwocR1WDu1AMWCgg",
+  "rating": 4.8,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=_zaV5M2RzxMUnBO4xwBVNQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=66.52165&pitch=0&thumbfov=100"
 }

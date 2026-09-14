@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "600 Fellows St `, Utica, MO 64686",
   "phone": "+1 660-973-7459",
-  "place_id": "ChIJzSK22OoawocR3pDT8cgIczY"
+  "place_id": "ChIJzSK22OoawocR3pDT8cgIczY",
+  "rating": 4.5,
+  "reviews": 21,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlb5BSQO94Zu96Ga4OHgI1RGxRJ9aNCOFRswmeScMdLQr8Ec8Jg3jL4PZH-L3WyDbJrFi4W7L2FnT2FOGXiX__MZiUhinWQbXBpBWzrka8lZZTuDbfyNJsndMXcHaJ0SN3GeDg8=w800-h500-k-no"
 }

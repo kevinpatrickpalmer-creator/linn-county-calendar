@@ -1,0 +1,27 @@
+{
+  "name": "Champs Chicken",
+  "category": "Restaurant & Food",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.0,
+  "reviews": 32,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmqXDuiIvZih-DWsyn3eB8nzbuP7k8jeIX77odXE6Xvn0jVpg6nmIOMittAUL7e1cP6DylclqKRhv5mk5Ir5YEOPBEguI7Fx_vNhCnpjtusOaj9gbNJXdZhoV1RioDbs9qg0mhUkg=w800-h500-k-no",
+  "website": "https://champschicken.com/locations/prenger-foods-brookfield-brookfield-mo/",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "542 S Main St, Brookfield, MO 64628",
+      "phone": "+1 660-258-2653",
+      "place_id": "ChIJ1_Ag6NiHwocRqX4-IUTzwBA"
+    },
+    {
+      "town": "Marceline",
+      "address": "205 N Chestnut St, Marceline, MO 64658",
+      "phone": "+1 660-376-2322",
+      "place_id": "ChIJb7ulbRaOwocRjsnnfeMVGhc"
+    }
+  ]
+}

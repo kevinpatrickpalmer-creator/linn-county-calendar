@@ -4,5 +4,8 @@
   "town": "Linn County",
   "source": "google_maps",
   "address": "203 E Main St, Ethel, MO 63539",
-  "place_id": "ChIJe_DRWQGhwocRIHnL-7iGA7I"
+  "place_id": "ChIJe_DRWQGhwocRIHnL-7iGA7I",
+  "rating": 5.0,
+  "reviews": 1,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk0FO76OTbvrOcJTe6S5JgggOE6J9qiqTVb0oJcZjlS7Bso4vb_p40AMdc2sY8S2tAVXgOFwuxF2dF0YKzFeyEQzmj0hJK7DUKJ1cfPVC0EZWSsYoN89NoNNp-do2JC5HSbbf7M=w800-h500-k-no"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "127 S Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-376-3331",
-  "place_id": "ChIJg6XCgxWPwocRFIkdWtPUMUo"
+  "place_id": "ChIJg6XCgxWPwocRFIkdWtPUMUo",
+  "rating": 5.0,
+  "reviews": 1,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ff4MLkAFXTRx8n4-J4IwDw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=327.95108&pitch=0&thumbfov=100"
 }

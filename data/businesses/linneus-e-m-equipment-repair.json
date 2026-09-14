@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "345 E Collins St, Linneus, MO 64653",
   "phone": "+1 660-734-3933",
-  "place_id": "ChIJfS8wAFJ5wocRkUne52EuQxE"
+  "place_id": "ChIJfS8wAFJ5wocRkUne52EuQxE",
+  "rating": 5.0,
+  "reviews": 2,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnf0EczjYuN3d11KIivGeJ8izb65bxZSIkTNspDHmYki33IIyglYH57G8Eb-QSr_TVdqvf5_uuiYNyMFwmW5ZY5yZSjO8D-PqgLNrdKTl6p305ujQS5EdVdN31Xqoz57wmdyghF=w800-h500-k-no"
 }

@@ -1,0 +1,26 @@
+{
+  "name": "Quinn Lumber Co",
+  "category": "Retail & Shopping",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.4,
+  "reviews": 22,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmzpseE_Ub4yCuNlGgQ-9zl6MWZqjIKIrybHA7DiLrleMt8CFZee8YuvX1Tg6uWW5uOh1iqj8VUdYi51Ji3a6cKPoo9w4lL0TZA2j3UiI7KRbzfJUPbFDCAxNMu0AI8y-8hyv9d=w800-h500-k-no",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "101 E Helm St, Brookfield, MO 64628",
+      "phone": "+1 660-258-7511",
+      "place_id": "ChIJG9anYtyHwocRTX7sx3cHlUQ"
+    },
+    {
+      "town": "Marceline",
+      "address": "1502 N Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 660-376-2050",
+      "place_id": "ChIJmVS9ESaOwocRBUn_inrOlrY"
+    }
+  ]
+}

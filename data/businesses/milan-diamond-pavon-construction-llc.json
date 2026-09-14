@@ -4,5 +4,8 @@
   "town": "Milan",
   "source": "google_maps_corrected",
   "phone": "+1 660-292-0923",
-  "place_id": "ChIJbbDRCGfL6YcRSUmd9iJSn90"
+  "place_id": "ChIJbbDRCGfL6YcRSUmd9iJSn90",
+  "rating": 5.0,
+  "reviews": 3,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkG-0KUElTZB9T9KXp2Zqzhfx3iX792-B10n0JhTLQp6NTBrvX-GFWRY9Mk_qhbuTDJwA5km0-xzBt8YWNC-6aFLBOz9qibA4EVrSbmeX8VPjkmUt9LovazWDZfd2pBZVDFBAST=w800-h500-k-no"
 }

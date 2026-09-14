@@ -7,5 +7,7 @@
   "address": "409 S Kansas Ave, Marceline, MO 64658",
   "phone": "+1 660-376-3239",
   "website": "http://www.stbonaventure-frmccartan.org/",
-  "place_id": "ChIJhWXN8ROOwocRrVJIl_xQhX0"
+  "place_id": "ChIJhWXN8ROOwocRrVJIl_xQhX0",
+  "rating": 5.0,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=u53BB-dL166vTIj-Iy6lBQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=135.45255&pitch=0&thumbfov=100"
 }

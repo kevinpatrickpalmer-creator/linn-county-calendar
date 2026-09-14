@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "308 N High St, Linneus, MO 64653",
   "phone": "+1 660-895-5167",
-  "place_id": "ChIJqci-iTl5wocRF5QPCKS7ukQ"
+  "place_id": "ChIJqci-iTl5wocRF5QPCKS7ukQ",
+  "rating": 3.5,
+  "reviews": 2,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=XhW5898BVWQEkl7b60IpNA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=131.51413&pitch=0&thumbfov=100"
 }

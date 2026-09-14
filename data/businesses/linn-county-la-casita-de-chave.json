@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "117 E 2nd St, Milan, MO 63556",
   "phone": "+1 660-265-3126",
-  "place_id": "ChIJ1aHEE3bL6YcRwJLqTfIJr9Q"
+  "place_id": "ChIJ1aHEE3bL6YcRwJLqTfIJr9Q",
+  "rating": 5.0,
+  "reviews": 34,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmQqfj32dqqt8S0LLrO-6jUwiPcDDdU6TT-35INrM02Ss8eCe_lwF3gVekFU1Z--ncai6L-MOSe8IP__gS2cFcPGv7zv1L7Mk3zFhcZAWqWcKXxTK8yzJmFZxqhGUGxUSqzCBH6=w800-h500-k-no"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "244 W 3rd St, Milan, MO 63556",
   "phone": "+1 660-265-5382",
-  "place_id": "ChIJDSbJjm3L6YcRXfH9UUtoyuM"
+  "place_id": "ChIJDSbJjm3L6YcRXfH9UUtoyuM",
+  "rating": 5.0,
+  "reviews": 1,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pe8m55oUqj6Gx2wxdpmO5Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=192.9173&pitch=0&thumbfov=100"
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "215 E Brooks St, Brookfield, MO 64628",
   "phone": "+1 660-258-2202",
-  "place_id": "ChIJvRV2UMOHwocRSo8FeElhWjI"
+  "place_id": "ChIJvRV2UMOHwocRSo8FeElhWjI",
+  "rating": 5.0,
+  "reviews": 4,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=mRnwJVSYjR5-s6QLPmCuBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.5228&pitch=0&thumbfov=100"
 }

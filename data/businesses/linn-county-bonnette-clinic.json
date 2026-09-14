@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "1025 Washington St, Chillicothe, MO 64601",
   "phone": "+1 660-646-1748",
-  "place_id": "ChIJ5bd_LKQPwocRLQvlKhdKmrw"
+  "place_id": "ChIJ5bd_LKQPwocRLQvlKhdKmrw",
+  "rating": 4.6,
+  "reviews": 12,
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=IQoOUk9uiExV42wz8ZGcHQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=197.96536&pitch=0&thumbfov=100"
 }
