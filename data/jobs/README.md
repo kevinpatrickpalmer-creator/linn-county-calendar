@@ -5,13 +5,18 @@ public Jobs Bulletin page (`docs/jobs.html`), created via
 [`docs/admin-job.html`](../../docs/admin-job.html) after reviewing a
 submission from [`docs/submit-job.html`](../../docs/submit-job.html).
 
-This is a two-sided bulletin matching people who need help with odd jobs
-(shoveling snow, mowing, moving, handyman-type work) with people willing
-to do that work -- the kind of thing that used to live on a corkboard at
-the feed store. It is **not** for registered businesses (see
+This is a two-sided bulletin matching people who need help (shoveling
+snow, mowing, moving, handyman-type work, or a local business with a
+shift to fill) with people willing to do that work, whether that's an
+experienced handyman or a teenager looking to pick up odd jobs -- the
+kind of thing that used to live on a corkboard at the feed store. A
+`"needed"` post is the same shape whether it comes from a homeowner or
+a business that's hiring -- `name` just holds whichever one applies (see
+below). This directory is **not** where a business lists itself
+permanently as a business (see
 [`data/businesses/README.md`](../businesses/README.md)) and **not** for
-goods for sale (see [`data/trading-post/README.md`](../trading-post/README.md))
--- just informal labor, offered or needed.
+goods for sale (see [`data/trading-post/README.md`](../trading-post/README.md)),
+just work, offered or needed.
 
 `build_jobs_directory.py` reads every file here and writes the combined
 result to `docs/jobs.json`, which `docs/jobs.html` fetches directly.
@@ -36,12 +41,15 @@ Expected shape of each file:
 ```
 
 `type`, `name`, `town`, and `description` are required. `type` is either
-`"needed"` (this person needs help) or `"offering"` (this person is
-offering to do the work) -- `docs/jobs.html` groups posts by this and
-badges each card, so it has to be one of those two exact strings.
-`category` should match one of `job_categories` in `docs/config.json`
-when possible (it's what the page's filter uses), but a post with an
-unrecognized or missing category still shows up under "Odd Jobs / Other".
+`"needed"` (this person, or business, needs help) or `"offering"` (this
+person is offering to do the work) -- `docs/jobs.html` groups posts by
+this and badges each card, so it has to be one of those two exact
+strings. `name` holds whatever the poster goes by publicly -- a person's
+name for most posts, or a business name for a company posting an
+opening. `category` should match one of `job_categories` in
+`docs/config.json` when possible (it's what the page's filter uses), but
+a post with an unrecognized or missing category still shows up under
+"Odd Jobs / Other".
 
 **`posted`** is a `YYYY-MM-DD` date stamped by `docs/admin-job.html` at
 the moment of approval -- not something the submitter enters -- so

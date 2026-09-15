@@ -352,12 +352,14 @@ listing, so it lives in its own separate Jobs Bulletin section below.
 ## Jobs Bulletin
 
 A fourth, independent feature: a two-sided bulletin matching people who
-need help with odd jobs (shoveling snow, mowing, moving, handyman-type
-work) with people willing to do that work — the kind of thing that used
-to live on a corkboard at the feed store or the post office. Distinct
-from both the business directory (registered businesses) and the Trading
-Post (goods, not labor). Same submit-then-hand-approve pattern as the
-rest of the site:
+need help (shoveling snow, mowing, moving, handyman-type work, or a
+local business with a shift to fill) with people willing to do that
+work, whether that's an experienced handyman or a teenager looking to
+pick up odd jobs — the kind of thing that used to live on a corkboard at
+the feed store or the post office. Distinct from both the business
+directory (a business listing itself permanently) and the Trading Post
+(goods, not labor). Same submit-then-hand-approve pattern as the rest of
+the site:
 
 - **Public submission form:** `docs/submit-job.html` — a single form with
   a "What kind of post is this?" choice (needing help vs. offering help)
@@ -371,7 +373,7 @@ rest of the site:
   X days ago" — jobs posts go stale in a way a business or Trading Post
   listing doesn't, so staleness is visible at a glance rather than
   requiring a separate expiration mechanism. Kevin still removes a
-  fulfilled or stale post by hand via `docs/manage-jobs.html`, same as
+  fulfilled or stale post by hand via `docs/manage-job.html`, same as
   everywhere else on this site.
 - **Building the public page:** `build_jobs_directory.py` combines every
   file in `data/jobs/` into `docs/jobs.json`, which `docs/jobs.html`
