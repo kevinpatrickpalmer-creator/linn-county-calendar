@@ -2,10 +2,10 @@
   "name": "Ranch Worx",
   "category": "Fencing",
   "town": "Linn County",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 3,
   "rating": 5.0,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnA-J0ez8dA3ZJkBcaZTurPTJ4JaU04OkL9n_uVYcZ10J0NNE_c8PIgXtkYTth0VEM-26fxMUJjiAgM5xOyB85Z-_4HIfeWJxI_mJKxs-mOpNe8L05UavYe8pblO8l-PDWx6OXHCut0Tg=w800-h500-k-no",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlg-_Bu1O2WD88uky1-HsouFcD5-VKHo0dUJszAOAzcQ-Wo7KvMc8arKCTC0c1aYg9GtLXwU28fplEXKWLgpW2z3ZDBpw5SKdGw8GLQSrxRwW_4xwyIVFe4t0063pcQGzsS2A9T_qpmbwrm=w800-h500-k-no",
   "phone": "+1 417-733-2132",
   "place_id": "ChIJfZOV3uwTBoERaH5iAv08h6s"
 }

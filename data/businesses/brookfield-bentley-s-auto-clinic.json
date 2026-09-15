@@ -2,10 +2,10 @@
   "name": "Bentley's Auto Clinic",
   "category": "Automotive",
   "town": "Brookfield",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 10,
   "rating": 3.6,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlWjhfWEa3PdOz8F7AZKeVEMQs12cLyhWJDHgy_hmWxrAsxxM5iKzQ6lxG-JjthL6XU2AmSt_7gGbbmxPJZq3Ry7U-tS9VbHcO0H42LyCHx_mmqpl4_aMJFQp-CxvtZrlnVHUkn=w800-h500-k-no",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnYh0m3io1M66ZEJXXXXUf96RPKSyiKeuFO8OR0nnJTtc-JlxresM7UZeAYKiKVSMKUMzBhWtTgUI2JTxq0ZD6aibnGTaz7pqpaI0fHLZhrPOCWn2nFsgy4ektfy8U51C1QrgO6=w800-h500-k-no",
   "address": "501 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-412-5555",
   "place_id": "ChIJsQFoEdmHwocRjlPjGSac-Sk"

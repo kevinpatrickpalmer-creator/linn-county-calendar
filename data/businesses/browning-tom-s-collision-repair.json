@@ -2,10 +2,10 @@
   "name": "Tom's Collision Repair",
   "category": "Retail & Shopping",
   "town": "Browning",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 4,
   "rating": 5.0,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-DiQjnQGTY6xgAdxLv2bLN6dgGXE4rP_y7rygrurM3SeZVv6KDVh-vEn8VJdTgp_0CGGBd7dDDegSstU0zxqYX-OacvdghUQeXyBrUAKSmull0dBQ3g8feQpdY5CIwpYKK2hL6g=w800-h500-k-no",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1O3rpiSmVC-7u8w886DGNw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=5.383574&pitch=0&thumbfov=100",
   "address": "200 S 6th St, Browning, MO 64630",
   "phone": "+1 660-946-4458",
   "place_id": "ChIJgb5tqJbT6YcR8iMWnKVl7yY"

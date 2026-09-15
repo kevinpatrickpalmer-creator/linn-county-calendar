@@ -2,10 +2,10 @@
   "name": "Pigskin Pub & Pizza- Chillicothe",
   "category": "Restaurant & Food",
   "town": "Linn County",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 60,
   "rating": 4.8,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWloKO9MGveqhgfdJQ1nWPQkk_cFOHlqw0Us-SI1WxnnoYmeKxyxPUXbQ5NAQ_ytjzCsfby7LWJB6a2JPkgDRGLMNwT-UGtJSwhjJFXhCs4wbHTMc1Og6F9cwYF6MVujMKRWapmx588a7lJC=w800-h500-k-no",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnXJ3QBREqUY30Sbg1M52rujrK91XItnIJdxf0MSWbgvoEkEuDu4IxoKc1M-0HKIsWS-reTk9uii1dK0pF7MURrRaMbgwyMs-KBnT2l75JMcvOFtiYiLBI-uiPdYPbkIroZMxwA-q_47B9=w800-h500-k-no",
   "address": "447 Locust St Ste A, Chillicothe, MO 64601",
   "phone": "+1 660-214-9262",
   "place_id": "ChIJI4TPSgAPwocRwCxcXGYVfNw"

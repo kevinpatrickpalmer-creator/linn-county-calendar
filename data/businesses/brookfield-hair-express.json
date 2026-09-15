@@ -2,10 +2,10 @@
   "name": "Hair Express",
   "category": "Salons & Personal Care",
   "town": "Brookfield",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 41,
   "rating": 4.7,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkABDkPLWaVXwBf4DlcFZOlibAJ6Wl_f9uAg94s7U2rxXepr9SP30dOYvfEUjWirPc3WVWwbVuQ6y5S4HNqO0DMCc3IOcGvgzY7FaUAhPU5VHMoU1u691FNURXT2oO8GDerlaAL=w800-h500-k-no",
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=D_SWkMXumFJAartqu3e4qA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=74.56271&pitch=0&thumbfov=100",
   "address": "114 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7500",
   "place_id": "ChIJa6T7H8OHwocRAWMHHQY_b3c"

@@ -2,10 +2,10 @@
   "name": "Tiger Country Smokehouse",
   "category": "Restaurant & Food",
   "town": "Marceline",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 3,
   "rating": 3.7,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkTBHT12VipAiHZvfd9gIM8iAmfTl3NZLlBXyaAz51DiAs-VNBlXFnytVR56SWN9y_305VDUBr1erBC13oiOU55gBGTZZVacl649Yp_Q7QYzZ7CTLBJAgv2rOdgOvybBZq-KP8J=w800-h500-k-no",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkzaoLgTdyELqgj9ppuszh7sOdrEFtNaVwCwEnvso8Wu9bWVs4e5zB-ha-mkPYs-3V64USd5fW5NjclY33HM_xcCQiWk9_VuhMw2ZhUjuewAtVsqZAo3xitLApy40qpCO6n7LJrtA=w800-h500-k-no",
   "address": "107 n main street, Marceline, MO 64658",
   "place_id": "ChIJy0tgBnePwocRb8yR6nc8Rlo"
 }

@@ -2,10 +2,10 @@
   "name": "S & S Auto Sales",
   "category": "Automotive",
   "town": "Marceline",
-  "source": "google_maps",
+  "source": "google_maps_corrected",
   "reviews": 14,
   "rating": 4.4,
-  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnNKnYVJoDroOavnpmqd_n4_Z2vc9o35fTa3Q7JuqwJto9fIeV1dVVEiSsQLFRTucCN2-fa2y5qCHeCXvIA7aqwTW7EnNUiVIfcLHLdT1I7SdPSn-qtdOXvd8VZkcpPR1LiAQ=w800-h500-k-no",
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnQpGEBKKw06B6qhz6HtClia4JDshWbFr3JdcM_663R-GdfOSFto8rR-ZxSD7hM9ffrZpKG1kC8Xp8657g38ge5oaEDNqCfxsnEhPnwtjrga4afhguNDaNfCKJVnWwWUPstO1bFjw=w800-h500-k-no",
   "address": "10115 MO-5, Marceline, MO 64658",
   "phone": "+1 660-376-3995",
   "place_id": "ChIJEQsR022NwocRCjozP99TECU"
