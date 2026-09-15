@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homegrown Goods</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+  .dir-controls input[type="search"] { flex: 1 1 12rem; margin: 0; }
+  .ms-filter { position: relative; }
+  .ms-btn {
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: .68rem .9rem;
+    font-size: .9rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ms-btn.active { border-color: var(--primary); color: var(--primary); }
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + .3rem);
+    left: 0;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: .6rem;
+    min-width: 13rem;
+    max-height: 16rem;
+    overflow-y: auto;
+  }
+  .ms-panel.hidden { display: none; }
+  .ms-panel label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .25rem 0; white-space: nowrap; color: var(--ink);
+    font-weight: 400; margin: 0;
+  }
+  .ms-panel input[type="checkbox"] { accent-color: var(--primary); }
+  .ms-panel .ms-clear {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: var(--primary); font-size: .8rem; font-weight: 600; cursor: pointer;
+    padding: 0 0 .4rem; margin-bottom: .3rem; border-bottom: 1px solid var(--surface-border);
+    font-family: var(--font-body);
+  }
+  #resultsCount { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .75rem; }
+  .dir-category-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 1.5rem 0 .75rem;
+    padding-left: .7rem;
+    border-left: 3px solid var(--primary);
+    color: var(--ink);
+  }
+  .dir-category-heading:first-child { margin-top: 0; }
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .biz-card {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
+  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
+  .biz-avail { font-size: .82rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
+  .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .biz-meta a:hover { text-decoration: underline; }
+  #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<main class="wide">
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Homegrown Goods</h1>
+  <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find them, instead of hoping you catch the right Facebook post.</p>
+  <p class="stats-line" id="statsLine"></p>
+
+  <p class="callout">Sell something homegrown or homemade? <a href="submit-homegrown.html">Get listed free &rarr;</a> No catch, just another way for people around here to find you.</p>
+
+  <div class="dir-controls">
+    <input type="search" id="searchInput" placeholder="What are you looking for?">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
+      <div class="ms-panel hidden" id="townFilterPanel">
+        <button type="button" class="ms-clear" data-filter="town">Show all towns</button>
+        <div id="townCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="categoryFilterBtn">Category: All</button>
+      <div class="ms-panel hidden" id="categoryFilterPanel">
+        <button type="button" class="ms-clear" data-filter="category">Show all categories</button>
+        <div id="categoryCheckList"></div>
+      </div>
+    </div>
+  </div>
+
+  <p id="resultsCount"></p>
+  <div id="dirStatus">Loading listings...</div>
+  <div id="dirGrid"></div>
+  <div id="dirEmpty">No listings match your search yet. Try clearing a filter, or <a href="submit-homegrown.html">be the first to add one &rarr;</a></div>
+
+  <div class="footer-link">
+    <a href="submit-homegrown.html">List your homegrown goods &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="index.html">Back to the calendar &rarr;</a>
+  </div>
+
+  <div class="site-credit">
+    Questions or problems? <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  let config = {};
+  let listings = [];
+
+  const selectedTowns = new Set();
+  const selectedCategories = new Set();
+
+  // Same idea as docs/directory.html's CATEGORY_SYNONYMS -- common words
+  // for what a category actually is, so a search for "eggs" or "honey"
+  // works even though that exact word may not appear in a listing's own
+  // name/description.
+  const CATEGORY_SYNONYMS = {
+    "Meat & Livestock": ["beef", "pork", "chicken", "poultry", "lamb", "goat meat", "meat", "steak", "hamburger", "freezer beef", "whole hog", "half hog"],
+    "Eggs & Dairy": ["eggs", "milk", "goat milk", "raw milk", "cheese", "butter", "dairy"],
+    "Produce & Garden": ["vegetables", "veggies", "fruit", "garden", "tomatoes", "sweet corn", "produce"],
+    "Baked Goods": ["bread", "bakery", "pastries", "pies", "cookies", "baking", "baked"],
+    "Honey, Jams & Preserves": ["honey", "jam", "jelly", "preserves", "canned goods", "canning", "syrup"],
+    "Plants, Seedlings & Flowers": ["plants", "seedlings", "flowers", "cut flowers", "starts", "nursery"],
+    "Crafts & Handmade Goods": ["crafts", "handmade", "quilts", "soap", "woodworking", "knitting", "artisan", "homemade"],
+  };
+
+  // Same filler-word list as docs/directory.html, so a typed-out question
+  // ("where can I get fresh eggs") strips down to just the words that
+  // actually have to match ("fresh eggs").
+  const SEARCH_STOPWORDS = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
+    "we", "us", "me", "my", "mine", "our", "looking", "look", "for", "find", "need",
+    "needed", "want", "wanted", "who", "what", "where", "when", "why", "how", "can",
+    "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
+    "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
+    "show", "get", "open", "right", "now", "today", "sell", "selling", "sells", "buy",
+    "help", "service", "services",
+  ]);
+
+  function searchTokens(query) {
+    return query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOPWORDS.has(word));
+  }
+
+  function matchesSearch(b, tokens, matchAny) {
+    if (!tokens.length) return true;
+    const haystack = `${b.name} ${b.description || ""} ${b.availability || ""} ${b.category || ""} ${b.town || ""}`.toLowerCase();
+    const synonyms = CATEGORY_SYNONYMS[b.category] || [];
+    const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
+    return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
+
+  // Same multi-checkbox dropdown pattern as docs/directory.html.
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange }) {
+    const btn = document.getElementById(btnId);
+    const panel = document.getElementById(panelId);
+    const list = document.getElementById(listId);
+
+    function updateBtnLabel() {
+      if (selectedSet.size === 0) {
+        btn.textContent = `${label}: All`;
+        btn.classList.remove("active");
+      } else if (selectedSet.size === 1) {
+        btn.textContent = `${label}: ${[...selectedSet][0]}`;
+        btn.classList.add("active");
+      } else {
+        btn.textContent = `${label}: ${selectedSet.size} selected`;
+        btn.classList.add("active");
+      }
+    }
+
+    for (const opt of options) {
+      const row = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = opt;
+      cb.addEventListener("change", () => {
+        if (cb.checked) selectedSet.add(opt);
+        else selectedSet.delete(opt);
+        updateBtnLabel();
+        onChange();
+      });
+      row.appendChild(cb);
+      row.appendChild(document.createTextNode(" " + opt));
+      list.appendChild(row);
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasHidden = panel.classList.contains("hidden");
+      document.querySelectorAll(".ms-panel").forEach((p) => p.classList.add("hidden"));
+      if (wasHidden) panel.classList.remove("hidden");
+    });
+
+    panel.querySelector(".ms-clear").addEventListener("click", () => {
+      selectedSet.clear();
+      list.querySelectorAll("input[type=checkbox]").forEach((cb) => { cb.checked = false; });
+      updateBtnLabel();
+      onChange();
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".ms-panel").forEach((panel) => {
+      if (!panel.classList.contains("hidden") && !panel.parentElement.contains(e.target)) {
+        panel.classList.add("hidden");
+      }
+    });
+  });
+
+  function buildCard(b) {
+    const card = document.createElement("div");
+    card.className = "biz-card";
+
+    const name = document.createElement("div");
+    name.className = "biz-name";
+    name.textContent = b.name;
+    card.appendChild(name);
+
+    const town = document.createElement("div");
+    town.className = "biz-town";
+    town.textContent = b.town;
+    card.appendChild(town);
+
+    if (b.description) {
+      const desc = document.createElement("div");
+      desc.className = "biz-desc";
+      desc.textContent = b.description;
+      card.appendChild(desc);
+    }
+
+    if (b.availability) {
+      const avail = document.createElement("div");
+      avail.className = "biz-avail";
+      avail.textContent = b.availability;
+      card.appendChild(avail);
+    }
+
+    const meta = document.createElement("div");
+    meta.className = "biz-meta";
+
+    if (b.phone) {
+      const a = document.createElement("a");
+      a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
+      a.textContent = b.phone;
+      meta.appendChild(a);
+    }
+    if (b.website) {
+      const a = document.createElement("a");
+      a.href = b.website;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "Visit website →";
+      meta.appendChild(a);
+    }
+    if (b.email) {
+      const a = document.createElement("a");
+      a.href = `mailto:${b.email}`;
+      a.textContent = b.email;
+      meta.appendChild(a);
+    }
+    if (meta.childNodes.length) card.appendChild(meta);
+
+    return card;
+  }
+
+  function render() {
+    const container = document.getElementById("dirGrid");
+    const empty = document.getElementById("dirEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const tokens = searchTokens(document.getElementById("searchInput").value);
+
+    function applyFilters(matchAny) {
+      return listings.filter((b) => {
+        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
+        if (selectedCategories.size && !selectedCategories.has(b.category || "Other Homegrown")) return false;
+        if (!matchesSearch(b, tokens, matchAny)) return false;
+        return true;
+      });
+    }
+
+    let filtered = applyFilters(false);
+    if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
+
+    // Grouped by category, same reasoning as docs/directory.html: once
+    // every filter is cleared, browsing by what's actually for sale beats
+    // a flat alphabetical wall of names.
+    const byCategory = new Map();
+    for (const b of filtered) {
+      const cat = b.category || "Other Homegrown";
+      if (!byCategory.has(cat)) byCategory.set(cat, []);
+      byCategory.get(cat).push(b);
+    }
+
+    const categoryOrder = config.homegrown_categories || [];
+    const categories = [...byCategory.keys()].sort((a, b) => {
+      const ai = categoryOrder.indexOf(a), bi = categoryOrder.indexOf(b);
+      if (ai === -1 && bi === -1) return a.localeCompare(b);
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+
+    container.innerHTML = "";
+    for (const cat of categories) {
+      const heading = document.createElement("div");
+      heading.className = "dir-category-heading";
+      heading.textContent = cat;
+      container.appendChild(heading);
+
+      const grid = document.createElement("div");
+      grid.className = "dir-grid";
+      for (const b of byCategory.get(cat)) {
+        grid.appendChild(buildCard(b));
+      }
+      container.appendChild(grid);
+    }
+
+    resultsCount.textContent = listings.length
+      ? `Showing ${filtered.length} of ${listings.length} listing${listings.length === 1 ? "" : "s"}`
+      : "";
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  try {
+    config = await (await fetch("config.json")).json();
+    document.title = `Homegrown Goods | ${config.county_display_name}`;
+    document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+    setupMultiSelectFilter({
+      btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
+      options: config.homegrown_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+    });
+  } catch (err) {
+    // Category filter just won't populate; the page itself can still load below.
+  }
+
+  document.getElementById("searchInput").addEventListener("input", render);
+
+  try {
+    listings = await (await fetch("homegrown.json")).json();
+    document.getElementById("dirStatus").style.display = "none";
+    document.getElementById("statsLine").innerHTML =
+      `<span class="stat-seg">1 County ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${listings.length} Listing${listings.length === 1 ? "" : "s"}</span>` +
+      `<span class="stat-seg">· Free to Join</span>`;
+
+    const towns = [...new Set(listings.map((b) => b.town))].sort();
+    setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+    });
+
+    render();
+  } catch (err) {
+    document.getElementById("dirStatus").textContent = "Couldn't load the listings. Please try refreshing.";
+    document.getElementById("dirStatus").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>

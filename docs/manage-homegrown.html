@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage Homegrown Listings | Calendar Admin</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 700px; }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.25rem; color: #555; font-size: .9rem; line-height: 1.4; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    margin-bottom: .85rem;
+  }
+  .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
+  .card .meta { font-size: .85rem; color: #666; margin-bottom: .15rem; }
+  .card .type-badge {
+    display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; color: #1e4d8a;
+    background: #e9f1fb; padding: .15rem .45rem; border-radius: 999px;
+  }
+  .card .actions { margin-top: .75rem; display: flex; gap: .6rem; }
+  .card .actions a {
+    flex: 1;
+    text-align: center;
+    padding: .5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 600;
+  }
+  .edit-link { background: #eef2ff; color: #1e3a8a; }
+  .cancel-link { background: #fdeceb; color: #a71a2d; }
+  #status { text-align: center; color: #666; padding: 2rem 0; }
+  #empty { text-align: center; color: #666; padding: 2rem 0; display: none; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    .card { background: #202027; box-shadow: none; }
+    .card .meta { color: #aaa; }
+    .card .type-badge { background: #16283d; color: #9dc4f7; }
+    p.sub { color: #aaa; }
+    .edit-link { background: #1a1f3a; color: #8fa5ff; }
+    .cancel-link { background: #3a2c14; color: #d99a44; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<main>
+  <h1>Manage Homegrown Listings</h1>
+  <p class="sub">
+    Everything below is a currently-live listing on the Homegrown Goods
+    page. <strong>Edit</strong> opens GitHub's editor with the file's
+    current contents; <strong>Remove listing</strong> opens GitHub's
+    delete-confirmation page. Either way, nothing changes until you
+    commit on GitHub, and docs/homegrown.json regenerates automatically a
+    few moments after that.
+  </p>
+
+  <div id="status">Loading current listings...</div>
+  <div id="empty">No approved listings yet.</div>
+  <div id="list"></div>
+</main>
+
+<script>
+const DIR = "data/homegrown";
+let REPO, BRANCH;
+
+function editUrl(path) {
+  return `https://github.com/${REPO}/edit/${BRANCH}/${path}`;
+}
+function deleteUrl(path) {
+  return `https://github.com/${REPO}/delete/${BRANCH}/${path}`;
+}
+
+async function main() {
+  const config = await (await fetch("config.json")).json();
+  REPO = config.github_repo;
+  BRANCH = config.github_branch;
+  document.title = `Manage Homegrown Listings | ${config.county_display_name} Calendar Admin`;
+
+  const statusEl = document.getElementById("status");
+  const listEl = document.getElementById("list");
+  const emptyEl = document.getElementById("empty");
+
+  let files;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DIR}`);
+    if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+    files = await res.json();
+  } catch (err) {
+    statusEl.textContent = "Couldn't load the listing list. Try refreshing, or check data/homegrown/ directly on GitHub.";
+    return;
+  }
+
+  const jsonFiles = files.filter((f) => f.name.endsWith(".json"));
+  if (!jsonFiles.length) {
+    statusEl.remove();
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  const listings = [];
+  for (const file of jsonFiles) {
+    try {
+      const res = await fetch(file.download_url);
+      const data = await res.json();
+      listings.push({ path: file.path, ...data });
+    } catch (err) {
+      // Skip a file that fails to load/parse rather than breaking the whole page.
+      continue;
+    }
+  }
+
+  listings.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  statusEl.remove();
+
+  if (!listings.length) {
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  for (const item of listings) {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    if (item.category) {
+      const badge = document.createElement("div");
+      badge.className = "type-badge";
+      badge.textContent = item.category;
+      card.appendChild(badge);
+    }
+
+    const title = document.createElement("h2");
+    title.textContent = item.name || "(untitled listing)";
+    card.appendChild(title);
+
+    const town = document.createElement("div");
+    town.className = "meta";
+    town.textContent = item.town || "";
+    card.appendChild(town);
+
+    if (item.phone || item.email) {
+      const contact = document.createElement("div");
+      contact.className = "meta";
+      contact.textContent = [item.phone, item.email].filter(Boolean).join(" · ");
+      card.appendChild(contact);
+    }
+
+    if (item.website) {
+      const site = document.createElement("div");
+      site.className = "meta";
+      site.textContent = item.website;
+      card.appendChild(site);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const editLink = document.createElement("a");
+    editLink.href = editUrl(item.path);
+    editLink.target = "_blank";
+    editLink.className = "edit-link";
+    editLink.textContent = "Edit";
+    actions.appendChild(editLink);
+
+    const cancelLink = document.createElement("a");
+    cancelLink.href = deleteUrl(item.path);
+    cancelLink.target = "_blank";
+    cancelLink.className = "cancel-link";
+    cancelLink.textContent = "Remove listing";
+    actions.appendChild(cancelLink);
+
+    card.appendChild(actions);
+    listEl.appendChild(card);
+  }
+}
+
+main();
+</script>
+</body>
+</html>

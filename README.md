@@ -303,6 +303,49 @@ events, just with its own set of files so the two never collide:
   shared name across towns (two different "First Baptist Church"s, the
   Postal Service) usually should *not* be merged this way.
 
+## Homegrown & homemade goods
+
+A third, independent feature alongside the calendar and business
+directory: a free spot for people selling things they raise, grow, or
+make on a regular basis but who aren't a registered business — sides of
+beef, raw goat milk, farm eggs, fresh bread, honey, garden produce,
+quilts, soap. There was no central place to find these people before;
+Facebook posts about them get buried within a day. Same submit-then-
+hand-approve pattern as events and the business directory, its own set
+of files so none of the three collide:
+
+- **Public submission form:** `docs/submit-homegrown.html` — posts to the
+  same Web3Forms account as the other submission forms, which emails the
+  admin a review link. Deliberately collects no street address (most
+  sellers here are listing from their home, not a storefront) — an
+  "availability / how to get it" field lets a seller describe pickup or
+  delivery in their own words instead.
+- **Admin approval helper:** `docs/admin-homegrown.html` — mirrors
+  `admin-business.html`: pre-filled from the review link, "Prepare for
+  GitHub" opens a pre-filled "create file" page, committing it there is
+  the entire approval step.
+- **Approved listings:** live as one JSON file per listing under
+  `data/homegrown/` (see the README in that folder), keyed by
+  `<town>-<name>` slug, same convention as the business directory.
+- **Building the public page:** `build_homegrown_directory.py` combines
+  every file in `data/homegrown/` into one `docs/homegrown.json`, which
+  `docs/homegrown.html` fetches in a single request.
+  `.github/workflows/update-homegrown.yml` runs that script and commits
+  the result automatically on every push that touches
+  `data/homegrown/**`. There's no scraping feeding this one — Google Maps
+  has nothing to scrape for someone selling eggs out of their kitchen —
+  so every listing here came through a human submission.
+- **Rejecting** a submission means simply not creating a file for it.
+- **Editing or removing** a live listing: `docs/manage-homegrown.html`
+  lists every current listing (pulled live from GitHub) with direct Edit
+  / Remove links to GitHub's file editor and delete-confirm pages.
+- **Browsing:** `docs/homegrown.html` — natural-language search plus
+  multi-select Town/Category filters, grouped by category, same look and
+  interaction pattern as `docs/directory.html` so it feels like one site
+  rather than a bolted-on section. Categories live in
+  `homegrown_categories` in `docs/config.json`, kept separate from
+  `business_categories` since this isn't the same kind of seller.
+
 ## Viewing the calendar online
 
 `docs/calendar-view.html` is a visual month-grid calendar (parses
