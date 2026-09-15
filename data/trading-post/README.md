@@ -1,22 +1,27 @@
-# Homegrown & Homemade listings
+# Trading Post listings
 
-Each `.json` file in this directory is one **approved** listing in the
-public Homegrown Goods page (`docs/homegrown.html`), created via
-[`docs/admin-homegrown.html`](../../docs/admin-homegrown.html) after
+Each `.json` file in this directory is one **approved** listing on the
+public Trading Post page (`docs/trading-post.html`), created via
+[`docs/admin-trading-post.html`](../../docs/admin-trading-post.html) after
 reviewing a submission from
-[`docs/submit-homegrown.html`](../../docs/submit-homegrown.html).
+[`docs/submit-trading-post.html`](../../docs/submit-trading-post.html).
 
 This is for people selling things they raise, grow, or make on a small
 scale, regularly, but who don't fit the main business directory (see
 [`data/businesses/README.md`](../businesses/README.md)) because they
 aren't a registered business -- sides of beef, raw goat milk, farm eggs,
-fresh bread, honey, jam, garden produce, quilts, soap, and the like.
-There's no scraping for this section (Google Maps has no listing for
-someone selling eggs out of their kitchen), so every file here came
-through the submit/approve flow, same as `data/manual_events/`.
+fresh bread, honey, jam, garden produce, hay, firewood, quilts, soap, and
+the like. There's no scraping for this section (Google Maps has no
+listing for someone selling eggs out of their kitchen), so every file
+here came through the submit/approve flow, same as `data/manual_events/`.
 
-`build_homegrown_directory.py` reads every file here and writes the
-combined result to `docs/homegrown.json`, which `docs/homegrown.html`
+Labor and services (mowing, shoveling, moving, handyman-type work) are
+**not** listed here -- that's a matching problem, not a goods listing, so
+it has its own separate section: see
+[`data/jobs/README.md`](../jobs/README.md).
+
+`build_trading_post_directory.py` reads every file here and writes the
+combined result to `docs/trading-post.json`, which `docs/trading-post.html`
 fetches directly.
 
 Rejected or still-pending submissions never get a file here -- there's no
@@ -39,10 +44,10 @@ Expected shape of each file:
 ```
 
 Only `name` and `town` are required -- everything else may be omitted or
-left blank. `category` should match one of `homegrown_categories` in
+left blank. `category` should match one of `trading_post_categories` in
 `docs/config.json` when possible (it's what the page's filter uses), but
 a listing with an unrecognized or missing category still shows up under
-"Other Homegrown".
+"Other".
 
 **No street address field, deliberately.** Unlike the business directory,
 most of these are people's homes, not a storefront with posted hours --
@@ -56,6 +61,7 @@ them to work that out.
 **Town, not "Other":** same rule as the business directory -- see
 [`data/businesses/README.md`](../businesses/README.md) for the reasoning.
 A submission's real town (including one typed into "Other" on
-`docs/submit-homegrown.html`) always gets used; the literal word "Other"
-should never appear in a file here, and `build_homegrown_directory.py`
-holds one back from the public site as a backstop if it ever does.
+`docs/submit-trading-post.html`) always gets used; the literal word
+"Other" should never appear in a file here, and
+`build_trading_post_directory.py` holds one back from the public site as
+a backstop if it ever does.

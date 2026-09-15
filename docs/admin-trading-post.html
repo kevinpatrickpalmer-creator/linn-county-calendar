@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Approve a Homegrown Listing | Calendar Admin</title>
+<title>Approve a Trading Post Listing | Calendar Admin</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -80,13 +80,13 @@
 </head>
 <body>
 <main>
-  <h1>Approve a Homegrown Listing</h1>
+  <h1>Approve a Trading Post Listing</h1>
   <p class="sub">
     Clicking the link in the submission email brings you here with everything
     already filled in, just double-check it, then click "Prepare for
     GitHub". It'll open GitHub's own "create file" page, pre-filled. Review
     it there and click <strong>Commit new file</strong> to publish. Nothing
-    goes live until you click that button on GitHub (docs/homegrown.json
+    goes live until you click that button on GitHub (docs/trading-post.json
     regenerates automatically a few moments after that).
   </p>
   <div id="prefilledNote" class="note hidden">
@@ -141,7 +141,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Approve a Homegrown Listing | ${config.county_display_name} Calendar Admin`;
+  document.title = `Approve a Trading Post Listing | ${config.county_display_name} Calendar Admin`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
@@ -164,14 +164,14 @@
   });
 
   const categorySelect = document.getElementById("category");
-  for (const category of config.homegrown_categories || []) {
+  for (const category of config.trading_post_categories || []) {
     const option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     categorySelect.appendChild(option);
   }
 
-  // Pre-fill from a review link built by submit-homegrown.html, if
+  // Pre-fill from a review link built by submit-trading-post.html, if
   // present, so approving doesn't require retyping anything from the
   // email by hand. Runs after the town/category <option>s above exist,
   // so setting their value works.
@@ -191,7 +191,7 @@
       }
     }
 
-    // The town might be a place submit-homegrown.html's "Other" free-text
+    // The town might be a place submit-trading-post.html's "Other" free-text
     // field produced (e.g. "Hurricane Branch"), not one of config.towns --
     // if it doesn't match a real <option>, select Other here too and put
     // the actual place name in the companion text box instead of
@@ -253,7 +253,7 @@
     }
 
     const slug = `${slugify(town)}-${slugify(name) || "listing"}`;
-    const path = `data/homegrown/${slug}.json`;
+    const path = `data/trading-post/${slug}.json`;
     const content = JSON.stringify(listing, null, 2) + "\n";
 
     const url =

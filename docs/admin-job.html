@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approve a Jobs Bulletin Post | Calendar Admin</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f5f2;
+    color: #1a1a1a;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 480px; }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.25rem; color: #555; font-size: .9rem; line-height: 1.4; }
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  label { display: block; font-weight: 600; font-size: .9rem; margin: 1rem 0 .35rem; }
+  label:first-of-type { margin-top: 0; }
+  input, textarea, select {
+    width: 100%;
+    padding: .65rem .7rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 5rem; }
+  button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: .85rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: #1a7d3c;
+    color: #fff;
+    cursor: pointer;
+  }
+  .note {
+    margin-top: 1rem;
+    padding: .75rem;
+    border-radius: 8px;
+    background: #fff8e1;
+    color: #a8730f;
+    font-size: .85rem;
+    line-height: 1.4;
+  }
+  .note.hidden { display: none; }
+  #prefilledNote {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    background: #e3f2e9;
+    color: #1a7d3c;
+  }
+  @media (prefers-color-scheme: dark) {
+    #prefilledNote { background: #12321f; color: #6fcf97; }
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #15151a; color: #eee; }
+    form { background: #202027; box-shadow: none; }
+    input, textarea, select { background: #15151a; color: #eee; border-color: #444; }
+    p.sub { color: #aaa; }
+    .note { background: #3a2c14; color: #d99a44; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<main>
+  <h1>Approve a Jobs Bulletin Post</h1>
+  <p class="sub">
+    Clicking the link in the submission email brings you here with everything
+    already filled in, just double-check it, then click "Prepare for
+    GitHub". It'll open GitHub's own "create file" page, pre-filled with
+    today's date stamped as the post date. Review it there and click
+    <strong>Commit new file</strong> to publish. Nothing goes live until
+    you click that button on GitHub (docs/jobs.json regenerates
+    automatically a few moments after that).
+  </p>
+  <div id="prefilledNote" class="note hidden">
+    Pre-filled from a submission. Review the fields below, then continue.
+  </div>
+
+  <form id="approveForm">
+    <label for="postType">What kind of post is this? *</label>
+    <select id="postType" name="postType" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="needed">Needs help</option>
+      <option value="offering">Offering help</option>
+    </select>
+
+    <label for="name">Name *</label>
+    <input id="name" name="name" type="text" required>
+
+    <label for="category">What kind of work? (optional)</label>
+    <select id="category" name="category">
+      <option value="">Not sure, leave blank</option>
+    </select>
+
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+    </select>
+
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
+    <label for="description">Details *</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="phone">Phone (optional)</label>
+    <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555">
+
+    <label for="email">Public email (optional)</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com">
+
+    <button type="submit">Prepare for GitHub &rarr;</button>
+  </form>
+
+  <div class="note">
+    To <strong>reject</strong> a submission, just don't do anything here:
+    ignore or delete the email. Nothing is published unless you go through
+    this form and commit the file on GitHub yourself.
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+
+  document.title = `Approve a Jobs Bulletin Post | ${config.county_display_name} Calendar Admin`;
+
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
+
+  const categorySelect = document.getElementById("category");
+  for (const category of config.job_categories || []) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  }
+
+  // Pre-fill from a review link built by submit-job.html, if present, so
+  // approving doesn't require retyping anything from the email by hand.
+  // Runs after the town/category/postType <option>s above exist, so
+  // setting their value works.
+  (function prefillFromQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (![...params.keys()].length) return;
+
+    const fields = ["postType", "name", "category", "description", "phone", "email"];
+    let filledAny = false;
+    for (const field of fields) {
+      if (!params.has(field)) continue;
+      const el = document.getElementById(field);
+      const value = params.get(field);
+      if (el && value) {
+        el.value = value;
+        filledAny = true;
+      }
+    }
+
+    // The town might be a place submit-job.html's "Other" free-text
+    // field produced (e.g. "Hurricane Branch"), not one of config.towns --
+    // if it doesn't match a real <option>, select Other here too and put
+    // the actual place name in the companion text box instead of
+    // silently failing to select anything.
+    const townValue = params.get("town");
+    if (townValue) {
+      const matchesKnownTown = [...townSelect.options].some((opt) => opt.value === townValue);
+      if (matchesKnownTown) {
+        townSelect.value = townValue;
+      } else {
+        townSelect.value = "__other__";
+        townOtherInput.value = townValue;
+        townOtherWrap.style.display = "block";
+        townOtherInput.required = true;
+      }
+      filledAny = true;
+    }
+
+    if (filledAny) {
+      const prefilledNote = document.getElementById("prefilledNote");
+      // Contact info is shown here for your own reference while
+      // reviewing (in the query string, and thus in the browser's
+      // address bar), but never included in the fields above -- it isn't
+      // published to the site unless it matches the public phone/email
+      // fields, which the submitter fills in separately.
+      const contactParts = [params.get("contact_email"), params.get("contact_phone")].filter(Boolean);
+      let note = "Pre-filled from a submission";
+      if (contactParts.length) note += ` (reach them at ${contactParts.join(" | ")})`;
+      note += ". Review the fields below, then continue.";
+      prefilledNote.textContent = note;
+      prefilledNote.classList.remove("hidden");
+    }
+  })();
+
+  document.getElementById("approveForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const name = data.get("name").trim();
+    const postType = data.get("postType");
+
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+
+    // "posted" is today's date -- the moment of approval, not whenever
+    // the submission email happened to arrive -- so docs/jobs.html's
+    // "Posted X days ago" reflects when this actually went live.
+    const posted = new Date().toISOString().slice(0, 10);
+
+    const post = { type: postType, name, town, posted };
+    const category = (data.get("category") || "").trim();
+    if (category) post.category = category;
+    const description = (data.get("description") || "").trim();
+    if (description) post.description = description;
+    const phone = (data.get("phone") || "").trim();
+    if (phone) post.phone = phone;
+    const email = (data.get("email") || "").trim();
+    if (email) post.email = email;
+
+    function slugify(text) {
+      return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    }
+
+    const slug = `${slugify(town)}-${slugify(name) || "post"}-${posted}`;
+    const path = `data/jobs/${slug}.json`;
+    const content = JSON.stringify(post, null, 2) + "\n";
+
+    const url =
+      `https://github.com/${config.github_repo}/new/${config.github_branch}` +
+      `?filename=${encodeURIComponent(path)}` +
+      `&value=${encodeURIComponent(content)}`;
+
+    window.open(url, "_blank");
+  });
+})();
+</script>
+</body>
+</html>

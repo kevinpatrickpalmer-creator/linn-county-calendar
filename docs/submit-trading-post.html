@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List on the Trading Post</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+  .hint.err { color: var(--primary); font-weight: 600; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>List on the Trading Post</h1>
+  <p class="sub" id="pageSub">Sell eggs, raw milk, sides of beef, garden produce, honey, fresh bread, hay, firewood, or anything else you raise, grow, or make on a regular basis? This is the place folks around here can find you. Free to list, no catch, and a person reviews every submission before it goes live.</p>
+
+  <form id="tpForm" class="card">
+    <label for="name">Your name or farm/stand name *</label>
+    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. Palmer Family Farm, or just your name">
+
+    <label for="category">What do you sell? (optional)</label>
+    <select id="category" name="category">
+      <option value="">Not sure, skip this</option>
+    </select>
+
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+    </select>
+
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
+    <label for="description">What you have &amp; pricing (optional)</label>
+    <textarea id="description" name="description" maxlength="500" placeholder="e.g. Farm fresh eggs $4/dozen. Raw goat milk $6/half gallon, seasonal."></textarea>
+
+    <label for="availability">When it's available / how to get it (optional)</label>
+    <input id="availability" name="availability" type="text" maxlength="150" placeholder="e.g. Call ahead, pickup off Route B. Saturdays at the farmers market.">
+
+    <label for="phone">Phone (optional)</label>
+    <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+
+    <label for="email">Public email (optional)</label>
+    <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+
+    <label for="website">Website or Facebook page (optional)</label>
+    <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
+
+    <p class="hint">No street address is collected here on purpose -- use the field above to say how folks should reach you or where to pick things up.</p>
+
+    <label for="contact_email">Your contact email</label>
+    <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
+
+    <label for="contact_phone">Your contact phone</label>
+    <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+    <p class="hint" id="contactHint">At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.</p>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Submit listing</button>
+    <div id="status" role="status"></div>
+  </form>
+  <p class="hint" style="text-align:center;"><a href="trading-post.html">Browse the Trading Post &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Questions or problems? <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+
+  document.title = `List on the Trading Post | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
+
+  const categorySelect = document.getElementById("category");
+  for (const category of config.trading_post_categories || []) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  }
+
+  const form = document.getElementById("tpForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const contactHint = document.getElementById("contactHint");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+
+    const contactEmail = document.getElementById("contact_email").value.trim();
+    const contactPhone = document.getElementById("contact_phone").value.trim();
+    if (!contactEmail && !contactPhone) {
+      contactHint.classList.add("err");
+      contactHint.textContent = "Please provide an email or phone number so we can reach you with questions.";
+      document.getElementById("contact_email").focus();
+      return;
+    }
+    contactHint.classList.remove("err");
+    contactHint.textContent = "At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.";
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const data = new FormData(form);
+
+    const rawName = (data.get("name") || "").trim();
+    const category = (data.get("category") || "").trim();
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+    const description = (data.get("description") || "").trim();
+    const availability = (data.get("availability") || "").trim();
+    const phone = (data.get("phone") || "").trim();
+    const email = (data.get("email") || "").trim();
+    const website = (data.get("website") || "").trim();
+
+    const adminParams = new URLSearchParams({
+      name: rawName,
+      category,
+      town,
+      description,
+      availability,
+      phone,
+      email,
+      website,
+      // Shown to Kevin while reviewing on admin-trading-post.html, but
+      // never published -- the public phone/email fields above cover that.
+      contact_email: contactEmail,
+      contact_phone: contactPhone,
+    });
+    const adminLink = `https://${config.domain}/admin-trading-post.html?${adminParams.toString()}`;
+
+    data.append("access_key", config.web3forms_access_key);
+    data.append("subject", `New Trading Post listing: ${rawName}`);
+    data.append("from_name", `${config.calendar_title}: Trading Post Submission`);
+    data.append("review_and_approve_link", adminLink);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        statusEl.textContent = "Thanks! Your listing was submitted for review.";
+        statusEl.className = "ok";
+        form.reset();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong submitting your listing. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit listing";
+    }
+  });
+})();
+</script>
+</body>
+</html>

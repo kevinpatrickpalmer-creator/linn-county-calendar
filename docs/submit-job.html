@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>List Your Homegrown Goods</title>
+<title>Post to the Jobs Bulletin</title>
 <link rel="stylesheet" href="theme.css">
 <style>
   form { margin: 0; }
@@ -20,14 +20,21 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>List Your Homegrown Goods</h1>
-  <p class="sub" id="pageSub">Sell eggs, raw milk, sides of beef, garden produce, honey, fresh bread, or anything else you raise, grow, or make on a regular basis? This is the place folks around here can find you. Free to list, no catch, and a person reviews every submission before it goes live.</p>
+  <h1>Post to the Jobs Bulletin</h1>
+  <p class="sub" id="pageSub">Need your driveway shoveled, help moving, the yard mowed, or some other odd job done? Or got time and want to pick up work like that? Post it here. Free, no catch, and a person reviews every post before it goes live.</p>
 
-  <form id="hgForm" class="card">
-    <label for="name">Your name or farm/stand name *</label>
-    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. Palmer Family Farm, or just your name">
+  <form id="jobForm" class="card">
+    <label for="postType">What kind of post is this? *</label>
+    <select id="postType" name="postType" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="needed">I need help with something</option>
+      <option value="offering">I'm offering to do work</option>
+    </select>
 
-    <label for="category">What do you sell? (optional)</label>
+    <label for="name">Your name *</label>
+    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. Kevin P.">
+
+    <label for="category">What kind of work? (optional)</label>
     <select id="category" name="category">
       <option value="">Not sure, skip this</option>
     </select>
@@ -42,11 +49,8 @@
       <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
     </div>
 
-    <label for="description">What you have &amp; pricing (optional)</label>
-    <textarea id="description" name="description" maxlength="500" placeholder="e.g. Farm fresh eggs $4/dozen. Raw goat milk $6/half gallon, seasonal."></textarea>
-
-    <label for="availability">When it's available / how to get it (optional)</label>
-    <input id="availability" name="availability" type="text" maxlength="150" placeholder="e.g. Call ahead, pickup off Route B. Saturdays at the farmers market.">
+    <label for="description" id="descriptionLabel">Details *</label>
+    <textarea id="description" name="description" maxlength="500" required placeholder="Select what kind of post this is above for an example."></textarea>
 
     <label for="phone">Phone (optional)</label>
     <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
@@ -54,25 +58,22 @@
     <label for="email">Public email (optional)</label>
     <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
 
-    <label for="website">Website or Facebook page (optional)</label>
-    <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
-
-    <p class="hint">No street address is collected here on purpose -- use the field above to say how folks should reach you or where to pick things up.</p>
+    <p class="hint">No street address is collected here on purpose -- mention in the details above where the work is, if that matters.</p>
 
     <label for="contact_email">Your contact email</label>
     <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
 
     <label for="contact_phone">Your contact phone</label>
     <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
-    <p class="hint" id="contactHint">At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.</p>
+    <p class="hint" id="contactHint">At least one is required, so we can reach you with questions about this post. Not shown publicly unless it's the same as the public phone/email above.</p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
 
-    <button type="submit" id="submitBtn">Submit listing</button>
+    <button type="submit" id="submitBtn">Submit post</button>
     <div id="status" role="status"></div>
   </form>
-  <p class="hint" style="text-align:center;"><a href="homegrown.html">Browse homegrown goods &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="jobs.html">Browse the Jobs Bulletin &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
@@ -85,7 +86,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `List Your Homegrown Goods | ${config.county_display_name}`;
+  document.title = `Post to the Jobs Bulletin | ${config.county_display_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const townSelect = document.getElementById("town");
@@ -109,14 +110,33 @@
   });
 
   const categorySelect = document.getElementById("category");
-  for (const category of config.homegrown_categories || []) {
+  for (const category of config.job_categories || []) {
     const option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     categorySelect.appendChild(option);
   }
 
-  const form = document.getElementById("hgForm");
+  // The one field whose meaning flips depending on which side of the
+  // bulletin this post is on -- relabeled here rather than having two
+  // separate forms, so a submission link/admin review only ever has one
+  // "description" field to deal with either way.
+  const descriptionLabel = document.getElementById("descriptionLabel");
+  const descriptionInput = document.getElementById("description");
+  document.getElementById("postType").addEventListener("change", (e) => {
+    if (e.target.value === "offering") {
+      descriptionLabel.textContent = "What kind of work do you do? *";
+      descriptionInput.placeholder = "e.g. Mowing, snow removal, hauling, small repairs. $20/hour or by the job.";
+    } else if (e.target.value === "needed") {
+      descriptionLabel.textContent = "What do you need done? *";
+      descriptionInput.placeholder = "e.g. Need my driveway and sidewalk shoveled after each snow this winter.";
+    } else {
+      descriptionLabel.textContent = "Details *";
+      descriptionInput.placeholder = "Select what kind of post this is above for an example.";
+    }
+  });
+
+  const form = document.getElementById("jobForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const contactHint = document.getElementById("contactHint");
@@ -135,42 +155,40 @@
       return;
     }
     contactHint.classList.remove("err");
-    contactHint.textContent = "At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.";
+    contactHint.textContent = "At least one is required, so we can reach you with questions about this post. Not shown publicly unless it's the same as the public phone/email above.";
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
     const data = new FormData(form);
 
+    const postType = (data.get("postType") || "").trim();
     const rawName = (data.get("name") || "").trim();
     const category = (data.get("category") || "").trim();
     const rawTown = (data.get("town") || "").trim();
     const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
     const description = (data.get("description") || "").trim();
-    const availability = (data.get("availability") || "").trim();
     const phone = (data.get("phone") || "").trim();
     const email = (data.get("email") || "").trim();
-    const website = (data.get("website") || "").trim();
 
     const adminParams = new URLSearchParams({
+      postType,
       name: rawName,
       category,
       town,
       description,
-      availability,
       phone,
       email,
-      website,
-      // Shown to Kevin while reviewing on admin-homegrown.html, but never
+      // Shown to Kevin while reviewing on admin-job.html, but never
       // published -- the public phone/email fields above cover that.
       contact_email: contactEmail,
       contact_phone: contactPhone,
     });
-    const adminLink = `https://${config.domain}/admin-homegrown.html?${adminParams.toString()}`;
+    const adminLink = `https://${config.domain}/admin-job.html?${adminParams.toString()}`;
 
     data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New homegrown listing: ${rawName}`);
-    data.append("from_name", `${config.calendar_title}: Homegrown Submission`);
+    data.append("subject", `New Jobs Bulletin post (${postType === "offering" ? "offering help" : "needs help"}): ${rawName}`);
+    data.append("from_name", `${config.calendar_title}: Jobs Bulletin Submission`);
     data.append("review_and_approve_link", adminLink);
 
     try {
@@ -182,18 +200,20 @@
       const result = await res.json();
 
       if (result.success) {
-        statusEl.textContent = "Thanks! Your listing was submitted for review.";
+        statusEl.textContent = "Thanks! Your post was submitted for review.";
         statusEl.className = "ok";
         form.reset();
+        descriptionLabel.textContent = "Details *";
+        descriptionInput.placeholder = "Select what kind of post this is above for an example.";
       } else {
         throw new Error(result.message || "Submission failed");
       }
     } catch (err) {
-      statusEl.textContent = "Something went wrong submitting your listing. Please try again in a moment.";
+      statusEl.textContent = "Something went wrong submitting your post. Please try again in a moment.";
       statusEl.className = "err";
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit listing";
+      submitBtn.textContent = "Submit post";
     }
   });
 })();

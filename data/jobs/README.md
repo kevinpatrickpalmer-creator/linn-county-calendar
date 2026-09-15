@@ -1,0 +1,66 @@
+# Jobs Bulletin posts
+
+Each `.json` file in this directory is one **approved** post on the
+public Jobs Bulletin page (`docs/jobs.html`), created via
+[`docs/admin-job.html`](../../docs/admin-job.html) after reviewing a
+submission from [`docs/submit-job.html`](../../docs/submit-job.html).
+
+This is a two-sided bulletin matching people who need help with odd jobs
+(shoveling snow, mowing, moving, handyman-type work) with people willing
+to do that work -- the kind of thing that used to live on a corkboard at
+the feed store. It is **not** for registered businesses (see
+[`data/businesses/README.md`](../businesses/README.md)) and **not** for
+goods for sale (see [`data/trading-post/README.md`](../trading-post/README.md))
+-- just informal labor, offered or needed.
+
+`build_jobs_directory.py` reads every file here and writes the combined
+result to `docs/jobs.json`, which `docs/jobs.html` fetches directly.
+
+Rejected or still-pending submissions never get a file here -- there's no
+"is this approved?" flag to check, so there's no way for an unreviewed
+submission to leak into the public page.
+
+Expected shape of each file:
+
+```json
+{
+  "type": "needed",
+  "name": "Kevin P.",
+  "category": "Yard Work & Snow Removal",
+  "town": "Marceline",
+  "description": "Need my driveway and sidewalk shoveled after each snow this winter. I'm elderly and can't do it myself anymore.",
+  "phone": "(660) 555-0142",
+  "email": "kevin@example.com",
+  "posted": "2026-09-15"
+}
+```
+
+`type`, `name`, `town`, and `description` are required. `type` is either
+`"needed"` (this person needs help) or `"offering"` (this person is
+offering to do the work) -- `docs/jobs.html` groups posts by this and
+badges each card, so it has to be one of those two exact strings.
+`category` should match one of `job_categories` in `docs/config.json`
+when possible (it's what the page's filter uses), but a post with an
+unrecognized or missing category still shows up under "Odd Jobs / Other".
+
+**`posted`** is a `YYYY-MM-DD` date stamped by `docs/admin-job.html` at
+the moment of approval -- not something the submitter enters -- so
+`docs/jobs.html` can sort newest-first and show "Posted X days ago" on
+each card. Unlike a business or Trading Post listing, a jobs post goes
+stale (the snow melted, the move happened) in a way that matters to a
+browsing reader, so this date is what makes that staleness visible at a
+glance. There's no automatic expiration -- when a post is fulfilled or
+stale, remove its file by hand via
+[`docs/manage-job.html`](../../docs/manage-job.html), same as everywhere
+else on this site.
+
+**No street address field, deliberately** -- same reasoning as the
+Trading Post: these are people's homes, not a business with posted
+hours. `description` is where a poster says where the work is if that
+matters, and `phone`/`email` are how the other side actually gets in
+touch.
+
+**Town, not "Other":** same rule as the rest of the site -- see
+`data/businesses/README.md` for the reasoning. The literal word "Other"
+should never appear in a file here; `build_jobs_directory.py` holds one
+back from the public site as a backstop if it ever does.

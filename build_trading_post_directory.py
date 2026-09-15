@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Builds docs/homegrown.json from every approved listing in
-data/homegrown/ (see data/homegrown/README.md for how a file lands
+Builds docs/trading-post.json from every approved listing in
+data/trading-post/ (see data/trading-post/README.md for how a file lands
 there). Same "combine approved local files into one fetchable JSON file"
 approach as build_business_directory.py, kept as its own script since
 this is a different content type (people, not registered businesses)
@@ -9,7 +9,7 @@ with a different, simpler schema -- no scraping, no photo/rating, no
 multi-location chains.
 
 Run:
-    python build_homegrown_directory.py
+    python build_trading_post_directory.py
 """
 import glob
 import json
@@ -18,12 +18,12 @@ import sys
 
 from calendar_config import load_config
 
-LISTING_DIR = "data/homegrown"
-OUTPUT_PATH = "docs/homegrown.json"
+LISTING_DIR = "data/trading-post"
+OUTPUT_PATH = "docs/trading-post.json"
 
 # Written in this order for every listing that has a file, regardless of
-# what order its own JSON keys were in -- keeps docs/homegrown.json diffs
-# stable from run to run.
+# what order its own JSON keys were in -- keeps docs/trading-post.json
+# diffs stable from run to run.
 FIELDS = ["name", "category", "town", "phone", "email", "website", "availability", "description"]
 
 
@@ -31,7 +31,7 @@ def load_listings():
     """A malformed or incomplete file is skipped with a warning rather
     than failing the whole build. A listing whose town is literally
     "Other" is held back from the public site entirely rather than
-    published with that unhelpful label -- see data/homegrown/README.md."""
+    published with that unhelpful label -- see data/trading-post/README.md."""
     listings = []
     held_back = 0
     for path in sorted(glob.glob(os.path.join(LISTING_DIR, "*.json"))):
@@ -69,9 +69,9 @@ def main():
     listings, held_back = load_listings()
 
     towns = sorted({b["town"] for b in listings if b["town"] in config["towns"]})
-    print(f"Building homegrown directory: {len(listings)} listing(s) across {len(towns)} of {len(config['towns'])} official towns")
+    print(f"Building trading post: {len(listings)} listing(s) across {len(towns)} of {len(config['towns'])} official towns")
     if held_back:
-        print(f"  ({held_back} listing(s) held back -- town unresolved, still \"Other\" in data/homegrown/)")
+        print(f"  ({held_back} listing(s) held back -- town unresolved, still \"Other\" in data/trading-post/)")
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(listings, f, indent=2)

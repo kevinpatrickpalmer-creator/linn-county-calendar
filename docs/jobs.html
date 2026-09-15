@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homegrown Goods</title>
+<title>Jobs Bulletin</title>
 <link rel="stylesheet" href="theme.css">
 <style>
   .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
@@ -75,10 +75,26 @@
     flex-direction: column;
     gap: .4rem;
   }
+  .job-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+  }
+  .job-badge.needed { color: #a8730f; background: #fff3d9; }
+  .job-badge.offering { color: #1a7d3c; background: #e3f2e9; }
+  @media (prefers-color-scheme: dark) {
+    .job-badge.needed { color: #d99a44; background: #3a2c14; }
+    .job-badge.offering { color: #6fcf97; background: #12321f; }
+  }
   .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
   .biz-town { font-size: .8rem; color: var(--ink-soft); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
-  .biz-avail { font-size: .82rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
   .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
   .biz-meta a:hover { text-decoration: underline; }
@@ -91,14 +107,21 @@
 <main class="wide">
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>Homegrown Goods</h1>
-  <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find them, instead of hoping you catch the right Facebook post.</p>
+  <h1>Jobs Bulletin</h1>
+  <p class="sub" id="pageSub">Snow shoveling, mowing, moving, handyman-type work, the kind of thing that used to live on a corkboard at the feed store. Neighbors offering to help, and neighbors who need it, in one place.</p>
   <p class="stats-line" id="statsLine"></p>
 
-  <p class="callout">Sell something homegrown or homemade? <a href="submit-homegrown.html">Get listed free &rarr;</a> No catch, just another way for people around here to find you.</p>
+  <p class="callout">Need help with something, or have time to pick up work like this? <a href="submit-job.html">Post it free &rarr;</a> No catch, just a way to find each other.</p>
 
   <div class="dir-controls">
     <input type="search" id="searchInput" placeholder="What are you looking for?">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="typeFilterBtn">Type: All</button>
+      <div class="ms-panel hidden" id="typeFilterPanel">
+        <button type="button" class="ms-clear" data-filter="type">Show both</button>
+        <div id="typeCheckList"></div>
+      </div>
+    </div>
     <div class="ms-filter">
       <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
       <div class="ms-panel hidden" id="townFilterPanel">
@@ -116,12 +139,12 @@
   </div>
 
   <p id="resultsCount"></p>
-  <div id="dirStatus">Loading listings...</div>
+  <div id="dirStatus">Loading posts...</div>
   <div id="dirGrid"></div>
-  <div id="dirEmpty">No listings match your search yet. Try clearing a filter, or <a href="submit-homegrown.html">be the first to add one &rarr;</a></div>
+  <div id="dirEmpty">No posts match your search yet. Try clearing a filter, or <a href="submit-job.html">be the first to post &rarr;</a></div>
 
   <div class="footer-link">
-    <a href="submit-homegrown.html">List your homegrown goods &rarr;</a>
+    <a href="submit-job.html">Post to the Jobs Bulletin &rarr;</a>
   </div>
   <div class="footer-link">
     <a href="index.html">Back to the calendar &rarr;</a>
@@ -136,36 +159,34 @@
 <script>
 (async function () {
   let config = {};
-  let listings = [];
+  let posts = [];
 
   const selectedTowns = new Set();
   const selectedCategories = new Set();
+  const selectedTypes = new Set();
+  const TYPE_LABELS = { needed: "Needs Help", offering: "Offering Help" };
 
-  // Same idea as docs/directory.html's CATEGORY_SYNONYMS -- common words
-  // for what a category actually is, so a search for "eggs" or "honey"
-  // works even though that exact word may not appear in a listing's own
-  // name/description.
+  // Same idea as docs/trading-post.html's CATEGORY_SYNONYMS -- common
+  // words for what a category actually covers, so a search for "shovel"
+  // or "movers" works even if that exact word isn't in a post's own text.
   const CATEGORY_SYNONYMS = {
-    "Meat & Livestock": ["beef", "pork", "chicken", "poultry", "lamb", "goat meat", "meat", "steak", "hamburger", "freezer beef", "whole hog", "half hog"],
-    "Eggs & Dairy": ["eggs", "milk", "goat milk", "raw milk", "cheese", "butter", "dairy"],
-    "Produce & Garden": ["vegetables", "veggies", "fruit", "garden", "tomatoes", "sweet corn", "produce"],
-    "Baked Goods": ["bread", "bakery", "pastries", "pies", "cookies", "baking", "baked"],
-    "Honey, Jams & Preserves": ["honey", "jam", "jelly", "preserves", "canned goods", "canning", "syrup"],
-    "Plants, Seedlings & Flowers": ["plants", "seedlings", "flowers", "cut flowers", "starts", "nursery"],
-    "Crafts & Handmade Goods": ["crafts", "handmade", "quilts", "soap", "woodworking", "knitting", "artisan", "homemade"],
+    "Yard Work & Snow Removal": ["mowing", "lawn", "grass", "snow", "shovel", "shoveling", "plow", "plowing", "yard work", "landscaping", "leaves", "raking", "weeding"],
+    "Moving & Hauling": ["moving", "movers", "hauling", "haul", "truck", "furniture", "junk removal"],
+    "Handyman & Repairs": ["handyman", "repairs", "fix", "fixing", "odd jobs", "small jobs", "painting", "carpentry"],
+    "Cleaning": ["cleaning", "housecleaning", "house cleaning", "maid"],
   };
 
-  // Same filler-word list as docs/directory.html, so a typed-out question
-  // ("where can I get fresh eggs") strips down to just the words that
-  // actually have to match ("fresh eggs").
+  // Same filler-word list as docs/trading-post.html, so a typed-out
+  // question ("who can help me shovel snow") strips down to just the
+  // words that actually have to match.
   const SEARCH_STOPWORDS = new Set([
     "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
     "we", "us", "me", "my", "mine", "our", "looking", "look", "for", "find", "need",
     "needed", "want", "wanted", "who", "what", "where", "when", "why", "how", "can",
     "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
     "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
-    "show", "get", "open", "right", "now", "today", "sell", "selling", "sells", "buy",
-    "help", "service", "services",
+    "show", "get", "open", "right", "now", "today", "help", "helping", "hire", "hiring",
+    "work", "working", "job", "jobs", "someone", "somebody", "anyone",
   ]);
 
   function searchTokens(query) {
@@ -176,16 +197,28 @@
       .filter((word) => word && !SEARCH_STOPWORDS.has(word));
   }
 
-  function matchesSearch(b, tokens, matchAny) {
+  function matchesSearch(p, tokens, matchAny) {
     if (!tokens.length) return true;
-    const haystack = `${b.name} ${b.description || ""} ${b.availability || ""} ${b.category || ""} ${b.town || ""}`.toLowerCase();
-    const synonyms = CATEGORY_SYNONYMS[b.category] || [];
+    const haystack = `${p.name} ${p.description || ""} ${p.category || ""} ${p.town || ""}`.toLowerCase();
+    const synonyms = CATEGORY_SYNONYMS[p.category] || [];
     const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
     return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
   }
 
-  // Same multi-checkbox dropdown pattern as docs/directory.html.
-  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange }) {
+  function daysAgo(dateStr) {
+    if (!dateStr) return "";
+    const posted = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(posted)) return "";
+    const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    if (days < 14) return `Posted ${days} days ago`;
+    if (days < 60) return `Posted ${Math.floor(days / 7)} weeks ago`;
+    return `Posted ${Math.floor(days / 30)} months ago`;
+  }
+
+  // Same multi-checkbox dropdown pattern as docs/trading-post.html.
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange, optionLabel }) {
     const btn = document.getElementById(btnId);
     const panel = document.getElementById(panelId);
     const list = document.getElementById(listId);
@@ -195,7 +228,7 @@
         btn.textContent = `${label}: All`;
         btn.classList.remove("active");
       } else if (selectedSet.size === 1) {
-        btn.textContent = `${label}: ${[...selectedSet][0]}`;
+        btn.textContent = `${label}: ${optionLabel ? optionLabel([...selectedSet][0]) : [...selectedSet][0]}`;
         btn.classList.add("active");
       } else {
         btn.textContent = `${label}: ${selectedSet.size} selected`;
@@ -215,7 +248,7 @@
         onChange();
       });
       row.appendChild(cb);
-      row.appendChild(document.createTextNode(" " + opt));
+      row.appendChild(document.createTextNode(" " + (optionLabel ? optionLabel(opt) : opt)));
       list.appendChild(row);
     }
 
@@ -242,55 +275,53 @@
     });
   });
 
-  function buildCard(b) {
+  function buildCard(p) {
     const card = document.createElement("div");
     card.className = "biz-card";
 
+    const badge = document.createElement("div");
+    badge.className = `job-badge ${p.type === "offering" ? "offering" : "needed"}`;
+    badge.textContent = TYPE_LABELS[p.type] || "";
+    card.appendChild(badge);
+
     const name = document.createElement("div");
     name.className = "biz-name";
-    name.textContent = b.name;
+    name.textContent = p.name;
     card.appendChild(name);
 
     const town = document.createElement("div");
     town.className = "biz-town";
-    town.textContent = b.town;
+    town.textContent = p.town;
     card.appendChild(town);
 
-    if (b.description) {
+    if (p.description) {
       const desc = document.createElement("div");
       desc.className = "biz-desc";
-      desc.textContent = b.description;
+      desc.textContent = p.description;
       card.appendChild(desc);
     }
 
-    if (b.availability) {
-      const avail = document.createElement("div");
-      avail.className = "biz-avail";
-      avail.textContent = b.availability;
-      card.appendChild(avail);
+    const posted = daysAgo(p.posted);
+    if (posted) {
+      const postedEl = document.createElement("div");
+      postedEl.className = "biz-posted";
+      postedEl.textContent = posted;
+      card.appendChild(postedEl);
     }
 
     const meta = document.createElement("div");
     meta.className = "biz-meta";
 
-    if (b.phone) {
+    if (p.phone) {
       const a = document.createElement("a");
-      a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
-      a.textContent = b.phone;
+      a.href = `tel:${p.phone.replace(/[^0-9+]/g, "")}`;
+      a.textContent = p.phone;
       meta.appendChild(a);
     }
-    if (b.website) {
+    if (p.email) {
       const a = document.createElement("a");
-      a.href = b.website;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = "Visit website →";
-      meta.appendChild(a);
-    }
-    if (b.email) {
-      const a = document.createElement("a");
-      a.href = `mailto:${b.email}`;
-      a.textContent = b.email;
+      a.href = `mailto:${p.email}`;
+      a.textContent = p.email;
       meta.appendChild(a);
     }
     if (meta.childNodes.length) card.appendChild(meta);
@@ -305,10 +336,11 @@
     const tokens = searchTokens(document.getElementById("searchInput").value);
 
     function applyFilters(matchAny) {
-      return listings.filter((b) => {
-        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
-        if (selectedCategories.size && !selectedCategories.has(b.category || "Other Homegrown")) return false;
-        if (!matchesSearch(b, tokens, matchAny)) return false;
+      return posts.filter((p) => {
+        if (selectedTypes.size && !selectedTypes.has(p.type)) return false;
+        if (selectedTowns.size && !selectedTowns.has(p.town)) return false;
+        if (selectedCategories.size && !selectedCategories.has(p.category || "Odd Jobs / Other")) return false;
+        if (!matchesSearch(p, tokens, matchAny)) return false;
         return true;
       });
     }
@@ -316,70 +348,70 @@
     let filtered = applyFilters(false);
     if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
 
-    // Grouped by category, same reasoning as docs/directory.html: once
-    // every filter is cleared, browsing by what's actually for sale beats
-    // a flat alphabetical wall of names.
-    const byCategory = new Map();
-    for (const b of filtered) {
-      const cat = b.category || "Other Homegrown";
-      if (!byCategory.has(cat)) byCategory.set(cat, []);
-      byCategory.get(cat).push(b);
-    }
-
-    const categoryOrder = config.homegrown_categories || [];
-    const categories = [...byCategory.keys()].sort((a, b) => {
-      const ai = categoryOrder.indexOf(a), bi = categoryOrder.indexOf(b);
-      if (ai === -1 && bi === -1) return a.localeCompare(b);
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
-    });
+    // Grouped by type first (Needs Help / Offering Help) rather than
+    // category -- the first thing a reader here cares about is which
+    // side of the bulletin they're browsing, unlike docs/trading-post.html
+    // where category is what matters most. Posts within each group keep
+    // docs/jobs.json's existing newest-first order.
+    const needsHelp = filtered.filter((p) => p.type !== "offering");
+    const offeringHelp = filtered.filter((p) => p.type === "offering");
 
     container.innerHTML = "";
-    for (const cat of categories) {
+    const sections = [
+      { label: "Needs Help", items: needsHelp },
+      { label: "Offering Help", items: offeringHelp },
+    ];
+    for (const section of sections) {
+      if (!section.items.length) continue;
       const heading = document.createElement("div");
       heading.className = "dir-category-heading";
-      heading.textContent = cat;
+      heading.textContent = section.label;
       container.appendChild(heading);
 
       const grid = document.createElement("div");
       grid.className = "dir-grid";
-      for (const b of byCategory.get(cat)) {
-        grid.appendChild(buildCard(b));
+      for (const p of section.items) {
+        grid.appendChild(buildCard(p));
       }
       container.appendChild(grid);
     }
 
-    resultsCount.textContent = listings.length
-      ? `Showing ${filtered.length} of ${listings.length} listing${listings.length === 1 ? "" : "s"}`
+    resultsCount.textContent = posts.length
+      ? `Showing ${filtered.length} of ${posts.length} post${posts.length === 1 ? "" : "s"}`
       : "";
     empty.style.display = filtered.length ? "none" : "block";
   }
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Homegrown Goods | ${config.county_display_name}`;
+    document.title = `Jobs Bulletin | ${config.county_display_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     setupMultiSelectFilter({
       btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
-      options: config.homegrown_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+      options: config.job_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+    });
+
+    setupMultiSelectFilter({
+      btnId: "typeFilterBtn", panelId: "typeFilterPanel", listId: "typeCheckList",
+      options: ["needed", "offering"], selectedSet: selectedTypes, label: "Type", onChange: render,
+      optionLabel: (v) => TYPE_LABELS[v] || v,
     });
   } catch (err) {
-    // Category filter just won't populate; the page itself can still load below.
+    // Filters just won't populate; the page itself can still load below.
   }
 
   document.getElementById("searchInput").addEventListener("input", render);
 
   try {
-    listings = await (await fetch("homegrown.json")).json();
+    posts = await (await fetch("jobs.json")).json();
     document.getElementById("dirStatus").style.display = "none";
     document.getElementById("statsLine").innerHTML =
       `<span class="stat-seg">1 County ·</span> ` +
-      `<span class="live-count"><span class="live-dot"></span>${listings.length} Listing${listings.length === 1 ? "" : "s"}</span>` +
+      `<span class="live-count"><span class="live-dot"></span>${posts.length} Post${posts.length === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
-    const towns = [...new Set(listings.map((b) => b.town))].sort();
+    const towns = [...new Set(posts.map((p) => p.town))].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
@@ -387,7 +419,7 @@
 
     render();
   } catch (err) {
-    document.getElementById("dirStatus").textContent = "Couldn't load the listings. Please try refreshing.";
+    document.getElementById("dirStatus").textContent = "Couldn't load the posts. Please try refreshing.";
     document.getElementById("dirStatus").style.display = "block";
   }
 })();

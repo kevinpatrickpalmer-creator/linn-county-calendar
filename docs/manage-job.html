@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manage Homegrown Listings | Calendar Admin</title>
+<title>Manage Jobs Bulletin | Calendar Admin</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -29,10 +29,16 @@
   .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
   .card .meta { font-size: .85rem; color: #666; margin-bottom: .15rem; }
   .card .type-badge {
-    display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
+    display: inline-block; margin-bottom: .4rem; margin-right: .35rem; font-size: .68rem; font-weight: 600;
     letter-spacing: .02em; text-transform: uppercase; color: #1e4d8a;
     background: #e9f1fb; padding: .15rem .45rem; border-radius: 999px;
   }
+  .card .post-badge {
+    display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px;
+  }
+  .post-badge.needed { color: #a8730f; background: #fff3d9; }
+  .post-badge.offering { color: #1a7d3c; background: #e3f2e9; }
   .card .actions { margin-top: .75rem; display: flex; gap: .6rem; }
   .card .actions a {
     flex: 1;
@@ -52,6 +58,8 @@
     .card { background: #202027; box-shadow: none; }
     .card .meta { color: #aaa; }
     .card .type-badge { background: #16283d; color: #9dc4f7; }
+    .post-badge.needed { color: #d99a44; background: #3a2c14; }
+    .post-badge.offering { color: #6fcf97; background: #12321f; }
     p.sub { color: #aaa; }
     .edit-link { background: #1a1f3a; color: #8fa5ff; }
     .cancel-link { background: #3a2c14; color: #d99a44; }
@@ -61,23 +69,25 @@
 </head>
 <body>
 <main>
-  <h1>Manage Homegrown Listings</h1>
+  <h1>Manage Jobs Bulletin</h1>
   <p class="sub">
-    Everything below is a currently-live listing on the Homegrown Goods
-    page. <strong>Edit</strong> opens GitHub's editor with the file's
-    current contents; <strong>Remove listing</strong> opens GitHub's
+    Everything below is a currently-live post on the Jobs Bulletin page.
+    <strong>Edit</strong> opens GitHub's editor with the file's current
+    contents; <strong>Remove post</strong> opens GitHub's
     delete-confirmation page. Either way, nothing changes until you
-    commit on GitHub, and docs/homegrown.json regenerates automatically a
-    few moments after that.
+    commit on GitHub, and docs/jobs.json regenerates automatically a few
+    moments after that. Worth checking back on this list periodically --
+    unlike the rest of the site, these go stale (the snow melted, the
+    move happened) and there's no automatic cleanup.
   </p>
 
-  <div id="status">Loading current listings...</div>
-  <div id="empty">No approved listings yet.</div>
+  <div id="status">Loading current posts...</div>
+  <div id="empty">No approved posts yet.</div>
   <div id="list"></div>
 </main>
 
 <script>
-const DIR = "data/homegrown";
+const DIR = "data/jobs";
 let REPO, BRANCH;
 
 function editUrl(path) {
@@ -87,11 +97,23 @@ function deleteUrl(path) {
   return `https://github.com/${REPO}/delete/${BRANCH}/${path}`;
 }
 
+function daysAgo(dateStr) {
+  if (!dateStr) return "";
+  const posted = new Date(`${dateStr}T00:00:00`);
+  if (isNaN(posted)) return "";
+  const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+  if (days <= 0) return "Posted today";
+  if (days === 1) return "Posted yesterday";
+  if (days < 14) return `Posted ${days} days ago`;
+  if (days < 60) return `Posted ${Math.floor(days / 7)} weeks ago`;
+  return `Posted ${Math.floor(days / 30)} months ago`;
+}
+
 async function main() {
   const config = await (await fetch("config.json")).json();
   REPO = config.github_repo;
   BRANCH = config.github_branch;
-  document.title = `Manage Homegrown Listings | ${config.county_display_name} Calendar Admin`;
+  document.title = `Manage Jobs Bulletin | ${config.county_display_name} Calendar Admin`;
 
   const statusEl = document.getElementById("status");
   const listEl = document.getElementById("list");
@@ -103,7 +125,7 @@ async function main() {
     if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
     files = await res.json();
   } catch (err) {
-    statusEl.textContent = "Couldn't load the listing list. Try refreshing, or check data/homegrown/ directly on GitHub.";
+    statusEl.textContent = "Couldn't load the post list. Try refreshing, or check data/jobs/ directly on GitHub.";
     return;
   }
 
@@ -114,75 +136,80 @@ async function main() {
     return;
   }
 
-  const listings = [];
+  const posts = [];
   for (const file of jsonFiles) {
     try {
       const res = await fetch(file.download_url);
       const data = await res.json();
-      listings.push({ path: file.path, ...data });
+      posts.push({ path: file.path, ...data });
     } catch (err) {
       // Skip a file that fails to load/parse rather than breaking the whole page.
       continue;
     }
   }
 
-  listings.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  posts.sort((a, b) => (b.posted || "").localeCompare(a.posted || ""));
   statusEl.remove();
 
-  if (!listings.length) {
+  if (!posts.length) {
     emptyEl.style.display = "block";
     return;
   }
 
-  for (const item of listings) {
+  for (const post of posts) {
     const card = document.createElement("div");
     card.className = "card";
 
-    if (item.category) {
+    const typeBadge = document.createElement("div");
+    typeBadge.className = `post-badge ${post.type === "offering" ? "offering" : "needed"}`;
+    typeBadge.textContent = post.type === "offering" ? "Offering Help" : "Needs Help";
+    card.appendChild(typeBadge);
+
+    if (post.category) {
       const badge = document.createElement("div");
       badge.className = "type-badge";
-      badge.textContent = item.category;
+      badge.textContent = post.category;
       card.appendChild(badge);
     }
 
     const title = document.createElement("h2");
-    title.textContent = item.name || "(untitled listing)";
+    title.textContent = post.name || "(untitled post)";
     card.appendChild(title);
 
     const town = document.createElement("div");
     town.className = "meta";
-    town.textContent = item.town || "";
+    town.textContent = [post.town, daysAgo(post.posted)].filter(Boolean).join(" · ");
     card.appendChild(town);
 
-    if (item.phone || item.email) {
-      const contact = document.createElement("div");
-      contact.className = "meta";
-      contact.textContent = [item.phone, item.email].filter(Boolean).join(" · ");
-      card.appendChild(contact);
+    if (post.description) {
+      const desc = document.createElement("div");
+      desc.className = "meta";
+      desc.textContent = post.description;
+      card.appendChild(desc);
     }
 
-    if (item.website) {
-      const site = document.createElement("div");
-      site.className = "meta";
-      site.textContent = item.website;
-      card.appendChild(site);
+    if (post.phone || post.email) {
+      const contact = document.createElement("div");
+      contact.className = "meta";
+      contact.textContent = [post.phone, post.email].filter(Boolean).join(" · ");
+      card.appendChild(contact);
     }
 
     const actions = document.createElement("div");
     actions.className = "actions";
 
     const editLink = document.createElement("a");
-    editLink.href = editUrl(item.path);
+    editLink.href = editUrl(post.path);
     editLink.target = "_blank";
     editLink.className = "edit-link";
     editLink.textContent = "Edit";
     actions.appendChild(editLink);
 
     const cancelLink = document.createElement("a");
-    cancelLink.href = deleteUrl(item.path);
+    cancelLink.href = deleteUrl(post.path);
     cancelLink.target = "_blank";
     cancelLink.className = "cancel-link";
-    cancelLink.textContent = "Remove listing";
+    cancelLink.textContent = "Remove post";
     actions.appendChild(cancelLink);
 
     card.appendChild(actions);
