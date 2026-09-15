@@ -9,5 +9,12 @@
   "address": "109 S Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-402-5044",
   "website": "https://www.thepaperstationusa.com/",
-  "place_id": "ChIJcSOc8haOwocRRmyhegFjw8M"
+  "place_id": "ChIJcSOc8haOwocRRmyhegFjw8M",
+  "keywords": [
+    "Gift shop",
+    "Office supply store",
+    "Print shop",
+    "Shipping and mailing service",
+    "Stationery store"
+  ]
 }

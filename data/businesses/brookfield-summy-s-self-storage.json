@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=QVueNsC6mdJDB0GSRImtbw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=85.59685&pitch=0&thumbfov=100",
   "address": "411 S State St, Brookfield, MO 64628",
   "phone": "+1 660-258-3933",
-  "place_id": "ChIJS0y18OCHwocRpYzIlPxN3-c"
+  "place_id": "ChIJS0y18OCHwocRpYzIlPxN3-c",
+  "keywords": [
+    "Self-storage facility"
+  ]
 }

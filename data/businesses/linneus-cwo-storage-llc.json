@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=8sfcH5V-2BSJHOmVcuZElg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=352.93942&pitch=0&thumbfov=100",
   "address": "147 E Sandusky St, Linneus, MO 64653",
   "website": "https://www.cwostorage.com/",
-  "place_id": "ChIJ8aDFslF5wocRmMs0eoJsOrM"
+  "place_id": "ChIJ8aDFslF5wocRmMs0eoJsOrM",
+  "keywords": [
+    "Self-storage facility"
+  ]
 }

@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=0mcW-S0cnmhADb-xPAe6SQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=87.00698&pitch=0&thumbfov=100",
   "address": "207 Macon St, Meadville, MO 64659",
   "phone": "+1 660-938-4938",
-  "place_id": "ChIJ-QZ0E2ZxwocRNuPZekil3QM"
+  "place_id": "ChIJ-QZ0E2ZxwocRNuPZekil3QM",
+  "keywords": [
+    "Convenience store"
+  ]
 }

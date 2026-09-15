@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=L0gnun_IujlpsNr0YEb_Kw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=88.40198&pitch=0&thumbfov=100",
   "address": "108 N High St #204, Linneus, MO 64653",
   "phone": "+1 660-895-5216",
-  "place_id": "ChIJqci-iTl5wocRg6wzDyZ4tZY"
+  "place_id": "ChIJqci-iTl5wocRg6wzDyZ4tZY",
+  "keywords": [
+    "County government office"
+  ]
 }

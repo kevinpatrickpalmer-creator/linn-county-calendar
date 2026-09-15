@@ -9,5 +9,8 @@
   "address": "32988 Blackhorn Dr, Meadville, MO 64659",
   "phone": "+1 660-646-6122",
   "website": "https://mdc.mo.gov/discover-nature/places/fountain-grove-conservation-area",
-  "place_id": "ChIJ8RmEyt9uwocRMWLEOs9T94M"
+  "place_id": "ChIJ8RmEyt9uwocRMWLEOs9T94M",
+  "keywords": [
+    "Park"
+  ]
 }

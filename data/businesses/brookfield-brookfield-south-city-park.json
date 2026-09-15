@@ -7,5 +7,8 @@
   "rating": 4.7,
   "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnImaW7wqigr3QpOr-EDdYhaPOmOcSmFsJX8JT1aqPomRcrJleTlb7NZzyvS0-TCu7VIiHSMfF_LVLhaZsS_AaINhNpZM7OJRPNYvLQQuqRUJO8uGGpLmcKRukrS4UGNZfwOATH=w800-h500-k-no",
   "address": "Ichabod Dr, Brookfield, MO 64628",
-  "place_id": "ChIJaV3mKJ6JwocRnUxU9myiU8E"
+  "place_id": "ChIJaV3mKJ6JwocRnUxU9myiU8E",
+  "keywords": [
+    "Park"
+  ]
 }

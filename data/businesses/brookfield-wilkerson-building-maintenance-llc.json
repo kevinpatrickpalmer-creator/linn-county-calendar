@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=eQTpWDe7dkZerWCMO_g9bw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=76.66494&pitch=0&thumbfov=100",
   "address": "30376 Inman Dr, Brookfield, MO 64628",
   "phone": "+1 660-258-3869",
-  "place_id": "ChIJV_2pYlqIwocRwpwgbw1yME8"
+  "place_id": "ChIJV_2pYlqIwocRwpwgbw1yME8",
+  "keywords": [
+    "Concrete contractor"
+  ]
 }

@@ -27,8 +27,12 @@ OUTPUT_PATH = "docs/businesses.json"
 # stable from run to run. "place_id" and "source" are deliberately not
 # here -- see data/businesses/README.md -- they're bookkeeping for the
 # scraper's own dedup, never meant for the public site.
-FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "rating", "reviews", "hours", "description"]
+FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "rating", "reviews", "hours", "description", "keywords"]
 NUMERIC_FIELDS = {"rating", "reviews"}
+# "keywords" is a list (Google's subtypes + reviews_tags -- see
+# scrape_businesses.py's build_listing()), not a string like every other
+# field here -- search-only, docs/directory.html never displays it.
+LIST_FIELDS = {"keywords"}
 # Fields that live per-branch on a multi-location listing's own
 # "locations" entries instead of at the top level -- see
 # _load_multi_location() below.
@@ -46,6 +50,10 @@ def _extract_fields(data, skip):
         raw_value = data.get(field)
         if field in NUMERIC_FIELDS:
             if isinstance(raw_value, (int, float)):
+                extracted[field] = raw_value
+            continue
+        if field in LIST_FIELDS:
+            if isinstance(raw_value, list) and raw_value:
                 extracted[field] = raw_value
             continue
         value = (raw_value or "").strip()

@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=G4YBUq7Mvq705GXV1H_hEQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=353.54276&pitch=0&thumbfov=100",
   "address": "1123 Polk St, Chillicothe, MO 64601",
   "phone": "+1 660-240-8760",
-  "place_id": "ChIJoWt-5KQPwocRwK8otR17x-U"
+  "place_id": "ChIJoWt-5KQPwocRwK8otR17x-U",
+  "keywords": [
+    "Electrician"
+  ]
 }

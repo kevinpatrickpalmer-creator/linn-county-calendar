@@ -5,5 +5,9 @@
   "source": "google_maps",
   "address": "10295 Liv 232, Chillicothe, MO 64601",
   "phone": "+1 660-646-7667",
-  "place_id": "ChIJ-WaE6J8FwocRA55TLONuYxk"
+  "place_id": "ChIJ-WaE6J8FwocRA55TLONuYxk",
+  "keywords": [
+    "Painter",
+    "Dry wall contractor"
+  ]
 }

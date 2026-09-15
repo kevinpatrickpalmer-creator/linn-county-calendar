@@ -4,5 +4,8 @@
   "town": "Marceline",
   "source": "google_maps",
   "address": "210 Hayden St, Marceline, MO 64658",
-  "place_id": "ChIJia-FewCPwocRfj__Lt0QeFw"
+  "place_id": "ChIJia-FewCPwocRfj__Lt0QeFw",
+  "keywords": [
+    "Church"
+  ]
 }

@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=aG4zW0QPKCG564osTb2CTg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=180.72083&pitch=0&thumbfov=100",
   "address": "202 W Broadway St, Brunswick, MO 65236",
   "phone": "+1 660-548-3764",
-  "place_id": "ChIJsTw3C6JXwocRX0y_hUxvrbM"
+  "place_id": "ChIJsTw3C6JXwocRX0y_hUxvrbM",
+  "keywords": [
+    "Appliance store",
+    "Furniture store"
+  ]
 }

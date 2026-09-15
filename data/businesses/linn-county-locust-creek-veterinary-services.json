@@ -7,5 +7,8 @@
   "rating": 3.0,
   "address": "21842 Otter Rd, Milan, MO 63556",
   "phone": "+1 660-265-4730",
-  "place_id": "ChIJr2Yy6NHL6YcRJKxOioWQVJg"
+  "place_id": "ChIJr2Yy6NHL6YcRJKxOioWQVJg",
+  "keywords": [
+    "Veterinarian"
+  ]
 }

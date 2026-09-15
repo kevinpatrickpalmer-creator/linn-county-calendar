@@ -7,5 +7,12 @@
   "place_id": "ChIJd0vYKwfIwocRLtmjZ7Vooqw",
   "rating": 4.4,
   "reviews": 10,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=QFThCfVnvCzX4rQ8hfnG2g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=39.086338&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=QFThCfVnvCzX4rQ8hfnG2g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=39.086338&pitch=0&thumbfov=100",
+  "keywords": [
+    "Cottage",
+    "Cabin rental agency",
+    "Hotel",
+    "Real estate agency",
+    "Travel agency"
+  ]
 }

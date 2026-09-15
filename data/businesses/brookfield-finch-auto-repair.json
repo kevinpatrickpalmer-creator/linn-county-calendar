@@ -4,5 +4,8 @@
   "town": "Brookfield",
   "source": "google_maps",
   "address": "30125 US-36, Brookfield, MO 64628",
-  "place_id": "ChIJ4-z9IQCPwocRUkh2u8DS5lc"
+  "place_id": "ChIJ4-z9IQCPwocRUkh2u8DS5lc",
+  "keywords": [
+    "Auto repair shop"
+  ]
 }

@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=5DysypdxzxYS98DK4b246A&cb_client=search.gws-prod.gps&w=800&h=500&yaw=100.23257&pitch=0&thumbfov=100",
   "address": "325 Locust St, Chillicothe, MO 64601",
   "phone": "+1 660-646-7770",
-  "place_id": "ChIJca_sQ7oPwocR2Iy7PzmbeUk"
+  "place_id": "ChIJca_sQ7oPwocR2Iy7PzmbeUk",
+  "keywords": [
+    "Electrical supply store",
+    "Electrical"
+  ]
 }

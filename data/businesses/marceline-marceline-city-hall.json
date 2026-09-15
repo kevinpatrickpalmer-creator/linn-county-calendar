@@ -9,5 +9,9 @@
   "address": "116 N Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-376-3528",
   "website": "http://www.marcelinemo.us/",
-  "place_id": "ChIJDRhIYpSFwocRs_EiAVYPYe0"
+  "place_id": "ChIJDRhIYpSFwocRs_EiAVYPYe0",
+  "keywords": [
+    "City Hall",
+    "City government office"
+  ]
 }

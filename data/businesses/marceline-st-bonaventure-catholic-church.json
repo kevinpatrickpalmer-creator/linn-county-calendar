@@ -9,5 +9,12 @@
   "website": "http://www.stbonaventure-frmccartan.org/",
   "place_id": "ChIJhWXN8ROOwocRrVJIl_xQhX0",
   "rating": 5.0,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=u53BB-dL166vTIj-Iy6lBQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=135.45255&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=u53BB-dL166vTIj-Iy6lBQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=135.45255&pitch=0&thumbfov=100",
+  "keywords": [
+    "Rectory",
+    "Catholic church",
+    "Catholic school",
+    "Church",
+    "Religious school"
+  ]
 }

@@ -7,5 +7,8 @@
   "rating": 5.0,
   "address": "25043 Heath Rd, Brookfield, MO 64628",
   "phone": "+1 660-412-1152",
-  "place_id": "ChIJr4xztD-HwocR93TEvb1kBWI"
+  "place_id": "ChIJr4xztD-HwocR93TEvb1kBWI",
+  "keywords": [
+    "Corporate office"
+  ]
 }

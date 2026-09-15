@@ -5,5 +5,8 @@
   "source": "google_maps",
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=3OWhZLTnxx1PVe2NLLRv6Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=203.82645&pitch=0&thumbfov=100",
   "address": "28010 Jonquil Rd, Brookfield, MO 64628",
-  "place_id": "ChIJRa0jIgCJwocRnGkvRS5brfI"
+  "place_id": "ChIJRa0jIgCJwocRnGkvRS5brfI",
+  "keywords": [
+    "Construction company"
+  ]
 }

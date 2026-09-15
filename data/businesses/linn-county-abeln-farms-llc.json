@@ -8,5 +8,8 @@
   "place_id": "ChIJHfZYcd-VwocRB0fb9obNMPs",
   "rating": 3.8,
   "reviews": 5,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=yasxRXPTbKtpgSAaZjvxSg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=159.8336&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=yasxRXPTbKtpgSAaZjvxSg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=159.8336&pitch=0&thumbfov=100",
+  "keywords": [
+    "Farm"
+  ]
 }

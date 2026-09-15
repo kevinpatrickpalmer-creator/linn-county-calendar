@@ -9,5 +9,8 @@
   "place_id": "ChIJmyoD83WIwocREHwsE-nHpyg",
   "rating": 2.4,
   "reviews": 10,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=uKDQQZxuwOKBL6ur0O9lVA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=339.45172&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=uKDQQZxuwOKBL6ur0O9lVA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=339.45172&pitch=0&thumbfov=100",
+  "keywords": [
+    "Mental health clinic"
+  ]
 }

@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=lcO1WIu0AHdXCoN8XPTTKw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=62.90269&pitch=0&thumbfov=100",
   "address": "216 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7880",
-  "place_id": "ChIJx2BfLsOHwocRQwEDvIyopDY"
+  "place_id": "ChIJx2BfLsOHwocRQwEDvIyopDY",
+  "keywords": [
+    "Accountant"
+  ]
 }

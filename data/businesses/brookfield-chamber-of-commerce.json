@@ -9,5 +9,8 @@
   "address": "207 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7255",
   "website": "http://www.brookfieldmochamber.com/",
-  "place_id": "ChIJtS3XNcOHwocR6SLmAfUSSMM"
+  "place_id": "ChIJtS3XNcOHwocR6SLmAfUSSMM",
+  "keywords": [
+    "Chamber of Commerce"
+  ]
 }

@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=8LkRRInWoPh93rt_9wu6gA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=14.006591&pitch=0&thumbfov=100",
   "address": "25753 Hickory St, Bevier, MO 63532",
   "phone": "+1 660-773-5346",
-  "place_id": "ChIJ0Qj0jL2xwocRI73qPc16v74"
+  "place_id": "ChIJ0Qj0jL2xwocRI73qPc16v74",
+  "keywords": [
+    "General contractor"
+  ]
 }

@@ -7,5 +7,9 @@
   "rating": 4.3,
   "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmYErCMlUoTKUyQu2n-zo4iW9pwdWaclHnjAKBfsrnYkYP8dQVwyVB0_EUwXtIVi_TaOvjF_d3xaKoTKkUDmgG_LVTxFvb-1bGv0i0aCmuEYExWKbts_HBMx9Q2DhcGUPeJzy0WPg=w800-h500-k-no",
   "address": "Brookfield, MO 64628",
-  "place_id": "ChIJ5-ma9t-HwocR8LKt3RFacL0"
+  "place_id": "ChIJ5-ma9t-HwocR8LKt3RFacL0",
+  "keywords": [
+    "Park",
+    "Tourist attraction"
+  ]
 }

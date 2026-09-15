@@ -9,5 +9,12 @@
   "address": "721 Washington St, Chillicothe, MO 64601",
   "phone": "+1 660-646-5900",
   "website": "https://www.facebook.com/friendlyautotire/",
-  "place_id": "ChIJoScDTsYPwocRCn0jTgEZw1k"
+  "place_id": "ChIJoScDTsYPwocRCn0jTgEZw1k",
+  "keywords": [
+    "Auto repair shop",
+    "Oil change service",
+    "Repair service",
+    "Tire shop",
+    "Vehicle inspection service"
+  ]
 }

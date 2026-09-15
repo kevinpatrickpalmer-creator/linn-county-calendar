@@ -9,5 +9,9 @@
   "address": "124 W Boston St, Brookfield, MO 64628",
   "phone": "+1 660-258-7476",
   "website": "http://brookfieldbowl.com/",
-  "place_id": "ChIJtwkpxdyHwocRYl7BoaCaG5o"
+  "place_id": "ChIJtwkpxdyHwocRYl7BoaCaG5o",
+  "keywords": [
+    "Bowling alley",
+    "Sports complex"
+  ]
 }

@@ -7,5 +7,9 @@
   "phone": "+1 660-895-1234",
   "website": "https://www.linnr1.k12.mo.us/",
   "place_id": "ChIJpSH5zDl5wocR1EgC_MlCyAE",
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4kjrclzXhUUPpT-hSnFIcA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=270.78918&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4kjrclzXhUUPpT-hSnFIcA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=270.78918&pitch=0&thumbfov=100",
+  "keywords": [
+    "K-12 school",
+    "Public educational institution"
+  ]
 }

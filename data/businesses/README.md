@@ -50,6 +50,17 @@ listings, scraped or hand-added alike. `docs/directory.html` renders
 whichever of these a listing actually has and simply omits what it
 doesn't; nothing here is required for a listing to publish.
 
+`keywords` also comes from Google Maps, but it's search-only --
+`docs/directory.html` never displays it, only matches against it. It's
+Google's own "subtypes" (a business can be tagged more than one way on
+Google even though it only ever gets one `category` here -- Tractor
+Supply Co is "Animal feed store, Farm shop, Garden center, Hardware
+store, ... Pet store") plus "reviews_tags" (words Google surfaces
+because reviewers actually used them, like "farm supplies" or
+"workwear"). This is what lets someone searching "clothing" find a farm
+store that also carries Carhartt without that store needing a second
+visible category.
+
 ## Listings scraped from Google Maps (`scrape_businesses.py`)
 
 Files whose `"source"` field is `"google_maps"` were added automatically

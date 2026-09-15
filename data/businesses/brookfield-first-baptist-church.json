@@ -7,5 +7,8 @@
   "address": "314 S Caldwell St, Brookfield, MO 64628",
   "place_id": "ChIJWUq-gd6HwocRhJSUWc_G4ZM",
   "rating": 4.3,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=JxmaXjeHxOmb8rmNSagoyA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=283.00824&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=JxmaXjeHxOmb8rmNSagoyA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=283.00824&pitch=0&thumbfov=100",
+  "keywords": [
+    "Baptist church"
+  ]
 }

@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=0QGSbxUHvva0H97rraAEkw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=79.43796&pitch=0&thumbfov=100",
   "address": "Chillicothe, MO 64601",
   "phone": "+1 660-247-2232",
-  "place_id": "ChIJVzwREqUPwocRTm8Wfx20VeQ"
+  "place_id": "ChIJVzwREqUPwocRTm8Wfx20VeQ",
+  "keywords": [
+    "Roofing contractor",
+    "gutter needs"
+  ]
 }

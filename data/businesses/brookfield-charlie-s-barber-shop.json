@@ -8,5 +8,13 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4RtHOKDLqL4aCvingNn81Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=70.39292&pitch=0&thumbfov=100",
   "address": "123 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7306",
-  "place_id": "ChIJF7QLe9yHwocRtdHQNvlBR3k"
+  "place_id": "ChIJF7QLe9yHwocRtdHQNvlBR3k",
+  "keywords": [
+    "Barber shop",
+    "friendly staff",
+    "customer care",
+    "atmosphere",
+    "haircut",
+    "job"
+  ]
 }

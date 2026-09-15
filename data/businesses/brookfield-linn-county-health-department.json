@@ -9,5 +9,8 @@
   "place_id": "ChIJwZPyftiHwocRbkmweWQsrG0",
   "rating": 4.3,
   "reviews": 3,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=_7L-0nMN2d-JNN9QPMkHUQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.05212&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=_7L-0nMN2d-JNN9QPMkHUQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.05212&pitch=0&thumbfov=100",
+  "keywords": [
+    "Public health department"
+  ]
 }

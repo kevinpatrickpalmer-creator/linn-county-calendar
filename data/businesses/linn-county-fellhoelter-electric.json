@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=o77FXYAhugzovJ4t91BqHA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=101.21572&pitch=0&thumbfov=100",
   "address": "223 Church St, Chillicothe, MO 64601",
   "phone": "+1 660-707-0507",
-  "place_id": "ChIJd4QyOrgPwocRZk82Xj1aQZY"
+  "place_id": "ChIJd4QyOrgPwocRZk82Xj1aQZY",
+  "keywords": [
+    "Electrician"
+  ]
 }

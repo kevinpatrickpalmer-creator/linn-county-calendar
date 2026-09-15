@@ -9,5 +9,10 @@
   "address": "501 W Helm St, Brookfield, MO 64628",
   "phone": "+1 660-258-2510",
   "website": "http://pams-home-furnishings.business.site/",
-  "place_id": "ChIJaV7m0wqIwocRQBASJy9FvDc"
+  "place_id": "ChIJaV7m0wqIwocRQBASJy9FvDc",
+  "keywords": [
+    "Furniture store",
+    "Appliance store",
+    "home furnishings"
+  ]
 }

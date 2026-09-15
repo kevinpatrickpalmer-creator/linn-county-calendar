@@ -9,5 +9,8 @@
   "website": "https://kmmg.org/",
   "place_id": "ChIJdVh3D-uHwocR-toIBaJVPE4",
   "rating": 3.5,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Mm9slXD5OB4yJFYOWI1qGA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=86.99362&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Mm9slXD5OB4yJFYOWI1qGA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=86.99362&pitch=0&thumbfov=100",
+  "keywords": [
+    "Religious organization"
+  ]
 }

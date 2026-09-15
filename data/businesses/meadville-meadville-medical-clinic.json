@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=OKi6IGoccZ-h9fPoaE8kIQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=0.23685564&pitch=0&thumbfov=100",
   "address": "101 E Hayward St, Meadville, MO 64659",
   "phone": "+1 660-938-4212",
-  "place_id": "ChIJc1d7kctxwocRvd0z2gkW2oI"
+  "place_id": "ChIJc1d7kctxwocRvd0z2gkW2oI",
+  "keywords": [
+    "Medical clinic"
+  ]
 }

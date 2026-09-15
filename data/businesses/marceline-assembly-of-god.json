@@ -8,5 +8,8 @@
   "place_id": "ChIJS8RqyyCOwocRMXT1YuzSj9E",
   "rating": 5.0,
   "reviews": 7,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=40NfyaIOAyhpsJr392tkxA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=115.029366&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=40NfyaIOAyhpsJr392tkxA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=115.029366&pitch=0&thumbfov=100",
+  "keywords": [
+    "Church"
+  ]
 }

@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=hyINR3qR6rghnEvKr6TNHg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=113.631775&pitch=0&thumbfov=100",
   "address": "111 S Main Street USA, Marceline, MO 64658",
   "website": "http://nomoart.org/",
-  "place_id": "ChIJy1EIMkCPwocR8xdKV3bgCc8"
+  "place_id": "ChIJy1EIMkCPwocR8xdKV3bgCc8",
+  "keywords": [
+    "Art gallery"
+  ]
 }

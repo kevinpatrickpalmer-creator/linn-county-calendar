@@ -9,5 +9,10 @@
   "address": "104 W Helm St, Brookfield, MO 64628",
   "phone": "+1 660-258-2220",
   "website": "https://map.bp.com/en-US/US/gas-station/brookfield/bp/61789690731046462800100000000000",
-  "place_id": "ChIJWzIko7SHwocREDV1cr60iEg"
+  "place_id": "ChIJWzIko7SHwocREDV1cr60iEg",
+  "keywords": [
+    "Gas station",
+    "Car wash",
+    "Supermarket"
+  ]
 }

@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=t0SC4VpP0JcNq8ulR9LZhg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=167.08241&pitch=0&thumbfov=100",
   "address": "22450 US-36, Brookfield, MO 64628",
   "phone": "+1 660-734-8946",
-  "place_id": "ChIJWQhDLTJ9wocRXrfQMZfTWzY"
+  "place_id": "ChIJWQhDLTJ9wocRXrfQMZfTWzY",
+  "keywords": [
+    "Accountant"
+  ]
 }

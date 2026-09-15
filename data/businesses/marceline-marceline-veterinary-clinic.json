@@ -9,5 +9,8 @@
   "address": "715 S Missouri Ave, Marceline, MO 64658",
   "phone": "+1 660-376-2107",
   "website": "https://www.visitmarceline.com/marceline/services/marceline-veterinary-clinic/",
-  "place_id": "ChIJD44kHQ6OwocR3EAYdEuusjc"
+  "place_id": "ChIJD44kHQ6OwocR3EAYdEuusjc",
+  "keywords": [
+    "Veterinarian"
+  ]
 }

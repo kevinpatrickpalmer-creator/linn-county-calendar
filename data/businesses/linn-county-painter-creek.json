@@ -4,5 +4,8 @@
   "town": "Linn County",
   "source": "google_maps",
   "address": "Missouri 64631",
-  "place_id": "ChIJs0pMrKeewocRiqr8Unss88M"
+  "place_id": "ChIJs0pMrKeewocRiqr8Unss88M",
+  "keywords": [
+    "River"
+  ]
 }

@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "307 Pleasant St, Laclede, MO 64651",
   "place_id": "ChIJC6tmDwB9wocRij8guL5Kktc",
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=r6bc5l6dyi_2nkUcnddQ3Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=90.97523&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=r6bc5l6dyi_2nkUcnddQ3Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=90.97523&pitch=0&thumbfov=100",
+  "keywords": [
+    "Church of Christ"
+  ]
 }

@@ -7,5 +7,8 @@
   "address": "209 N Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-376-3347",
   "website": "https://www.marceline.com/",
-  "place_id": "ChIJDRhIYpSFwocRb6YS9XQY01I"
+  "place_id": "ChIJDRhIYpSFwocRb6YS9XQY01I",
+  "keywords": [
+    "Chamber of Commerce"
+  ]
 }

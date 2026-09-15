@@ -9,5 +9,8 @@
   "address": "118 N Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-858-8700",
   "website": "http://www.linncountyleader.com/",
-  "place_id": "ChIJBeHrH8OHwocR9UlrVEMQOEc"
+  "place_id": "ChIJBeHrH8OHwocR9UlrVEMQOEc",
+  "keywords": [
+    "Newspaper publisher"
+  ]
 }

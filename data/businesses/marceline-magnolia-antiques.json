@@ -9,5 +9,8 @@
   "address": "209 N Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-376-2332",
   "website": "https://www.facebook.com/MagnoliaAntiquesTouristCenter",
-  "place_id": "ChIJDRhIYpSFwocR-ebJ9qMfTEo"
+  "place_id": "ChIJDRhIYpSFwocR-ebJ9qMfTEo",
+  "keywords": [
+    "Antique store"
+  ]
 }

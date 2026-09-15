@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=HZiPqzLz85q3iALYW9D5JA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=194.72577&pitch=0&thumbfov=100",
   "address": "21428 Co Rd U, Bucklin, MO 64631",
   "phone": "+1 660-695-3655",
-  "place_id": "ChIJUeXLeq-cwocRQn9bEvzeU7U"
+  "place_id": "ChIJUeXLeq-cwocRQn9bEvzeU7U",
+  "keywords": [
+    "Store"
+  ]
 }

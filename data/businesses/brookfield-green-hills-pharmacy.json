@@ -9,5 +9,10 @@
   "address": "712 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-2122",
   "website": "http://www.ghpharmacybrookfield.com/",
-  "place_id": "ChIJ3y9H0XeIwocRrWrvMgmk4aQ"
+  "place_id": "ChIJ3y9H0XeIwocRrWrvMgmk4aQ",
+  "keywords": [
+    "Pharmacy",
+    "Drug store",
+    "friendly staff"
+  ]
 }

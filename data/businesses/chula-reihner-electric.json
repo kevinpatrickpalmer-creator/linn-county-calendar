@@ -8,5 +8,8 @@
   "place_id": "ChIJaYqL0QwKwocR1d1r5DcRD3E",
   "rating": 5.0,
   "reviews": 5,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=e11HNNf6rHqjR-1vzQDuhA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=221.77179&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=e11HNNf6rHqjR-1vzQDuhA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=221.77179&pitch=0&thumbfov=100",
+  "keywords": [
+    "Electrician"
+  ]
 }

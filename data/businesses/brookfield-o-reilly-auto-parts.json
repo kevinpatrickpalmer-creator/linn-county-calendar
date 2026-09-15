@@ -9,5 +9,17 @@
   "address": "200 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7548",
   "website": "https://locations.oreillyauto.com/en-us/mo/brookfield/autoparts-217.html",
-  "place_id": "ChIJMbvMdNyHwocRreWEUI1MJBQ"
+  "place_id": "ChIJMbvMdNyHwocRreWEUI1MJBQ",
+  "keywords": [
+    "Auto parts store",
+    "Auto body parts supplier",
+    "Car battery store",
+    "Car repair and maintenance service",
+    "Car stereo store",
+    "Motorcycle parts store",
+    "Trailer supply store",
+    "Truck accessories store",
+    "helpfulness",
+    "tools"
+  ]
 }

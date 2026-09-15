@@ -9,5 +9,17 @@
   "place_id": "ChIJxShyjgqIwocRl4gF0fiiMgY",
   "rating": 4.5,
   "reviews": 90,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=A0yQV4HZ-SUxNEzMkzpkGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=356.3385&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=A0yQV4HZ-SUxNEzMkzpkGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=356.3385&pitch=0&thumbfov=100",
+  "keywords": [
+    "Social services organization",
+    "thrift shop",
+    "bag sale",
+    "deals",
+    "staff",
+    "store",
+    "clothes",
+    "sale",
+    "bag",
+    "people"
+  ]
 }

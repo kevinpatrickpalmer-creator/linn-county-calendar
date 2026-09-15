@@ -9,5 +9,20 @@
   "address": "612 1st St, Chillicothe, MO 64601",
   "phone": "+1 660-707-0712",
   "website": "http://blackwaterrestaurantmo.com/",
-  "place_id": "ChIJl0a48LkPwocRyhvXuRXzcak"
+  "place_id": "ChIJl0a48LkPwocRyhvXuRXzcak",
+  "keywords": [
+    "Restaurant",
+    "Lounge bar",
+    "Steak house",
+    "prime rib",
+    "steaks",
+    "onion rings",
+    "tenderloin",
+    "catfish",
+    "french dip",
+    "sweet potato fries",
+    "patio",
+    "baked potato",
+    "chicken fried chicken"
+  ]
 }

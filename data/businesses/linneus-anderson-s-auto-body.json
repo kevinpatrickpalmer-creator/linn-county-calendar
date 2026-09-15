@@ -9,5 +9,8 @@
   "place_id": "ChIJa_eLYa95wocRdAMA_dnj15o",
   "rating": 5.0,
   "reviews": 4,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pbPmiQnrL7O7LhafGfKWVw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=94.88273&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pbPmiQnrL7O7LhafGfKWVw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=94.88273&pitch=0&thumbfov=100",
+  "keywords": [
+    "Auto body shop"
+  ]
 }

@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=0u7clXbYDjem3daOCxM8Xg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=339.70502&pitch=0&thumbfov=100",
   "address": "1 Center Dr Suite 2, Brookfield, MO 64628",
   "phone": "+1 660-258-7810",
-  "place_id": "ChIJmyoD83WIwocRosizXZNmZh0"
+  "place_id": "ChIJmyoD83WIwocRosizXZNmZh0",
+  "keywords": [
+    "Doctor"
+  ]
 }

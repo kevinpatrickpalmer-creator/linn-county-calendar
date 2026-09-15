@@ -5,5 +5,8 @@
   "source": "google_maps",
   "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlJWdN2DWC-JMv_4JGjN3h9Aa4HSUFDlRc4kZmf3wKjO5Os4hGzwoft4nK3gM7GmErn9DHZvFMzj7PzB3g20SDyNjeyu6eAd94cB9vIcBaeTEOT966mtvPAdTjOCAVh1IOz8UsSSoecnAFI=w800-h500-k-no",
   "address": "158 E California Ave, Marceline, MO 64658",
-  "place_id": "ChIJjSohLQCPwocRS0dfC2l_2Oo"
+  "place_id": "ChIJjSohLQCPwocRS0dfC2l_2Oo",
+  "keywords": [
+    "Historical landmark"
+  ]
 }

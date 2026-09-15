@@ -5,5 +5,8 @@
   "source": "google_maps",
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=h_A5HH9DJb_UqIA6wfOckg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=179.46503&pitch=0&thumbfov=100",
   "address": "QX6H+Q3, Brookfield, MO 64628",
-  "place_id": "ChIJJ2l2bACJwocRiuAjiXV0Ol0"
+  "place_id": "ChIJJ2l2bACJwocRiuAjiXV0Ol0",
+  "keywords": [
+    "Construction company"
+  ]
 }

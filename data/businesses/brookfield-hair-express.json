@@ -8,5 +8,13 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=D_SWkMXumFJAartqu3e4qA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=74.56271&pitch=0&thumbfov=100",
   "address": "114 N Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7500",
-  "place_id": "ChIJa6T7H8OHwocRAWMHHQY_b3c"
+  "place_id": "ChIJa6T7H8OHwocRAWMHHQY_b3c",
+  "keywords": [
+    "Hair salon",
+    "welcoming staff",
+    "cuts",
+    "atmosphere",
+    "hair styling",
+    "tanning"
+  ]
 }

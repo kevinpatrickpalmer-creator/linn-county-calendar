@@ -9,5 +9,8 @@
   "address": "606 Oak St, Bucklin, MO 64631",
   "phone": "+1 660-695-3221",
   "website": "http://www.bucklinmo.gov/",
-  "place_id": "ChIJJSN0QHiawocR0lpa99-pNDQ"
+  "place_id": "ChIJJSN0QHiawocR0lpa99-pNDQ",
+  "keywords": [
+    "City Hall"
+  ]
 }

@@ -9,5 +9,10 @@
   "place_id": "ChIJC5_9bU4FwocRepu4UQQsdB0",
   "rating": 4.9,
   "reviews": 9,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=DpPeh-FwLo7WJYZ8EOcY9Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=236.24538&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=DpPeh-FwLo7WJYZ8EOcY9Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=236.24538&pitch=0&thumbfov=100",
+  "keywords": [
+    "Tree service",
+    "Landscaper",
+    "cleanup"
+  ]
 }

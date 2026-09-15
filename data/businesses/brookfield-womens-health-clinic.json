@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=YmU9GVeSnqoUrEouCgofhA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=161.8341&pitch=0&thumbfov=100",
   "address": "105 W John St, Brookfield, MO 64628",
   "website": "https://weence.com/medical/doctors/brookfield-3/womens-health-clinic/",
-  "place_id": "ChIJvxCZ-8KHwocRSIz2enGNV5s"
+  "place_id": "ChIJvxCZ-8KHwocRSIz2enGNV5s",
+  "keywords": [
+    "Women's health clinic"
+  ]
 }

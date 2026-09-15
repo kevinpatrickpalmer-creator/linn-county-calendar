@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "126 N Pershing Dr, Brookfield, MO 64628",
   "phone": "+1 660-258-7335",
-  "place_id": "ChIJGUaK8Vd9wocRmw2-Wz8_eHk"
+  "place_id": "ChIJGUaK8Vd9wocRmw2-Wz8_eHk",
+  "keywords": [
+    "Middle school"
+  ]
 }

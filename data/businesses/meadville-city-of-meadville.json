@@ -9,5 +9,8 @@
   "address": "310 Macon St, Meadville, MO 64659",
   "phone": "+1 660-938-4999",
   "website": "http://www.meadvillemo.com/",
-  "place_id": "ChIJSSzb0tNxwocRFoVHJnowknc"
+  "place_id": "ChIJSSzb0tNxwocRFoVHJnowknc",
+  "keywords": [
+    "City Hall"
+  ]
 }

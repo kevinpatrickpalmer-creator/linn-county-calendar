@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=UUj6NhnPc0UL-yDoLn2PPg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=219.38208&pitch=0&thumbfov=100",
   "address": "205 McCormick St, Chillicothe, MO 64601",
   "phone": "+1 660-646-6355",
-  "place_id": "ChIJzVbmdMwPwocRO_R8qD4gitc"
+  "place_id": "ChIJzVbmdMwPwocRO_R8qD4gitc",
+  "keywords": [
+    "Sandblasting service"
+  ]
 }

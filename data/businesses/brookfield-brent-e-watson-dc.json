@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=uncqfhYvu6-ER5y6SMs0kA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=318.26764&pitch=0&thumbfov=100",
   "address": "616 W Lockling Ave, Brookfield, MO 64628",
   "phone": "+1 660-258-4646",
-  "place_id": "ChIJveEOYBuJwocRlp6EJtPqwl0"
+  "place_id": "ChIJveEOYBuJwocRlp6EJtPqwl0",
+  "keywords": [
+    "Chiropractor"
+  ]
 }

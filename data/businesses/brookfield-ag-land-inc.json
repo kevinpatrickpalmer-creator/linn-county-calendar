@@ -9,5 +9,9 @@
   "place_id": "ChIJ_QXOf9uHwocRy10qP2kLpDk",
   "rating": 5.0,
   "reviews": 9,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=So4xfIyEUjyzj8hmCYNwtQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=167.57048&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=So4xfIyEUjyzj8hmCYNwtQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=167.57048&pitch=0&thumbfov=100",
+  "keywords": [
+    "Fertilizer supplier",
+    "business"
+  ]
 }

@@ -8,5 +8,10 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Abor_tYGtsusuldtt-6gDA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=178.58606&pitch=0&thumbfov=100",
   "address": "700 Vernon St, Laclede, MO 64651",
   "phone": "+1 660-963-2217",
-  "place_id": "ChIJKWthK7t8wocR5kgMSMZZQI4"
+  "place_id": "ChIJKWthK7t8wocR5kgMSMZZQI4",
+  "keywords": [
+    "Upholstery shop",
+    "Cleaners",
+    "work"
+  ]
 }

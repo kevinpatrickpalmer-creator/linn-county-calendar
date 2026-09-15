@@ -84,6 +84,25 @@
     display: block;
   }
   .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
+  .biz-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    align-self: flex-start;
+    background: var(--surface-alt, rgba(0,0,0,.05));
+    border: 1px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .15rem .6rem .15rem .45rem;
+    font-size: .74rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.6;
+  }
+  .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
+  @media (prefers-color-scheme: dark) {
+    .biz-tag { background: rgba(255,255,255,.06); }
+  }
   .biz-rating { display: flex; align-items: center; gap: .35rem; font-size: .82rem; color: var(--ink-soft); }
   .biz-rating .stars { color: var(--primary); font-weight: 700; }
   .biz-town { font-size: .8rem; color: var(--ink-soft); }
@@ -221,6 +240,53 @@
     "Arts, Recreation & Entertainment": ["museum", "park", "recreation", "arts", "entertainment"],
   };
 
+  // One emoji per category -- the "color coded tag" next to a listing's
+  // name. Doesn't need to be memorized like a legend would: the category
+  // name is always printed right next to it, the emoji's just a fast
+  // visual anchor and a click target.
+  const CATEGORY_EMOJI = {
+    "Restaurant & Food": "🍽️",
+    "Retail & Shopping": "🛍️",
+    "Antiques, Thrift & Secondhand": "🕰️",
+    "Lumber & Hardware": "🪚",
+    "Automotive": "🚗",
+    "Gas Stations & Convenience Stores": "⛽",
+    "Home & Trade Services": "🛠️",
+    "Plumbing": "🚰",
+    "Electrical": "⚡",
+    "HVAC & Cooling": "❄️",
+    "Roofing": "🏠",
+    "Tree Service": "🌳",
+    "Lawn Care & Landscaping": "🌱",
+    "Pest Control": "🐜",
+    "Handyman": "🧰",
+    "General Contractor": "🏗️",
+    "Painting": "🎨",
+    "Locksmith": "🔑",
+    "Appliance Repair": "🔌",
+    "Fencing": "🚧",
+    "Garage Door Service": "🚪",
+    "Septic, Well & Excavation": "⛏️",
+    "Movers & Storage": "🚚",
+    "Medical & Healthcare": "🏥",
+    "Health & Wellness": "🧘",
+    "Salons & Personal Care": "💇",
+    "Veterinary & Pet Services": "🐾",
+    "Professional & Financial Services": "💼",
+    "Banks & Credit Unions": "🏦",
+    "Real Estate & Insurance": "🏡",
+    "Lodging & Hospitality": "🏨",
+    "Farm & Agriculture": "🚜",
+    "Nonprofit & Civic Organization": "🤝",
+    "Church & Religious Organization": "⛪",
+    "Government & Public Services": "🏛️",
+    "Funeral Homes & Cemeteries": "🕊️",
+    "Auctions & Estate Sales": "🔨",
+    "Education & Childcare": "📚",
+    "Arts, Recreation & Entertainment": "🎭",
+    "Other": "📍",
+  };
+
   // Filler words stripped out of a typed-out question ("where can I find
   // a good plumber near me") so what's left ("plumber") is what actually
   // has to match -- without this, a business would need "where", "can",
@@ -264,7 +330,11 @@
   // surfaces something instead of a dead end.
   function matchesSearch(b, tokens, matchAny) {
     if (!tokens.length) return true;
-    const haystack = `${b.name} ${b.description || ""} ${b.category || ""} ${listingTowns(b).join(" ")}`.toLowerCase();
+    // "keywords" comes from Google's own data (subtypes + what reviewers
+    // actually mention) -- see data/businesses/README.md. It's what lets
+    // a search for "clothing" surface a farm store that also carries
+    // Carhartt, even though its category stays "Farm & Agriculture".
+    const haystack = `${b.name} ${b.description || ""} ${b.category || ""} ${(b.keywords || []).join(" ")} ${listingTowns(b).join(" ")}`.toLowerCase();
     const synonyms = CATEGORY_SYNONYMS[b.category] || [];
     const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
     return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
@@ -330,6 +400,26 @@
       updateBtnLabel();
       onChange();
     });
+
+    // Exposed so a tag badge on a card can jump straight to "only this
+    // category" without duplicating the button-label logic above.
+    return { updateLabel: updateBtnLabel };
+  }
+
+  let categoryFilterControls = null;
+
+  // Clicking a category tag badge on a card narrows the whole page down
+  // to that one category, same as picking it from the Category dropdown
+  // -- this *is* that dropdown's selection, just a second way to set it.
+  function filterToCategory(category) {
+    selectedCategories.clear();
+    selectedCategories.add(category);
+    document.querySelectorAll("#categoryCheckList input[type=checkbox]").forEach((cb) => {
+      cb.checked = cb.value === category;
+    });
+    if (categoryFilterControls) categoryFilterControls.updateLabel();
+    render();
+    document.querySelector(".dir-controls").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   document.addEventListener("click", (e) => {
@@ -340,9 +430,11 @@
     });
   });
 
-  // One business -> one card. No category badge on the card itself --
-  // render() groups cards under a category heading instead, so repeating
-  // the same word on every card under it would just be noise.
+  // One business -> one card. render() also groups cards under a
+  // category heading, but the tag badge here is still worth showing per
+  // card -- it's the clickable jump-to-this-category control, and a
+  // heading above a whole grid of cards isn't a click target the way a
+  // badge on the card itself is.
   function buildCard(b) {
     const card = document.createElement("div");
     card.className = "biz-card";
@@ -363,6 +455,15 @@
     name.className = "biz-name";
     name.textContent = b.name;
     card.appendChild(name);
+
+    const cat = b.category || "Other";
+    const tag = document.createElement("button");
+    tag.type = "button";
+    tag.className = "biz-tag";
+    tag.title = `Show every listing tagged ${cat}`;
+    tag.innerHTML = `<span aria-hidden="true">${CATEGORY_EMOJI[cat] || "📍"}</span> ${cat}`;
+    tag.addEventListener("click", () => filterToCategory(cat));
+    card.appendChild(tag);
 
     if (b.rating || b.reviews) {
       const rating = document.createElement("div");
@@ -527,7 +628,7 @@
     document.title = `Business & Organization Directory | ${config.county_display_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
-    setupMultiSelectFilter({
+    categoryFilterControls = setupMultiSelectFilter({
       btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
       options: config.business_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
     });

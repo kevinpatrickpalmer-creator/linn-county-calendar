@@ -6,5 +6,8 @@
   "address": "Abbey Dr, Wheeling, MO 64688",
   "place_id": "ChIJWUfxyYJ1wocR5C7KyHIeAV4",
   "rating": 5.0,
-  "reviews": 2
+  "reviews": 2,
+  "keywords": [
+    "Church"
+  ]
 }

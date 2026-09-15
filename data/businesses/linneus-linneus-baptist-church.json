@@ -8,5 +8,8 @@
   "place_id": "ChIJx_8w8TZ5wocRkGm0uCLXCvc",
   "rating": 5.0,
   "reviews": 2,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=YyMNnsZGfAsUf0k6zAtqFA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=31.698656&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=YyMNnsZGfAsUf0k6zAtqFA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=31.698656&pitch=0&thumbfov=100",
+  "keywords": [
+    "Baptist church"
+  ]
 }

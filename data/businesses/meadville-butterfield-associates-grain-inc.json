@@ -9,5 +9,8 @@
   "address": "105 W John St, Meadville, MO 64659",
   "phone": "+1 660-938-4116",
   "website": "http://www.butterfieldgrain.com/",
-  "place_id": "ChIJNbLPdcxxwocRNKry3nA1Q2Y"
+  "place_id": "ChIJNbLPdcxxwocRNKry3nA1Q2Y",
+  "keywords": [
+    "Grain elevator"
+  ]
 }

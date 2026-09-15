@@ -7,5 +7,8 @@
   "rating": 4.4,
   "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmkGcbJHavFYLNtZtAQhf0EilZdZ1ztVuwP2bIAtMLqB6_5plYmplORp478_mo_gLIug08EaNLiPv6nuKw7JW97fRXuEB-YvRwqdazToICjftb3FidvdxSdGmY0RUvzc7v1R1qZ=w800-h500-k-no",
   "address": "202 E 4th St, Bucklin, MO 64631",
-  "place_id": "ChIJORhJlnCawocRemjRPmbbP7c"
+  "place_id": "ChIJORhJlnCawocRemjRPmbbP7c",
+  "keywords": [
+    "Park"
+  ]
 }

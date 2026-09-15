@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=yOl9xOwpHBOQ_JHSSh5HcQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=1.1228384&pitch=0&thumbfov=100",
   "address": "400 W Broadway St, Marceline, MO 64658",
   "phone": "+1 660-376-2225",
-  "place_id": "ChIJl1gQOS6OwocRK7ZKGFx6RyY"
+  "place_id": "ChIJl1gQOS6OwocRK7ZKGFx6RyY",
+  "keywords": [
+    "Mechanical contractor"
+  ]
 }

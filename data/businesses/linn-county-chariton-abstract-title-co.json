@@ -8,5 +8,9 @@
   "place_id": "ChIJATplXkvlwocR2zxyA6pRfy0",
   "rating": 4.8,
   "reviews": 10,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Wda5zZxpLo7IWyFyxBqKzQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=256.91202&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Wda5zZxpLo7IWyFyxBqKzQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=256.91202&pitch=0&thumbfov=100",
+  "keywords": [
+    "Title company",
+    "helpful staff"
+  ]
 }

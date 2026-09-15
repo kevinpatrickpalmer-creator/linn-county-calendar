@@ -7,5 +7,9 @@
   "rating": 3.5,
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=AtXIMO19nDhDu12zpn7yyw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=58.87224&pitch=0&thumbfov=100",
   "address": "Brookfield, MO 64628",
-  "place_id": "ChIJ73Nmd9yHwocR5f85O_VrmoI"
+  "place_id": "ChIJ73Nmd9yHwocR5f85O_VrmoI",
+  "keywords": [
+    "Beauty salon",
+    "cleanliness"
+  ]
 }

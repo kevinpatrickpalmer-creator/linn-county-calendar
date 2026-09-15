@@ -7,5 +7,8 @@
   "rating": 5.0,
   "address": "18112 Enon Rd, Laclede, MO 64651",
   "phone": "+1 660-375-1656",
-  "place_id": "ChIJvy2jriJ7wocRr6Wk9bQgZpY"
+  "place_id": "ChIJvy2jriJ7wocRr6Wk9bQgZpY",
+  "keywords": [
+    "Saw mill"
+  ]
 }

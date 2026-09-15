@@ -9,5 +9,8 @@
   "place_id": "ChIJuxN_RXeHwocRnqyyui4mIxc",
   "rating": 5.0,
   "reviews": 1,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KOy4wIyD3jUi-Ey6gJMNDg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=64.72379&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KOy4wIyD3jUi-Ey6gJMNDg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=64.72379&pitch=0&thumbfov=100",
+  "keywords": [
+    "Heating contractor"
+  ]
 }

@@ -7,5 +7,10 @@
   "rating": 4.7,
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=W_U7ev1LpxmamDBHy1I24A&cb_client=search.gws-prod.gps&w=800&h=500&yaw=214.58215&pitch=0&thumbfov=100",
   "address": "V39F+M7, Bucklin, MO 64631",
-  "place_id": "ChIJ-61jd3SdwocRTi4tY_XcTXE"
+  "place_id": "ChIJ-61jd3SdwocRTi4tY_XcTXE",
+  "keywords": [
+    "Home goods store",
+    "outdoor furniture",
+    "greenhouse"
+  ]
 }

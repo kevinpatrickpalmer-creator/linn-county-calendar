@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=CB45EQbzcvUXSmR60WFSSg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=140.76883&pitch=0&thumbfov=100",
   "address": "801 Pershing Dr, Laclede, MO 64651",
   "phone": "+1 660-963-2215",
-  "place_id": "ChIJN_-AZ6V8wocRDo4HEXEnulY"
+  "place_id": "ChIJN_-AZ6V8wocRDo4HEXEnulY",
+  "keywords": [
+    "City government office"
+  ]
 }

@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=vl6ZyP3b0NB0UT7MRBLlxQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=58.3749&pitch=0&thumbfov=100",
   "address": "214 W Helm St, Brookfield, MO 64628",
   "phone": "+1 660-258-7545",
-  "place_id": "ChIJf7TiU9yHwocRllznKge1I0g"
+  "place_id": "ChIJf7TiU9yHwocRllznKge1I0g",
+  "keywords": [
+    "Ready mix concrete supplier"
+  ]
 }

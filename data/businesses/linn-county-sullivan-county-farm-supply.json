@@ -8,5 +8,11 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=MgE7A-Vnbqht4E2KL9UxFA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=140.5995&pitch=0&thumbfov=100",
   "address": "1122 S Pearl St, Milan, MO 63556",
   "phone": "+1 660-265-4911",
-  "place_id": "ChIJXQPTDmfL6YcRo9F7BB1TNzM"
+  "place_id": "ChIJXQPTDmfL6YcRo9F7BB1TNzM",
+  "keywords": [
+    "Ranch",
+    "Store",
+    "product availability",
+    "polite staff"
+  ]
 }

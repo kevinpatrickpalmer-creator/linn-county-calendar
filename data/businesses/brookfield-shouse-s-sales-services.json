@@ -5,5 +5,8 @@
   "source": "google_maps",
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1XPoE5ep8jD88TAp6q4O5Q&cb_client=search.gws-prod.gps&w=800&h=500&yaw=184.85707&pitch=0&thumbfov=100",
   "address": "110 W Helm St, Brookfield, MO 64628",
-  "place_id": "ChIJdcaTCeSHwocRQVt2TR2TZiw"
+  "place_id": "ChIJdcaTCeSHwocRQVt2TR2TZiw",
+  "keywords": [
+    "General contractor"
+  ]
 }

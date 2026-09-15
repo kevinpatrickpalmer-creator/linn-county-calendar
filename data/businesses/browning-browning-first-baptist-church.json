@@ -8,5 +8,8 @@
   "phone": "+1 660-946-4373",
   "place_id": "ChIJ9Y4LLO_T6YcR7aSTjMFz84U",
   "rating": 5.0,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ShyiLImzzTiNwPSvcdKQpg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=37.98583&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ShyiLImzzTiNwPSvcdKQpg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=37.98583&pitch=0&thumbfov=100",
+  "keywords": [
+    "Baptist church"
+  ]
 }

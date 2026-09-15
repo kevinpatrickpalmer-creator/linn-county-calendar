@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=xQu5fuD2BZVJeK62eaIoWA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=152.09901&pitch=0&thumbfov=100",
   "address": "MO-139, Sumner, MO 64681",
   "phone": "+1 660-856-3616",
-  "place_id": "ChIJly6dDzRmwocRYzf9_6G0utw"
+  "place_id": "ChIJly6dDzRmwocRYzf9_6G0utw",
+  "keywords": [
+    "Convenience store",
+    "Grocery store"
+  ]
 }

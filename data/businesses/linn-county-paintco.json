@@ -8,5 +8,8 @@
   "place_id": "ChIJ3cKEx7wPwocRP0DyeDOUDNc",
   "rating": 5.0,
   "reviews": 1,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=41ksYgKwYgHyjgnWyfZQpg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=9.842436&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=41ksYgKwYgHyjgnWyfZQpg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=9.842436&pitch=0&thumbfov=100",
+  "keywords": [
+    "Painter"
+  ]
 }

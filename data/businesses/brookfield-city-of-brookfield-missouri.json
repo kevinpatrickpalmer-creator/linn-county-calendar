@@ -9,5 +9,8 @@
   "address": "116 W Brooks St, Brookfield, MO 64628",
   "phone": "+1 660-258-3377",
   "website": "https://brookfieldcity.com/",
-  "place_id": "ChIJWSzlEL6HwocR333ljjz3FOU"
+  "place_id": "ChIJWSzlEL6HwocR333ljjz3FOU",
+  "keywords": [
+    "City government office"
+  ]
 }

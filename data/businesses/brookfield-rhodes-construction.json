@@ -5,5 +5,8 @@
   "source": "google_maps",
   "address": "144 Clawson Dr, Brookfield, MO 64628",
   "phone": "+1 660-258-7323",
-  "place_id": "ChIJY4ZG_fiHwocRUkmpKy4Gavc"
+  "place_id": "ChIJY4ZG_fiHwocRUkmpKy4Gavc",
+  "keywords": [
+    "General contractor"
+  ]
 }

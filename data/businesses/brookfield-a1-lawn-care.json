@@ -9,5 +9,8 @@
   "place_id": "ChIJJzS3Lkp9wocR3qAlXwCPLxw",
   "rating": 4.0,
   "reviews": 4,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=F574Zs1Y6kFnCaQMjT4k4A&cb_client=search.gws-prod.gps&w=800&h=500&yaw=216.2426&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=F574Zs1Y6kFnCaQMjT4k4A&cb_client=search.gws-prod.gps&w=800&h=500&yaw=216.2426&pitch=0&thumbfov=100",
+  "keywords": [
+    "Landscaper"
+  ]
 }

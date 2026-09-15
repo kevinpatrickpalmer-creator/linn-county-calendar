@@ -8,5 +8,8 @@
   "place_id": "ChIJvRV2UMOHwocRSo8FeElhWjI",
   "rating": 5.0,
   "reviews": 4,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=mRnwJVSYjR5-s6QLPmCuBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.5228&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=mRnwJVSYjR5-s6QLPmCuBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=335.5228&pitch=0&thumbfov=100",
+  "keywords": [
+    "Accountant"
+  ]
 }

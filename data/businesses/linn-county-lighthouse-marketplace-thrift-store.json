@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=8CNT4_huZMC73aaCLj9s5w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=91.05091&pitch=0&thumbfov=100",
   "address": "707 Locust St, Chillicothe, MO 64601",
   "phone": "+1 314-495-2292",
-  "place_id": "ChIJ8T599jcPwocRm_DvWY6JMNU"
+  "place_id": "ChIJ8T599jcPwocRm_DvWY6JMNU",
+  "keywords": [
+    "Thrift store"
+  ]
 }

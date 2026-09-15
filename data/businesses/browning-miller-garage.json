@@ -8,5 +8,8 @@
   "place_id": "ChIJYYAGrO7T6YcR_hmPPd_WNs0",
   "rating": 5.0,
   "reviews": 10,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=xooiwPdm22RwRBB4rNkOGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=41.894936&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=xooiwPdm22RwRBB4rNkOGw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=41.894936&pitch=0&thumbfov=100",
+  "keywords": [
+    "Auto repair shop"
+  ]
 }

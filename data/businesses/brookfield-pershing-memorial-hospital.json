@@ -9,5 +9,21 @@
   "place_id": "ChIJ5_IDJHiIwocRZQNjka1R5wc",
   "rating": 2.3,
   "reviews": 40,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=vFQnWO10qM5wyhnKYWBeBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=132.96082&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=vFQnWO10qM5wyhnKYWBeBg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=132.96082&pitch=0&thumbfov=100",
+  "keywords": [
+    "General hospital",
+    "Doctor",
+    "Home health care service",
+    "Hospital",
+    "emergency department",
+    "wait time",
+    "pain meds",
+    "kind staff",
+    "professional staff",
+    "nurses",
+    "clinic",
+    "heart",
+    "warrant",
+    "doctors"
+  ]
 }

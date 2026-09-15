@@ -6,5 +6,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=HZ0nsT65Ub6TfaYI8J3vaw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=3.2448056&pitch=0&thumbfov=100",
   "address": "115 E California Ave, Marceline, MO 64658",
   "phone": "+1 660-695-4416",
-  "place_id": "ChIJ1QyEegCPwocR8D3I-OlhVog"
+  "place_id": "ChIJ1QyEegCPwocR8D3I-OlhVog",
+  "keywords": [
+    "Storage facility"
+  ]
 }

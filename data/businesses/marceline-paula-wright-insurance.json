@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=BJGQ_OB-u55ER6r3yh7AnA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=304.50266&pitch=0&thumbfov=100",
   "address": "104 S Main Street USA, Marceline, MO 64658",
   "phone": "+1 660-376-2032",
-  "place_id": "ChIJNQqU8haOwocRxXqaHgVqlBw"
+  "place_id": "ChIJNQqU8haOwocRxXqaHgVqlBw",
+  "keywords": [
+    "Insurance agency"
+  ]
 }

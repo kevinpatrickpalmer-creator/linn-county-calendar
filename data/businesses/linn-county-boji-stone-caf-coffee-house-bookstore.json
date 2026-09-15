@@ -9,5 +9,12 @@
   "address": "612 Washington St, Chillicothe, MO 64601",
   "phone": "+1 660-646-9939",
   "website": "http://www.bojistonecafe.com/",
-  "place_id": "ChIJ7Swg16QPwocR7lN9PprnGKA"
+  "place_id": "ChIJ7Swg16QPwocR7lN9PprnGKA",
+  "keywords": [
+    "American restaurant",
+    "Book store",
+    "Cafe",
+    "Coffee shop",
+    "Gift shop"
+  ]
 }

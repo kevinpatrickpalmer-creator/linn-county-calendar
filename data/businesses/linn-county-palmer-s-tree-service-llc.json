@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=6dLTviqdhyPeeSGSrZC-Rg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=109.80261&pitch=0&thumbfov=100",
   "address": "213 Cowgill St, Chillicothe, MO 64601",
   "phone": "+1 660-329-0542",
-  "place_id": "ChIJ5eKNML8PwocR4eJpaLi1CzI"
+  "place_id": "ChIJ5eKNML8PwocR4eJpaLi1CzI",
+  "keywords": [
+    "Tree service",
+    "Arborist service"
+  ]
 }

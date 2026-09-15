@@ -9,5 +9,9 @@
   "address": "420 N Pearl St, Milan, MO 63556",
   "phone": "+1 660-265-4034",
   "website": "http://www.putnamcountystatebank.com/",
-  "place_id": "ChIJPStXGUDL6YcRQVoalOudooo"
+  "place_id": "ChIJPStXGUDL6YcRQVoalOudooo",
+  "keywords": [
+    "Bank",
+    "ATM"
+  ]
 }

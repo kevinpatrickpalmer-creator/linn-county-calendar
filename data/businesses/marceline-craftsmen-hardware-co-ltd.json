@@ -9,5 +9,10 @@
   "address": "401 E Scott St, Marceline, MO 64658",
   "phone": "+1 660-376-2481",
   "website": "http://www.craftsmenhardware.com/",
-  "place_id": "ChIJA5t5dQyOwocRNAbUcuwg2Vo"
+  "place_id": "ChIJA5t5dQyOwocRNAbUcuwg2Vo",
+  "keywords": [
+    "Manufacturer",
+    "Craft store",
+    "Hardware store"
+  ]
 }

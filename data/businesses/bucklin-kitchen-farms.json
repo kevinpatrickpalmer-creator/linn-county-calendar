@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=kpqhdD0Q4risYWcLT3WNPQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=88.14585&pitch=0&thumbfov=100",
   "address": "511 Livingston St, Bucklin, MO 64631",
   "phone": "+1 660-695-3684",
-  "place_id": "ChIJ_ffxQYaQwocR6XyFEdIH3zc"
+  "place_id": "ChIJ_ffxQYaQwocR6XyFEdIH3zc",
+  "keywords": [
+    "Farm"
+  ]
 }

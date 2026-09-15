@@ -8,5 +8,9 @@
   "place_id": "ChIJGwSdxa4PwocRd5enM072_qs",
   "rating": 4.0,
   "reviews": 4,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=CpMFnKEAmJivKBniIf0Sww&cb_client=search.gws-prod.gps&w=800&h=500&yaw=177.8248&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=CpMFnKEAmJivKBniIf0Sww&cb_client=search.gws-prod.gps&w=800&h=500&yaw=177.8248&pitch=0&thumbfov=100",
+  "keywords": [
+    "Small appliance repair service",
+    "Small engine repair service"
+  ]
 }

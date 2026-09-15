@@ -8,5 +8,9 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=zWRNaCju3X6skBAtvqYr7g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=96.19493&pitch=0&thumbfov=100",
   "address": "1600 N Missouri Ave, Marceline, MO 64658",
   "phone": "+1 660-376-8000",
-  "place_id": "ChIJ6eliOy-OwocRtCRCCShQZxI"
+  "place_id": "ChIJ6eliOy-OwocRtCRCCShQZxI",
+  "keywords": [
+    "Dental clinic",
+    "Family practice physician"
+  ]
 }

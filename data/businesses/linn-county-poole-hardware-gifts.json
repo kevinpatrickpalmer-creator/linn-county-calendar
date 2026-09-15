@@ -8,5 +8,11 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=hol2wm8VdLQ4EHqUeJWsMg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=269.23425&pitch=0&thumbfov=100",
   "address": "105 N Market St, Milan, MO 63556",
   "phone": "+1 660-265-3161",
-  "place_id": "ChIJIXqws23L6YcRkPBXscQbI18"
+  "place_id": "ChIJIXqws23L6YcRkPBXscQbI18",
+  "keywords": [
+    "Hardware store",
+    "helpful staff",
+    "product selection",
+    "variety of products"
+  ]
 }

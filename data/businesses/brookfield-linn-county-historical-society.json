@@ -8,5 +8,9 @@
   "place_id": "ChIJxT9Px8KHwocRjpYKiUN4jtU",
   "rating": 4.0,
   "reviews": 5,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=3ttN04fwcMWnVEefwvqGTg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=179.14598&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=3ttN04fwcMWnVEefwvqGTg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=179.14598&pitch=0&thumbfov=100",
+  "keywords": [
+    "Historical society",
+    "Art gallery"
+  ]
 }

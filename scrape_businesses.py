@@ -271,6 +271,39 @@ def build_listing(result, category, config):
     if place_id:
         listing["place_id"] = str(place_id)
 
+    # Google's own blurb for the business, when it has one (chains tend
+    # to; small independent listings often don't) -- shown on the site
+    # the same as a manually-submitted description.
+    description = (_get(result, "description") or "").strip()
+    if description:
+        listing["description"] = description
+
+    # Search-only, never shown on the card: Google's own "subtypes" (a
+    # comma-separated list -- a business can be tagged more than one way
+    # on Google even though it only gets one category here, e.g. Tractor
+    # Supply Co is "Animal feed store, Farm shop, ... Hardware store,
+    # ... Pet store") plus "reviews_tags" (words Google surfaces because
+    # reviewers actually used them, e.g. "farm supplies", "workwear").
+    # This is what lets a search for "clothing" surface a farm store that
+    # also carries Carhartt, without needing a second visible category.
+    keywords = []
+    subtypes = result.get("subtypes")
+    if isinstance(subtypes, str):
+        keywords.extend(s.strip() for s in subtypes.split(",") if s.strip())
+    reviews_tags = result.get("reviews_tags")
+    if isinstance(reviews_tags, list):
+        keywords.extend(str(t).strip() for t in reviews_tags if str(t).strip())
+    if keywords:
+        # Dedupe case-insensitively, keep first-seen casing.
+        seen = set()
+        deduped = []
+        for kw in keywords:
+            key = kw.lower()
+            if key not in seen:
+                seen.add(key)
+                deduped.append(kw)
+        listing["keywords"] = deduped
+
     return listing
 
 

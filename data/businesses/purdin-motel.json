@@ -4,5 +4,8 @@
   "town": "Purdin",
   "source": "google_maps",
   "address": "27094 Inca Rd, Purdin, MO 64674",
-  "place_id": "ChIJa832SgAr6IcRYdtgddnilTU"
+  "place_id": "ChIJa832SgAr6IcRYdtgddnilTU",
+  "keywords": [
+    "Hotel"
+  ]
 }

@@ -8,5 +8,8 @@
   "phone": "+1 660-258-3949",
   "place_id": "ChIJGaiNkcKHwocRfYnYAqHyqJs",
   "rating": 4.9,
-  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=E7I9AHsX8wvY83qMoVtOLQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=210.58688&pitch=0&thumbfov=100"
+  "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=E7I9AHsX8wvY83qMoVtOLQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=210.58688&pitch=0&thumbfov=100",
+  "keywords": [
+    "Presbyterian church"
+  ]
 }

@@ -8,5 +8,8 @@
   "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=kjq8GjrootHJu_sXw333zg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=333.53375&pitch=0&thumbfov=100",
   "address": "224 S Main St, Brookfield, MO 64628",
   "phone": "+1 660-258-7020",
-  "place_id": "ChIJ-fXddNyHwocRCUfvQ-meHjk"
+  "place_id": "ChIJ-fXddNyHwocRCUfvQ-meHjk",
+  "keywords": [
+    "United Methodist church"
+  ]
 }
