@@ -5,6 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Community Calendar</title>
 <link rel="stylesheet" href="theme.css">
+<style>
+  .qr-callout {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+  }
+  .qr-callout .qr-callout-text { flex: 1; }
+  .qr-callout .qr-box {
+    flex-shrink: 0;
+    display: inline-block;
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    line-height: 0;
+    border: 1px solid var(--surface-border);
+  }
+  .qr-callout .qr-box svg { width: 100px; height: 100px; display: block; }
+  /* Someone already viewing this on a phone can't usefully scan a QR
+     code shown on that same phone -- this is only useful to a visitor
+     on a computer or tablet, so it doesn't take up space for anyone
+     else. Threshold matches a typical phone width, not a tablet's. */
+  @media (max-width: 600px) {
+    .qr-callout { display: none; }
+  }
+</style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="qrcode.js"></script>
 </head>
@@ -20,6 +45,14 @@
   <section>
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
+
+    <div class="callout qr-callout">
+      <div class="qr-callout-text">
+        <strong>On a computer or tablet right now?</strong> Subscribing here only adds the calendar to this device — your phone won't automatically get it too unless your calendars are already synced together. Scan this with your phone's camera to subscribe there as well.
+      </div>
+      <div class="qr-box" id="subscribeQR"></div>
+    </div>
+
     <label for="subscribeTown">Which town?</label>
     <select id="subscribeTown">
       <option value="">Whole county (all towns)</option>
@@ -170,6 +203,17 @@
   qr.addData(`https://${config.domain}/submit.html`);
   qr.make();
   document.getElementById("submitQR").innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
+
+  // Points at this same page rather than a webcal:// link directly --
+  // scanning it just opens this page on the phone, where its own
+  // Subscribe button does the actual subscribing. A raw webcal:// URL
+  // encoded into a QR code doesn't reliably open a calendar app when
+  // scanned (spotty support on Android in particular), where a normal
+  // https:// URL always opens fine in the phone's browser.
+  const subscribeQr = qrcode(0, "M");
+  subscribeQr.addData(`https://${config.domain}/`);
+  subscribeQr.make();
+  document.getElementById("subscribeQR").innerHTML = subscribeQr.createSvgTag({ scalable: true, margin: 2 });
 
   // Shares the friendly landing page, not a raw webcal:// link -- someone
   // clicking a shared link should land somewhere that explains what this is
