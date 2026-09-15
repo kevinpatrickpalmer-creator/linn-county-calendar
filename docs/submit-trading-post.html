@@ -48,23 +48,17 @@
     <label for="availability">When it's available / how to get it (optional)</label>
     <input id="availability" name="availability" type="text" maxlength="150" placeholder="e.g. Call ahead, pickup off Route B. Saturdays at the farmers market.">
 
-    <label for="phone">Phone (optional)</label>
+    <label for="phone">Phone</label>
     <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
 
-    <label for="email">Public email (optional)</label>
+    <label for="email">Email</label>
     <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+    <p class="hint" id="contactHint">At least one is required, so people can reach you and so we can follow up with questions about this listing.</p>
 
     <label for="website">Website or Facebook page (optional)</label>
     <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
 
     <p class="hint">No street address is collected here on purpose -- use the field above to say how folks should reach you or where to pick things up.</p>
-
-    <label for="contact_email">Your contact email</label>
-    <input id="contact_email" name="contact_email" type="email" maxlength="150" placeholder="you@example.com">
-
-    <label for="contact_phone">Your contact phone</label>
-    <input id="contact_phone" name="contact_phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
-    <p class="hint" id="contactHint">At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.</p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
@@ -126,16 +120,16 @@
     statusEl.textContent = "";
     statusEl.className = "";
 
-    const contactEmail = document.getElementById("contact_email").value.trim();
-    const contactPhone = document.getElementById("contact_phone").value.trim();
-    if (!contactEmail && !contactPhone) {
+    const phoneVal = document.getElementById("phone").value.trim();
+    const emailVal = document.getElementById("email").value.trim();
+    if (!phoneVal && !emailVal) {
       contactHint.classList.add("err");
-      contactHint.textContent = "Please provide an email or phone number so we can reach you with questions.";
-      document.getElementById("contact_email").focus();
+      contactHint.textContent = "Please provide a phone number or email.";
+      document.getElementById("phone").focus();
       return;
     }
     contactHint.classList.remove("err");
-    contactHint.textContent = "At least one is required, so we can reach you with questions about this listing. Not shown publicly unless it's the same as the public phone/email above.";
+    contactHint.textContent = "At least one is required, so people can reach you and so we can follow up with questions about this listing.";
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
@@ -161,10 +155,6 @@
       phone,
       email,
       website,
-      // Shown to Kevin while reviewing on admin-trading-post.html, but
-      // never published -- the public phone/email fields above cover that.
-      contact_email: contactEmail,
-      contact_phone: contactPhone,
     });
     const adminLink = `https://${config.domain}/admin-trading-post.html?${adminParams.toString()}`;
 

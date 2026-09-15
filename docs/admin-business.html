@@ -222,16 +222,14 @@
 
     if (filledAny) {
       const prefilledNote = document.getElementById("prefilledNote");
-      // Submitter name/contact are shown here for your own reference
-      // while reviewing (in the query string, and thus in the browser's
-      // address bar), but never included in the fields above -- they
-      // aren't published to the directory unless they match the public
-      // phone/email fields, which the submitter fills in separately.
+      // Submitter name is shown here for your own reference while
+      // reviewing (in the query string, and thus in the browser's
+      // address bar), but never included in the fields above -- it
+      // isn't published to the directory, unlike the phone/email fields
+      // which the submitter fills in as the listing's own public contact.
       const submitterName = params.get("submitter_name");
-      const contactParts = [params.get("contact_email"), params.get("contact_phone")].filter(Boolean);
       let note = "Pre-filled from a submission";
       if (submitterName) note += ` by ${submitterName}`;
-      if (contactParts.length) note += ` (reach them at ${contactParts.join(" | ")})`;
       note += ". Review the fields below, then continue.";
       prefilledNote.textContent = note;
       prefilledNote.classList.remove("hidden");
