@@ -273,10 +273,12 @@ events, just with its own set of files so the two never collide:
   (plumbing, electrical, HVAC, roofing, tree service, lawn care, pest
   control, handyman, general contractor, painting, locksmith, appliance
   repair, fencing, garage door service, septic/well/excavation, movers &
-  storage) plus restaurants, retail, automotive, health & wellness,
-  salons & personal care, veterinary & pet services, professional/
-  financial services, banks & credit unions, real estate & insurance,
-  lodging, farm & agriculture, nonprofits, churches & religious
+  storage) plus restaurants, retail, antiques/thrift/secondhand, lumber &
+  hardware, automotive, gas stations & convenience stores, medical &
+  healthcare, health & wellness, salons & personal care, veterinary & pet
+  services, professional/financial services, banks & credit unions, real
+  estate & insurance, lodging, farm & agriculture, nonprofits, churches &
+  religious
   organizations, government & public services, funeral homes &
   cemeteries, education & childcare, and arts/recreation (keep this list
   in sync with `business_categories` in `config.json`). For every

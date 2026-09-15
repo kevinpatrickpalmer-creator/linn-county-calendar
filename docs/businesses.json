@@ -20,7 +20,7 @@
   {
     "name": "7th Heaven Convenience Store",
     "town": "Brookfield",
-    "category": "Retail & Shopping",
+    "category": "Gas Stations & Convenience Stores",
     "address": "104 W Helm St, Brookfield, MO 64628",
     "phone": "+1 660-258-2220",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk__bOxj6pnw5b2FjU607cP9r0W4abTWafIn_hpQQrBX76ggs33hmlEAEqdIQBabifZy5Y7TyH-kcdjOcYnfuVcJtTyCD1NkHRpKTsNbMsassA_qF-TwwlcXZirbtoUVdyHwsk=w800-h500-k-no",
@@ -90,7 +90,7 @@
   {
     "name": "Ace Hardware",
     "town": "Brookfield",
-    "category": "Fencing",
+    "category": "Lumber & Hardware",
     "address": "542 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-2653",
     "website": "http://www.acehardware.com/store-details/17577%3Futm_source%3Dgoogle%26utm_medium%3Dlocal%26utm_campaign%3Dlocalmaps%26utm_content%3D17577",
@@ -142,7 +142,7 @@
   {
     "name": "Advantage Home Care",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "108 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-2360",
     "website": "https://advantagehomecare.com/locations/missouri-locations/brookfield/",
@@ -328,7 +328,7 @@
   {
     "name": "Bailey Brothers Collision Repair",
     "town": "Brookfield",
-    "category": "Painting",
+    "category": "Automotive",
     "address": "444 Meyers St, Brookfield, MO 64628",
     "phone": "+1 660-258-5005",
     "website": "http://www.baileybrotherscollisionrepair.com/",
@@ -575,7 +575,7 @@
   {
     "name": "Bonnette Clinic",
     "town": "Linn County",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1025 Washington St, Chillicothe, MO 64601",
     "phone": "+1 660-646-1748",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=IQoOUk9uiExV42wz8ZGcHQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=197.96536&pitch=0&thumbfov=100",
@@ -660,7 +660,7 @@
   {
     "name": "Break Time",
     "town": "Brookfield",
-    "category": "Retail & Shopping",
+    "category": "Gas Stations & Convenience Stores",
     "address": "508 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-7738",
     "website": "https://www.mybreaktime.com/",
@@ -671,7 +671,7 @@
   {
     "name": "Brent E. Watson, DC",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "616 W Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-258-4646",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=uncqfhYvu6-ER5y6SMs0kA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=318.26764&pitch=0&thumbfov=100",
@@ -773,7 +773,7 @@
   {
     "name": "Brookfield Health Care Center",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "215 E Pratt St, Brookfield, MO 64628",
     "phone": "+1 660-675-0600",
     "website": "https://www.reliantcaremgmt.com/brookfield-health-care-center",
@@ -821,7 +821,7 @@
   {
     "name": "Brookfield Physical Therapy",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "122 N Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-7892",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=7w6Fgyvv6896JlCzv7-TCA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=105.22099&pitch=0&thumbfov=100",
@@ -860,7 +860,7 @@
   {
     "name": "Brookfield Tractor",
     "town": "Brookfield",
-    "category": "Fencing",
+    "category": "Farm & Agriculture",
     "address": "28955 US-36, Brookfield, MO 64628",
     "phone": "+1 660-258-7228",
     "website": "https://www.brookfieldtractor.com/",
@@ -871,7 +871,7 @@
   {
     "name": "Brookfield Vet Clinic",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Veterinary & Pet Services",
     "address": "26695 MO-11, Brookfield, MO 64628",
     "phone": "+1 660-258-3308",
     "website": "http://brookfieldveterinaryclinic.com/",
@@ -987,7 +987,7 @@
   {
     "name": "Bucklin Lumber Co",
     "town": "Bucklin",
-    "category": "General Contractor",
+    "category": "Lumber & Hardware",
     "address": "30 Oak St, Bucklin, MO 64631",
     "phone": "+1 660-695-4440",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk689dXteC5R0lGpzNaquOuXWzq5nPi-q3DF1gtMSkHEWVQzStIuoFN9EZDenjWDJb87QDCCDdyBxA1gGdsJzS2XtWcepkozD8kpRak6yyEwb35K7sNkKVindOKJGfEJ2viygam8g=w800-h500-k-no",
@@ -1023,7 +1023,7 @@
   {
     "name": "Builders Hardware",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Lumber & Hardware",
     "address": "410 N Pearl St, Milan, MO 63556",
     "phone": "+1 866-218-0603",
     "website": "http://buildershardware.store/",
@@ -1103,7 +1103,7 @@
   {
     "name": "C & W Hardware",
     "town": "Marceline",
-    "category": "Pest Control",
+    "category": "Lumber & Hardware",
     "address": "110 S Main Street USA, Marceline, MO 64658",
     "phone": "+1 660-376-2837",
     "website": "https://www.truevalue.com/c-and-w/%3Futm_source%3Dgbp%26utm_medium%3Dorganic",
@@ -1153,7 +1153,7 @@
       "Brookfield",
       "Marceline"
     ],
-    "category": "Restaurant & Food",
+    "category": "Gas Stations & Convenience Stores",
     "website": "https://www.caseys.com/general-store/mo-brookfield/303-w-lockling/2602%3Futm_medium%3Dorganic%26utm_source%3Dgoogle%26utm_campaign%3DDAC",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmGxXEH-ASi8GzpxGrQwOWYHmGVTj74hOefvmVsLnlLd8bU_7C2BxkjEoROJoYS-cEgS2FwFVNiyWecvfmBcvs6OQ6yPijTTcNEr_y6vVFj-XCLsqbHCYUoDS5_AM6tPI5VCWrF17zLCY09=w800-h500-k-no",
     "rating": 3.9,
@@ -1291,7 +1291,7 @@
   {
     "name": "Christine D. Kornbluth, LCSW",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1 Center Dr Suite 2, Brookfield, MO 64628",
     "phone": "+1 660-258-7810",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=0u7clXbYDjem3daOCxM8Xg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=339.70502&pitch=0&thumbfov=100"
@@ -1403,7 +1403,7 @@
   {
     "name": "Cleaver Dermatology - Brookfield Clinic",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "125 E Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-627-7546",
     "website": "http://www.cleaverderm.com/",
@@ -1462,7 +1462,7 @@
   {
     "name": "Community Medical Associates",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "130 E Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-258-1050",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=WwAvnN-GBhyjdNqGn66dnw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=158.89967&pitch=0&thumbfov=100",
@@ -1483,7 +1483,7 @@
   {
     "name": "Compass Health Network - Family Health Center - Marceline",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1600 N Missouri Ave, Marceline, MO 64658",
     "phone": "+1 844-853-8937",
     "website": "http://www.compasshealthnetwork.org/",
@@ -1494,7 +1494,7 @@
   {
     "name": "Complete Family Medicine- Brookfield/Urgent Care Brookfield",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "624 W Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-268-4006",
     "website": "https://www.cfmcares.com/",
@@ -1545,7 +1545,7 @@
   {
     "name": "Cordray Used Cars",
     "town": "Browning",
-    "category": "Retail & Shopping",
+    "category": "Automotive",
     "address": "205 E Main St, Browning, MO 64630",
     "phone": "+1 660-946-4323",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=2WL7tWQRJHRjtqyxCuwDSQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=296.507&pitch=0&thumbfov=100"
@@ -1574,7 +1574,7 @@
   {
     "name": "Country Corner Craft & Antique Mall",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "508 Washington St, Chillicothe, MO 64601",
     "phone": "+1 660-646-1998",
     "website": "https://www.facebook.com/Country-Corner-Craft-Antique-Mall-148770291829448/",
@@ -1588,7 +1588,7 @@
       "Brookfield",
       "Marceline"
     ],
-    "category": "Retail & Shopping",
+    "category": "Gas Stations & Convenience Stores",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkjILJzDU9sAEQpdDyi21JhTVRrW-hA4H-a3x-OLJkfLloO3VtPf7oiasUh5qLXF3gcbSBGj2yKEUSWdZFXRoPNadUF-TJ7WLMDXhmUEpQzHHm7JUU66l0ZuR-0y4HNRxRDpgc=w800-h500-k-no",
     "rating": 4.6,
     "reviews": 12,
@@ -1608,7 +1608,7 @@
   {
     "name": "Craftsmen Hardware Co., Ltd.",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Lumber & Hardware",
     "address": "401 E Scott St, Marceline, MO 64658",
     "phone": "+1 660-376-2481",
     "website": "http://www.craftsmenhardware.com/",
@@ -1663,7 +1663,7 @@
   {
     "name": "Cupp Chevrolet Inc",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Automotive",
     "address": "301 N Kansas Ave, Marceline, MO 64658",
     "phone": "+1 660-376-3441",
     "website": "http://www.cuppchevrolet.com/",
@@ -1861,7 +1861,7 @@
   {
     "name": "Dr. Betty A. Noll, MD",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "225 Hayden St #200, Marceline, MO 64658",
     "phone": "+1 660-376-2038",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1pROiZe9WpLYC1EFFG6fgg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=188.8633&pitch=0&thumbfov=100"
@@ -1869,7 +1869,7 @@
   {
     "name": "Dr. Brian K. Knowles, DO",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "125 E Lockling Ave, Brookfield, MO 64628",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1Uqb5JKlu0XZ3aUPhZTkPA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=16.038013&pitch=0&thumbfov=100",
     "rating": 5.0,
@@ -2137,7 +2137,7 @@
   {
     "name": "Family Health Center Dental",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1600 N Missouri Ave, Marceline, MO 64658",
     "phone": "+1 660-376-8000",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=zWRNaCju3X6skBAtvqYr7g&cb_client=search.gws-prod.gps&w=800&h=500&yaw=96.19493&pitch=0&thumbfov=100",
@@ -2278,7 +2278,7 @@
   {
     "name": "First Choice MO",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "419 S Kansas Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2222",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=pTCuhk1FXqoTnhp3w7EkNg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=124.83411&pitch=0&thumbfov=100",
@@ -2423,7 +2423,7 @@
   {
     "name": "Gail Calvert, FNP - Complete Family Medicine - Family Medicine",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "624 W Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-268-4006",
     "website": "https://www.cfmcares.com/physicians/39/Gail-Calvert-FNP-BC/physician/",
@@ -2586,7 +2586,7 @@
   {
     "name": "Green Hills Pharmacy",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "712 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-2122",
     "website": "http://www.ghpharmacybrookfield.com/",
@@ -2767,7 +2767,7 @@
   {
     "name": "Helping Hands Thrift store",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "209 Henry St, Chillicothe, MO 64601",
     "phone": "+1 660-214-0341",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk9_kzOsTwvzTv8XXi_7o6edTleW7cyOZBWlw9CoNfnIG-wjGee87dQ-aRfkPImh8MU6nGriYcg4GYaNZHBTckwMowte4dihVjKqPUhIsXxbnE7fQu7HGzkz5rz1ah0HMEjIaKg=w800-h500-k-no",
@@ -2859,7 +2859,7 @@
   {
     "name": "Hometown Hardware",
     "town": "Brookfield",
-    "category": "Retail & Shopping",
+    "category": "Lumber & Hardware",
     "address": "116 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-7272",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnT_3gR2D-MPfJ8jLdAN7SJ8w7-hoG4T-TH7UC0WakcR0PIG0rTi2tn9gHzSktK9poDBb0ksTdEOZy2qyTfysEOH1Lx-8ZXRJlUtIdfCiDjIHe5Fdw2X0PbNLKl2ZVblSVGyb4iA=w800-h500-k-no",
@@ -3334,7 +3334,7 @@
   {
     "name": "Lighthouse Marketplace Thrift Store",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "707 Locust St, Chillicothe, MO 64601",
     "phone": "+1 314-495-2292",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=8CNT4_huZMC73aaCLj9s5w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=91.05091&pitch=0&thumbfov=100",
@@ -3429,7 +3429,7 @@
   {
     "name": "Linn County Health Department",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "635 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-7251",
     "website": "http://linncohealth.com/",
@@ -3661,7 +3661,7 @@
   {
     "name": "Love's Travel Stop",
     "town": "Linn County",
-    "category": "Restaurant & Food",
+    "category": "Gas Stations & Convenience Stores",
     "address": "1402 State Hwy O, Bevier, MO 63532",
     "phone": "+1 660-773-5500",
     "website": "https://www.loves.com/locations/621",
@@ -3742,7 +3742,7 @@
   {
     "name": "Magnolia Antiques",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "209 N Main Street USA, Marceline, MO 64658",
     "phone": "+1 660-376-2332",
     "website": "https://www.facebook.com/MagnoliaAntiquesTouristCenter",
@@ -3753,7 +3753,7 @@
   {
     "name": "MaMa B's Quick Stop",
     "town": "Meadville",
-    "category": "Retail & Shopping",
+    "category": "Gas Stations & Convenience Stores",
     "address": "207 Macon St, Meadville, MO 64659",
     "phone": "+1 660-938-4938",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=0mcW-S0cnmhADb-xPAe6SQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=87.00698&pitch=0&thumbfov=100",
@@ -3923,7 +3923,7 @@
   {
     "name": "Mc Larney Manor/Anew Healthcare",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "215 E Pratt St, Brookfield, MO 64628",
     "phone": "+1 660-675-0600",
     "website": "https://www.primehm.com/mclarney-manor/",
@@ -3967,7 +3967,7 @@
   {
     "name": "Mckenney Log & Lumber",
     "town": "Laclede",
-    "category": "General Contractor",
+    "category": "Lumber & Hardware",
     "address": "18112 Enon Rd, Laclede, MO 64651",
     "phone": "+1 660-375-1656",
     "rating": 5.0,
@@ -3985,7 +3985,7 @@
   {
     "name": "Meadville Medical Clinic",
     "town": "Meadville",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "101 E Hayward St, Meadville, MO 64659",
     "phone": "+1 660-938-4212",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=OKi6IGoccZ-h9fPoaE8kIQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=0.23685564&pitch=0&thumbfov=100"
@@ -4141,7 +4141,7 @@
   {
     "name": "Miner Hill Flea Market",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "1310 N Missouri Ave, Marceline, MO 64658",
     "phone": "+1 660-375-1212",
     "website": "https://minerhill.com/",
@@ -4305,7 +4305,7 @@
   {
     "name": "MTO Marceline Tire Outlet",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Automotive",
     "address": "29885 MO-5, Marceline, MO 64658",
     "phone": "+1 660-376-2610",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk1c7jUNGsqPUuNduXANsc7FC14K_JfBfseyO6AwMfbZIWFkWr8-O8DYizY8NN_nPdt_hf6UmjV7vSwQ2Ols6GhOmkMWa8TiM5TEvWV1YIStMUHJpOiakzdUQEPo6F9UqBRO3UY=w800-h500-k-no",
@@ -4334,7 +4334,7 @@
   {
     "name": "NAPA Auto Parts - Johnson Auto Parts",
     "town": "Marceline",
-    "category": "Retail & Shopping",
+    "category": "Automotive",
     "address": "610 S Missouri Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2128",
     "website": "https://www.napaonline.com/en/MO/Marceline/store/21296%3Fcid%3Dpl_jobber_google_dac_21296_ao",
@@ -4414,7 +4414,7 @@
   {
     "name": "North Central Mo Mental Health",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1102 W Helm St, Brookfield, MO 64628",
     "phone": "+1 660-258-7810",
     "website": "http://www.ncmmh.org/",
@@ -4446,7 +4446,7 @@
   {
     "name": "Northwest Health Chillicothe",
     "town": "Linn County",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "300 BUS, US-36, Chillicothe, MO 64601",
     "phone": "+1 660-280-2500",
     "website": "https://www.nwhealth-services.org/locations/chillicothe-health-center/",
@@ -4490,7 +4490,7 @@
   {
     "name": "Oak Grove Enterprise Farm Feed Store",
     "town": "Linneus",
-    "category": "Retail & Shopping",
+    "category": "Farm & Agriculture",
     "address": "19999 Bow Dr, Linneus, MO 64653",
     "phone": "+1 660-895-5151",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnJoPX44MgBdG_NN2Rfc2DXphcaPzGx5f21L5da3WX_yG9oDehGslTvmvlTHniI7FDR0zbTr9QooTZbITskxF95SBMeofghh__5bCZc5cFmINDY_cnmSU-9ilhI3vsfnXgZgG7_-lfRf9L1=w800-h500-k-no"
@@ -4539,7 +4539,7 @@
   {
     "name": "P & G Stop & Shop",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "115 E 2nd St, Milan, MO 63556",
     "phone": "+1 660-265-5373",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=W1elYsv0TsGZCKxhA8alTw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=7.655098&pitch=0&thumbfov=100"
@@ -4675,7 +4675,7 @@
   {
     "name": "Pershing Memorial Hospital",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "130 E Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-258-2222",
     "website": "http://www.phsmo.org/",
@@ -4739,7 +4739,7 @@
   {
     "name": "Pioneer Rehabilitation & Skilled Nursing",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "1500 S Kansas Ave, Marceline, MO 64658",
     "phone": "+1 660-376-2001",
     "website": "https://americareusa.net/senior-living/pioneer-marceline-mo/%3Futm_source%3DSEO%26utm_medium%3DWebsite%26utm_campaign%3DGBP%26utm_term%3Dfy25%26utm_content%3DPioneer",
@@ -4786,7 +4786,7 @@
   {
     "name": "Poole Hardware & Gifts",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Lumber & Hardware",
     "address": "105 N Market St, Milan, MO 63556",
     "phone": "+1 660-265-3161",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=hol2wm8VdLQ4EHqUeJWsMg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=269.23425&pitch=0&thumbfov=100",
@@ -4863,7 +4863,7 @@
   {
     "name": "Preferred Family Healthcare",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "614 W Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-258-4188",
     "website": "http://www.pfh.org/",
@@ -5048,7 +5048,7 @@
       "Brookfield",
       "Marceline"
     ],
-    "category": "Retail & Shopping",
+    "category": "Lumber & Hardware",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmzpseE_Ub4yCuNlGgQ-9zl6MWZqjIKIrybHA7DiLrleMt8CFZee8YuvX1Tg6uWW5uOh1iqj8VUdYi51Ji3a6cKPoo9w4lL0TZA2j3UiI7KRbzfJUPbFDCAxNMu0AI8y-8hyv9d=w800-h500-k-no",
     "rating": 4.4,
     "reviews": 22,
@@ -5221,7 +5221,7 @@
   {
     "name": "Relief Chiropractic LLC",
     "town": "Marceline",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "127 S Main Street USA, Marceline, MO 64658",
     "phone": "+1 660-376-3331",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ff4MLkAFXTRx8n4-J4IwDw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=327.95108&pitch=0&thumbfov=100",
@@ -5573,7 +5573,7 @@
   {
     "name": "Serve Link Home Care",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "219 W Helm St, Brookfield, MO 64628",
     "phone": "+1 660-258-7871",
     "website": "https://www.servelinkhomecare.com/",
@@ -5673,7 +5673,7 @@
       "Brookfield",
       "Marceline"
     ],
-    "category": "Retail & Shopping",
+    "category": "Gas Stations & Convenience Stores",
     "website": "https://stations.sinclairoil.com/mo/brookfield/322-w-helm-st%3Futm_source%3Dgoogle%26utm_medium%3Dyext",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ulpS1krewJMWERsogMl8qA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=358.51273&pitch=0&thumbfov=100",
     "rating": 4.4,
@@ -5704,7 +5704,7 @@
   {
     "name": "Skylar's Ag Parts LLC",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Farm & Agriculture",
     "address": "715 Mansur St, Chula, MO 64635",
     "phone": "+1 660-973-4074",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmKQekfMr982fUdkaXz6wlkiFFZ_wBppNDk5UY3Qs-69bUs6HBXgHqVI1Fdsw88bt041aCP7Ekh1BngdA0q-OAAFD19lB22mQ9AWa3ouzHdjz3EyJpMdzI4OxsKNW_1CSieFfpdSA=w800-h500-k-no",
@@ -5900,7 +5900,7 @@
   {
     "name": "Sullivan county farm supply",
     "town": "Linn County",
-    "category": "Retail & Shopping",
+    "category": "Farm & Agriculture",
     "address": "1122 S Pearl St, Milan, MO 63556",
     "phone": "+1 660-265-4911",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=MgE7A-Vnbqht4E2KL9UxFA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=140.5995&pitch=0&thumbfov=100",
@@ -5910,7 +5910,7 @@
   {
     "name": "Sullivan County Health Department",
     "town": "Linn County",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "101 Hawthorne Dr, Milan, MO 63556",
     "phone": "+1 660-265-4141",
     "website": "http://schdmilanmo.com/",
@@ -6103,7 +6103,7 @@
   {
     "name": "The Time Warp Antiques and Thrift Store",
     "town": "Brookfield",
-    "category": "Retail & Shopping",
+    "category": "Antiques, Thrift & Secondhand",
     "address": "112 S Main St, Brookfield, MO 64628",
     "phone": "+1 951-334-5485",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnWF4V12urYGPmvT9JlcF-_G8fqbRK1BAFCKNzyFUGi6VFYsCWQwS5DyKv6exxYEKsMcNkSfI05YfGNn6HDSjkiYog0GtGFw2UwQDpNRI5fyO0SC0SRBw67AcEAwZWebG8Z1JiR=w800-h500-k-no",
@@ -6122,7 +6122,7 @@
   {
     "name": "The Well-House Chiropractic, LLC",
     "town": "Linn County",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "519 Locust St, Chillicothe, MO 64601",
     "phone": "+1 740-823-9355",
     "website": "https://thewell-housechiro.com/",
@@ -6178,7 +6178,7 @@
   {
     "name": "Tom's Collision Repair",
     "town": "Browning",
-    "category": "Retail & Shopping",
+    "category": "Automotive",
     "address": "200 S 6th St, Browning, MO 64630",
     "phone": "+1 660-946-4458",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1O3rpiSmVC-7u8w886DGNw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=5.383574&pitch=0&thumbfov=100",
@@ -6233,7 +6233,7 @@
   {
     "name": "Tractor Supply Co.",
     "town": "Brookfield",
-    "category": "Retail & Shopping",
+    "category": "Farm & Agriculture",
     "address": "Linn Shopping Ctr, 710 S Main St, Brookfield, MO 64628",
     "phone": "+1 660-258-2055",
     "website": "https://www.tractorsupply.com/tsc/store_Brookfield-MO-64628_2835",
@@ -6591,7 +6591,7 @@
   {
     "name": "Watson Chiropractic",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "616 W Lockling Ave, Brookfield, MO 64628",
     "phone": "+1 660-258-4646",
     "rating": 4.6,
@@ -6642,7 +6642,7 @@
   {
     "name": "Womens Health Clinic",
     "town": "Brookfield",
-    "category": "Health & Wellness",
+    "category": "Medical & Healthcare",
     "address": "105 W John St, Brookfield, MO 64628",
     "website": "https://weence.com/medical/doctors/brookfield-3/womens-health-clinic/",
     "photo": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=YmU9GVeSnqoUrEouCgofhA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=161.8341&pitch=0&thumbfov=100"

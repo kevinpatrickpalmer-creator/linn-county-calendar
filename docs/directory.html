@@ -192,12 +192,15 @@
     // name/description (e.g. "Marceline Pizza Company").
     "Restaurant & Food": ["restaurants", "food", "eat", "dinner", "lunch"],
     "Retail & Shopping": ["shops", "stores", "shopping"],
-    "Automotive": ["cars", "auto repair", "mechanic", "vehicle", "tires"],
-    // Same reasoning as Restaurant & Food above -- "dentist" and
-    // "chiropractor" are specific specialties within Health & Wellness,
-    // not synonyms for the category as a whole, so they're left out here
-    // and rely on a business's own name/description to match instead.
-    "Health & Wellness": ["doctors", "clinic", "medical", "hospital"],
+    "Antiques, Thrift & Secondhand": ["antique", "antiques", "thrift", "secondhand", "second hand", "consignment", "resale", "vintage", "flea market"],
+    "Lumber & Hardware": ["lumber", "hardware", "building supply", "building materials", "sawmill", "tools", "nails and screws"],
+    "Automotive": ["cars", "auto repair", "mechanic", "vehicle", "tires", "auto parts", "dealership", "used cars", "collision", "body shop"],
+    "Gas Stations & Convenience Stores": ["gas", "fuel", "gas station", "convenience", "quick stop", "c-store", "travel stop", "truck stop"],
+    // Doctors/dentists/clinics live under Medical & Healthcare now, not
+    // here -- see that entry below. What's left here is genuinely
+    // wellness/spa-flavored, not clinical care.
+    "Medical & Healthcare": ["doctors", "doctor", "clinic", "medical", "hospital", "dentist", "dental", "chiropractor", "physical therapy", "pharmacy", "urgent care", "mental health"],
+    "Health & Wellness": ["massage", "spa", "wellness", "nutrition", "hydration"],
     // Not "hair" or "nails" alone here -- same over-broad risk as
     // cuisine words above (a hardware store selling nails would
     // false-match). "Salon"/"barbershop"/"spa" are specific enough on
@@ -208,7 +211,7 @@
     "Banks & Credit Unions": ["bank", "credit union", "atm"],
     "Real Estate & Insurance": ["real estate", "insurance", "realtor", "agent"],
     "Lodging & Hospitality": ["hotels", "motel", "lodging", "inn", "bed and breakfast"],
-    "Farm & Agriculture": ["farms", "farming", "agriculture", "tractor", "feed"],
+    "Farm & Agriculture": ["farms", "farming", "agriculture", "tractor", "feed", "machinery", "implement", "livestock", "grain", "seed"],
     "Nonprofit & Civic Organization": ["nonprofit", "charity", "civic"],
     "Church & Religious Organization": ["churches", "worship", "pastor"],
     "Government & Public Services": ["city hall", "post office", "courthouse", "government", "fire department", "police", "sheriff", "library"],
