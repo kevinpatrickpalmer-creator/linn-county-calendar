@@ -1,0 +1,27 @@
+{
+  "name": "Dollar General / DG Market",
+  "category": "Retail & Shopping",
+  "towns": [
+    "Brookfield",
+    "Marceline"
+  ],
+  "source": "google_maps_merged",
+  "rating": 4.3,
+  "reviews": 165,
+  "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlrfvBr5DAd1mYsUyIQ-cVBBO-b9MN2J93zbKOi39unsW9EFgEbeePD_xz6NVKosFGP9krSTHZ7E7vWXSDr3EsVJGAFR7wMGGcZRiWa5zxH4IxXQTQcoOojlaoFmyyooZ4o6TPE=w800-h500-k-no",
+  "website": "https://www.dollargeneral.com/",
+  "locations": [
+    {
+      "town": "Brookfield",
+      "address": "632 S Main St, Brookfield, MO 64628",
+      "phone": "+1 660-717-1994",
+      "place_id": "ChIJ2Whq0XeIwocRaTlfz5FwmI8"
+    },
+    {
+      "town": "Marceline",
+      "address": "1620 N Missouri Ave, Marceline, MO 64658",
+      "phone": "+1 573-719-1171",
+      "place_id": "ChIJSyiG7xaOwocR0DPozBNcanw"
+    }
+  ]
+}

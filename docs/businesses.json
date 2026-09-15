@@ -1786,17 +1786,6 @@
     ]
   },
   {
-    "name": "DG Market",
-    "town": "Marceline",
-    "category": "Retail & Shopping",
-    "address": "1620 N Missouri Ave, Marceline, MO 64658",
-    "phone": "+1 573-719-1171",
-    "website": "https://www.dollargeneral.com/store-directory/mo/marceline/3409",
-    "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgyICFij3L68yBM05tFxsgG-sETzpFq57R-y6LEWlrJ0dbICpKlFoqZw8aG3DOHnHkl7MPORJkNaYL-AjdkJaaRdm67VZ39LznFrwpvGY_e1wBUU3mNV0P8lPrq_r-mUdbXQ0ihNUK3859=w800-h500-k-no",
-    "rating": 4.2,
-    "reviews": 151
-  },
-  {
     "name": "Diamond Pavon Construction LLC",
     "town": "Milan",
     "category": "General Contractor",
@@ -1815,15 +1804,28 @@
     "reviews": 6
   },
   {
-    "name": "Dollar General",
-    "town": "Brookfield",
+    "name": "Dollar General / DG Market",
+    "towns": [
+      "Brookfield",
+      "Marceline"
+    ],
     "category": "Retail & Shopping",
-    "address": "632 S Main St, Brookfield, MO 64628",
-    "phone": "+1 660-717-1994",
-    "website": "https://www.dollargeneral.com/store-directory/mo/brookfield/2883",
+    "website": "https://www.dollargeneral.com/",
     "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlrfvBr5DAd1mYsUyIQ-cVBBO-b9MN2J93zbKOi39unsW9EFgEbeePD_xz6NVKosFGP9krSTHZ7E7vWXSDr3EsVJGAFR7wMGGcZRiWa5zxH4IxXQTQcoOojlaoFmyyooZ4o6TPE=w800-h500-k-no",
     "rating": 4.3,
-    "reviews": 165
+    "reviews": 165,
+    "locations": [
+      {
+        "town": "Brookfield",
+        "address": "632 S Main St, Brookfield, MO 64628",
+        "phone": "+1 660-717-1994"
+      },
+      {
+        "town": "Marceline",
+        "address": "1620 N Missouri Ave, Marceline, MO 64658",
+        "phone": "+1 573-719-1171"
+      }
+    ]
   },
   {
     "name": "Donald Downey Inc.",
