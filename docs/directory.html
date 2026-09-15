@@ -87,21 +87,22 @@
   .biz-tag {
     display: inline-flex;
     align-items: center;
-    gap: .3rem;
+    gap: .4rem;
     align-self: flex-start;
-    background: var(--surface-alt, rgba(0,0,0,.05));
+    background: var(--surface-alt, rgba(0,0,0,.06));
     border: 1px solid var(--surface-border);
     border-radius: 999px;
-    padding: .15rem .6rem .15rem .45rem;
-    font-size: .74rem;
+    padding: .35rem .85rem .35rem .6rem;
+    font-size: .92rem;
     font-weight: 600;
     color: var(--ink-soft);
     cursor: pointer;
-    line-height: 1.6;
+    line-height: 1.4;
   }
+  .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
   @media (prefers-color-scheme: dark) {
-    .biz-tag { background: rgba(255,255,255,.06); }
+    .biz-tag { background: rgba(255,255,255,.08); }
   }
   .biz-rating { display: flex; align-items: center; gap: .35rem; font-size: .82rem; color: var(--ink-soft); }
   .biz-rating .stars { color: var(--primary); font-weight: 700; }
@@ -461,7 +462,7 @@
     tag.type = "button";
     tag.className = "biz-tag";
     tag.title = `Show every listing tagged ${cat}`;
-    tag.innerHTML = `<span aria-hidden="true">${CATEGORY_EMOJI[cat] || "📍"}</span> ${cat}`;
+    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📍"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));
     card.appendChild(tag);
 
