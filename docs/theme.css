@@ -14,71 +14,50 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
+/* Pinned to the dark/blue palette for every visitor, regardless of
+   their own device's light/dark setting (Kevin's call, 2026-09-15 --
+   the site used to follow prefers-color-scheme, which meant it looked
+   different on his Mac vs his iPhone depending on each device's own
+   system setting; he'd rather everyone see the same look). The former
+   light palette and the @media (prefers-color-scheme: dark) block that
+   swapped to this one are gone, not just overridden -- if a light mode
+   ever comes back, reintroduce it as an explicit toggle rather than
+   reading the system preference again. */
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
-  --ink: #1a1a1a;
-  --ink-soft: #555555;
+  --ink: #f0f0f0;
+  --ink-soft: #b0b0b0;
   --ink-faint: #888888;
-  --paper: #ffffff;
-  --surface: #ffffff;
-  --surface-border: #e2e2e2;
-  --rule: #e2e2e2;
+  --paper: #121212;
+  --surface: #1c1c1c;
+  --surface-border: #333333;
+  --rule: #333333;
 
-  --primary: #4285f4;
-  --primary-dark: #2b6fd1;
-  --primary-tint: #e6f1fb;
-  --navy: #1f3a54;
-  --navy-dark: #16293e;
-  --success: #34a853;
-  --success-tint: #e6f4ea;
+  --primary: #7bb0f7;
+  --primary-dark: #9dc4f7;
+  --primary-tint: #16283d;
+  --navy: #90aecf;
+  --navy-dark: #b7cbe4;
+  --success: #5fb583;
+  --success-tint: #16281b;
 
   /* Category colors for event-type badges only -- not part of the site
      chrome/button system above, which stays on --primary. */
-  --cat-red: #ea4335;
-  --cat-red-tint: #fcebea;
-  --cat-red-text: #a52f26;
-  --cat-yellow: #fbbc04;
-  --cat-yellow-tint: #fef7e0;
-  --cat-yellow-text: #8a6a00;
+  --cat-red: #f2867c;
+  --cat-red-tint: #3d1917;
+  --cat-red-text: #f5a89f;
+  --cat-yellow: #f2c94c;
+  --cat-yellow-tint: #3d3115;
+  --cat-yellow-text: #f5d878;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .06), 0 1px 1px rgba(0, 0, 0, .04);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, .08);
+  --shadow-sm: none;
+  --shadow-md: none;
   --radius: 10px;
   --radius-sm: 7px;
 
   --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f0f0f0;
-    --ink-soft: #b0b0b0;
-    --ink-faint: #888888;
-    --paper: #121212;
-    --surface: #1c1c1c;
-    --surface-border: #333333;
-    --rule: #333333;
-
-    --primary: #7bb0f7;
-    --primary-dark: #9dc4f7;
-    --primary-tint: #16283d;
-    --navy: #90aecf;
-    --navy-dark: #b7cbe4;
-    --success: #5fb583;
-    --success-tint: #16281b;
-
-    --cat-red: #f2867c;
-    --cat-red-tint: #3d1917;
-    --cat-red-text: #f5a89f;
-    --cat-yellow: #f2c94c;
-    --cat-yellow-tint: #3d3115;
-    --cat-yellow-text: #f5d878;
-
-    --shadow-sm: none;
-    --shadow-md: none;
-  }
 }
 
 * { box-sizing: border-box; }

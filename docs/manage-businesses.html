@@ -5,33 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Manage Directory | Calendar Admin</title>
 <style>
-  :root { color-scheme: light dark; }
+  :root { color-scheme: dark; }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f5f5f2;
-    color: #1a1a1a;
+    background: #15151a;
+    color: #eee;
     padding: 1.25rem;
     display: flex;
     justify-content: center;
   }
   main { width: 100%; max-width: 700px; }
   h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
-  p.sub { margin: 0 0 1.25rem; color: #555; font-size: .9rem; line-height: 1.4; }
+  p.sub { margin: 0 0 1.25rem; color: #aaa; font-size: .9rem; line-height: 1.4; }
   .card {
-    background: #fff;
+    background: #202027;
     border-radius: 12px;
     padding: 1rem 1.25rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    box-shadow: none;
     margin-bottom: .85rem;
   }
   .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
-  .card .meta { font-size: .85rem; color: #666; margin-bottom: .15rem; }
+  .card .meta { font-size: .85rem; color: #aaa; margin-bottom: .15rem; }
   .card .type-badge {
     display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
-    letter-spacing: .02em; text-transform: uppercase; color: #1e4d8a;
-    background: #e9f1fb; padding: .15rem .45rem; border-radius: 999px;
+    letter-spacing: .02em; text-transform: uppercase; color: #9dc4f7;
+    background: #16283d; padding: .15rem .45rem; border-radius: 999px;
   }
   .card .actions { margin-top: .75rem; display: flex; gap: .6rem; }
   .card .actions a {
@@ -43,19 +43,10 @@
     font-size: .85rem;
     font-weight: 600;
   }
-  .edit-link { background: #eef2ff; color: #1e3a8a; }
-  .cancel-link { background: #fdeceb; color: #a71a2d; }
-  #status { text-align: center; color: #666; padding: 2rem 0; }
-  #empty { text-align: center; color: #666; padding: 2rem 0; display: none; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #15151a; color: #eee; }
-    .card { background: #202027; box-shadow: none; }
-    .card .meta { color: #aaa; }
-    .card .type-badge { background: #16283d; color: #9dc4f7; }
-    p.sub { color: #aaa; }
-    .edit-link { background: #1a1f3a; color: #8fa5ff; }
-    .cancel-link { background: #3a2c14; color: #d99a44; }
-  }
+  .edit-link { background: #1a1f3a; color: #8fa5ff; }
+  .cancel-link { background: #3a2c14; color: #d99a44; }
+  #status { text-align: center; color: #aaa; padding: 2rem 0; }
+  #empty { text-align: center; color: #aaa; padding: 2rem 0; display: none; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
