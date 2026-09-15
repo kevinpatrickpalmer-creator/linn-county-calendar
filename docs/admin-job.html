@@ -214,16 +214,7 @@
 
     if (filledAny) {
       const prefilledNote = document.getElementById("prefilledNote");
-      // Contact info is shown here for your own reference while
-      // reviewing (in the query string, and thus in the browser's
-      // address bar), but never included in the fields above -- it isn't
-      // published to the site unless it matches the public phone/email
-      // fields, which the submitter fills in separately.
-      const contactParts = [params.get("contact_email"), params.get("contact_phone")].filter(Boolean);
-      let note = "Pre-filled from a submission";
-      if (contactParts.length) note += ` (reach them at ${contactParts.join(" | ")})`;
-      note += ". Review the fields below, then continue.";
-      prefilledNote.textContent = note;
+      prefilledNote.textContent = "Pre-filled from a submission. Review the fields below, then continue.";
       prefilledNote.classList.remove("hidden");
     }
   })();
