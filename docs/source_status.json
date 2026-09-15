@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T04:41:08.219758+00:00",
+  "generated_at": "2026-09-15T22:51:38.844695+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -15,37 +15,37 @@
     },
     {
       "name": "City of Brookfield calendar",
-      "count": 5,
+      "count": 0,
       "ok": true,
       "error": null
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 235,
+      "count": 232,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 118,
+      "count": 116,
       "ok": true,
       "error": null
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 69,
+      "count": 68,
       "ok": true,
       "error": null
     },
     {
       "name": "Linn County R-I School District (MSHSAA)",
-      "count": 77,
+      "count": 75,
       "ok": true,
       "error": null
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 86,
+      "count": 82,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 13,
+      "count": 0,
       "ok": true,
       "error": null
     },
