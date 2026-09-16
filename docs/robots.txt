@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-business.html
+Disallow: /admin-job.html
+Disallow: /admin-trading-post.html
+Disallow: /manage-businesses.html
+Disallow: /manage-events.html
+Disallow: /manage-job.html
+Disallow: /manage-trading-post.html
+Disallow: /unsubscribe.html
+Disallow: /status.html
+
+Sitemap: https://linn.communitycalendarconnect.com/sitemap.xml

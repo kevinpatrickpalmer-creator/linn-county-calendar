@@ -343,7 +343,9 @@
     if (b.website) {
       const a = document.createElement("a");
       a.href = b.website;
-      // Same tab on purpose -- see docs/directory.html for why.
+      // New tab on purpose -- see docs/directory.html for why.
+      a.target = "_blank";
+      a.rel = "noopener";
       a.textContent = "Visit website →";
       meta.appendChild(a);
     }
