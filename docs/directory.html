@@ -532,8 +532,12 @@
     if (b.website) {
       const a = document.createElement("a");
       a.href = b.website;
-      a.target = "_blank";
-      a.rel = "noopener";
+      // Same tab on purpose, not target="_blank" -- a new tab has no
+      // history of its own to go "back" through, and rel="noopener"
+      // (needed for security on an outbound link) also happens to break
+      // Safari's own "back to this site" banner that would otherwise
+      // paper over that. Same-tab navigation means the plain back button
+      // always works, which is what a visitor actually expects.
       a.textContent = "Visit website →";
       meta.appendChild(a);
     }
