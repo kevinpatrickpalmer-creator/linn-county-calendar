@@ -175,6 +175,31 @@
     townSelect.appendChild(option);
   }
 
+  // A blank "your idea" box is the hardest part to start -- these rotate
+  // through the title/description placeholders (only visible while the
+  // fields are empty) so people see a few examples before typing their
+  // own, instead of staring at one static hint. Kevin's ask, 2026-09-17.
+  const IDEA_PROMPTS = [
+    { title: "A covered pavilion at the ballfield", description: "Somewhere families could sit out of the sun during games." },
+    { title: "A dog park near the walking trail", description: "A fenced space where people could let dogs off-leash safely." },
+    { title: "A skate park for teenagers", description: "Somewhere to go besides the parking lot behind the gas station." },
+    { title: "A shared community kitchen", description: "A commercial kitchen space local bakers and food makers could rent by the hour." },
+    { title: "A splash pad at the city park", description: "Somewhere for kids to cool off in summer without needing a pool." },
+    { title: "A ride-share board for medical appointments", description: "A way to connect folks who need a ride to the next town over with someone already headed that way." },
+    { title: "An indoor space for winter farmers markets", description: "Somewhere vendors could still sell once it's too cold to be outside." },
+  ];
+  const titleInput = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  let promptIndex = Math.floor(Math.random() * IDEA_PROMPTS.length);
+  function rotatePrompt() {
+    promptIndex = (promptIndex + 1) % IDEA_PROMPTS.length;
+    const prompt = IDEA_PROMPTS[promptIndex];
+    titleInput.placeholder = `e.g. ${prompt.title}`;
+    descriptionInput.placeholder = prompt.description;
+  }
+  rotatePrompt();
+  setInterval(rotatePrompt, 4000);
+
   const apiUrl = config.big_ideas_api_url;
   const ideasStatus = document.getElementById("ideasStatus");
   const ideaList = document.getElementById("ideaList");
