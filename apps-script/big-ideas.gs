@@ -480,9 +480,26 @@ function getProcessedLabel() {
  * reply "unread" the way it would a message from someone else, which
  * silently broke an earlier version of this check.
  */
+// Temporary diagnostic -- run manually from the function dropdown (no
+// redeploy needed, just Save then Run), then check the execution log
+// (it opens automatically, or View > Logs) for what it printed. Not
+// wired into the trigger; safe to leave in or delete later.
+function debugCheckReplies() {
+  const subjectQuery = '(subject:"Big Idea pending review" OR subject:"submission pending review")';
+  const withoutLabelFilter = GmailApp.search(subjectQuery, 0, 20);
+  Logger.log("Threads matching subject (ignoring label filter): " + withoutLabelFilter.length);
+  for (const t of withoutLabelFilter) {
+    const labels = t.getLabels().map(function (l) { return l.getName(); });
+    Logger.log("  subject=" + JSON.stringify(t.getFirstMessageSubject()) + " msgCount=" + t.getMessageCount() + " labels=" + JSON.stringify(labels));
+  }
+
+  const withLabelFilter = GmailApp.search(subjectQuery + " -label:" + PROCESSED_LABEL, 0, 20);
+  Logger.log("Threads matching subject AND not yet processed: " + withLabelFilter.length);
+}
+
 function checkForReplies() {
   const processedLabel = getProcessedLabel();
-  const threads = GmailApp.search('(subject:"Big Idea pending review" OR subject:"submission pending review") -label:"' + PROCESSED_LABEL + '"', 0, 20);
+  const threads = GmailApp.search('(subject:"Big Idea pending review" OR subject:"submission pending review") -label:' + PROCESSED_LABEL, 0, 20);
   for (const thread of threads) {
     if (thread.getMessageCount() < 2) continue; // no reply yet, just the original notification
 
