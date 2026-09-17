@@ -1593,8 +1593,17 @@ EVENT_TYPE_KEYWORDS = [
     (re.compile(r"\b(fundraiser|benefit dinner|benefit\b|donation drive|coalition drive|blood drive)\b", re.IGNORECASE), "Fundraiser / Benefit"),
     (re.compile(r"\b(garage sale|yard sale|rummage sale)\b", re.IGNORECASE), "Garage Sale"),
     (re.compile(r"\b(auction|estate sale|liquidation)\b", re.IGNORECASE), "Auction / Estate Sale"),
-    (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration)\b", re.IGNORECASE), "Festival / Fair"),
-    (re.compile(r"\b(church|revival|vbs|bible study|worship)\b", re.IGNORECASE), "Religious / Church"),
+    # Catches school-sports-shaped events that arrive through a generic
+    # source (CitySpark, a district's own newsletter/calendar page) rather
+    # than the dedicated MSHSAA scraper, which is the only place that sets
+    # category="sports" directly -- see guess_event_type()'s docstring.
+    # Kevin caught several of these (golf, softball) still showing as
+    # "Other" in September 2026 despite category-based tagging existing;
+    # this is the same "best-effort guess for what the reliable path
+    # missed" layer, just extended to cover sport names too.
+    (re.compile(r"\b(softball|baseball|football|basketball|volleyball|wrestling|swim(ming)?|\btrack\b|cross country|tennis|cheer(leading)?|\bgolf\b|soccer)\b", re.IGNORECASE), "Sports"),
+    (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration|car show)\b", re.IGNORECASE), "Festival / Fair"),
+    (re.compile(r"\b(church|revival|vbs|bible study|worship|ministerial alliance)\b", re.IGNORECASE), "Religious / Church"),
     (re.compile(r"\bchamber\b", re.IGNORECASE), "Business / Chamber"),
     (re.compile(r"\b(concert|theater|theatre|art show|craft fair|open mic)\b", re.IGNORECASE), "Arts & Entertainment"),
     (re.compile(r"\b(courthouse closed|election|public notice|road closure|closed\b)\b", re.IGNORECASE), "Government Notice"),
