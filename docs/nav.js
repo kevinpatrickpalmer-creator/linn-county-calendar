@@ -24,7 +24,7 @@
     { label: "Submit Event", href: "submit.html" },
     { label: "List a Business or Service", href: "submit-business.html" },
     { label: "Flyer", href: "flyer.html" },
-    { label: "Survey", href: "https://forms.gle/ABFjuyF43CoUqHoF7", external: true },
+    { label: "Survey", href: "survey.html" },
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
   ];
   const NAV_HEIGHT = "48px";
@@ -126,9 +126,9 @@
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
   // Any link tap closes the dropdown -- most links navigate away anyway
-  // (which clears this state on its own), but an external/mailto one
-  // (Survey, Contact) doesn't leave the page, so it'd otherwise stay
-  // open over whatever the visitor does next.
+  // (which clears this state on its own), but a mailto one (Contact)
+  // doesn't leave the page, so it'd otherwise stay open over whatever
+  // the visitor does next.
   nav.addEventListener("click", (e) => {
     if (e.target.tagName === "A") closeMenu();
   });
