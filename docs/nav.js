@@ -15,9 +15,9 @@
 // (Kevin's ask, 2026-09-17); above it, nothing changes from before.
 (function () {
   const NAV_ITEMS = [
-    { label: "Subscribe", href: "index.html" },
-    { label: "Email Alerts", href: "alerts.html" },
     { label: "County Calendar", href: "calendar-view.html", children: [
+      { label: "Subscribe", href: "index.html" },
+      { label: "Email Alerts", href: "alerts.html" },
       { label: "Submit Event", href: "submit.html" },
     ] },
     { label: "Business Directory", href: "directory.html", children: [
