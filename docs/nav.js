@@ -47,15 +47,27 @@
       overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
     .site-nav::-webkit-scrollbar { display: none; }
+    /* The whole tab is one clickable box, but the only thing that ever
+       showed that was a 3px underline -- easy to miss, and gave no
+       feedback that a *click* (not just navigation) had landed (Kevin's
+       catch, 2026-09-17: he assumed the text itself was somehow "dead"
+       because the only visible reaction was that thin line). A
+       background fill now covers the tab's full padded box, not just a
+       sliver under the text, on hover, on press, and for whichever tab
+       you're already on -- one accent color throughout, same blue used
+       everywhere else on the site, not a different color per tab. */
     .site-nav a {
       flex-shrink: 0; display: flex; align-items: center;
       padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
       letter-spacing: .01em;
       font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
+      background: transparent; transition: background-color .1s ease, color .1s ease;
     }
-    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); }
-    .site-nav a:hover { color: var(--ink, #1a1a1a); }
+    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); background: var(--primary-tint, rgba(66,133,244,.12)); }
+    .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
+    .site-nav a.active:hover { background: var(--primary-tint, rgba(66,133,244,.12)); }
+    .site-nav a:active { background: rgba(127,127,127,.28); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     @media (max-width: ${NAV_BREAKPOINT}) {
       .nav-toggle { display: flex; }
