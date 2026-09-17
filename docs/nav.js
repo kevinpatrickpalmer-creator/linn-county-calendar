@@ -17,14 +17,15 @@
   const NAV_ITEMS = [
     { label: "Subscribe", href: "index.html" },
     { label: "Email Alerts", href: "alerts.html" },
-    { label: "County Calendar", href: "calendar-view.html" },
+    { label: "County Calendar", href: "calendar-view.html", children: [
+      { label: "Submit Event", href: "submit.html" },
+    ] },
     { label: "Business Directory", href: "directory.html", children: [
       { label: "List a Business or Service", href: "submit-business.html" },
     ] },
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
     { label: "Lost & Found", href: "lost-found.html" },
-    { label: "Submit Event", href: "submit.html" },
     { label: "Flyer", href: "flyer.html" },
     { label: "Ideas for Your Town?", href: "survey.html" },
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
