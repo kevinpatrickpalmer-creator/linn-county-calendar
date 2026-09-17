@@ -39,10 +39,28 @@ it has to happen in your own Google account.
 
 Every real submission lands in the "Ideas" tab of your sheet with
 `status` set to `pending`, and you'll get an email when one comes in.
-It stays invisible on the public page until you change that one cell
-from `pending` to `approved` -- same manual-review principle as
-approving a Trading Post listing or job post, just done in a
-spreadsheet cell instead of a GitHub file.
+It stays invisible on the public page until that changes to
+`approved` -- same manual-review principle as approving a Trading
+Post listing or job post, just done in a spreadsheet cell instead of
+a GitHub file. Two ways to do that:
+
+- **Reply to the email** with just the word "approved" or "rejected"
+  (anywhere in your reply). A check runs every 5 minutes, reads that
+  word back out of your reply, and updates the sheet automatically --
+  no need to open the sheet at all. If your reply is unclear (says
+  neither word, or somehow both), it's left alone so you can just
+  reply again or fix the cell by hand.
+- **Edit the sheet directly** -- change that one cell from `pending`
+  to `approved` (or `rejected`) yourself, same as before.
+
+The reply-based check needs a one-time setup: in the Apps Script
+editor, use the function dropdown near the top (next to Run/Debug) to
+select **installReplyTrigger**, then click **Run**. Google will ask
+you to re-authorize -- this time for Gmail access -- since reading
+replies is a new permission beyond what the first setup granted; the
+same "unverified app" warning from before is expected, click through
+it the same way (**Advanced &rarr; Go to [project] (unsafe) &rarr;
+Allow**). You only need to run this once, ever, not every deployment.
 
 To remove an idea entirely (spam, duplicate, whatever), just delete
 its row. Votes for it are tracked separately in the "Votes" tab and

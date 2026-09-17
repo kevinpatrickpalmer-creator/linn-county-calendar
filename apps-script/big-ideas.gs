@@ -153,15 +153,20 @@ function submitIdea(body) {
   sheet.appendRow([id, title, description, name, town, new Date().toISOString(), 0, 0, false, "pending"]);
 
   try {
+    // The #<refCode> tag rides along in the subject through Gmail's
+    // "Re:" reply -- checkForReplies() below reads it back out to know
+    // which row a reply belongs to, without needing to track thread ids.
+    const refCode = id.slice(-8);
     MailApp.sendEmail(
       ADMIN_EMAIL,
-      "New Big Idea pending review: " + title,
+      "New Big Idea pending review: " + title + " #" + refCode,
       "A new idea was submitted to the Big Ideas board.\n\n" +
         "Title: " + title + "\n" +
         "Description: " + description + "\n" +
         "From: " + (name || "(no name given)") + (town ? ", " + town : "") + "\n\n" +
-        "It won't show on the site until you change its \"status\" cell from " +
-        "\"pending\" to \"approved\" in the sheet:\n" +
+        "Reply to this email with just the word \"approved\" or \"rejected\" " +
+        "and it'll update the board automatically within a few minutes -- " +
+        "or open the sheet directly and change the \"status\" cell by hand:\n" +
         SpreadsheetApp.getActiveSpreadsheet().getUrl()
     );
   } catch (err) {
@@ -170,6 +175,65 @@ function submitIdea(body) {
   }
 
   return { success: true, id };
+}
+
+/**
+ * Reply-to-approve/reject: run installReplyTrigger() once (from the
+ * Apps Script editor's function dropdown, or see apps-script/README.md)
+ * to schedule this to run every 5 minutes. It looks for unread replies
+ * to "New Big Idea pending review" emails, reads the #<refCode> back
+ * out of the subject line (Gmail keeps it through "Re:"), and updates
+ * that idea's status if the reply plainly says "approved" or
+ * "rejected". Anything ambiguous (both words, or neither) is left
+ * unread for a person to sort out by hand instead of guessing wrong.
+ */
+function checkForReplies() {
+  const threads = GmailApp.search('in:inbox is:unread subject:"Big Idea pending review"', 0, 20);
+  for (const thread of threads) {
+    const messages = thread.getMessages();
+    const lastMessage = messages[messages.length - 1];
+    if (!lastMessage.isUnread()) continue;
+
+    const subject = thread.getFirstMessageSubject();
+    const refMatch = subject.match(/#([A-Za-z0-9]{8})/);
+    if (!refMatch) continue; // not a reply we know how to match to a row
+    const refCode = refMatch[1].toLowerCase();
+
+    // Gmail's own "On <date> ... wrote:" line marks where the quoted
+    // original starts -- only the text above it is this reply's own
+    // words. If that split ever fails to match, scanning the whole
+    // body is still safe: the notification email's own instructional
+    // line always says "approved" AND "rejected" together, which the
+    // both-words-present check below treats as ambiguous, not a match.
+    const body = lastMessage.getPlainBody();
+    const replyText = body.split(/\nOn .+wrote:\n/)[0].toLowerCase();
+    const hasApproved = /\bapproved\b/.test(replyText);
+    const hasRejected = /\brejected\b/.test(replyText);
+
+    let newStatus = null;
+    if (hasApproved && !hasRejected) newStatus = "approved";
+    else if (hasRejected && !hasApproved) newStatus = "rejected";
+    if (!newStatus) continue;
+
+    const sheet = getSheet(IDEAS_SHEET);
+    const { idx, rows } = sheetToObjects(sheet);
+    for (let i = 0; i < rows.length; i++) {
+      if (String(rows[i][idx.id]).slice(-8).toLowerCase() === refCode) {
+        sheet.getRange(i + 2, idx.status + 1).setValue(newStatus);
+        break;
+      }
+    }
+    lastMessage.markRead();
+  }
+}
+
+function installReplyTrigger() {
+  for (const trigger of ScriptApp.getProjectTriggers()) {
+    if (trigger.getHandlerFunction() === "checkForReplies") {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  }
+  ScriptApp.newTrigger("checkForReplies").timeBased().everyMinutes(5).create();
 }
 
 function castVote(body) {
