@@ -11,7 +11,7 @@
     { label: "Subscribe", href: "index.html" },
     { label: "Email Alerts", href: "alerts.html" },
     { label: "Calendar", href: "calendar-view.html" },
-    { label: "Directory", href: "directory.html" },
+    { label: "Business Directory", href: "directory.html" },
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
     { label: "Submit Event", href: "submit.html" },
