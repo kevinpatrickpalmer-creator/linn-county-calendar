@@ -385,9 +385,8 @@ function submitBoardEntry(body) {
       "New " + boardLabel + " submission pending review #" + refCode,
       "A new " + boardLabel.toLowerCase() + " submission came in" + (submitterName ? " from " + submitterName : "") + ".\n\n" +
         summaryLines + "\n\n" +
-        "Reply to this email with just the word \"approved\" or \"rejected\" and it'll be handled " +
-        "automatically within a few minutes -- approved publishes it to the site, rejected discards it. " +
-        "No other action needed, though you can also review it directly in the \"Pending\" sheet tab:\n" +
+        "Reply with just the word approved or rejected and it'll be handled automatically " +
+        "within a few minutes. You can also review it directly in the \"Pending\" sheet tab:\n" +
         SpreadsheetApp.getActiveSpreadsheet().getUrl()
     );
   } catch (err) {
@@ -511,14 +510,18 @@ function checkForReplies() {
     if (!refMatch) continue; // not a reply we know how to match to a row
     const refCode = refMatch[1].toLowerCase();
 
-    // Gmail's own "On <date> ... wrote:" line marks where the quoted
-    // original starts -- only the text above it is this reply's own
-    // words. If that split ever fails to match, scanning the whole
-    // body is still safe: every notification email's own instructional
-    // line always says "approved" AND "rejected" together, which the
-    // both-words-present check below treats as ambiguous, not a match.
+    // Only look at the first ~300 characters of the reply, not the
+    // whole body -- trying to cleanly strip Gmail's quoted-original
+    // section (matching its "On <date> ... wrote:" header) turned out
+    // to be unreliable, and the quoted original further down repeats
+    // this very email's own instructional text, which mentions both
+    // "approved" and "rejected" -- scanning the whole body made every
+    // real reply look ambiguous and get silently skipped. A short
+    // reply (which is what's asked for) always lands within this
+    // window; a long signature block below it doesn't matter since we
+    // never look that far.
     const body = lastMessage.getPlainBody();
-    const replyText = body.split(/\nOn .+wrote:\n/)[0].toLowerCase();
+    const replyText = body.trim().slice(0, 300).toLowerCase();
     const hasApproved = /\bapproved\b/.test(replyText);
     const hasRejected = /\brejected\b/.test(replyText);
 
