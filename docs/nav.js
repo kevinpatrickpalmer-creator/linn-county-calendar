@@ -24,7 +24,7 @@
     { label: "Submit Event", href: "submit.html" },
     { label: "List a Business or Service", href: "submit-business.html" },
     { label: "Flyer", href: "flyer.html" },
-    { label: "Survey", href: "survey.html" },
+    { label: "Got Ideas?", href: "survey.html" },
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
   ];
   const NAV_HEIGHT = "48px";
