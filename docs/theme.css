@@ -81,13 +81,19 @@ body.themed main {
 }
 body.themed main.wide { max-width: 900px; }
 
-/* Badge (used for the county emblem on index/submit/etc). */
+/* Badge (used for the county emblem on index/submit/etc). Border is
+   --primary, not --surface-border -- a Kevin-reported catch, 2026-09-16:
+   the old --surface-border outline on a --surface fill was only ever
+   about 1.1:1 contrast against the page (basically invisible without
+   zooming in), which matters more than it might look like it should for
+   a resident with limited eyesight. --primary against --surface is
+   7.6:1. */
 .mo-badge {
   width: 60px;
   height: 60px;
   border-radius: 999px;
   background: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 2px solid var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
