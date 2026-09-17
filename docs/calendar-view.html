@@ -30,10 +30,11 @@
   /* Hero -- deliberately a lighter-weight version of the band on
      Subscribe/Directory/Trading Post/Jobs Bulletin (see docs/directory.html),
      not a straight copy. This page is a dense, functional calendar grid
-     that also gets embedded via iframe on other sites (see the "embed"
-     snippet below), so it can't afford a tall decorative band the way a
-     browse/landing tab can -- it just wraps the existing compact topbar
-     in a full-bleed surface band instead of adding a new one. */
+     that can also be embedded via iframe on another site (paid, arranged
+     directly -- see the contact link near the bottom), so it can't afford
+     a tall decorative band the way a browse/landing tab can -- it just
+     wraps the existing compact topbar in a full-bleed surface band
+     instead of adding a new one. */
   .hero {
     background: var(--surface);
     border-bottom: 1px solid var(--surface-border);
@@ -307,17 +308,8 @@
   }
   #status { text-align: center; padding: 2rem; color: var(--ink-soft); font-size: .9rem; }
   details { margin-top: 1rem; font-size: .8rem; color: var(--ink-soft); }
-  details.embed-info textarea {
-    width: 100%;
-    margin-top: .4rem;
-    font-family: monospace;
-    font-size: .75rem;
-    padding: .4rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--surface-border);
-    background: var(--surface);
-    color: var(--ink);
-  }
+  p.embed-info { margin-top: 1rem; font-size: .8rem; color: var(--ink-soft); }
+  p.embed-info a { color: var(--primary); font-weight: 600; }
   .site-credit {
     text-align: center;
     margin-top: 1.5rem;
@@ -438,11 +430,10 @@
     <p><strong>Android (Chrome):</strong> tap the menu (&#8942;) in the top-right corner, then tap "Add to Home screen" or "Install app." (Other Android browsers are similar: look for the same option in the menu.)</p>
   </details>
 
-  <details class="embed-info">
-    <summary>Embed this calendar on another site</summary>
-    <p>Paste this into any page that allows HTML/iframes. Pick a town above first to embed a version pre-filtered to just that town's events.</p>
-    <textarea rows="3" readonly onclick="this.select()" id="embedSnippet"></textarea>
-  </details>
+  <p class="embed-info">
+    Want this calendar embedded on your business or organization's website?
+    <a href="mailto:kevin@communitycalendarconnect.com?subject=Embedding%20the%20calendar%20on%20our%20website">Get in touch &rarr;</a>
+  </p>
 
   <div class="site-credit">
     Questions or problems? <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a>
@@ -621,7 +612,6 @@ function buildDayIndex(events) {
 function applyTownFilter() {
   eventsByDay = buildDayIndex(allEvents);
   renderMonth(viewYear, viewMonth);
-  updateEmbedSnippet();
 }
 
 function showDetail(ev) {
@@ -874,15 +864,6 @@ document.getElementById("todayBtn").addEventListener("click", () => {
 
 let siteConfig = null;
 
-function updateEmbedSnippet() {
-  if (!siteConfig) return;
-  const townParam = selectedTowns.size
-    ? `?town=${encodeURIComponent([...selectedTowns].join(","))}`
-    : "";
-  document.getElementById("embedSnippet").value =
-    `<iframe src="https://${siteConfig.domain}/calendar-view.html${townParam}" style="width:100%;max-width:900px;height:700px;border:1px solid #ddd;border-radius:8px;" loading="lazy"></iframe>`;
-}
-
 // Builds one Towns/Types-style multi-checkbox dropdown: a button that
 // toggles a panel of checkboxes, backed by a Set (empty = "everything",
 // matching the old single-select's "" = "all" convention). Returns
@@ -969,7 +950,7 @@ async function main() {
       // extractTown()'s fallback and town_or_other() in
       // calendar_config.py for the matching bucketing logic.
       options: [...config.towns, "Other"], selectedSet: selectedTowns, label: "Towns",
-      onChange: () => { applyTownFilter(); updateEmbedSnippet(); },
+      onChange: () => applyTownFilter(),
     });
     setupMultiSelectFilter({
       btnId: "typeFilterBtn", panelId: "typeFilterPanel", listId: "typeCheckList",
@@ -977,9 +958,10 @@ async function main() {
       onChange: () => applyTownFilter(),
     });
 
-    // Lets a town's own site embed a pre-filtered view, e.g.
+    // Supports a pre-filtered link/embed for a paying town site, e.g.
     // calendar-view.html?town=Brookfield (or ?town=Brookfield,Marceline
-    // for more than one) -- see updateEmbedSnippet().
+    // for more than one) -- arranged directly, not self-serve (see the
+    // contact link near the bottom of the page).
     const params = new URLSearchParams(window.location.search);
     const initialTowns = (params.get("town") || "")
       .split(",").map((t) => t.trim()).filter((t) => config.towns.includes(t));
@@ -987,12 +969,9 @@ async function main() {
       initialTowns.forEach((t) => selectedTowns.add(t));
       townFilterCtl.syncCheckboxes();
     }
-
-    updateEmbedSnippet();
   } catch (err) {
-    // Config is only needed for cosmetics/timezone/town filter/embed
-    // snippet -- fall back to the defaults above rather than blocking
-    // the calendar itself.
+    // Config is only needed for cosmetics/timezone/town filter --
+    // fall back to the defaults above rather than blocking the calendar.
   }
 
   try {

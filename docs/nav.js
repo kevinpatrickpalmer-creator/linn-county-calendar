@@ -18,12 +18,13 @@
     { label: "Subscribe", href: "index.html" },
     { label: "Email Alerts", href: "alerts.html" },
     { label: "County Calendar", href: "calendar-view.html" },
-    { label: "Business Directory", href: "directory.html" },
+    { label: "Business Directory", href: "directory.html", children: [
+      { label: "List a Business or Service", href: "submit-business.html" },
+    ] },
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
     { label: "Lost & Found", href: "lost-found.html" },
     { label: "Submit Event", href: "submit.html" },
-    { label: "List a Business or Service", href: "submit-business.html" },
     { label: "Flyer", href: "flyer.html" },
     { label: "Ideas for Your Town?", href: "survey.html" },
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
@@ -43,9 +44,13 @@
       width: ${NAV_HEIGHT}; border: none; background: none; cursor: pointer;
       color: var(--ink, #1a1a1a); font-size: 1.3rem; line-height: 1; padding: 0;
     }
+    /* No overflow-x:auto here above the breakpoint (the hamburger already
+       covers cases where the row doesn't fit) -- a CSS quirk makes
+       overflow-x:auto force overflow-y to auto too, which was silently
+       clipping the Business Directory submenu below to nothing. */
     .site-nav {
       display: flex; align-items: stretch; flex: 1; min-width: 0;
-      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      scrollbar-width: none;
     }
     .site-nav::-webkit-scrollbar { display: none; }
     /* The whole tab is one clickable box, but the only thing that ever
@@ -71,11 +76,25 @@
     .site-nav a.active:hover { background: rgba(123, 176, 247, .28); }
     .site-nav a:active { background: rgba(127,127,127,.28); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
+    /* A tab with a submenu (e.g. Business Directory -> List a Business or
+       Service) -- the tab itself still navigates on click, the dropdown
+       just appears on hover (or keyboard focus) as a bonus shortcut, so it
+       has to still look and act like a plain nav tab, not a button. */
+    .nav-item { position: relative; display: flex; align-items: stretch; }
+    .nav-dropdown {
+      display: none; position: absolute; top: 100%; left: 0; min-width: 230px;
+      flex-direction: column; z-index: 1001;
+      background: var(--surface, #fff); border: 1px solid var(--surface-border, #e2e2e2);
+      border-top: none; border-radius: 0 0 8px 8px; box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
+    }
+    .nav-item:hover .nav-dropdown, .nav-item:focus-within .nav-dropdown { display: flex; }
+    .nav-dropdown a { border-bottom: none; padding: .75rem 1rem; }
     @media (max-width: ${NAV_BREAKPOINT}) {
       .nav-toggle { display: flex; }
       .site-nav {
         display: none; position: fixed; top: ${NAV_HEIGHT}; left: 0; right: 0;
         flex-direction: column; overflow-x: visible; overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         max-height: calc(100vh - ${NAV_HEIGHT});
         background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
         box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
@@ -86,6 +105,13 @@
         border-left: 3px solid transparent;
       }
       .site-nav a.active { border-left-color: var(--primary, #4285f4); border-bottom-color: var(--surface-border, #e2e2e2); }
+      /* No hover on touch -- the submenu is just always open, indented
+         under its parent, right in the vertical stack. */
+      .nav-item { flex-direction: column; }
+      .nav-dropdown {
+        display: flex; position: static; min-width: 0; border: none; box-shadow: none;
+      }
+      .nav-dropdown a { padding-left: 2.4rem; font-weight: 500; }
     }
     @media print {
       .site-nav-bar, .site-nav-spacer { display: none !important; }
@@ -95,10 +121,7 @@
 
   const currentFile = location.pathname.split("/").pop() || "index.html";
 
-  const nav = document.createElement("nav");
-  nav.className = "site-nav";
-  nav.setAttribute("aria-label", "Site navigation");
-  for (const item of NAV_ITEMS) {
+  function makeLink(item) {
     const a = document.createElement("a");
     a.href = item.href;
     a.textContent = item.label;
@@ -118,7 +141,36 @@
       a.classList.add("active");
       a.setAttribute("aria-current", "page");
     }
-    nav.appendChild(a);
+    return a;
+  }
+
+  const nav = document.createElement("nav");
+  nav.className = "site-nav";
+  nav.setAttribute("aria-label", "Site navigation");
+  for (const item of NAV_ITEMS) {
+    if (item.children && item.children.length) {
+      const wrap = document.createElement("div");
+      wrap.className = "nav-item";
+
+      const a = makeLink(item);
+      wrap.appendChild(a);
+
+      const dropdown = document.createElement("div");
+      dropdown.className = "nav-dropdown";
+      for (const child of item.children) {
+        const childLink = makeLink(child);
+        dropdown.appendChild(childLink);
+        // Being on the child page (e.g. submit-business.html) highlights
+        // the parent tab too, same as any other tab shows you where you are.
+        if (child.href.split("/").pop() === currentFile) {
+          a.classList.add("active");
+        }
+      }
+      wrap.appendChild(dropdown);
+      nav.appendChild(wrap);
+    } else {
+      nav.appendChild(makeLink(item));
+    }
   }
 
   const toggle = document.createElement("button");
