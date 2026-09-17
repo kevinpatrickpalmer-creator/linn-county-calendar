@@ -6,6 +6,13 @@
 // Renders as a fixed bar (not squeezed into each page's own body/flex
 // layout, which varies from page to page) plus a spacer element sized
 // to match, so page content isn't hidden underneath it.
+//
+// Below NAV_BREAKPOINT, the list of items no longer fits in one row
+// (11 items now, several multi-word) -- past that point, the row
+// scrolled sideways with no visual hint it could, so entries like
+// Survey/Contact were easy to miss entirely. Below the breakpoint this
+// collapses behind a hamburger button into a vertical dropdown instead
+// (Kevin's ask, 2026-09-17); above it, nothing changes from before.
 (function () {
   const NAV_ITEMS = [
     { label: "Subscribe", href: "index.html" },
@@ -21,14 +28,23 @@
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
   ];
   const NAV_HEIGHT = "48px";
+  const NAV_BREAKPOINT = "860px";
 
   const style = document.createElement("style");
   style.textContent = `
-    .site-nav {
+    .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
-      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
       background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
+    }
+    .nav-toggle {
+      display: none; flex-shrink: 0; align-items: center; justify-content: center;
+      width: ${NAV_HEIGHT}; border: none; background: none; cursor: pointer;
+      color: var(--ink, #1a1a1a); font-size: 1.3rem; line-height: 1; padding: 0;
+    }
+    .site-nav {
+      display: flex; align-items: stretch; flex: 1; min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
     .site-nav::-webkit-scrollbar { display: none; }
     .site-nav a {
@@ -41,8 +57,24 @@
     .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); }
     .site-nav a:hover { color: var(--ink, #1a1a1a); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
+    @media (max-width: ${NAV_BREAKPOINT}) {
+      .nav-toggle { display: flex; }
+      .site-nav {
+        display: none; position: fixed; top: ${NAV_HEIGHT}; left: 0; right: 0;
+        flex-direction: column; overflow-x: visible; overflow-y: auto;
+        max-height: calc(100vh - ${NAV_HEIGHT});
+        background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
+      }
+      .site-nav.open { display: flex; }
+      .site-nav a {
+        padding: .9rem 1.1rem; border-bottom: 1px solid var(--surface-border, #e2e2e2);
+        border-left: 3px solid transparent;
+      }
+      .site-nav a.active { border-left-color: var(--primary, #4285f4); border-bottom-color: var(--surface-border, #e2e2e2); }
+    }
     @media print {
-      .site-nav, .site-nav-spacer { display: none !important; }
+      .site-nav-bar, .site-nav-spacer { display: none !important; }
     }
   `;
   document.head.appendChild(style);
@@ -66,9 +98,46 @@
     nav.appendChild(a);
   }
 
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "nav-toggle";
+  toggle.setAttribute("aria-label", "Menu");
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.textContent = "☰"; // ☰
+
+  function closeMenu() {
+    nav.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  // Any link tap closes the dropdown -- most links navigate away anyway
+  // (which clears this state on its own), but an external/mailto one
+  // (Survey, Contact) doesn't leave the page, so it'd otherwise stay
+  // open over whatever the visitor does next.
+  nav.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") closeMenu();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+  // Tapping anywhere outside the open dropdown (or its toggle) closes it.
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("open") && !nav.contains(e.target) && e.target !== toggle) {
+      closeMenu();
+    }
+  });
+
+  const bar = document.createElement("div");
+  bar.className = "site-nav-bar";
+  bar.appendChild(toggle);
+  bar.appendChild(nav);
+
   const spacer = document.createElement("div");
   spacer.className = "site-nav-spacer";
 
   document.body.insertBefore(spacer, document.body.firstChild);
-  document.body.insertBefore(nav, document.body.firstChild);
+  document.body.insertBefore(bar, document.body.firstChild);
 })();
