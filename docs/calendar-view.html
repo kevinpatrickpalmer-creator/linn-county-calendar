@@ -265,14 +265,32 @@
     cursor: pointer;
     text-align: left;
   }
+  /* A centered popup over a dimmed backdrop, not a block that lived at
+     the bottom of the page -- clicking an event used to scroll all the
+     way down to it, then required scrolling back up afterward to get
+     back to where you were (Kevin's catch, 2026-09-17). This way opening
+     and closing it never moves the page underneath at all. */
+  #detailBackdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  #detailBackdrop.open { display: flex; }
   #detail {
-    margin-top: .75rem;
     background: var(--surface);
     border: 1px solid var(--surface-border);
     border-radius: var(--radius);
-    padding: .9rem 1.1rem;
-    box-shadow: var(--shadow-sm);
-    display: none;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
+    width: 100%;
+    max-width: 26rem;
+    max-height: 85vh;
+    overflow-y: auto;
   }
   #detail h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 .35rem; color: var(--ink); }
   #detail .meta { font-size: .85rem; color: var(--ink-soft); margin-bottom: .15rem; }
@@ -325,7 +343,7 @@
     html, body { background: #fff; color: #000; }
     .hero { background: none; border-bottom: none; padding: 0; margin: 0 0 .6rem; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    .stats-line, .month-count, #detail, #status {
+    .stats-line, .month-count, #detailBackdrop, #status {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
@@ -397,13 +415,15 @@
   <div class="list-view" id="listView" style="display:none"></div>
   <div id="listEmpty" style="display:none">No events this month.</div>
 
-  <div id="detail">
-    <h2 id="detailName"></h2>
-    <div class="list-type" id="detailType" style="margin-bottom:.5rem;"></div>
-    <div class="meta" id="detailWhen"></div>
-    <div class="meta" id="detailLocation"></div>
-    <div class="desc" id="detailDescription"></div>
-    <button id="detailClose">Close</button>
+  <div id="detailBackdrop">
+    <div id="detail" role="dialog" aria-modal="true" aria-labelledby="detailName">
+      <h2 id="detailName"></h2>
+      <div class="list-type" id="detailType" style="margin-bottom:.5rem;"></div>
+      <div class="meta" id="detailWhen"></div>
+      <div class="meta" id="detailLocation"></div>
+      <div class="desc" id="detailDescription"></div>
+      <button id="detailClose">Close</button>
+    </div>
   </div>
 
   <p class="links">
@@ -616,12 +636,24 @@ function showDetail(ev) {
   document.getElementById("detailType").style.display = ev.eventType ? "inline-block" : "none";
   document.getElementById("detailDescription").textContent = ev.description || "";
   document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
-  document.getElementById("detail").style.display = "block";
-  document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  document.getElementById("detailBackdrop").classList.add("open");
 }
 
-document.getElementById("detailClose").addEventListener("click", () => {
-  document.getElementById("detail").style.display = "none";
+function closeDetail() {
+  document.getElementById("detailBackdrop").classList.remove("open");
+}
+
+document.getElementById("detailClose").addEventListener("click", closeDetail);
+// Tapping the dimmed area outside the popup closes it too -- but not a
+// click that started inside the popup and merely ended up on the
+// backdrop (e.g. selecting description text and releasing the mouse
+// past the edge), hence checking the click's own target rather than
+// using a bubvled listener on the popup itself.
+document.getElementById("detailBackdrop").addEventListener("click", (e) => {
+  if (e.target.id === "detailBackdrop") closeDetail();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeDetail();
 });
 
 let currentView = "list"; // "list" is the default -- see renderMonth()
