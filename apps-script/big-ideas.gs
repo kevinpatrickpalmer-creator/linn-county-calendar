@@ -456,23 +456,38 @@ function githubDeleteFile(path, message) {
   });
 }
 
+const PROCESSED_LABEL = "site-backend-processed";
+
+function getProcessedLabel() {
+  return GmailApp.getUserLabelByName(PROCESSED_LABEL) || GmailApp.createLabel(PROCESSED_LABEL);
+}
+
 /**
  * Reply-to-approve/reject: run installReplyTrigger() once (from the
  * Apps Script editor's function dropdown, or see apps-script/README.md)
- * to schedule this to run every 5 minutes. It looks for unread replies
- * to any "pending review" notification -- Big Ideas or a board
- * submission -- reads the #<refCode> back out of the subject line
- * (Gmail keeps it through "Re:"), and applies the decision if the
- * reply plainly says "approved" or "rejected". Anything ambiguous
- * (both words, or neither) is left unread for a person to sort out by
- * hand instead of guessing wrong.
+ * to schedule this to run every 5 minutes. It looks at every "pending
+ * review" thread -- Big Ideas or a board submission -- that doesn't
+ * yet carry the "site-backend-processed" label, reads the #<refCode>
+ * back out of the subject line (Gmail keeps it through "Re:"), and
+ * applies the decision if the latest message plainly says "approved"
+ * or "rejected". Anything ambiguous (both words, neither, or no reply
+ * yet at all) is left unlabeled so it's picked up again next run
+ * instead of guessing wrong or getting skipped forever.
+ *
+ * Tracked with a label rather than the message's read/unread state --
+ * every notification here is self-addressed (sent to and replied from
+ * the same account), and Gmail doesn't reliably mark a self-sent
+ * reply "unread" the way it would a message from someone else, which
+ * silently broke an earlier version of this check.
  */
 function checkForReplies() {
-  const threads = GmailApp.search('in:inbox is:unread (subject:"Big Idea pending review" OR subject:"submission pending review")', 0, 20);
+  const processedLabel = getProcessedLabel();
+  const threads = GmailApp.search('(subject:"Big Idea pending review" OR subject:"submission pending review") -label:"' + PROCESSED_LABEL + '"', 0, 20);
   for (const thread of threads) {
+    if (thread.getMessageCount() < 2) continue; // no reply yet, just the original notification
+
     const messages = thread.getMessages();
     const lastMessage = messages[messages.length - 1];
-    if (!lastMessage.isUnread()) continue;
 
     const subject = thread.getFirstMessageSubject();
     const refMatch = subject.match(/#([A-Za-z0-9]{8})/);
@@ -501,7 +516,7 @@ function checkForReplies() {
     } else if (subject.indexOf("submission pending review") !== -1) {
       handled = applyBoardDecision(refCode, newStatus);
     }
-    if (handled) lastMessage.markRead();
+    if (handled) thread.addLabel(processedLabel);
   }
 }
 
