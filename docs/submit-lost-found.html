@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Post to Lost &amp; Found</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Post to Lost &amp; Found | Linn County">
+<meta property="og:description" content="Lost or found a pet or an item around Linn County? Post it free.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/submit-lost-found.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post to Lost &amp; Found | Linn County">
+<meta name="twitter:description" content="Lost or found a pet or an item around Linn County? Post it free.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+  .hint.err { color: var(--primary); font-weight: 600; }
+  input[type="file"] { padding: .5rem; }
+
+  /* Confirmation panel -- see docs/submit.html for why this replaces the
+     form entirely on success rather than just adding a status line. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+  .confirm-panel .btn.secondary { margin-top: 1.1rem; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Post to Lost &amp; Found</h1>
+  <p class="sub" id="pageSub">Lost a pet or an item, or found one? Post it here, free. A person reviews every post before it goes live.</p>
+
+  <p class="callout">Lost or found a pet? Please also contact the local police department's non-emergency line and check with area vets &mdash; they may already have someone looking for exactly this, faster than a post here can reach them.</p>
+
+  <form id="lfForm" class="card">
+    <label for="postType">Lost or found? *</label>
+    <select id="postType" name="postType" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="lost">I lost something</option>
+      <option value="found">I found something</option>
+    </select>
+
+    <label for="category">Pet or item? *</label>
+    <select id="category" name="category" required>
+      <option value="" disabled selected>Select one</option>
+    </select>
+
+    <label for="name" id="nameLabel">Brief description *</label>
+    <input id="name" name="name" type="text" maxlength="120" required placeholder="Select lost/found and pet/item above for an example.">
+
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+    </select>
+
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
+    <label for="date" id="dateLabel">Date lost/found *</label>
+    <input id="date" name="date" type="date" required>
+
+    <label for="description" id="descriptionLabel">More details *</label>
+    <textarea id="description" name="description" maxlength="500" required placeholder="Where exactly, any distinguishing details, collar/tags, current status, etc."></textarea>
+
+    <label for="photo">Photo (optional)</label>
+    <input id="photo" name="photo" type="file" accept="image/*">
+    <p class="hint">Helps a lot for a pet or a distinctive item. Only emailed to us for review, never posted automatically.</p>
+
+    <label for="contact_name">Your name *</label>
+    <input id="contact_name" name="contact_name" type="text" maxlength="120" required>
+
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+    <p class="hint" id="contactHint">At least one is required, so people can actually reach you about this.</p>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Submit post</button>
+    <div id="status" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it — thanks!</h2>
+    <p class="hint">Your post was received. A person reviews every submission, and if approved it'll be live on Lost &amp; Found within 24 hours. <strong>No need to submit it again</strong> if you don't see it right away.</p>
+    <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
+  </div>
+
+  <p class="hint" style="text-align:center;"><a href="lost-found.html">Browse Lost &amp; Found &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Questions or problems? <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+
+  document.title = `Post to Lost & Found | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
+
+  const categorySelect = document.getElementById("category");
+  for (const category of config.lost_found_categories || []) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  }
+
+  // Several fields' labels/placeholders flip depending on lost-vs-found
+  // and pet-vs-item, same "relabel instead of two separate forms" idea
+  // as docs/submit-job.html.
+  const postTypeSelect = document.getElementById("postType");
+  const nameLabel = document.getElementById("nameLabel");
+  const nameInput = document.getElementById("name");
+  const dateLabel = document.getElementById("dateLabel");
+  function updateLabels() {
+    const verb = postTypeSelect.value === "found" ? "Found" : "Lost";
+    const noun = categorySelect.value === "Pet" ? "pet" : categorySelect.value === "Item" ? "item" : "pet or item";
+    nameLabel.textContent = `Brief description of the ${noun} *`;
+    nameInput.placeholder = categorySelect.value === "Pet"
+      ? "e.g. Gray tabby cat, white paws"
+      : "e.g. Black leather wallet, Ozark Trail backpack";
+    dateLabel.textContent = `Date ${verb.toLowerCase()} *`;
+  }
+  postTypeSelect.addEventListener("change", updateLabels);
+  categorySelect.addEventListener("change", updateLabels);
+
+  const form = document.getElementById("lfForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const contactHint = document.getElementById("contactHint");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+
+  submitAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("postType").focus();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+
+    const phoneVal = document.getElementById("phone").value.trim();
+    const emailVal = document.getElementById("email").value.trim();
+    if (!phoneVal && !emailVal) {
+      contactHint.classList.add("err");
+      contactHint.textContent = "Please provide a phone number or email so people can reach you.";
+      document.getElementById("phone").focus();
+      return;
+    }
+    contactHint.classList.remove("err");
+    contactHint.textContent = "At least one is required, so people can actually reach you about this.";
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const data = new FormData(form);
+
+    const postType = (data.get("postType") || "").trim();
+    const category = (data.get("category") || "").trim();
+    const rawName = (data.get("name") || "").trim();
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+    const date = (data.get("date") || "").trim();
+    const description = (data.get("description") || "").trim();
+    const contactName = (data.get("contact_name") || "").trim();
+    const phone = (data.get("phone") || "").trim();
+    const email = (data.get("email") || "").trim();
+
+    const adminParams = new URLSearchParams({
+      postType,
+      category,
+      name: rawName,
+      town,
+      date,
+      description,
+      contact_name: contactName,
+      phone,
+      email,
+    });
+    const adminLink = `https://${config.domain}/admin-lost-found.html?${adminParams.toString()}`;
+
+    data.append("access_key", config.web3forms_access_key);
+    data.append("subject", `New Lost & Found post (${postType}): ${rawName}`);
+    data.append("from_name", `${config.calendar_title}: Lost & Found Submission`);
+    data.append("review_and_approve_link", adminLink);
+    // A blank file input still submits an empty file part with
+    // Web3Forms' multipart body, which is harmless -- their API only
+    // attaches it to the email when it actually has content.
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        form.reset();
+        updateLabels();
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong submitting your post. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit post";
+    }
+  });
+})();
+</script>
+</body>
+</html>

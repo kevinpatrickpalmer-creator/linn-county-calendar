@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Manage Lost &amp; Found | Calendar Admin</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #15151a;
+    color: #eee;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 700px; }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  p.sub { margin: 0 0 1.25rem; color: #aaa; font-size: .9rem; line-height: 1.4; }
+  .card {
+    background: #202027;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    box-shadow: none;
+    margin-bottom: .85rem;
+  }
+  .card h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
+  .card .meta { font-size: .85rem; color: #aaa; margin-bottom: .15rem; }
+  .card .type-badge {
+    display: inline-block; margin-bottom: .4rem; margin-right: .35rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; color: #9dc4f7;
+    background: #16283d; padding: .15rem .45rem; border-radius: 999px;
+  }
+  .card .post-badge {
+    display: inline-block; margin-bottom: .4rem; font-size: .68rem; font-weight: 600;
+    letter-spacing: .02em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px;
+  }
+  .post-badge.lost { color: #d99a44; background: #3a2c14; }
+  .post-badge.found { color: #6fcf97; background: #12321f; }
+  .card .actions { margin-top: .75rem; display: flex; gap: .6rem; }
+  .card .actions a {
+    flex: 1;
+    text-align: center;
+    padding: .5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 600;
+  }
+  .edit-link { background: #1a1f3a; color: #8fa5ff; }
+  .cancel-link { background: #3a2c14; color: #d99a44; }
+  #status { text-align: center; color: #aaa; padding: 2rem 0; }
+  #empty { text-align: center; color: #aaa; padding: 2rem 0; display: none; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<main>
+  <h1>Manage Lost &amp; Found</h1>
+  <p class="sub">
+    Everything below is a currently-live post on Lost &amp; Found.
+    <strong>Edit</strong> opens GitHub's editor with the file's current
+    contents; <strong>Remove post</strong> opens GitHub's
+    delete-confirmation page. Either way, nothing changes until you
+    commit on GitHub, and docs/lost-found.json regenerates automatically
+    a few moments after that. Worth checking back on this list
+    periodically -- once a pet's found or an item's claimed, there's no
+    automatic cleanup.
+  </p>
+
+  <div id="status">Loading current posts...</div>
+  <div id="empty">No approved posts yet.</div>
+  <div id="list"></div>
+</main>
+
+<script>
+const DIR = "data/lost-found";
+let REPO, BRANCH;
+
+function editUrl(path) {
+  return `https://github.com/${REPO}/edit/${BRANCH}/${path}`;
+}
+function deleteUrl(path) {
+  return `https://github.com/${REPO}/delete/${BRANCH}/${path}`;
+}
+
+function daysAgo(dateStr) {
+  if (!dateStr) return "";
+  const posted = new Date(`${dateStr}T00:00:00`);
+  if (isNaN(posted)) return "";
+  const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+  if (days <= 0) return "Posted today";
+  if (days === 1) return "Posted yesterday";
+  if (days < 14) return `Posted ${days} days ago`;
+  if (days < 60) return `Posted ${Math.floor(days / 7)} weeks ago`;
+  return `Posted ${Math.floor(days / 30)} months ago`;
+}
+
+async function main() {
+  const config = await (await fetch("config.json")).json();
+  REPO = config.github_repo;
+  BRANCH = config.github_branch;
+  document.title = `Manage Lost & Found | ${config.county_display_name} Calendar Admin`;
+
+  const statusEl = document.getElementById("status");
+  const listEl = document.getElementById("list");
+  const emptyEl = document.getElementById("empty");
+
+  let files;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DIR}`);
+    if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+    files = await res.json();
+  } catch (err) {
+    statusEl.textContent = "Couldn't load the post list. Try refreshing, or check data/lost-found/ directly on GitHub.";
+    return;
+  }
+
+  const jsonFiles = files.filter((f) => f.name.endsWith(".json"));
+  if (!jsonFiles.length) {
+    statusEl.remove();
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  const posts = [];
+  for (const file of jsonFiles) {
+    try {
+      const res = await fetch(file.download_url);
+      const data = await res.json();
+      posts.push({ path: file.path, ...data });
+    } catch (err) {
+      // Skip a file that fails to load/parse rather than breaking the whole page.
+      continue;
+    }
+  }
+
+  posts.sort((a, b) => (b.posted || "").localeCompare(a.posted || ""));
+  statusEl.remove();
+
+  if (!posts.length) {
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  for (const post of posts) {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const typeBadge = document.createElement("div");
+    typeBadge.className = `post-badge ${post.type === "found" ? "found" : "lost"}`;
+    typeBadge.textContent = post.type === "found" ? "Found" : "Lost";
+    card.appendChild(typeBadge);
+
+    if (post.category) {
+      const badge = document.createElement("div");
+      badge.className = "type-badge";
+      badge.textContent = post.category;
+      card.appendChild(badge);
+    }
+
+    const title = document.createElement("h2");
+    title.textContent = post.name || "(untitled post)";
+    card.appendChild(title);
+
+    const town = document.createElement("div");
+    town.className = "meta";
+    town.textContent = [post.town, post.date, daysAgo(post.posted)].filter(Boolean).join(" · ");
+    card.appendChild(town);
+
+    if (post.description) {
+      const desc = document.createElement("div");
+      desc.className = "meta";
+      desc.textContent = post.description;
+      card.appendChild(desc);
+    }
+
+    if (post.contact_name || post.phone || post.email) {
+      const contact = document.createElement("div");
+      contact.className = "meta";
+      contact.textContent = [post.contact_name, post.phone, post.email].filter(Boolean).join(" · ");
+      card.appendChild(contact);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const editLink = document.createElement("a");
+    editLink.href = editUrl(post.path);
+    editLink.target = "_blank";
+    editLink.className = "edit-link";
+    editLink.textContent = "Edit";
+    actions.appendChild(editLink);
+
+    const cancelLink = document.createElement("a");
+    cancelLink.href = deleteUrl(post.path);
+    cancelLink.target = "_blank";
+    cancelLink.className = "cancel-link";
+    cancelLink.textContent = "Remove post";
+    actions.appendChild(cancelLink);
+
+    card.appendChild(actions);
+    listEl.appendChild(card);
+  }
+}
+
+main();
+</script>
+</body>
+</html>

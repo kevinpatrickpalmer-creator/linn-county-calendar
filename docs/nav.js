@@ -21,6 +21,7 @@
     { label: "Business Directory", href: "directory.html" },
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
+    { label: "Lost & Found", href: "lost-found.html" },
     { label: "Submit Event", href: "submit.html" },
     { label: "List a Business or Service", href: "submit-business.html" },
     { label: "Flyer", href: "flyer.html" },

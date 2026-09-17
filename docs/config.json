@@ -10,6 +10,7 @@
   "business_categories": ["Restaurant & Food", "Retail & Shopping", "Antiques, Thrift & Secondhand", "Lumber & Hardware", "Automotive", "Gas Stations & Convenience Stores", "Home & Trade Services", "Plumbing", "Electrical", "HVAC & Cooling", "Roofing", "Tree Service", "Lawn Care & Landscaping", "Pest Control", "Handyman", "General Contractor", "Painting", "Locksmith", "Appliance Repair", "Fencing", "Garage Door Service", "Septic, Well & Excavation", "Movers & Storage", "Medical & Healthcare", "Health & Wellness", "Salons & Personal Care", "Veterinary & Pet Services", "Professional & Financial Services", "Banks & Credit Unions", "Real Estate & Insurance", "Lodging & Hospitality", "Farm & Agriculture", "Nonprofit & Civic Organization", "Church & Religious Organization", "Government & Public Services", "Funeral Homes & Cemeteries", "Auctions & Estate Sales", "Education & Childcare", "Arts, Recreation & Entertainment", "Other"],
   "trading_post_categories": ["Meat & Livestock", "Eggs & Dairy", "Produce & Garden", "Baked Goods", "Honey, Jams & Preserves", "Plants, Seedlings & Flowers", "Hay, Straw & Firewood", "Crafts & Handmade Goods", "Other"],
   "job_categories": ["Yard Work & Snow Removal", "Moving & Hauling", "Handyman & Repairs", "Cleaning", "Odd Jobs / Other"],
+  "lost_found_categories": ["Pet", "Item", "Other"],
   "github_repo": "kevinpatrickpalmer-creator/linn-county-calendar",
   "github_branch": "main",
   "web3forms_access_key": "84cb6687-b7d7-453d-b3c0-6faca29868ed",
