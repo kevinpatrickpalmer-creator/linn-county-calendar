@@ -17,32 +17,18 @@
 <meta name="twitter:description" content="What do you wish existed in your town? What should we fix, together? Tell us which town and what's on your mind — two minutes, and we read every response.">
 <link rel="stylesheet" href="theme.css">
 <style>
-  /* The form itself is Google's own iframe -- cross-origin, so its
-     white background and fonts can't be restyled to match the site the
-     way everything else here can. Framing it as one deliberate white
-     panel (like the QR boxes elsewhere) rather than letting it hit full
-     -bleed against the page is what keeps that from reading as "left
-     the site" -- same page, same nav, same header, just one embedded
-     panel partway down it. */
-  .survey-frame-wrap {
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 6px;
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-  }
-  .survey-frame-wrap iframe {
-    display: block;
-    width: 100%;
-    height: 1400px;
-    border: none;
-  }
-  .survey-loading {
-    text-align: center;
-    color: var(--ink-soft);
-    padding: 3rem 0;
-    font-size: .9rem;
-  }
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+
+  /* Confirmation panel -- see docs/submit.html for why this replaces the
+     form entirely on success rather than just adding a status line. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -53,20 +39,74 @@
   <span class="eyebrow" id="eyebrow"></span>
   <h1>Ideas for Your Town?</h1>
   <p class="sub" id="pageSub">Covers all 8 towns in the county, but most ideas are really about the town you live in &mdash; so the form starts by asking which one. What do you wish existed there? What's already great and deserves more of it? Nothing official, just two minutes, and a real person reads every response.</p>
-  <p class="stats-line" id="statsLine"></p>
 
-  <div class="survey-frame-wrap">
-    <div class="survey-loading" id="surveyLoading">Loading survey...</div>
-    <iframe
-      id="surveyFrame"
-      title="Linn County Community Survey"
-      src="https://docs.google.com/forms/d/e/1FAIpQLSdYoDvf1v6c9-aQlfqaLjTd1y-SQXzmeAvWQ6XwEAt1qw-5mw/viewform?embedded=true"
-      style="display:none;">
-      Loading…
-    </iframe>
+  <form id="surveyForm" class="card">
+    <label for="town">Which town are you closest to? (optional)</label>
+    <select id="town" name="town">
+      <option value="">Prefer not to say</option>
+    </select>
+
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name</label>
+      <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
+    <label for="residentType">Are you a resident, a local business owner, or both? (optional)</label>
+    <select id="residentType" name="residentType">
+      <option value="">Prefer not to say</option>
+      <option value="Resident">Resident</option>
+      <option value="Business Owner">Business Owner</option>
+      <option value="Both">Both</option>
+    </select>
+
+    <label for="usedSite">Have you used the calendar, business directory, trading post, jobs board, or lost &amp; found yet? What did you think? (optional)</label>
+    <textarea id="usedSite" name="usedSite" maxlength="1000" placeholder="What's working, what's not?"></textarea>
+
+    <label for="wish">What's something you wish existed in your town, or a problem you think we could solve together? (optional)</label>
+    <textarea id="wish" name="wish" maxlength="1000" placeholder="An event, a business, a service, a fix -- anything"></textarea>
+
+    <label for="great">What's already great about our community that we should do more of? (optional)</label>
+    <textarea id="great" name="great" maxlength="1000"></textarea>
+
+    <label>If any of these existed for Linn County, which would you actually use?</label>
+    <div class="checkbox-row">
+      <input type="checkbox" id="ideaReport" name="ideas" value="A way to report problems (potholes, streetlights) straight to your town or police">
+      <label for="ideaReport">A way to report problems (potholes, streetlights) straight to your town or police</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="ideaAlerts" name="ideas" value="Text alerts for city/county news (weather, outages, road closures, boil-water notices)">
+      <label for="ideaAlerts">Text alerts for city/county news (weather, outages, road closures, boil-water notices)</label>
+    </div>
+    <label for="ideaOther">Other idea (optional)</label>
+    <input id="ideaOther" name="ideaOther" type="text" maxlength="200" placeholder="Something else you'd use?">
+
+    <label for="wantToHelp">Want to help make one of these ideas happen? (optional)</label>
+    <select id="wantToHelp" name="wantToHelp">
+      <option value="">Prefer not to say</option>
+      <option value="Yes, tell me more.">Yes, tell me more.</option>
+      <option value="Maybe">Maybe</option>
+      <option value="Not right now.">Not right now.</option>
+    </select>
+
+    <label for="helpContact">If you're interested in helping, include your name and contact information. (optional)</label>
+    <input id="helpContact" name="helpContact" type="text" maxlength="200" placeholder="Name, phone, or email">
+
+    <label for="anythingElse">Anything else you want to tell us? (optional)</label>
+    <textarea id="anythingElse" name="anythingElse" maxlength="1000"></textarea>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Send</button>
+    <div id="status" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it &mdash; thanks!</h2>
+    <p class="hint">Your response was sent. We read every one, and it genuinely shapes what gets built next.</p>
   </div>
 
-  <p class="hint" style="text-align:center;">Prefer it full-page? <a href="https://forms.gle/ABFjuyF43CoUqHoF7" target="_blank" rel="noopener">Open the survey in a new tab &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
@@ -81,11 +121,72 @@
   document.title = `Ideas for Your Town? | ${config.county_display_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
-  const frame = document.getElementById("surveyFrame");
-  const loading = document.getElementById("surveyLoading");
-  frame.addEventListener("load", () => {
-    loading.style.display = "none";
-    frame.style.display = "block";
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    if (!isOther) townOtherInput.value = "";
+  });
+
+  const form = document.getElementById("surveyForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const confirmPanel = document.getElementById("confirmPanel");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const data = new FormData(form);
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+    data.set("town", town);
+    data.delete("townOther");
+
+    data.append("access_key", config.web3forms_access_key);
+    data.append("subject", `New Ideas for Your Town response${town ? ` — ${town}` : ""}`);
+    data.append("from_name", `${config.calendar_title}: Ideas Survey`);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        form.reset();
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong sending your response. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send";
+    }
   });
 })();
 </script>
