@@ -63,10 +63,11 @@
       font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
       background: transparent; transition: background-color .1s ease, color .1s ease;
+      -webkit-user-drag: none;
     }
-    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); background: var(--primary-tint, rgba(66,133,244,.12)); }
+    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); background: rgba(123, 176, 247, .28); }
     .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
-    .site-nav a.active:hover { background: var(--primary-tint, rgba(66,133,244,.12)); }
+    .site-nav a.active:hover { background: rgba(123, 176, 247, .28); }
     .site-nav a:active { background: rgba(127,127,127,.28); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     @media (max-width: ${NAV_BREAKPOINT}) {
@@ -100,6 +101,15 @@
     const a = document.createElement("a");
     a.href = item.href;
     a.textContent = item.label;
+    // Links/text are natively draggable in the browser -- the tiniest bit
+    // of mouse movement during a click (routine with a trackpad) can get
+    // read as starting a drag instead of a click, which cancels the
+    // click and shows the browser's own translucent drag-ghost of the
+    // link instead of navigating (Kevin's catch, 2026-09-17: "a smaller
+    // square, kind of faded... doesn't take me to that tab"). Only
+    // happened when the cursor was over the text itself, never the
+    // padding around it, because that's exactly what's draggable.
+    a.draggable = false;
     if (item.external) {
       a.target = "_blank";
       a.rel = "noopener";
