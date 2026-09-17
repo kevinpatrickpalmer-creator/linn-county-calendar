@@ -63,7 +63,6 @@
     <p class="hint">Your message was sent. We read every one and will get back to you soon, usually within a day or two.</p>
   </div>
 
-  <p class="hint" style="text-align:center;">Prefer email? Reach us directly at <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
@@ -81,6 +80,15 @@
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const confirmPanel = document.getElementById("confirmPanel");
+  const messageEl = document.getElementById("message");
+
+  // Other pages link here with ?topic=... instead of a mailto subject, so
+  // the "why" carries over into the form instead of getting lost (e.g. the
+  // calendar embed request, or a directory listing correction).
+  const topic = new URLSearchParams(window.location.search).get("topic");
+  if (topic) {
+    messageEl.value = `Re: ${topic}\n\n`;
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -93,7 +101,7 @@
     const name = (data.get("name") || "").trim();
 
     data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New contact message from ${name}`);
+    data.append("subject", topic ? `New contact message from ${name} — ${topic}` : `New contact message from ${name}`);
     data.append("from_name", `${config.calendar_title}: Contact Form`);
 
     try {
