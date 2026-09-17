@@ -1,8 +1,11 @@
 # Manual (community-submitted) events
 
-Each `.json` file in this directory is one **approved** community event,
-created via [`docs/admin.html`](../../docs/admin.html) after reviewing a
-submission from [`docs/submit.html`](../../docs/submit.html).
+Each `.json` file in this directory is one **approved** community event.
+`docs/submit.html` posts to `apps-script/big-ideas.gs`, which commits
+this file automatically once a submission is approved (reply
+"approved" to the notification email, or edit the sheet directly --
+see `apps-script/README.md`). [`docs/admin.html`](../../docs/admin.html)
+still works as a manual fallback if that's ever needed instead.
 
 The scraper (`scrape_linn_county_calendar.py`) reads every file here on each
 run and folds them into the same event list the CitySpark scrape produces,

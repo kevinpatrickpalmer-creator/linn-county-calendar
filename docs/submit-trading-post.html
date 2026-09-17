@@ -181,28 +181,15 @@
     const email = (data.get("email") || "").trim();
     const website = (data.get("website") || "").trim();
 
-    const adminParams = new URLSearchParams({
-      name: rawName,
-      category,
-      town,
-      description,
-      availability,
-      phone,
-      email,
-      website,
-    });
-    const adminLink = `https://${config.domain}/admin-trading-post.html?${adminParams.toString()}`;
-
-    data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New Trading Post listing: ${rawName}`);
-    data.append("from_name", `${config.calendar_title}: Trading Post Submission`);
-    data.append("review_and_approve_link", adminLink);
-
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        body: JSON.stringify({
+          action: "submitBoard",
+          board: "trading-post",
+          botcheck: (data.get("botcheck") || "").toString(),
+          fields: { name: rawName, category, town, description, availability, phone, email, website },
+        }),
       });
       const result = await res.json();
 
@@ -213,7 +200,7 @@
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
       } else {
-        throw new Error(result.message || "Submission failed");
+        throw new Error(result.error || "Submission failed");
       }
     } catch (err) {
       statusEl.textContent = "Something went wrong submitting your listing. Please try again in a moment.";

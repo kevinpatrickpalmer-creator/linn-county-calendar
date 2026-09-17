@@ -1,9 +1,12 @@
 # Jobs Bulletin posts
 
 Each `.json` file in this directory is one **approved** post on the
-public Jobs Bulletin page (`docs/jobs.html`), created via
-[`docs/admin-job.html`](../../docs/admin-job.html) after reviewing a
-submission from [`docs/submit-job.html`](../../docs/submit-job.html).
+public Jobs Bulletin page (`docs/jobs.html`). `docs/submit-job.html`
+posts to `apps-script/big-ideas.gs`, which commits this file
+automatically once a submission is approved (reply "approved" to the
+notification email, or edit the sheet directly -- see
+`apps-script/README.md`). [`docs/admin-job.html`](../../docs/admin-job.html)
+still works as a manual fallback if that's ever needed instead.
 
 This is a two-sided bulletin matching people who need help (shoveling
 snow, mowing, moving, handyman-type work, or a local business with a
@@ -51,8 +54,9 @@ opening. `category` should match one of `job_categories` in
 a post with an unrecognized or missing category still shows up under
 "Odd Jobs / Other".
 
-**`posted`** is a `YYYY-MM-DD` date stamped by `docs/admin-job.html` at
-the moment of approval -- not something the submitter enters -- so
+**`posted`** is a `YYYY-MM-DD` date stamped at the moment of approval
+(by `apps-script/big-ideas.gs`, or by `docs/admin-job.html` if the
+manual fallback is used instead) -- not something the submitter enters -- so
 `docs/jobs.html` can sort newest-first and show "Posted X days ago" on
 each card. Unlike a business or Trading Post listing, a jobs post goes
 stale (the snow melted, the move happened) in a way that matters to a

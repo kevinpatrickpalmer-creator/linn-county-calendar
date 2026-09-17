@@ -1,10 +1,13 @@
 # Trading Post listings
 
 Each `.json` file in this directory is one **approved** listing on the
-public Trading Post page (`docs/trading-post.html`), created via
-[`docs/admin-trading-post.html`](../../docs/admin-trading-post.html) after
-reviewing a submission from
-[`docs/submit-trading-post.html`](../../docs/submit-trading-post.html).
+public Trading Post page (`docs/trading-post.html`).
+`docs/submit-trading-post.html` posts to `apps-script/big-ideas.gs`,
+which commits this file automatically once a submission is approved
+(reply "approved" to the notification email, or edit the sheet
+directly -- see `apps-script/README.md`).
+[`docs/admin-trading-post.html`](../../docs/admin-trading-post.html)
+still works as a manual fallback if that's ever needed instead.
 
 This is for people selling things they raise, grow, or make on a small
 scale, regularly, but who don't fit the main business directory (see

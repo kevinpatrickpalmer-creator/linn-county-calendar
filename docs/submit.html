@@ -220,14 +220,6 @@
     if (!repeats) repeatUntilInput.value = "";
   });
 
-  function formatTime12h(value) {
-    if (!value) return "";
-    const [h, m] = value.split(":").map(Number);
-    const period = h >= 12 ? "pm" : "am";
-    const hour12 = ((h + 11) % 12) + 1;
-    return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
-  }
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
@@ -258,9 +250,6 @@
 
     const data = new FormData(form);
 
-    // Capture raw values before anything gets reformatted for display below --
-    // these are what admin.html's own inputs expect (native <input type=date/time>
-    // values), used to build a one-click pre-filled review link.
     const rawName = (data.get("name") || "").trim();
     const eventType = (data.get("eventType") || "").trim();
     const rawDate = data.get("date") || "";
@@ -275,50 +264,27 @@
     const submitterName = (data.get("submitter_name") || "").trim();
     const recurrence = (data.get("recurrence") || "none").trim();
     const repeatUntil = (data.get("repeat_until") || "").trim();
-
-    const adminParams = new URLSearchParams({
-      name: rawName,
-      event_type: eventType,
-      date: rawDate,
-      time: rawTime,
-      end_time: rawEndTime,
-      town,
-      venue,
-      online_link: onlineLink,
-      description: rawDescription,
-      website,
-      recurrence,
-      repeat_until: repeatUntil,
-      // admin.html combines these into one editable "contact" field, which
-      // gets appended to the event's description -- so this does end up
-      // visible on the public calendar listing (that's the point).
-      contact_email: contactEmail,
-      contact_phone: contactPhone,
-      // Shown to Kevin while reviewing on admin.html, but never published --
-      // the calendar-visible "contact" field above covers who to reach out
-      // to, which may not be the same person who submitted this.
-      submitter_name: submitterName,
-    });
-    const adminLink = `https://${config.domain}/admin.html?${adminParams.toString()}`;
-
-    data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New event submission: ${rawName}`);
-    data.append("from_name", `${config.calendar_title}: Event Submission`);
-    // Human-friendly time for the email itself, since Web3Forms just relays
-    // whatever we send -- separate from rawTime, which stays HH:MM for the link.
-    data.set("time", formatTime12h(rawTime));
-    data.set("end_time", formatTime12h(rawEndTime));
-
-    // Combine into the same "Venue | Town, ST" shape the scraped events use,
-    // so reminder filtering by town works the same way for both.
-    data.append("location", venue && town ? `${venue} | ${town}, ${config.state}` : town ? `${town}, ${config.state}` : "");
-    data.append("review_and_approve_link", adminLink);
+    // Combined into one line and appended to the description on
+    // approval, so it ends up visible on the public calendar listing --
+    // that's the point, so people with questions can reach the
+    // organizer directly.
+    const contact = [contactEmail, contactPhone].filter(Boolean).join(", ");
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        body: JSON.stringify({
+          action: "submitBoard",
+          board: "event",
+          submitterName,
+          botcheck: (data.get("botcheck") || "").toString(),
+          fields: {
+            name: rawName, date: rawDate, time: rawTime, end_time: rawEndTime,
+            town, venue, online_link: onlineLink, description: rawDescription,
+            website, event_type: eventType, recurrence, repeat_until: repeatUntil,
+            contact,
+          },
+        }),
       });
       const result = await res.json();
 
@@ -329,7 +295,7 @@
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
       } else {
-        throw new Error(result.message || "Submission failed");
+        throw new Error(result.error || "Submission failed");
       }
     } catch (err) {
       statusEl.textContent = "Something went wrong submitting your event. Please try again in a moment.";

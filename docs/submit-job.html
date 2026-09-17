@@ -200,27 +200,15 @@
     const phone = (data.get("phone") || "").trim();
     const email = (data.get("email") || "").trim();
 
-    const adminParams = new URLSearchParams({
-      postType,
-      name: rawName,
-      category,
-      town,
-      description,
-      phone,
-      email,
-    });
-    const adminLink = `https://${config.domain}/admin-job.html?${adminParams.toString()}`;
-
-    data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New Jobs Bulletin post (${postType === "offering" ? "offering help" : "needs help"}): ${rawName}`);
-    data.append("from_name", `${config.calendar_title}: Jobs Bulletin Submission`);
-    data.append("review_and_approve_link", adminLink);
-
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        body: JSON.stringify({
+          action: "submitBoard",
+          board: "job",
+          botcheck: (data.get("botcheck") || "").toString(),
+          fields: { type: postType, name: rawName, category, town, description, phone, email },
+        }),
       });
       const result = await res.json();
 
@@ -233,7 +221,7 @@
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
       } else {
-        throw new Error(result.message || "Submission failed");
+        throw new Error(result.error || "Submission failed");
       }
     } catch (err) {
       statusEl.textContent = "Something went wrong submitting your post. Please try again in a moment.";

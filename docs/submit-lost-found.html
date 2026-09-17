@@ -79,7 +79,7 @@
 
     <label for="photo">Photo (optional)</label>
     <input id="photo" name="photo" type="file" accept="image/*">
-    <p class="hint">Helps a lot for a pet or a distinctive item. Only emailed to us for review, never posted automatically.</p>
+    <p class="hint">Helps a lot for a pet or a distinctive item. A person reviews it along with the rest of your post before anything goes live.</p>
 
     <label for="contact_name">Your name *</label>
     <input id="contact_name" name="contact_name" type="text" maxlength="120" required>
@@ -213,32 +213,39 @@
     const phone = (data.get("phone") || "").trim();
     const email = (data.get("email") || "").trim();
 
-    const adminParams = new URLSearchParams({
-      postType,
-      category,
-      name: rawName,
-      town,
-      date,
-      description,
-      contact_name: contactName,
-      phone,
-      email,
-    });
-    const adminLink = `https://${config.domain}/admin-lost-found.html?${adminParams.toString()}`;
+    const payload = {
+      action: "submitBoard",
+      board: "lost-found",
+      botcheck: (data.get("botcheck") || "").toString(),
+      fields: { type: postType, category, name: rawName, town, date, description, contact_name: contactName, phone, email },
+    };
 
-    data.append("access_key", config.web3forms_access_key);
-    data.append("subject", `New Lost & Found post (${postType}): ${rawName}`);
-    data.append("from_name", `${config.calendar_title}: Lost & Found Submission`);
-    data.append("review_and_approve_link", adminLink);
-    // A blank file input still submits an empty file part with
-    // Web3Forms' multipart body, which is harmless -- their API only
-    // attaches it to the email when it actually has content.
+    // A photo is read into the payload as base64 (if one was picked)
+    // rather than sent as a file attachment -- there's no email
+    // attachment step in this flow anymore, the backend uploads it
+    // straight to the repo once the post is approved.
+    const photoFile = document.getElementById("photo").files[0];
+    if (photoFile) {
+      try {
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(photoFile);
+        });
+        payload.photoBase64 = dataUrl.split(",")[1] || "";
+        const extMatch = photoFile.name.match(/\.([a-zA-Z0-9]+)$/);
+        payload.photoExt = extMatch ? extMatch[1] : "jpg";
+      } catch (err) {
+        // A photo that fails to read client-side just doesn't get
+        // attached -- not worth blocking the rest of the post over.
+      }
+    }
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        body: JSON.stringify(payload),
       });
       const result = await res.json();
 
@@ -250,7 +257,7 @@
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
       } else {
-        throw new Error(result.message || "Submission failed");
+        throw new Error(result.error || "Submission failed");
       }
     } catch (err) {
       statusEl.textContent = "Something went wrong submitting your post. Please try again in a moment.";

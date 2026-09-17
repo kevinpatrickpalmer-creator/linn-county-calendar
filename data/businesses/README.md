@@ -1,10 +1,13 @@
 # Business & organization directory listings
 
 Each `.json` file in this directory is one **approved** listing in the
-public directory (`docs/directory.html`), created via
-[`docs/admin-business.html`](../../docs/admin-business.html) after
-reviewing a submission from
-[`docs/submit-business.html`](../../docs/submit-business.html).
+public directory (`docs/directory.html`). `docs/submit-business.html`
+posts to `apps-script/big-ideas.gs`, which commits this file
+automatically once a submission is approved (reply "approved" to the
+notification email, or edit the sheet directly -- see
+`apps-script/README.md`).
+[`docs/admin-business.html`](../../docs/admin-business.html) still
+works as a manual fallback if that's ever needed instead.
 
 `build_business_directory.py` reads every file here and writes the
 combined result to `docs/businesses.json`, which `docs/directory.html`

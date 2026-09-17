@@ -53,22 +53,25 @@ The reporter's own name goes in `contact_name` instead, shown alongside
 
 **`date`** is submitter-entered -- when the pet/item was actually lost
 or found, which usually isn't the same day as the report. **`posted`**
-is a separate `YYYY-MM-DD` stamped by `docs/admin-lost-found.html` at
-the moment of approval, same purpose as `data/jobs/`'s `posted`: lets
-`docs/lost-found.html` show "Posted X days ago" and sort newest-first,
-independent of whatever date the submitter entered.
+is a separate `YYYY-MM-DD` stamped at the moment of approval (by
+`apps-script/big-ideas.gs`, or by hand via `docs/admin-lost-found.html`
+if that manual fallback is ever used instead), same purpose as
+`data/jobs/`'s `posted`: lets `docs/lost-found.html` show "Posted X
+days ago" and sort newest-first, independent of whatever date the
+submitter entered.
 
 **`photo` is optional and, unlike every other photo on this site, isn't
-a Google-hosted URL** -- there's no automated upload pipeline for a
-submitter's own photo (the form only emails it to Kevin as an
-attachment, same as every other field here goes through Web3Forms).
-Publishing one is a manual step: upload the image into
-`docs/lost-found-photos/` via GitHub's own "Add file → Upload files"
-button (drag-and-drop, no git needed) *before* creating this JSON file,
-then reference it here as a path relative to `docs/`, e.g.
-`"lost-found-photos/whatever-you-named-it.jpg"` -- `docs/lost-found.html`
-just points an `<img>` straight at that path. A post with no `photo`
-field still publishes fine; the card just skips the image.
+a Google-hosted URL** -- it's whatever a submitter attached, uploaded
+straight into `docs/lost-found-photos/` by `apps-script/big-ideas.gs`
+at submission time (base64-encoded from the browser, committed via the
+GitHub API), sitting there unreferenced by any public JSON until the
+post is approved. Referenced here as a path relative to `docs/`, e.g.
+`"lost-found-photos/whatever-it-got-named.jpg"` -- `docs/lost-found.html`
+just points an `<img>` straight at that path. A rejected post has its
+photo deleted again; a post with no `photo` field still publishes
+fine, the card just skips the image. (Before this was automated, a
+photo was a manual GitHub upload step -- see the repo history if that
+ever needs resurrecting.)
 
 **No street address field, deliberately** -- same reasoning as
 `data/jobs/` and Trading Post: `description` is where a poster says
