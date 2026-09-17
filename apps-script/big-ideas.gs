@@ -496,6 +496,22 @@ function debugCheckReplies() {
   Logger.log("Threads matching subject AND not yet processed: " + withLabelFilter.length);
 }
 
+// Temporary diagnostic -- forces the "make external requests" permission
+// check unconditionally (unlike checkForReplies, which only reaches it
+// if a matching unprocessed thread happens to exist), so running this
+// once is a reliable way to trigger that consent prompt and confirm
+// the GitHub token actually works, independent of any Gmail state.
+function debugGithubAuth() {
+  const token = PropertiesService.getScriptProperties().getProperty("GITHUB_TOKEN");
+  Logger.log("GITHUB_TOKEN is set: " + !!token);
+  const res = UrlFetchApp.fetch("https://api.github.com/repos/" + GITHUB_REPO, {
+    headers: token ? { Authorization: "token " + token, Accept: "application/vnd.github+json" } : {},
+    muteHttpExceptions: true,
+  });
+  Logger.log("Response code: " + res.getResponseCode());
+  Logger.log("Response body: " + res.getContentText().slice(0, 500));
+}
+
 function checkForReplies() {
   const processedLabel = getProcessedLabel();
   const threads = GmailApp.search('(subject:"Big Idea pending review" OR subject:"submission pending review") -label:' + PROCESSED_LABEL, 0, 20);
@@ -571,7 +587,13 @@ function applyBoardDecision(refCode, newStatus) {
       } catch (err) {
         // Don't silently lose the submission -- leave a visible trail
         // for a person to follow up on instead of just marking it done.
+        // Also don't mark the thread processed (return false below,
+        // skipping the label) -- a failure here is often a fixable,
+        // one-time setup issue (a missing permission grant, a bad
+        // token), and the next automatic run should retry rather than
+        // silently giving up on it forever.
         sheet.getRange(rowNum, idx.status + 1).setValue("error: " + err.message);
+        return false;
       }
     } else {
       // fields.photo is stored relative to docs/ (matching the "photo"
