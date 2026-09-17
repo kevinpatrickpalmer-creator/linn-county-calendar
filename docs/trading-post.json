@@ -6,5 +6,10 @@
     "availability": "Eggs year-round, garden produce June through September. Call ahead.",
     "description": "This is a sample listing to show the format \u2014 real listings work just like this. Farm-fresh eggs $4/dozen, seasonal garden produce, pickup off Route B.",
     "example": true
+  },
+  {
+    "name": "TEST final verification",
+    "town": "Marceline",
+    "description": "Final end-to-end confirmation of the reply-to-approve pipeline."
   }
 ]
