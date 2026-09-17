@@ -9,12 +9,12 @@
 <title>Lost &amp; Found</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lost &amp; Found | Linn County">
-<meta property="og:description" content="Lost or found a pet or an item around Linn County? One place to look, instead of hoping you catch the right Facebook post.">
+<meta property="og:description" content="Lost or found a pet or an item around Linn County? Post it here so more people see it, fast.">
 <meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
 <meta property="og:url" content="https://linn.communitycalendarconnect.com/lost-found.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lost &amp; Found | Linn County">
-<meta name="twitter:description" content="Lost or found a pet or an item around Linn County? One place to look, instead of hoping you catch the right Facebook post.">
+<meta name="twitter:description" content="Lost or found a pet or an item around Linn County? Post it here so more people see it, fast.">
 <link rel="stylesheet" href="theme.css">
 <style>
   .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
@@ -159,7 +159,7 @@
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Lost &amp; Found</h1>
-    <p class="sub" id="pageSub">Lost a pet or an item, or found one? One place to look and post, instead of hoping you catch the right Facebook group.</p>
+    <p class="sub" id="pageSub">Lost a pet or an item, or found one? Post it here so more people see it, fast.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -493,7 +493,13 @@
       `<span class="live-count"><span class="live-dot"></span>${posts.length} Post${posts.length === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
-    const towns = [...new Set(posts.map((p) => p.town))].sort();
+    // Always the county's own 8 towns, plus any other real town already
+    // showing up in the data (e.g. a service-area post from just outside
+    // the county) -- not just whatever's in the data alone, which would
+    // leave the filter showing nothing at all while the board is still
+    // new/thin (Kevin's catch, 2026-09-17: "no dropdown list... just
+    // says all towns").
+    const towns = [...new Set([...config.towns, ...posts.map((p) => p.town)])].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,

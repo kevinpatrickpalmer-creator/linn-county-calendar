@@ -138,7 +138,7 @@
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Trading Post</h1>
-    <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find them, instead of hoping you catch the right Facebook post.</p>
+    <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find it all, easy to check any time.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -472,7 +472,11 @@
       `<span class="live-count"><span class="live-dot"></span>${listings.length} Listing${listings.length === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
-    const towns = [...new Set(listings.map((b) => b.town))].sort();
+    // Always the county's own 8 towns, plus any other real town already
+    // showing up in the data -- not just whatever's in the data alone,
+    // which would leave the filter showing nothing while the board is
+    // still thin. Same fix as docs/lost-found.html, same day.
+    const towns = [...new Set([...config.towns, ...listings.map((b) => b.town)])].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,

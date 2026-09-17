@@ -496,7 +496,11 @@
       `<span class="live-count"><span class="live-dot"></span>${posts.length} Post${posts.length === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
-    const towns = [...new Set(posts.map((p) => p.town))].sort();
+    // Always the county's own 8 towns, plus any other real town already
+    // showing up in the data -- not just whatever's in the data alone,
+    // which would leave the filter showing nothing while the board is
+    // still thin. Same fix as docs/lost-found.html, same day.
+    const towns = [...new Set([...config.towns, ...posts.map((p) => p.town)])].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
