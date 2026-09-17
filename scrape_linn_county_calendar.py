@@ -1638,12 +1638,18 @@ EVENT_TYPE_KEYWORDS = [
     # "Other" in September 2026 despite category-based tagging existing;
     # this is the same "best-effort guess for what the reliable path
     # missed" layer, just extended to cover sport names too.
-    (re.compile(r"\b(softball|baseball|football|basketball|volleyball|wrestling|swim(ming)?|\btrack\b|cross country|tennis|cheer(leading)?|\bgolf\b|soccer)\b", re.IGNORECASE), "Sports"),
-    (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration|car show)\b", re.IGNORECASE), "Festival / Fair"),
+    # "xc" (cross country's own standard abbreviation on meet schedules)
+    # and "bell game" (an annual rivalry-football tradition here, not a
+    # generic phrase) both found checking October -- see Sports' comment
+    # above for why this list exists at all.
+    (re.compile(r"\b(softball|baseball|football|basketball|volleyball|wrestling|swim(ming)?|\btrack\b|cross country|\bxc\b|tennis|cheer(leading)?|\bgolf\b|soccer|bell game)\b", re.IGNORECASE), "Sports"),
+    (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration|car show|hayride|oktober\s?fest)\b", re.IGNORECASE), "Festival / Fair"),
     (re.compile(r"\b(church|revival|vbs|bible study|worship|ministerial alliance)\b", re.IGNORECASE), "Religious / Church"),
     (re.compile(r"\bchamber\b", re.IGNORECASE), "Business / Chamber"),
     (re.compile(r"\b(concert|theater|theatre|art show|craft fair|open mic)\b", re.IGNORECASE), "Arts & Entertainment"),
-    (re.compile(r"\b(courthouse closed|election|public notice|road closure|closed\b)\b", re.IGNORECASE), "Government Notice"),
+    # "trash/bulk collection" and "siren test" found checking October --
+    # routine city-service notices, same spirit as "courthouse closed".
+    (re.compile(r"\b(courthouse closed|election|public notice|road closure|trash collection|bulk collection|siren test|closed\b)\b", re.IGNORECASE), "Government Notice"),
 ]
 
 
