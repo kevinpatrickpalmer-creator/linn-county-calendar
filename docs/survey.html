@@ -6,15 +6,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Got Ideas?</title>
+<title>Ideas for Your Town?</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Got Ideas for Linn County?">
-<meta property="og:description" content="What do you wish existed here? What should we fix, together? Tell us — nothing official, just two minutes, and we read every response.">
+<meta property="og:title" content="Ideas for Your Town?">
+<meta property="og:description" content="What do you wish existed in your town? What should we fix, together? Tell us which town and what's on your mind — two minutes, and we read every response.">
 <meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
 <meta property="og:url" content="https://linn.communitycalendarconnect.com/survey.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Got Ideas for Linn County?">
-<meta name="twitter:description" content="What do you wish existed here? What should we fix, together? Tell us — nothing official, just two minutes, and we read every response.">
+<meta name="twitter:title" content="Ideas for Your Town?">
+<meta name="twitter:description" content="What do you wish existed in your town? What should we fix, together? Tell us which town and what's on your mind — two minutes, and we read every response.">
 <link rel="stylesheet" href="theme.css">
 <style>
   /* The form itself is Google's own iframe -- cross-origin, so its
@@ -51,8 +51,8 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>Got Ideas for Linn County?</h1>
-  <p class="sub" id="pageSub">What do you wish existed here? What's already great and deserves more of it? What could we fix, together? Tell us &mdash; nothing official, just two minutes, and a real person reads every response.</p>
+  <h1>Ideas for Your Town?</h1>
+  <p class="sub" id="pageSub">Covers all 8 towns in the county, but most ideas are really about the town you live in &mdash; so the form starts by asking which one. What do you wish existed there? What's already great and deserves more of it? Nothing official, just two minutes, and a real person reads every response.</p>
   <p class="stats-line" id="statsLine"></p>
 
   <div class="survey-frame-wrap">
@@ -78,7 +78,7 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Got Ideas? | ${config.county_display_name}`;
+  document.title = `Ideas for Your Town? | ${config.county_display_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const frame = document.getElementById("surveyFrame");
