@@ -479,39 +479,6 @@ function getProcessedLabel() {
  * reply "unread" the way it would a message from someone else, which
  * silently broke an earlier version of this check.
  */
-// Temporary diagnostic -- run manually from the function dropdown (no
-// redeploy needed, just Save then Run), then check the execution log
-// (it opens automatically, or View > Logs) for what it printed. Not
-// wired into the trigger; safe to leave in or delete later.
-function debugCheckReplies() {
-  const subjectQuery = '(subject:"Big Idea pending review" OR subject:"submission pending review")';
-  const withoutLabelFilter = GmailApp.search(subjectQuery, 0, 20);
-  Logger.log("Threads matching subject (ignoring label filter): " + withoutLabelFilter.length);
-  for (const t of withoutLabelFilter) {
-    const labels = t.getLabels().map(function (l) { return l.getName(); });
-    Logger.log("  subject=" + JSON.stringify(t.getFirstMessageSubject()) + " msgCount=" + t.getMessageCount() + " labels=" + JSON.stringify(labels));
-  }
-
-  const withLabelFilter = GmailApp.search(subjectQuery + " -label:" + PROCESSED_LABEL, 0, 20);
-  Logger.log("Threads matching subject AND not yet processed: " + withLabelFilter.length);
-}
-
-// Temporary diagnostic -- forces the "make external requests" permission
-// check unconditionally (unlike checkForReplies, which only reaches it
-// if a matching unprocessed thread happens to exist), so running this
-// once is a reliable way to trigger that consent prompt and confirm
-// the GitHub token actually works, independent of any Gmail state.
-function debugGithubAuth() {
-  const token = PropertiesService.getScriptProperties().getProperty("GITHUB_TOKEN");
-  Logger.log("GITHUB_TOKEN is set: " + !!token);
-  const res = UrlFetchApp.fetch("https://api.github.com/repos/" + GITHUB_REPO, {
-    headers: token ? { Authorization: "token " + token, Accept: "application/vnd.github+json" } : {},
-    muteHttpExceptions: true,
-  });
-  Logger.log("Response code: " + res.getResponseCode());
-  Logger.log("Response body: " + res.getContentText().slice(0, 500));
-}
-
 function checkForReplies() {
   const processedLabel = getProcessedLabel();
   const threads = GmailApp.search('(subject:"Big Idea pending review" OR subject:"submission pending review") -label:' + PROCESSED_LABEL, 0, 20);
