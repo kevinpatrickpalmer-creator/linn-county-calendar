@@ -14,6 +14,18 @@
   #status.err { color: var(--primary); }
   .hp { position: absolute; left: -9999px; }
   .hint.err { color: var(--primary); font-weight: 600; }
+
+  /* Confirmation panel: replaces the form entirely on success rather than
+     just adding a status line below the button, so there's no ambiguity
+     about whether the submission went through -- Kevin's ask, 2026-09-16:
+     someone who doesn't notice a small "submitted!" line might resubmit
+     thinking it failed. The button disappearing along with the whole form
+     is a stronger signal than any text could be. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+  .confirm-panel .btn.secondary { margin-top: 1.1rem; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -106,6 +118,14 @@
     <button type="submit" id="submitBtn">Submit event</button>
     <div id="status" role="status"></div>
   </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it — thanks!</h2>
+    <p class="hint">Your event was received. A person reviews every submission, and if approved it'll be live on the calendar within 24 hours. <strong>No need to submit it again</strong> if you don't see it right away.</p>
+    <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another event</button>
+  </div>
+
   <p class="hint" style="text-align:center;"><a href="https://forms.gle/ABFjuyF43CoUqHoF7" target="_blank" rel="noopener">Got an idea for Linn County? Take our survey &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
@@ -168,6 +188,14 @@
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const contactHint = document.getElementById("contactHint");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+
+  submitAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("name").focus();
+  });
   const recurrenceSelect = document.getElementById("recurrence");
   const repeatUntilWrap = document.getElementById("repeatUntilWrap");
   const repeatUntilInput = document.getElementById("repeat_until");
@@ -284,9 +312,11 @@
       const result = await res.json();
 
       if (result.success) {
-        statusEl.textContent = "Thanks! Your event was submitted for review.";
-        statusEl.className = "ok";
         form.reset();
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
       } else {
         throw new Error(result.message || "Submission failed");
       }

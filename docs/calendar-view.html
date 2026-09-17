@@ -15,6 +15,22 @@
     color: var(--ink);
   }
   .wrap { padding: .9rem .75rem; max-width: 900px; margin: 0 auto; }
+
+  /* Hero -- deliberately a lighter-weight version of the band on
+     Subscribe/Directory/Trading Post/Jobs Bulletin (see docs/directory.html),
+     not a straight copy. This page is a dense, functional calendar grid
+     that also gets embedded via iframe on other sites (see the "embed"
+     snippet below), so it can't afford a tall decorative band the way a
+     browse/landing tab can -- it just wraps the existing compact topbar
+     in a full-bleed surface band instead of adding a new one. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: .85rem .75rem;
+    margin: 0 0 .9rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .stats-line { margin-bottom: 0; }
   .topbar {
     display: flex;
     align-items: center;
@@ -25,18 +41,18 @@
   }
   .topbar-title { display: flex; align-items: center; gap: .6rem; min-width: 0; }
   .mo-badge {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 999px;
     background: var(--surface);
-    border: 1px solid var(--surface-border);
+    border: 2px solid var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     box-shadow: var(--shadow-sm);
   }
-  .mo-badge img { width: 24px; height: auto; display: block; }
+  .mo-badge img { width: 26px; height: auto; display: block; }
   .topbar h1 {
     font-family: var(--font-display);
     font-weight: 700;
@@ -296,12 +312,13 @@
      shapes (see beforeprint below). ---------- */
   @media print {
     html, body { background: #fff; color: #000; }
+    .hero { background: none; border-bottom: none; padding: 0; margin: 0 0 .6rem; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
     .stats-line, .month-count, #detail, #status {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
-    .mo-badge { width: 44px; height: 44px; }
+    .mo-badge { width: 44px; height: 44px; border-color: #999; }
     .mo-badge img { width: 32px; }
     .grid { background: #999; border-color: #999; }
     .dow { background: #eee; color: #333; }
@@ -322,20 +339,24 @@
 </head>
 <body>
 <script src="nav.js"></script>
-<div class="wrap">
-  <div class="topbar">
-    <div class="topbar-title">
-      <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
-      <h1 id="monthLabel">Community Calendar</h1>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="topbar">
+      <div class="topbar-title">
+        <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+        <h1 id="monthLabel">Community Calendar</h1>
+      </div>
+      <div class="nav">
+        <button id="prevBtn" aria-label="Previous month">&larr;</button>
+        <button id="todayBtn">Today</button>
+        <button id="nextBtn" aria-label="Next month">&rarr;</button>
+      </div>
     </div>
-    <div class="nav">
-      <button id="prevBtn" aria-label="Previous month">&larr;</button>
-      <button id="todayBtn">Today</button>
-      <button id="nextBtn" aria-label="Next month">&rarr;</button>
-    </div>
-  </div>
 
-  <p class="stats-line" id="statsLine"></p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<div class="wrap">
   <p class="month-count" id="monthCount"></p>
 
   <div class="filterbar">

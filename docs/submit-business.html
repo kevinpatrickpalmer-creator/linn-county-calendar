@@ -14,6 +14,14 @@
   #status.err { color: var(--primary); }
   .hp { position: absolute; left: -9999px; }
   .hint.err { color: var(--primary); font-weight: 600; }
+
+  /* Confirmation panel -- see docs/submit.html for why this replaces the
+     form entirely on success rather than just adding a status line. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+  .confirm-panel .btn.secondary { margin-top: 1.1rem; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -77,6 +85,14 @@
     <button type="submit" id="submitBtn">Submit listing</button>
     <div id="status" role="status"></div>
   </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it — thanks!</h2>
+    <p class="hint">Your listing was received. A person reviews every submission, and if approved it'll be live in the directory within 24 hours. <strong>No need to submit it again</strong> if you don't see it right away.</p>
+    <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another listing</button>
+  </div>
+
   <p class="hint" style="text-align:center;"><a href="directory.html">Browse the directory &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
@@ -125,6 +141,14 @@
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const contactHint = document.getElementById("contactHint");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+
+  submitAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("name").focus();
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -190,9 +214,11 @@
       const result = await res.json();
 
       if (result.success) {
-        statusEl.textContent = "Thanks! Your listing was submitted for review.";
-        statusEl.className = "ok";
         form.reset();
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
       } else {
         throw new Error(result.message || "Submission failed");
       }
