@@ -940,27 +940,64 @@ def get_mshsaa_school_events(school_id, district, town):
     return events
 
 
+# Common abbreviations that end in a period but never actually end a
+# sentence, so a period right after one of these (case-insensitive)
+# doesn't count as a name boundary in _find_manual_entry_name_boundary --
+# most of these are only really guarding street-address fragments
+# ("...St. Marceline"), but "vs" earns its place from a real regression:
+# "Annual Marceline vs. Brookfield Bell Game, at..." was briefly cut down
+# to just "Annual Marceline vs" once periods were allowed to win against
+# a later comma (see that function's docstring).
+_MANUAL_ENTRY_ABBREVIATIONS = {
+    "vs", "st", "ave", "rd", "dr", "blvd", "mt", "ft",
+    "mr", "mrs", "ms", "jr", "sr", "no", "vol", "etc", "co", "inc",
+}
+
+
 def _find_manual_entry_name_boundary(text, max_len=80):
     """Where a "name" plausibly ends within a hand-typed bullet like
     "Mommy and Me Group, 10-11 a.m., 210 W Hayden St., Marceline. Join
-    this..." -- prefers an early comma (the common "Name, detail, detail"
-    shape in this data), then falls back to a sentence-ending period,
-    skipping periods that are actually abbreviations (a single capital
-    letter before them, as in "S.U.P.P.O.R.T."). Returns None if nothing
-    plausible is found within max_len, so the caller can fall back to a
-    plain truncation instead of confidently returning a wrong answer."""
-    comma_idx = text.find(",")
-    if 0 < comma_idx <= max_len:
-        return comma_idx
+    this..." -- an early comma (the common "Name, detail, detail" shape
+    in this data) or a sentence-ending period, skipping periods that are
+    actually abbreviations (either a single capital letter right before
+    them, as in "S.U.P.P.O.R.T.", or a word in
+    _MANUAL_ENTRY_ABBREVIATIONS, as in "vs." or "St."), WHICHEVER COMES
+    FIRST in the text. Returns None if nothing plausible is found within
+    max_len, so the caller can fall back to a plain truncation instead of
+    confidently returning a wrong answer.
 
+    Originally always preferred the comma outright, on the assumption it
+    would be the earlier, tighter boundary when both exist -- wrong for
+    a bullet like "...Car Show this September. The event is scheduled
+    for Sat., Sept. 12, at..." (Kevin caught this exact one, 2026-09-17):
+    the sentence genuinely ends at "...this September." (a clean period
+    boundary at index 45), but the first comma anywhere in the text
+    lands much later, mid-date, at index 78 ("...for Sat.[,] Sept. 12")
+    -- so the old code returned that instead, swallowing an entire extra
+    sentence into the "name". Picking whichever boundary is textually
+    earliest fixes this case and leaves every comma-first case (the
+    common one) unchanged, since the comma there already comes first --
+    but earliest-wins alone let a false-positive period (an abbreviation
+    the old single-capital-letter check didn't recognize, like "vs.")
+    beat a perfectly good later comma, hence the word-list check above."""
+    comma_idx = text.find(",")
+    if not (0 < comma_idx <= max_len):
+        comma_idx = None
+
+    period_idx = None
     for m in re.finditer(r"\.(?=\s|$)", text[: max_len + 1]):
         idx = m.start()
         before = text[max(0, idx - 2) : idx]
         if before and before[-1].isupper() and (idx < 2 or not text[idx - 2].isalpha()):
             continue  # single capital letter right before the period -> acronym
-        return idx
+        word_match = re.search(r"([A-Za-z]+)$", text[:idx])
+        if word_match and word_match.group(1).lower() in _MANUAL_ENTRY_ABBREVIATIONS:
+            continue  # "vs.", "St.", "Jr.", ... -- not a sentence end
+        period_idx = idx
+        break
 
-    return None
+    candidates = [i for i in (comma_idx, period_idx) if i is not None]
+    return min(candidates) if candidates else None
 
 
 # This prose almost always writes times as "10:30 a.m." / "7 p.m." (with
