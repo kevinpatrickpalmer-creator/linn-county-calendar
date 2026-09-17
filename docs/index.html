@@ -29,19 +29,39 @@
   @media (max-width: 600px) {
     .qr-callout { display: none; }
   }
+
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. Inner width
+     matches this page's own (narrower, non-"wide") <main>. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 480px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="qrcode.js"></script>
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1 id="pageTitle">Community Calendar</h1>
+    <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
 <main>
-  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
-  <span class="eyebrow" id="eyebrow"></span>
-  <h1 id="pageTitle">Community Calendar</h1>
-  <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
-  <p class="stats-line" id="statsLine"></p>
-
   <section>
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>

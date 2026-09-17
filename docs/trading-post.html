@@ -100,18 +100,38 @@
   .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
   .biz-meta a:hover { text-decoration: underline; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
+
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  .hero p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Trading Post</h1>
+    <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find them, instead of hoping you catch the right Facebook post.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
 <main class="wide">
-  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
-  <span class="eyebrow" id="eyebrow"></span>
-  <h1>Trading Post</h1>
-  <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find them, instead of hoping you catch the right Facebook post.</p>
-  <p class="stats-line" id="statsLine"></p>
-
   <p class="callout">Sell something homegrown or homemade? <a href="submit-trading-post.html">Get listed free &rarr;</a> No catch, just another way for people around here to find you.</p>
 
   <div class="dir-controls">
