@@ -15,6 +15,7 @@
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
     { label: "Submit Event", href: "submit.html" },
+    { label: "List a Business or Service", href: "submit-business.html" },
     { label: "Flyer", href: "flyer.html" },
     { label: "Survey", href: "https://forms.gle/ABFjuyF43CoUqHoF7", external: true },
     { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
