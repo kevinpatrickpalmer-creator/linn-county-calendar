@@ -91,6 +91,29 @@
   .idea-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.35; }
   .idea-desc { font-size: .88rem; color: var(--ink); line-height: 1.5; margin-top: .35rem; }
   .idea-meta { font-size: .78rem; color: var(--ink-soft); margin-top: .5rem; }
+  .idea-contact { margin-top: .35rem; font-size: .82rem; }
+  .idea-contact a { color: var(--navy); text-decoration: none; font-weight: 500; margin-right: .75rem; }
+  .idea-contact a:hover { text-decoration: underline; }
+
+  /* Town tags -- local school colors where confirmed (Kevin's ask,
+     2026-09-17), a neutral placeholder everywhere else until the rest
+     are confirmed too. See docs/config.json's "towns" list for the
+     full 8; anything not listed here falls back to .town-tag.default. */
+  .town-tag {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    padding: .15rem .55rem;
+    border-radius: 999px;
+    border: 1px solid;
+    margin-bottom: .4rem;
+  }
+  .town-tag.brookfield { color: #6fa8dc; background: #16283a; border-color: #6fa8dc; }
+  .town-tag.marceline { color: #d4af37; background: #332a0f; border-color: #d4af37; }
+  .town-tag.bucklin { color: #e06666; background: #3a1414; border-color: #e06666; }
+  .town-tag.default { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
 
   #ideasStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
   #submitStatus { margin-top: 1rem; font-size: .95rem; text-align: center; }
@@ -136,6 +159,13 @@
       <select id="town" name="town">
         <option value="">Prefer not to say</option>
       </select>
+
+      <label for="email">Email (optional)</label>
+      <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+
+      <label for="phone">Phone (optional)</label>
+      <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+      <p class="hint">Left blank by default. If you add one, it shows on your idea so neighbors who want to help can reach you directly.</p>
 
       <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
       <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
@@ -225,6 +255,14 @@
     voterId = String(Date.now()) + Math.random().toString(16).slice(2);
   }
 
+  // Local school colors, confirmed with Kevin (2026-09-17): Brookfield
+  // (blue), Marceline (gold), Bucklin (red). The other 5 towns
+  // (Browning, Laclede, Linneus, Meadville, Purdin) fall back to
+  // .town-tag.default until their colors are confirmed too -- add a
+  // "townname: color-class" pair here once they are, matching the
+  // .town-tag.<name> rules in the <style> above.
+  const TOWN_COLORS = new Set(["brookfield", "marceline", "bucklin"]);
+
   function timeAgo(iso) {
     if (!iso) return "";
     const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
@@ -298,6 +336,14 @@
     const body = document.createElement("div");
     body.className = "idea-body";
 
+    if (idea.town) {
+      const townKey = idea.town.toLowerCase().replace(/[^a-z]/g, "");
+      const townTag = document.createElement("div");
+      townTag.className = "town-tag " + (TOWN_COLORS.has(townKey) ? townKey : "default");
+      townTag.textContent = idea.town;
+      body.appendChild(townTag);
+    }
+
     const title = document.createElement("div");
     title.className = "idea-title";
     title.textContent = idea.title;
@@ -310,9 +356,26 @@
       body.appendChild(desc);
     }
 
+    if (idea.phone || idea.email) {
+      const contact = document.createElement("div");
+      contact.className = "idea-contact";
+      if (idea.phone) {
+        const a = document.createElement("a");
+        a.href = "tel:" + idea.phone.replace(/[^0-9+]/g, "");
+        a.textContent = idea.phone;
+        contact.appendChild(a);
+      }
+      if (idea.email) {
+        const a = document.createElement("a");
+        a.href = "mailto:" + idea.email;
+        a.textContent = idea.email;
+        contact.appendChild(a);
+      }
+      body.appendChild(contact);
+    }
+
     const metaBits = [];
-    if (idea.name) metaBits.push(idea.town ? `${idea.name}, ${idea.town}` : idea.name);
-    else if (idea.town) metaBits.push(idea.town);
+    if (idea.name) metaBits.push(idea.name);
     if (!idea.example) {
       const posted = timeAgo(idea.submitted);
       if (posted) metaBits.push(posted);
@@ -377,6 +440,8 @@
           description: (data.get("description") || "").toString().trim(),
           name: (data.get("name") || "").toString().trim(),
           town: (data.get("town") || "").toString().trim(),
+          email: (data.get("email") || "").toString().trim(),
+          phone: (data.get("phone") || "").toString().trim(),
           botcheck: (data.get("botcheck") || "").toString().trim(),
         }),
       });

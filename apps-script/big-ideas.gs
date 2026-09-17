@@ -49,11 +49,14 @@ const SITE_STATE = "MO";
 function getSheet(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(name);
-  if (sheet) return sheet;
+  if (sheet) {
+    if (name === IDEAS_SHEET) ensureIdeasColumns(sheet);
+    return sheet;
+  }
 
   sheet = ss.insertSheet(name);
   if (name === IDEAS_SHEET) {
-    sheet.appendRow(["id", "title", "description", "name", "town", "submitted", "upvotes", "downvotes", "example", "status"]);
+    sheet.appendRow(["id", "title", "description", "name", "town", "submitted", "upvotes", "downvotes", "example", "status", "email", "phone"]);
     // Seeded so the board never looks empty before anyone's posted for
     // real -- same reasoning as the pinned example on Jobs Bulletin and
     // Trading Post. Always shown regardless of status since example=true.
@@ -64,6 +67,7 @@ function getSheet(name) {
       "", "",
       new Date().toISOString(),
       0, 0, true, "approved",
+      "", "",
     ]);
   } else if (name === VOTES_SHEET) {
     sheet.appendRow(["idea_id", "voter_id", "vote", "updated"]);
@@ -71,6 +75,20 @@ function getSheet(name) {
     sheet.appendRow(["id", "board", "data_json", "submitted", "status"]);
   }
   return sheet;
+}
+
+// Adds "email"/"phone" columns to an Ideas sheet that predates them
+// (appended at the end, so it's safe to run against a sheet that
+// already has rows -- every existing lookup goes through sheetToObjects()'s
+// name-based header map, never a fixed column index, so older rows
+// just read back with blank email/phone until edited).
+function ensureIdeasColumns(sheet) {
+  const lastCol = sheet.getLastColumn();
+  const header = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  const missing = ["email", "phone"].filter((col) => header.indexOf(col) === -1);
+  if (missing.length) {
+    sheet.getRange(1, lastCol + 1, 1, missing.length).setValues([missing]);
+  }
 }
 
 function doGet(e) {
@@ -131,6 +149,8 @@ function listIdeas(voterId) {
       description: r[idx.description],
       name: r[idx.name] || "",
       town: r[idx.town] || "",
+      email: r[idx.email] || "",
+      phone: r[idx.phone] || "",
       submitted: r[idx.submitted],
       upvotes: Number(r[idx.upvotes] || 0),
       downvotes: Number(r[idx.downvotes] || 0),
@@ -156,6 +176,8 @@ function submitIdea(body) {
   const description = (body.description || "").toString().trim().slice(0, 1000);
   const name = (body.name || "").toString().trim().slice(0, 100);
   const town = (body.town || "").toString().trim().slice(0, 60);
+  const email = (body.email || "").toString().trim().slice(0, 150);
+  const phone = (body.phone || "").toString().trim().slice(0, 30);
 
   if (!title || !description) {
     return { success: false, error: "Title and description are required." };
@@ -163,7 +185,7 @@ function submitIdea(body) {
 
   const sheet = getSheet(IDEAS_SHEET);
   const id = Utilities.getUuid();
-  sheet.appendRow([id, title, description, name, town, new Date().toISOString(), 0, 0, false, "pending"]);
+  sheet.appendRow([id, title, description, name, town, new Date().toISOString(), 0, 0, false, "pending", email, phone]);
 
   try {
     // The #<refCode> tag rides along in the subject through Gmail's
@@ -176,7 +198,10 @@ function submitIdea(body) {
       "A new idea was submitted to the Big Ideas board.\n\n" +
         "Title: " + title + "\n" +
         "Description: " + description + "\n" +
-        "From: " + (name || "(no name given)") + (town ? ", " + town : "") + "\n\n" +
+        "From: " + (name || "(no name given)") + (town ? ", " + town : "") + "\n" +
+        (email ? "Email: " + email + "\n" : "") +
+        (phone ? "Phone: " + phone + "\n" : "") +
+        "\n" +
         "Reply to this email with just the word \"approved\" or \"rejected\" " +
         "and it'll update the board automatically within a few minutes -- " +
         "or open the sheet directly and change the \"status\" cell by hand:\n" +
