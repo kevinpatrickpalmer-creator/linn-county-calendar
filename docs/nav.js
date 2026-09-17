@@ -27,7 +27,9 @@
     { label: "Jobs Bulletin", href: "jobs.html" },
     { label: "Lost & Found", href: "lost-found.html" },
     { label: "Flyer", href: "flyer.html" },
-    { label: "Ideas for Your Town?", href: "survey.html" },
+    { label: "Ideas for Your Town?", href: "survey.html", children: [
+      { label: "Big Ideas", href: "big-ideas.html" },
+    ] },
     { label: "Contact", href: "contact.html" },
   ];
   const NAV_HEIGHT = "48px";

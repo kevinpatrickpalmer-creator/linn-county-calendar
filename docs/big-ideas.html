@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Big Ideas</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Big Ideas | Linn County">
+<meta property="og:description" content="Got a big idea for Linn County? Post it, and see what your neighbors think -- upvote the ones you'd want to see happen.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/big-ideas.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Big Ideas | Linn County">
+<meta name="twitter:description" content="Got a big idea for Linn County? Post it, and see what your neighbors think -- upvote the ones you'd want to see happen.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  body.themed .hero p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+
+  #ideaList { display: flex; flex-direction: column; gap: .9rem; margin: 1.25rem 0; }
+  .idea-card {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .example-card { border-style: dashed; border-color: var(--primary); }
+  .example-ribbon {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--primary-tint);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .vote-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .2rem;
+    flex-shrink: 0;
+    width: 2.6rem;
+  }
+  .vote-btn {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .vote-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .vote-btn.active { background: var(--primary-tint); border-color: var(--primary); color: var(--primary); }
+  .vote-btn:disabled { opacity: .5; cursor: default; }
+  .vote-score { font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+  .idea-body { flex: 1; min-width: 0; padding-right: 4.5rem; }
+  .idea-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.35; }
+  .idea-desc { font-size: .88rem; color: var(--ink); line-height: 1.5; margin-top: .35rem; }
+  .idea-meta { font-size: .78rem; color: var(--ink-soft); margin-top: .5rem; }
+
+  #ideasStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
+  #submitStatus { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #submitStatus.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+  form#ideaForm { margin: 0; }
+
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Big Ideas</h1>
+    <p class="sub">Got a big idea for Linn County -- something bigger than one town, one event, one business? Post it below, and see what your neighbors think. The ones people actually want rise to the top.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<main class="wide">
+  <div id="ideasStatus">Loading ideas...</div>
+  <div id="ideaList" style="display:none;"></div>
+
+  <div id="submitSection">
+    <h2>Share your idea</h2>
+    <form id="ideaForm" class="card">
+      <label for="title">Your idea, in a few words *</label>
+      <input id="title" name="title" type="text" maxlength="120" required placeholder="e.g. A splash pad at the city park">
+
+      <label for="description">Tell us more *</label>
+      <textarea id="description" name="description" maxlength="1000" required placeholder="What would it take? Who would it help?"></textarea>
+
+      <label for="name">Your name (optional)</label>
+      <input id="name" name="name" type="text" maxlength="100">
+
+      <label for="town">Town (optional)</label>
+      <select id="town" name="town">
+        <option value="">Prefer not to say</option>
+      </select>
+
+      <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+      <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+      <button type="submit" id="submitBtn">Post idea</button>
+      <div id="submitStatus" role="status"></div>
+    </form>
+
+    <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+      <p class="confirm-icon" aria-hidden="true">✅</p>
+      <h2>Got it &mdash; thanks!</h2>
+      <p class="hint">A person reviews every idea before it goes live, so yours will show up here once approved.</p>
+      <button type="button" id="postAnotherBtn" class="btn secondary">Post another idea</button>
+    </div>
+  </div>
+
+  <p class="hint" style="text-align:center;"><a href="survey.html">Prefer a quick survey instead? &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Big Ideas | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  const townSelect = document.getElementById("town");
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+
+  const apiUrl = config.big_ideas_api_url;
+  const ideasStatus = document.getElementById("ideasStatus");
+  const ideaList = document.getElementById("ideaList");
+  const statsLine = document.getElementById("statsLine");
+
+  if (!apiUrl) {
+    ideasStatus.textContent = "The Big Ideas board is being set up -- check back soon.";
+    document.getElementById("submitSection").style.display = "none";
+    return;
+  }
+
+  // A per-visitor id, not a login -- just enough so clicking an arrow
+  // twice toggles a vote off instead of double-counting it. Stored in
+  // this browser only; see docs/privacy.html.
+  let voterId = "";
+  try {
+    voterId = localStorage.getItem("bigIdeasVoterId") || "";
+    if (!voterId) {
+      voterId = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+      localStorage.setItem("bigIdeasVoterId", voterId);
+    }
+  } catch (err) {
+    voterId = String(Date.now()) + Math.random().toString(16).slice(2);
+  }
+
+  function timeAgo(iso) {
+    if (!iso) return "";
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    return `Posted ${days} days ago`;
+  }
+
+  function buildIdeaCard(idea) {
+    const card = document.createElement("div");
+    card.className = "idea-card" + (idea.example ? " example-card" : "");
+
+    if (idea.example) {
+      const ribbon = document.createElement("div");
+      ribbon.className = "example-ribbon";
+      ribbon.textContent = "Example";
+      card.appendChild(ribbon);
+    }
+
+    const voteControl = document.createElement("div");
+    voteControl.className = "vote-control";
+
+    const upBtn = document.createElement("button");
+    upBtn.type = "button";
+    upBtn.className = "vote-btn up" + (idea.myVote === 1 ? " active" : "");
+    upBtn.setAttribute("aria-label", "Upvote");
+    upBtn.textContent = "▲";
+
+    const score = document.createElement("div");
+    score.className = "vote-score";
+    score.textContent = idea.upvotes - idea.downvotes;
+
+    const downBtn = document.createElement("button");
+    downBtn.type = "button";
+    downBtn.className = "vote-btn down" + (idea.myVote === -1 ? " active" : "");
+    downBtn.setAttribute("aria-label", "Downvote");
+    downBtn.textContent = "▼";
+
+    async function vote(direction, clickedBtn) {
+      upBtn.disabled = true;
+      downBtn.disabled = true;
+      try {
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          body: JSON.stringify({ action: "vote", ideaId: idea.id, voterId, vote: direction }),
+        });
+        const result = await res.json();
+        if (!result.success) throw new Error(result.error || "Vote failed");
+        idea.upvotes = result.upvotes;
+        idea.downvotes = result.downvotes;
+        idea.myVote = result.myVote;
+        score.textContent = idea.upvotes - idea.downvotes;
+        upBtn.classList.toggle("active", idea.myVote === 1);
+        downBtn.classList.toggle("active", idea.myVote === -1);
+      } catch (err) {
+        // Leave the count as it was; a person can just click again.
+      } finally {
+        upBtn.disabled = false;
+        downBtn.disabled = false;
+      }
+    }
+
+    upBtn.addEventListener("click", () => vote(1, upBtn));
+    downBtn.addEventListener("click", () => vote(-1, downBtn));
+
+    voteControl.appendChild(upBtn);
+    voteControl.appendChild(score);
+    voteControl.appendChild(downBtn);
+    card.appendChild(voteControl);
+
+    const body = document.createElement("div");
+    body.className = "idea-body";
+
+    const title = document.createElement("div");
+    title.className = "idea-title";
+    title.textContent = idea.title;
+    body.appendChild(title);
+
+    if (idea.description) {
+      const desc = document.createElement("div");
+      desc.className = "idea-desc";
+      desc.textContent = idea.description;
+      body.appendChild(desc);
+    }
+
+    const metaBits = [];
+    if (idea.name) metaBits.push(idea.town ? `${idea.name}, ${idea.town}` : idea.name);
+    else if (idea.town) metaBits.push(idea.town);
+    if (!idea.example) {
+      const posted = timeAgo(idea.submitted);
+      if (posted) metaBits.push(posted);
+    }
+    if (metaBits.length) {
+      const meta = document.createElement("div");
+      meta.className = "idea-meta";
+      meta.textContent = metaBits.join(" · ");
+      body.appendChild(meta);
+    }
+
+    card.appendChild(body);
+    return card;
+  }
+
+  try {
+    const res = await fetch(`${apiUrl}?action=list&voterId=${encodeURIComponent(voterId)}`);
+    const result = await res.json();
+    const ideas = result.ideas || [];
+
+    ideasStatus.style.display = "none";
+    ideaList.style.display = "flex";
+    for (const idea of ideas) {
+      ideaList.appendChild(buildIdeaCard(idea));
+    }
+
+    const realCount = ideas.filter((i) => !i.example).length;
+    statsLine.innerHTML =
+      `<span class="stat-seg">1 County ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Idea${realCount === 1 ? "" : "s"}</span>` +
+      `<span class="stat-seg">· Free to Join</span>`;
+  } catch (err) {
+    ideasStatus.textContent = "Couldn't load ideas right now. Please try refreshing.";
+  }
+
+  const form = document.getElementById("ideaForm");
+  const submitStatus = document.getElementById("submitStatus");
+  const submitBtn = document.getElementById("submitBtn");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const postAnotherBtn = document.getElementById("postAnotherBtn");
+
+  postAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("title").focus();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitStatus.textContent = "";
+    submitStatus.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Posting...";
+
+    const data = new FormData(form);
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "submit",
+          title: (data.get("title") || "").toString().trim(),
+          description: (data.get("description") || "").toString().trim(),
+          name: (data.get("name") || "").toString().trim(),
+          town: (data.get("town") || "").toString().trim(),
+          botcheck: (data.get("botcheck") || "").toString().trim(),
+        }),
+      });
+      const result = await res.json();
+      if (!result.success) throw new Error(result.error || "Submission failed");
+
+      form.reset();
+      form.hidden = true;
+      confirmPanel.hidden = false;
+      confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      confirmPanel.focus();
+    } catch (err) {
+      submitStatus.textContent = "Something went wrong posting your idea. Please try again in a moment.";
+      submitStatus.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Post idea";
+    }
+  });
+})();
+</script>
+</body>
+</html>
