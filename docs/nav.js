@@ -28,7 +28,7 @@
     { label: "Lost & Found", href: "lost-found.html" },
     { label: "Flyer", href: "flyer.html" },
     { label: "Ideas for Your Town?", href: "survey.html" },
-    { label: "Contact", href: "mailto:kevin@communitycalendarconnect.com" },
+    { label: "Contact", href: "contact.html" },
   ];
   const NAV_HEIGHT = "48px";
   const NAV_BREAKPOINT = "860px";
@@ -190,7 +190,7 @@
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
   // Any link tap closes the dropdown -- most links navigate away anyway
-  // (which clears this state on its own), but a mailto one (Contact)
+  // (which clears this state on its own), but a mailto/external one
   // doesn't leave the page, so it'd otherwise stay open over whatever
   // the visitor does next.
   nav.addEventListener("click", (e) => {

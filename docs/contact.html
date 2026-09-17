@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Contact</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Linn County">
+<meta property="og:description" content="Questions, a problem, or an idea? Send a message and a real person reads and replies to every one.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/contact.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact | Linn County">
+<meta name="twitter:description" content="Questions, a problem, or an idea? Send a message and a real person reads and replies to every one.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+
+  /* Confirmation panel -- see docs/submit.html for why this replaces the
+     form entirely on success rather than just adding a status line. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Contact</h1>
+  <p class="sub">Questions, a problem with something on the site, or an idea? Send a message below &mdash; a real person reads and replies to every one, usually within a day or two.</p>
+
+  <form id="contactForm" class="card">
+    <label for="name">Your name *</label>
+    <input id="name" name="name" type="text" maxlength="120" required>
+
+    <label for="email">Email *</label>
+    <input id="email" name="email" type="email" maxlength="150" required placeholder="you@example.com">
+
+    <label for="message">Message *</label>
+    <textarea id="message" name="message" maxlength="2000" required placeholder="What's on your mind?"></textarea>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Send message</button>
+    <div id="status" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it &mdash; thanks!</h2>
+    <p class="hint">Your message was sent. We read every one and will get back to you soon, usually within a day or two.</p>
+  </div>
+
+  <p class="hint" style="text-align:center;">Prefer email? Reach us directly at <a href="mailto:kevin@communitycalendarconnect.com">kevin@communitycalendarconnect.com</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Contact | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const confirmPanel = document.getElementById("confirmPanel");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const data = new FormData(form);
+    const name = (data.get("name") || "").trim();
+
+    data.append("access_key", config.web3forms_access_key);
+    data.append("subject", `New contact message from ${name}`);
+    data.append("from_name", `${config.calendar_title}: Contact Form`);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        form.reset();
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong sending your message. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send message";
+    }
+  });
+})();
+</script>
+</body>
+</html>
