@@ -77,6 +77,7 @@
     margin-bottom: 1.25rem;
   }
   .biz-card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--surface-border);
     border-radius: var(--radius);
@@ -85,6 +86,24 @@
     display: flex;
     flex-direction: column;
     gap: .4rem;
+  }
+  /* A seeded sample post, pinned to the top of the board so it isn't
+     blank before anyone's posted for real -- see data/jobs/README.md.
+     Dashed border + corner ribbon so it never reads as a real listing. */
+  .example-card { border-style: dashed; border-color: var(--primary); }
+  .example-ribbon {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--primary-tint);
+    color: var(--primary);
+    border: 1px solid var(--primary);
   }
   .job-badge {
     display: inline-block;
@@ -355,6 +374,14 @@
     const card = document.createElement("div");
     card.className = "biz-card";
 
+    if (p.example) {
+      card.classList.add("example-card");
+      const ribbon = document.createElement("div");
+      ribbon.className = "example-ribbon";
+      ribbon.textContent = "Example";
+      card.appendChild(ribbon);
+    }
+
     const badge = document.createElement("div");
     badge.className = `job-badge ${p.type === "offering" ? "offering" : "needed"}`;
     badge.textContent = TYPE_LABELS[p.type] || "";
@@ -386,7 +413,7 @@
       card.appendChild(desc);
     }
 
-    const posted = daysAgo(p.posted);
+    const posted = p.example ? null : daysAgo(p.posted);
     if (posted) {
       const postedEl = document.createElement("div");
       postedEl.className = "biz-posted";
@@ -461,8 +488,12 @@
       container.appendChild(grid);
     }
 
-    resultsCount.textContent = posts.length
-      ? `Showing ${filtered.length} of ${posts.length} post${posts.length === 1 ? "" : "s"}`
+    // Excludes the pinned "example" post, same as the hero count above --
+    // otherwise this line and that one would visibly disagree.
+    const realTotal = posts.filter((p) => !p.example).length;
+    const realFiltered = filtered.filter((p) => !p.example).length;
+    resultsCount.textContent = realTotal
+      ? `Showing ${realFiltered} of ${realTotal} post${realTotal === 1 ? "" : "s"}`
       : "";
     empty.style.display = filtered.length ? "none" : "block";
   }
@@ -491,9 +522,12 @@
   try {
     posts = await (await fetch("jobs.json")).json();
     document.getElementById("dirStatus").style.display = "none";
+    // A pinned "example" post (see data/jobs/README.md) doesn't count
+    // toward this -- it's not real community activity.
+    const realCount = posts.filter((p) => !p.example).length;
     document.getElementById("statsLine").innerHTML =
       `<span class="stat-seg">1 County ·</span> ` +
-      `<span class="live-count"><span class="live-dot"></span>${posts.length} Post${posts.length === 1 ? "" : "s"}</span>` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Post${realCount === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
     // Always the county's own 8 towns, plus any other real town already

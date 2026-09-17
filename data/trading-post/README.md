@@ -65,3 +65,14 @@ A submission's real town (including one typed into "Other" on
 "Other" should never appear in a file here, and
 `build_trading_post_directory.py` holds one back from the public site as
 a backstop if it ever does.
+
+**`"example": true`** marks a listing as a seeded sample rather than a
+real submission -- for showing the format on an otherwise-empty board
+so newcomers see what a good listing looks like instead of a blank
+page. `build_trading_post_directory.py` pins it above every real
+listing regardless of name, and `docs/trading-post.html` badges it
+"Example" and leaves it out of the "N Listings" count so it never
+reads as real community activity. Its `name` should say "(example)"
+too, and it should never carry a real phone, email, or website.
+Remove the file (or drop the flag) once there's enough real activity
+that the board doesn't need it.

@@ -59,12 +59,18 @@ def load_posts():
             value = (data.get(field) or "").strip()
             if value:
                 post[field] = value
+        if data.get("example"):
+            post["example"] = True
         posts.append(post)
 
     # Newest first, so the page doesn't need to re-sort client-side --
     # a post missing "posted" (shouldn't happen via admin-job.html, but
     # cheap to guard) sorts last rather than crashing the build.
     posts.sort(key=lambda p: p.get("posted") or "", reverse=True)
+    # Then pin any "example" post(s) -- see data/jobs/README.md -- above
+    # everything else, newest-first order preserved within each group
+    # since sort() is stable.
+    posts.sort(key=lambda p: not p.get("example", False))
     return posts, held_back
 
 

@@ -72,3 +72,13 @@ touch.
 `data/businesses/README.md` for the reasoning. The literal word "Other"
 should never appear in a file here; `build_jobs_directory.py` holds one
 back from the public site as a backstop if it ever does.
+
+**`"example": true`** marks a post as a seeded sample rather than a
+real submission -- for showing the format on an otherwise-empty board
+so newcomers see what a good post looks like instead of a blank page.
+`build_jobs_directory.py` pins it above every real post regardless of
+date, and `docs/jobs.html` badges it "Example" and leaves it out of
+the "N Posts" count so it never reads as real community activity. Its
+`name` should say "(example)" too, and it should never carry a real
+phone or email. Remove the file (or drop the flag) once there's enough
+real activity that the board doesn't need it.

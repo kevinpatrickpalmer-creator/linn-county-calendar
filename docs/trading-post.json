@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "Meadowview Farm (example)",
+    "town": "Brookfield",
+    "category": "Eggs & Dairy",
+    "availability": "Eggs year-round, garden produce June through September. Call ahead.",
+    "description": "This is a sample listing to show the format \u2014 real listings work just like this. Farm-fresh eggs $4/dozen, seasonal garden produce, pickup off Route B.",
+    "example": true
+  }
+]

@@ -58,9 +58,15 @@ def load_listings():
             value = (data.get(field) or "").strip()
             if value:
                 listing[field] = value
+        if data.get("example"):
+            listing["example"] = True
         listings.append(listing)
 
     listings.sort(key=lambda b: b["name"].lower())
+    # Then pin any "example" listing(s) -- see data/trading-post/README.md
+    # -- above everything else, alphabetical order preserved within each
+    # group since sort() is stable.
+    listings.sort(key=lambda b: not b.get("example", False))
     return listings, held_back
 
 
