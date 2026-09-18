@@ -95,10 +95,10 @@
   .idea-contact a { color: var(--navy); text-decoration: none; font-weight: 500; margin-right: .75rem; }
   .idea-contact a:hover { text-decoration: underline; }
 
-  /* Town tags -- local school colors where confirmed (Kevin's ask,
-     2026-09-17), a neutral placeholder everywhere else until the rest
-     are confirmed too. See docs/config.json's "towns" list for the
-     full 8; anything not listed here falls back to .town-tag.default. */
+  /* Town tags -- Brookfield/Marceline/Bucklin use real local school
+     colors (Kevin, 2026-09-17). The other 5 towns are small enough that
+     Kevin said exact colors don't matter (2026-09-18) -- these are just
+     distinct placeholder colors, not researched team colors. */
   .town-tag {
     display: inline-block;
     font-size: .68rem;
@@ -113,6 +113,11 @@
   .town-tag.brookfield { color: #6fa8dc; background: #16283a; border-color: #6fa8dc; }
   .town-tag.marceline { color: #d4af37; background: #332a0f; border-color: #d4af37; }
   .town-tag.bucklin { color: #e06666; background: #3a1414; border-color: #e06666; }
+  .town-tag.browning { color: #93c47d; background: #1c2e17; border-color: #93c47d; }
+  .town-tag.laclede { color: #b4a7d6; background: #241f33; border-color: #b4a7d6; }
+  .town-tag.linneus { color: #f6b26b; background: #3a2510; border-color: #f6b26b; }
+  .town-tag.meadville { color: #76a5af; background: #17282b; border-color: #76a5af; }
+  .town-tag.purdin { color: #d5a6bd; background: #331f28; border-color: #d5a6bd; }
   .town-tag.default { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
 
   #ideasStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
@@ -255,13 +260,13 @@
     voterId = String(Date.now()) + Math.random().toString(16).slice(2);
   }
 
-  // Local school colors, confirmed with Kevin (2026-09-17): Brookfield
-  // (blue), Marceline (gold), Bucklin (red). The other 5 towns
-  // (Browning, Laclede, Linneus, Meadville, Purdin) fall back to
-  // .town-tag.default until their colors are confirmed too -- add a
-  // "townname: color-class" pair here once they are, matching the
-  // .town-tag.<name> rules in the <style> above.
-  const TOWN_COLORS = new Set(["brookfield", "marceline", "bucklin"]);
+  // Every town now has a tag color -- see the .town-tag.<name> rules
+  // in the <style> above for which are real school colors vs. picked
+  // placeholders (Kevin, 2026-09-18).
+  const TOWN_COLORS = new Set([
+    "brookfield", "marceline", "bucklin",
+    "browning", "laclede", "linneus", "meadville", "purdin",
+  ]);
 
   function timeAgo(iso) {
     if (!iso) return "";
