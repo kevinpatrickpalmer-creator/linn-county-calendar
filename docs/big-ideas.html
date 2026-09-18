@@ -118,6 +118,7 @@
   .town-tag.linneus { color: #f6b26b; background: #3a2510; border-color: #f6b26b; }
   .town-tag.meadville { color: #76a5af; background: #17282b; border-color: #76a5af; }
   .town-tag.purdin { color: #d5a6bd; background: #331f28; border-color: #d5a6bd; }
+  .town-tag.linncounty { color: #bfa76f; background: #2e2513; border-color: #bfa76f; }
   .town-tag.default { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
 
   #ideasStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
@@ -203,6 +204,10 @@
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const townSelect = document.getElementById("town");
+  const countyOption = document.createElement("option");
+  countyOption.value = "Linn County";
+  countyOption.textContent = "Linn County (countywide idea)";
+  townSelect.appendChild(countyOption);
   for (const town of config.towns) {
     const option = document.createElement("option");
     option.value = town;
@@ -266,6 +271,7 @@
   const TOWN_COLORS = new Set([
     "brookfield", "marceline", "bucklin",
     "browning", "laclede", "linneus", "meadville", "purdin",
+    "linncounty",
   ]);
 
   function timeAgo(iso) {
