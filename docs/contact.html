@@ -101,7 +101,7 @@
     const name = (data.get("name") || "").trim();
 
     data.append("access_key", config.web3forms_access_key);
-    data.append("subject", topic ? `New contact message from ${name} — ${topic}` : `New contact message from ${name}`);
+    data.append("subject", topic ? `New contact message from ${name} (${topic})` : `New contact message from ${name}`);
     data.append("from_name", `${config.calendar_title}: Contact Form`);
 
     try {

@@ -63,7 +63,7 @@ function getSheet(name) {
     sheet.appendRow([
       "example-1",
       "A community garden near the park (example)",
-      "This is a sample idea to show the format — real ideas work just like this. A shared garden plot where families could grow their own vegetables, with a small tool shed the town maintains.",
+      "This is a sample idea to show the format. Real ideas work just like this. A shared garden plot where families could grow their own vegetables, with a small tool shed the town maintains.",
       "", "",
       new Date().toISOString(),
       0, 0, true, "approved",
