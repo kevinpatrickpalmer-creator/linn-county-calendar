@@ -48,7 +48,7 @@
   <h1>Post to Lost &amp; Found</h1>
   <p class="sub" id="pageSub">Lost a pet or an item, or found one? Post it here, free. A person reviews every post before it goes live.</p>
 
-  <p class="callout">Lost or found a pet? Please also contact the local police department's non-emergency line, check with area vets, and check the animal shelter. They may already have someone looking for exactly this, faster than a post here can reach them.</p>
+  <p class="callout" id="preSubmitCallout">Lost or found a pet? Please also contact the local police department's non-emergency line, check with area vets, and check the animal shelter. They may already have someone looking for exactly this, faster than a post here can reach them.</p>
 
   <form id="lfForm" class="card">
     <label for="postType">Lost or found? *</label>
@@ -111,7 +111,7 @@
     <div class="removal-code-box">
       <p class="removal-code-label">Your removal code</p>
       <p class="removal-code" id="removalCode"></p>
-      <p class="hint">Found the pet or item (or it turned out to not be yours after all)? Come back to the <a href="remove-listing.html">Remove a listing</a> page and enter this code to take your post down yourself. <strong>Screenshot this now</strong> -- there's no account to log into later to look it up.</p>
+      <p class="hint">Resolved? Come back to the <a href="remove-listing.html">Remove a listing</a> page and enter this code to take your post down yourself. <strong>Screenshot this now</strong> -- there's no account to log into later to look it up.</p>
       <p class="hint" id="removalEmailNote" hidden>We also emailed it to you, with a direct link.</p>
     </div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
@@ -189,10 +189,12 @@
   const contactHint = document.getElementById("contactHint");
   const confirmPanel = document.getElementById("confirmPanel");
   const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+  const preSubmitCallout = document.getElementById("preSubmitCallout");
 
   submitAnotherBtn.addEventListener("click", () => {
     confirmPanel.hidden = true;
     form.hidden = false;
+    preSubmitCallout.hidden = false;
     document.getElementById("postType").focus();
   });
 
@@ -270,6 +272,7 @@
         document.getElementById("removalCode").textContent = result.removalCode || "";
         document.getElementById("removalEmailNote").hidden = !email;
         form.hidden = true;
+        preSubmitCallout.hidden = true;
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
