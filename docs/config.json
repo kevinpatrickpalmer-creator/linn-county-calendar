@@ -1,5 +1,7 @@
 {
   "county_display_name": "Linn County",
+  "site_name": "Linn County Local",
+  "tagline": "Everything Linn County, all in one place.",
   "calendar_title": "Linn County Community Calendar",
   "domain": "linn.communitycalendarconnect.com",
   "uid_domain": "linn-county-scraper.local",

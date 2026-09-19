@@ -16,7 +16,7 @@
 (function () {
   const NAV_ITEMS = [
     { label: "County Calendar", href: "calendar-view.html", children: [
-      { label: "Subscribe", href: "index.html" },
+      { label: "Subscribe", href: "subscribe.html" },
       { label: "Email Alerts", href: "alerts.html" },
       { label: "Submit Event", href: "submit.html" },
     ] },
@@ -42,6 +42,14 @@
       height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
       background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
     }
+    .site-brand {
+      flex-shrink: 0; display: flex; align-items: center;
+      padding: 0 .9rem; font-size: .9rem; font-weight: 800; white-space: nowrap;
+      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink, #1a1a1a); text-decoration: none; -webkit-user-drag: none;
+      border-right: 1px solid var(--surface-border, #e2e2e2);
+    }
+    .site-brand:hover { color: var(--primary, #4285f4); }
     .nav-toggle {
       display: none; flex-shrink: 0; align-items: center; justify-content: center;
       width: ${NAV_HEIGHT}; border: none; background: none; cursor: pointer;
@@ -208,8 +216,15 @@
     }
   });
 
+  const brand = document.createElement("a");
+  brand.className = "site-brand";
+  brand.href = "index.html";
+  brand.textContent = "Linn County Local";
+  brand.draggable = false;
+
   const bar = document.createElement("div");
   bar.className = "site-nav-bar";
+  bar.appendChild(brand);
   bar.appendChild(toggle);
   bar.appendChild(nav);
 

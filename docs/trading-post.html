@@ -160,6 +160,7 @@
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Trading Post</h1>
     <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find it all, easy to check any time.</p>
+    <p class="sub" style="font-style:italic;">What a community grows, raises, and makes on its own is what keeps it going.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -193,12 +194,12 @@
     <a href="submit-trading-post.html">List your goods on the Trading Post &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="index.html">Back to the calendar &rarr;</a>
+    <a href="index.html">Back to Linn County Local &rarr;</a>
   </div>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -484,7 +485,7 @@
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Trading Post | ${config.county_display_name}`;
+    document.title = `Trading Post | ${config.site_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     categoryFilterControls = setupMultiSelectFilter({

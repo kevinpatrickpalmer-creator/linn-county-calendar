@@ -164,6 +164,7 @@
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Business & Organization Directory</h1>
     <p class="sub" id="pageSub">Every business, shop, service, and organization across the county, in one place, so folks can find you before they think to search for you.</p>
+    <p class="sub" style="font-style:italic;">Keeping it close to home is what keeps a town strong. Find out what's here before you look anywhere else.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -198,14 +199,14 @@
     <a href="submit-business.html">Add your business or organization &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="index.html">Back to the calendar &rarr;</a>
+    <a href="index.html">Back to Linn County Local &rarr;</a>
   </div>
 
   <p class="hint" style="text-align:center;">See something wrong with a listing &mdash; a phone number, website, email, or photo? <a href="contact.html?topic=Directory%20correction">Let us know</a> and we'll get it fixed.</p>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -670,7 +671,7 @@
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Business & Organization Directory | ${config.county_display_name}`;
+    document.title = `Business & Organization Directory | ${config.site_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     categoryFilterControls = setupMultiSelectFilter({

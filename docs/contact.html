@@ -66,14 +66,14 @@
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Contact | ${config.county_display_name}`;
+  document.title = `Contact | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const form = document.getElementById("contactForm");

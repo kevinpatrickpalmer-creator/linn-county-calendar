@@ -142,7 +142,7 @@
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -150,7 +150,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Submit a Community Event | ${config.county_display_name}`;
+  document.title = `Submit a Community Event | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("pageSub").textContent =
     `Any event counts, big or small: school plays, city council meetings, fundraisers, garage sales, birthday parties at the park. If it's happening in ${config.county_display_name}, it belongs here. A person reviews every submission before it goes live. Calendar is updated daily.`;

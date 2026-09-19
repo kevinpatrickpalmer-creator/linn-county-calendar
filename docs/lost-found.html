@@ -160,6 +160,7 @@
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Lost &amp; Found</h1>
     <p class="sub" id="pageSub">Lost a pet or an item, or found one? Post it here so more people see it, fast.</p>
+    <p class="sub" style="font-style:italic;">Neighbors who look out for each other, and each other's things, are what make a community close-knit.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -200,12 +201,12 @@
     <a href="submit-lost-found.html">Post to Lost &amp; Found &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="index.html">Back to the calendar &rarr;</a>
+    <a href="index.html">Back to Linn County Local &rarr;</a>
   </div>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -466,7 +467,7 @@
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Lost & Found | ${config.county_display_name}`;
+    document.title = `Lost & Found | ${config.site_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     categoryFilterControls = setupMultiSelectFilter({
