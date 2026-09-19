@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Post to Clubs & Classes | Linn County">
 <meta property="og:description" content="Run a club or teach a class? Or looking for one to join? Post it around Linn County, free.">
-<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
-<meta property="og:url" content="https://linn.communitycalendarconnect.com/submit-clubs.html">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/submit-clubs.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Post to Clubs & Classes | Linn County">
 <meta name="twitter:description" content="Run a club or teach a class? Or looking for one to join? Post it around Linn County, free.">
@@ -116,7 +116,7 @@
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -124,7 +124,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Post to Clubs & Classes | ${config.county_display_name}`;
+  document.title = `Post to Clubs & Classes | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("expiryHint").textContent =
     `Posts come down automatically after ${config.club_expiry_days || 60} days, or remove it yourself anytime once it's filled.`;

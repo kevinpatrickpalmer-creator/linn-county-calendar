@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Clubs & Classes | Linn County">
 <meta property="og:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
-<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
-<meta property="og:url" content="https://linn.communitycalendarconnect.com/clubs.html">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/clubs.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Clubs & Classes | Linn County">
 <meta name="twitter:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
@@ -170,6 +170,7 @@
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Clubs & Classes</h1>
     <p class="sub" id="pageSub">Bridge club, Red Hats, a kids' spinning club, swimming lessons, karate, woodworking -- if it's a club or a class, this is where people running one and people looking for one find each other.</p>
+    <p class="sub" style="font-style:italic;">What keeps a community close is the regular stuff, a weekly class, a standing club, not just the big annual events.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
@@ -220,12 +221,12 @@
     <a href="remove-listing.html?board=club">Remove your own post &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="index.html">Back to the calendar &rarr;</a>
+    <a href="index.html">Back to Linn County Local &rarr;</a>
   </div>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -516,7 +517,7 @@
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Clubs & Classes | ${config.county_display_name}`;
+    document.title = `Clubs & Classes | ${config.site_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     categoryFilterControls = setupMultiSelectFilter({
