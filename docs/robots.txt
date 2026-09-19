@@ -11,4 +11,4 @@ Disallow: /manage-trading-post.html
 Disallow: /unsubscribe.html
 Disallow: /status.html
 
-Sitemap: https://linn.communitycalendarconnect.com/sitemap.xml
+Sitemap: https://linncountylocal.com/sitemap.xml
