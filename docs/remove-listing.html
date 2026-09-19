@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Remove a Listing | Linn County">
 <meta property="og:description" content="Take down your own Jobs Bulletin, Lost & Found, or Trading Post listing using the removal code you were given when you posted it.">
-<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
-<meta property="og:url" content="https://linn.communitycalendarconnect.com/remove-listing.html">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/remove-listing.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Remove a Listing | Linn County">
 <meta name="twitter:description" content="Take down your own Jobs Bulletin, Lost & Found, or Trading Post listing using the removal code you were given when you posted it.">
@@ -68,14 +68,14 @@
   <p class="hint" style="text-align:center;">Lost your code, or something not working? <a href="contact.html?topic=Remove%20a%20listing">Contact us</a> and we'll take care of it.</p>
 
   <div class="site-credit">
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Remove a Listing | ${config.county_display_name}`;
+  document.title = `Remove a Listing | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   // A link from the confirmation email carries ?board=...&code=... so

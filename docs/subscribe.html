@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Subscribe to the Calendar</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linn County Community Calendar">
+<meta property="og:description" content="Local events, meetings, and happenings around Linn County, kept up to date automatically. Free, no login, no app.">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/subscribe.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linn County Community Calendar">
+<meta name="twitter:description" content="Local events, meetings, and happenings around Linn County, kept up to date automatically. Free, no login, no app.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .qr-callout {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+  }
+  .qr-callout .qr-callout-text { flex: 1; }
+  .qr-callout .qr-box {
+    flex-shrink: 0;
+    display: inline-block;
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    line-height: 0;
+    border: 1px solid var(--surface-border);
+  }
+  .qr-callout .qr-box svg { width: 100px; height: 100px; display: block; }
+  /* Someone already viewing this on a phone can't usefully scan a QR
+     code shown on that same phone -- this is only useful to a visitor
+     on a computer or tablet, so it doesn't take up space for anyone
+     else. Threshold matches a typical phone width, not a tablet's. */
+  @media (max-width: 600px) {
+    .qr-callout { display: none; }
+  }
+
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. Inner width
+     matches this page's own (narrower, non-"wide") <main>. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 480px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="qrcode.js"></script>
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1 id="pageTitle">Community Calendar</h1>
+    <p class="sub" id="pageSub">Local events, meetings, and happenings, kept up to date automatically.</p>
+    <p class="sub" style="font-style:italic;">The towns that thrive are the ones that show up for each other. Know what's happening before it's too late.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<main>
+  <section>
+    <h2>Subscribe to the calendar</h2>
+    <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
+
+    <div class="callout qr-callout">
+      <div class="qr-callout-text">
+        <strong>On a computer or tablet right now?</strong> Subscribing here only adds the calendar to this device. Your phone won't automatically get it too unless your calendars are already synced together. Scan this with your phone's camera to subscribe there as well.
+      </div>
+      <div class="qr-box" id="subscribeQR"></div>
+    </div>
+
+    <label for="subscribeTown">Which town?</label>
+    <select id="subscribeTown">
+      <option value="">Whole county (all towns)</option>
+    </select>
+
+    <label for="subscribeType">Which type of events?</label>
+    <select id="subscribeType">
+      <option value="">Every type</option>
+    </select>
+
+    <div id="includeCategories">
+      <label>Include:</label>
+      <div class="checkbox-row">
+        <input type="checkbox" id="includeSports" checked>
+        <label for="includeSports">School sports games</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="includeObituaries" checked>
+        <label for="includeObituaries">Obituaries</label>
+      </div>
+    </div>
+    <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
+
+    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="alerts.html">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
+
+    <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
+    <p class="or-divider">OR</p>
+    <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
+    <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
+    <p class="hint">To check it worked, open your phone or computer's own calendar app. You should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
+    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
+    <p class="hint" id="unsubscribeHint"></p>
+
+    <details>
+      <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
+      <p><strong>Mac (Apple Calendar):</strong> Click "Subscribe to Calendar" above. The Calendar app opens with an "Add Subscription" window. Set "Auto-refresh" to something like every hour, then click OK. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
+      <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest email reminders below instead.</p>
+      <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, email reminders below are the only way to get a heads-up.</p>
+      <p>Notification support varies a lot by calendar app, and several of them don't handle it well for subscribed calendars like this one. If you want something that reliably notifies you, <a href="alerts.html">sign up for email reminders</a>, that always works regardless of which calendar app you use.</p>
+    </details>
+
+    <p class="share-label">Know someone who'd want this? Share it:</p>
+    <div class="share-row">
+      <a class="share-btn facebook" id="shareFacebook" href="#" target="_blank" rel="noopener" aria-label="Share on Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94Z"/></svg>
+        Facebook
+      </a>
+      <a class="share-btn whatsapp" id="shareWhatsapp" href="#" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.02 2C6.5 2 2 6.48 2 11.98c0 1.98.58 3.83 1.58 5.39L2 22l4.79-1.53a10 10 0 0 0 5.23 1.47h.01c5.52 0 10-4.48 10-9.98A9.94 9.94 0 0 0 12.02 2Zm5.45 12.38c-.29.68-1.46 1.31-1.97 1.39-.5.08-1.14.11-1.84-.11-.43-.13-.97-.31-1.67-.61-2.94-1.26-4.85-4.2-5-4.4-.14-.19-1.19-1.58-1.19-3.02 0-1.43.75-2.14 1.02-2.43.27-.3.58-.37.78-.37h.56c.18.01.42-.06.66.51.24.59.83 2.02.9 2.17.07.14.12.31.02.51-.24.49-.44.6-.29.85.15.19.73 1.23 1.61 2 1.11.99 2.04 1.29 2.33 1.44.29.15.46.13.63-.07.17-.2.73-.85.93-1.14.2-.3.39-.25.66-.15.27.1 1.71.8 2 .95.29.15.48.22.55.34.08.12.08.71-.16 1.39Z"/></svg>
+        WhatsApp
+      </a>
+      <button class="share-btn instagram" id="shareInstagram" type="button" aria-label="Copy link to share on Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47a4.9 4.9 0 0 0-1.77 1.15A4.9 4.9 0 0 0 2.53 5.45c-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43a4.9 4.9 0 0 0 1.15 1.77 4.9 4.9 0 0 0 1.77 1.15c.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.15 4.9 4.9 0 0 0 1.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.15-1.77A4.9 4.9 0 0 0 18.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2Zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.36.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.36.13-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.13-.36-.3-.88-.34-1.86C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.36-.13.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8Zm0 3.05a5.15 5.15 0 1 0 0 10.3 5.15 5.15 0 0 0 0-10.3Zm0 8.5a3.35 3.35 0 1 1 0-6.7 3.35 3.35 0 0 1 0 6.7Zm5.35-8.7a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
+        <span id="shareInstagramLabel">Instagram</span>
+      </button>
+      <a class="share-btn email" id="shareEmail" href="#" aria-label="Share by email">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h15A1.5 1.5 0 0 1 21 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm2.1.5 6.9 5.2L18.9 6H5.1Zm13.9 1.4-6.55 4.94a1 1 0 0 1-1.2 0L5.7 7.4V18h13.3V7.4Z"/></svg>
+        Email
+      </a>
+      <button class="share-btn copylink" id="shareCopyLink" type="button" aria-label="Copy link">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3-3a3 3 0 1 1 4.24 4.24l-1.4 1.4a1 1 0 1 1-1.42-1.42l1.4-1.4a1 1 0 1 0-1.4-1.4l-3 3a1 1 0 0 1-1.42 0Zm2.8-2.8a1 1 0 0 1 0 1.4l-3 3a3 3 0 1 1-4.24-4.24l1.4-1.4a1 1 0 0 1 1.42 1.42l-1.4 1.4a1 1 0 1 0 1.4 1.4l3-3a1 1 0 0 1 1.42 0Z"/></svg>
+        <span id="shareCopyLabel">Copy Link</span>
+      </button>
+    </div>
+    <p class="hint">Instagram doesn't support direct share links, tap its button above to copy your link, then paste it into your bio, a story, or a DM.</p>
+  </section>
+
+  <section>
+    <h2>Stay in the loop by email</h2>
+    <p class="hint">A separate, optional option: get a reminder email the day before each event, or a weekly summary, instead of (or in addition to) subscribing to the calendar above.</p>
+    <a class="btn secondary" href="alerts.html">Set up email alerts &rarr;</a>
+  </section>
+
+  <section>
+    <h2>See how it works</h2>
+    <p class="hint">A quick rundown of what this is and how to get started.</p>
+    <!-- Once the explainer video exists, put the file at docs/explainer.mp4
+         (self-hosted -- GitHub Pages serves it directly, no other setup) and
+         this starts playing it automatically, no other changes needed. To
+         host on YouTube/Vimeo instead, replace the <video> element below
+         with an <iframe> embed, keeping the same wrapper div so it stays
+         responsive. -->
+    <div class="video-frame">
+      <video id="explainerVideo" controls preload="metadata" poster="video-poster.jpg" style="visibility:hidden;">
+        <source src="explainer.mp4" type="video/mp4">
+      </video>
+      <div class="video-placeholder" id="videoPlaceholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg>
+        <span>Video coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-link">
+    <a href="submit.html">Submit a community event &rarr;</a>
+  </div>
+  <div class="submit-qr">
+    <div class="qr-box" id="submitQR"></div>
+    <p>Scan to submit an event</p>
+  </div>
+  <div class="footer-link">
+    <a href="directory.html">Browse the business &amp; organization directory &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="submit-business.html">List your business or organization, free &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="flyer.html">Printable flyer for businesses &amp; organizations</a>
+  </div>
+  <div class="footer-link">
+    <a href="survey.html">Ideas for your town? &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="index.html">Back to Linn County Local &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+
+  document.title = `Subscribe to the Calendar | ${config.site_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+  document.getElementById("pageTitle").textContent = config.calendar_title;
+  document.getElementById("pageSub").textContent =
+    `Local events, meetings, and happenings around ${config.county_display_name}, kept up to date automatically.`;
+
+  try {
+    const icsText = await (await fetch("linn_county_events.ics")).text();
+    const eventCount = (icsText.match(/^BEGIN:VEVENT/gm) || []).length;
+    document.getElementById("statsLine").innerHTML =
+      `<span class="stat-seg">1 County · ${config.towns.length} Towns ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${eventCount} Events</span>` +
+      `<span class="stat-seg">· 1 Calendar</span>`;
+  } catch (err) {
+    document.getElementById("statsLine").textContent =
+      `1 County · ${config.towns.length} Towns · 1 Calendar`;
+  }
+
+  // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
+  // printable flyer uses, so both point to the exact same submit.html URL.
+  const qr = qrcode(0, "M");
+  qr.addData(`https://${config.domain}/submit.html`);
+  qr.make();
+  document.getElementById("submitQR").innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
+
+  // Points at this same page rather than a webcal:// link directly --
+  // scanning it just opens this page on the phone, where its own
+  // Subscribe button does the actual subscribing. A raw webcal:// URL
+  // encoded into a QR code doesn't reliably open a calendar app when
+  // scanned (spotty support on Android in particular), where a normal
+  // https:// URL always opens fine in the phone's browser.
+  const subscribeQr = qrcode(0, "M");
+  subscribeQr.addData(`https://${config.domain}/subscribe.html`);
+  subscribeQr.make();
+  document.getElementById("subscribeQR").innerHTML = subscribeQr.createSvgTag({ scalable: true, margin: 2 });
+
+  // Shares the friendly landing page, not a raw webcal:// link -- someone
+  // clicking a shared link should land somewhere that explains what this is
+  // and lets them subscribe themselves, not silently trigger a calendar-app
+  // action out of context. Instagram has no public web share-link API (its
+  // share sheet only takes media, not plain URLs), so its button copies the
+  // link instead of opening Instagram directly, same as Copy Link.
+  const shareUrl = `https://${config.domain}/subscribe.html`;
+  const shareText = `${config.calendar_title}: a free calendar for everything happening in ${config.county_display_name}.`;
+
+  document.getElementById("shareFacebook").href =
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  document.getElementById("shareWhatsapp").href =
+    `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
+  document.getElementById("shareEmail").href =
+    `mailto:?subject=${encodeURIComponent(config.calendar_title)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
+
+  // Shared by both Copy Link and Instagram (which has no direct share
+  // link, only copy-and-paste) -- swaps just the label span's text so the
+  // button's icon stays put, then reverts after a moment.
+  function wireCopyButton(buttonId, labelId, defaultLabel) {
+    const btn = document.getElementById(buttonId);
+    const label = document.getElementById(labelId);
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        label.textContent = "Copied!";
+        btn.classList.add("copied");
+      } catch (err) {
+        // Clipboard API needs a secure context/permission -- fall back to
+        // just showing the link so the visitor can copy it manually.
+        label.textContent = shareUrl;
+      }
+      setTimeout(() => {
+        label.textContent = defaultLabel;
+        btn.classList.remove("copied");
+      }, 2500);
+    });
+  }
+  wireCopyButton("shareCopyLink", "shareCopyLabel", "Copy Link");
+  wireCopyButton("shareInstagram", "shareInstagramLabel", "Instagram");
+
+  // Matches the slug write_town_ics_files() uses in
+  // scrape_linn_county_calendar.py (re.sub(r"[^a-z0-9]+", "-", ...)).
+  function townSlug(town) {
+    return town.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  // Matches _type_slug() in scrape_linn_county_calendar.py exactly.
+  function typeSlug(type) {
+    return type.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  const subscribeBtn = document.getElementById("subscribeBtn");
+  const downloadLink = document.getElementById("downloadLink");
+  const subscribeTown = document.getElementById("subscribeTown");
+  const subscribeType = document.getElementById("subscribeType");
+  const unsubscribeHint = document.getElementById("unsubscribeHint");
+  const includeSports = document.getElementById("includeSports");
+  const includeObituaries = document.getElementById("includeObituaries");
+  const includeCategories = document.getElementById("includeCategories");
+  const typeOverrideHint = document.getElementById("typeOverrideHint");
+
+  // Order matters here -- it has to match FILTERABLE_CATEGORIES in
+  // scrape_linn_county_calendar.py, since that's the order
+  // _write_category_variant_ics_files() builds each "-no-<category>"
+  // filename suffix in.
+  function categorySuffix() {
+    const excluded = [];
+    if (!includeSports.checked) excluded.push("sports");
+    if (!includeObituaries.checked) excluded.push("obituary");
+    return excluded.map((c) => `-no-${c}`).join("");
+  }
+
+  // A specific type already fully determines whether sports/obituaries
+  // are in it, so the two choices are mutually exclusive -- picking a
+  // type hides (rather than combines with) the sports/obituary
+  // checkboxes, since crossing every town x category-combo x type would
+  // explode into hundreds of extra pre-built files. See
+  // _write_type_variant_ics_files()'s docstring for the full reasoning.
+  function syncTypeOverride() {
+    const hasType = !!subscribeType.value;
+    includeCategories.style.display = hasType ? "none" : "";
+    typeOverrideHint.style.display = hasType ? "block" : "none";
+  }
+
+  function updateSubscribeLinks() {
+    const town = subscribeTown.value;
+    const type = subscribeType.value;
+    const suffix = type ? `-type-${typeSlug(type)}` : categorySuffix();
+    const icsPath = town ? `towns/${townSlug(town)}${suffix}.ics` : `linn_county_events${suffix}.ics`;
+    const calNameBase = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
+    const calName = type ? `${calNameBase} (${type})` : calNameBase;
+    subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
+    downloadLink.href = icsPath;
+    unsubscribeHint.textContent =
+      `To stop getting these events, remove/unsubscribe from "${calName}" in your phone or computer's calendar app settings. That's done on your device, not here.`;
+  }
+
+  for (const town of config.towns) {
+    const opt = document.createElement("option");
+    opt.value = town;
+    opt.textContent = town;
+    subscribeTown.appendChild(opt);
+  }
+  // Events outside the county's 8 incorporated towns (a neighboring
+  // town, an unincorporated place, a lake) all land in this bucket --
+  // see town_or_other() in calendar_config.py and the matching
+  // docs/towns/other.ics write_town_ics_files() generates.
+  const otherSubscribeOpt = document.createElement("option");
+  otherSubscribeOpt.value = "Other";
+  otherSubscribeOpt.textContent = "Other (outside the 8 towns)";
+  subscribeTown.appendChild(otherSubscribeOpt);
+  for (const type of config.event_types) {
+    const opt = document.createElement("option");
+    opt.value = type;
+    opt.textContent = type;
+    subscribeType.appendChild(opt);
+  }
+  subscribeTown.addEventListener("change", updateSubscribeLinks);
+  subscribeType.addEventListener("change", () => { syncTypeOverride(); updateSubscribeLinks(); });
+  includeSports.addEventListener("change", updateSubscribeLinks);
+  includeObituaries.addEventListener("change", updateSubscribeLinks);
+  updateSubscribeLinks();
+
+  // Shows the "coming soon" placeholder until docs/explainer.mp4 actually
+  // exists -- preload="metadata" makes the browser fetch just enough to
+  // fire loadedmetadata on page load without downloading the whole file,
+  // so this swaps over automatically the moment a real video is added,
+  // no other change needed.
+  const explainerVideo = document.getElementById("explainerVideo");
+  const videoPlaceholder = document.getElementById("videoPlaceholder");
+  explainerVideo.addEventListener("loadedmetadata", () => {
+    videoPlaceholder.style.display = "none";
+    explainerVideo.style.visibility = "visible";
+  });
+})();
+</script>
+</body>
+</html>

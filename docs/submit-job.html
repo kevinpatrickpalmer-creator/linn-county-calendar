@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Post to the Jobs Bulletin | Linn County">
 <meta property="og:description" content="Post a job you need done, or offer to do work, around Linn County, free.">
-<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
-<meta property="og:url" content="https://linn.communitycalendarconnect.com/submit-job.html">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/submit-job.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Post to the Jobs Bulletin | Linn County">
 <meta name="twitter:description" content="Post a job you need done, or offer to do work, around Linn County, free.">
@@ -111,7 +111,7 @@
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
@@ -119,7 +119,7 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Post to the Jobs Bulletin | ${config.county_display_name}`;
+  document.title = `Post to the Jobs Bulletin | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("expiryHint").textContent =
     `Posts come down automatically after ${config.job_expiry_days || 30} days, or remove it yourself anytime once it's filled.`;

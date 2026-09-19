@@ -50,7 +50,7 @@ const ADMIN_EMAIL = "kevinpatrickpalmer@gmail.com";
 const GITHUB_REPO = "kevinpatrickpalmer-creator/linn-county-calendar";
 const GITHUB_BRANCH = "main";
 const SITE_STATE = "MO";
-const SITE_URL = "https://linn.communitycalendarconnect.com";
+const SITE_URL = "https://linncountylocal.com";
 
 function getSheet(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();

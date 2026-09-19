@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Contact | Linn County">
 <meta property="og:description" content="Questions, a problem, or an idea? Send a message and a real person reads and replies to every one.">
-<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
-<meta property="og:url" content="https://linn.communitycalendarconnect.com/contact.html">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/contact.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact | Linn County">
 <meta name="twitter:description" content="Questions, a problem, or an idea? Send a message and a real person reads and replies to every one.">
@@ -66,14 +66,14 @@
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
-    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+    <span class="powered-by">Powered by Hwy 36 Lab</span>
   </div>
 </main>
 
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Contact | ${config.county_display_name}`;
+  document.title = `Contact | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const form = document.getElementById("contactForm");
