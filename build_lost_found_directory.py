@@ -14,6 +14,7 @@ import glob
 import json
 import os
 import sys
+from datetime import date, timedelta
 
 from calendar_config import load_config
 
@@ -29,14 +30,26 @@ FIELDS = ["type", "category", "name", "town", "date", "description", "contact_na
 REQUIRED_FIELDS = ("type", "category", "name", "town", "date", "description")
 
 
-def load_posts():
+def load_posts(config, today=None):
     """A malformed, incomplete, or bad-type file is skipped with a
     warning rather than failing the whole build. A post whose town is
     literally "Other" is held back from the public site entirely rather
     than published with that unhelpful label -- see
-    data/businesses/README.md for why."""
+    data/businesses/README.md for why.
+
+    A post older than its category's window in
+    config["lost_found_expiry_days"] (by its "posted" date) is held
+    back too -- pets get longer than items since they turn up on their
+    own timeline, not a browsing reader's. "Other" uses the item
+    window. The source file in data/lost-found/ is left alone either
+    way -- this only controls what makes it into the published
+    docs/lost-found.json, so an expired post can still be found in git
+    history rather than being destroyed."""
+    today = today or date.today()
+    expiry_days = config.get("lost_found_expiry_days", {"pet": 60, "item": 30})
     posts = []
     held_back = 0
+    expired = 0
     for path in sorted(glob.glob(os.path.join(POST_DIR, "*.json"))):
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -56,6 +69,17 @@ def load_posts():
             held_back += 1
             continue
 
+        category_window = expiry_days["pet"] if values["category"] == "Pet" else expiry_days["item"]
+        posted = (data.get("posted") or "").strip()
+        if posted:
+            try:
+                posted_date = date.fromisoformat(posted)
+                if today - posted_date > timedelta(days=category_window):
+                    expired += 1
+                    continue
+            except ValueError:
+                pass
+
         post = {}
         for field in FIELDS:
             value = (data.get(field) or "").strip()
@@ -67,12 +91,12 @@ def load_posts():
     # a post missing "posted" (shouldn't happen via admin-lost-found.html,
     # but cheap to guard) sorts last rather than crashing the build.
     posts.sort(key=lambda p: p.get("posted") or "", reverse=True)
-    return posts, held_back
+    return posts, held_back, expired
 
 
 def main():
     config = load_config()
-    posts, held_back = load_posts()
+    posts, held_back, expired = load_posts(config)
 
     towns = sorted({p["town"] for p in posts if p["town"] in config["towns"]})
     lost = sum(1 for p in posts if p["type"] == "lost")
@@ -80,6 +104,9 @@ def main():
     print(f"Building Lost & Found: {len(posts)} post(s) ({lost} lost, {found} found) across {len(towns)} of {len(config['towns'])} official towns")
     if held_back:
         print(f"  ({held_back} post(s) held back -- town unresolved, still \"Other\" in data/lost-found/)")
+    if expired:
+        expiry = config.get("lost_found_expiry_days", {"pet": 60, "item": 30})
+        print(f"  ({expired} post(s) expired -- older than {expiry['pet']} days for pets / {expiry['item']} days for items, source file left in data/lost-found/)")
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(posts, f, indent=2)

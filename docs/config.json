@@ -11,6 +11,8 @@
   "trading_post_categories": ["Meat & Livestock", "Eggs & Dairy", "Produce & Garden", "Baked Goods", "Honey, Jams & Preserves", "Plants, Seedlings & Flowers", "Hay, Straw & Firewood", "Crafts & Handmade Goods", "Other"],
   "job_categories": ["Yard Work & Snow Removal", "Moving & Hauling", "Handyman & Repairs", "Cleaning", "Odd Jobs / Other"],
   "lost_found_categories": ["Pet", "Item", "Other"],
+  "job_expiry_days": 30,
+  "lost_found_expiry_days": { "pet": 60, "item": 30 },
   "github_repo": "kevinpatrickpalmer-creator/linn-county-calendar",
   "github_branch": "main",
   "web3forms_access_key": "84cb6687-b7d7-453d-b3c0-6faca29868ed",

@@ -14,6 +14,7 @@ import glob
 import json
 import os
 import sys
+from datetime import date, timedelta
 
 from calendar_config import load_config
 
@@ -28,13 +29,24 @@ FIELDS = ["type", "name", "category", "town", "phone", "email", "description", "
 REQUIRED_FIELDS = ("type", "name", "town", "description")
 
 
-def load_posts():
+def load_posts(config, today=None):
     """A malformed, incomplete, or bad-type file is skipped with a
     warning rather than failing the whole build. A post whose town is
     literally "Other" is held back from the public site entirely rather
-    than published with that unhelpful label -- see data/jobs/README.md."""
+    than published with that unhelpful label -- see data/jobs/README.md.
+
+    A post older than config["job_expiry_days"] (by its "posted" date)
+    is held back too -- yard work and odd jobs go stale, and nobody's
+    coming back to manually delete the file once the work's done. The
+    source file in data/jobs/ is left alone either way -- this only
+    controls what makes it into the published docs/jobs.json, so an
+    expired post can still be found in git history rather than being
+    destroyed. The pinned "example" post never expires."""
+    today = today or date.today()
+    expiry_days = config.get("job_expiry_days", 30)
     posts = []
     held_back = 0
+    expired = 0
     for path in sorted(glob.glob(os.path.join(POST_DIR, "*.json"))):
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -54,12 +66,23 @@ def load_posts():
             held_back += 1
             continue
 
+        is_example = bool(data.get("example"))
+        posted = (data.get("posted") or "").strip()
+        if not is_example and posted:
+            try:
+                posted_date = date.fromisoformat(posted)
+                if today - posted_date > timedelta(days=expiry_days):
+                    expired += 1
+                    continue
+            except ValueError:
+                pass
+
         post = {}
         for field in FIELDS:
             value = (data.get(field) or "").strip()
             if value:
                 post[field] = value
-        if data.get("example"):
+        if is_example:
             post["example"] = True
         posts.append(post)
 
@@ -71,12 +94,12 @@ def load_posts():
     # everything else, newest-first order preserved within each group
     # since sort() is stable.
     posts.sort(key=lambda p: not p.get("example", False))
-    return posts, held_back
+    return posts, held_back, expired
 
 
 def main():
     config = load_config()
-    posts, held_back = load_posts()
+    posts, held_back, expired = load_posts(config)
 
     towns = sorted({p["town"] for p in posts if p["town"] in config["towns"]})
     needed = sum(1 for p in posts if p["type"] == "needed")
@@ -84,6 +107,8 @@ def main():
     print(f"Building jobs bulletin: {len(posts)} post(s) ({needed} needing help, {offering} offering help) across {len(towns)} of {len(config['towns'])} official towns")
     if held_back:
         print(f"  ({held_back} post(s) held back -- town unresolved, still \"Other\" in data/jobs/)")
+    if expired:
+        print(f"  ({expired} post(s) expired -- older than {config.get('job_expiry_days', 30)} days, source file left in data/jobs/)")
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(posts, f, indent=2)

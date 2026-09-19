@@ -6,6 +6,12 @@ on:
     paths:
       - "data/jobs/**"
   workflow_dispatch: {}
+  # Posts expire by age (see load_posts() in build_jobs_directory.py),
+  # not just on a new submission -- this reruns the build daily so a
+  # post actually drops off the site once it's stale, even during a
+  # lull with nothing new coming in.
+  schedule:
+    - cron: "0 13 * * *"
 
 permissions:
   contents: write

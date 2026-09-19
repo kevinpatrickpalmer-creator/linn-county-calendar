@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Remove a Listing</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Remove a Listing | Linn County">
+<meta property="og:description" content="Take down your own Jobs Bulletin, Lost & Found, or Trading Post listing using the removal code you were given when you posted it.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/remove-listing.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Remove a Listing | Linn County">
+<meta name="twitter:description" content="Take down your own Jobs Bulletin, Lost & Found, or Trading Post listing using the removal code you were given when you posted it.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+
+  /* Confirmation panel -- see docs/submit.html for why this replaces the
+     form entirely on success rather than just adding a status line. */
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+
+  #code { text-transform: uppercase; letter-spacing: .1em; font-family: monospace; font-size: 1.1rem; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Remove a Listing</h1>
+  <p class="sub">Item found, job filled, sold out? Take your own listing down using the removal code you were shown (and, if you gave an email, emailed) when you first posted it.</p>
+
+  <form id="removeForm" class="card">
+    <label for="board">Which board is it on? *</label>
+    <select id="board" name="board" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="job">Jobs Bulletin</option>
+      <option value="lost-found">Lost &amp; Found</option>
+      <option value="trading-post">Trading Post</option>
+    </select>
+
+    <label for="code">Removal code *</label>
+    <input id="code" name="code" type="text" maxlength="12" required placeholder="e.g. AB12CD" autocomplete="off">
+    <p class="hint">This was shown on the confirmation page right after you posted, and emailed to you if you gave an email address.</p>
+
+    <button type="submit" id="submitBtn">Remove my listing</button>
+    <div id="status" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Done, it's removed</h2>
+    <p class="hint">Your listing has been taken down. Thanks for letting us know.</p>
+  </div>
+
+  <p class="hint" style="text-align:center;">Lost your code, or something not working? <a href="contact.html?topic=Remove%20a%20listing">Contact us</a> and we'll take care of it.</p>
+
+  <div class="site-credit">
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Remove a Listing | ${config.county_display_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  // A link from the confirmation email carries ?board=...&code=... so
+  // it's prefilled here -- still requires an actual click on the
+  // button below, rather than removing on page load, since some email
+  // clients pre-fetch links for safety scanning and a bare page visit
+  // shouldn't be able to trigger a deletion.
+  const params = new URLSearchParams(window.location.search);
+  const boardParam = params.get("board");
+  const codeParam = params.get("code");
+  if (boardParam) document.getElementById("board").value = boardParam;
+  if (codeParam) document.getElementById("code").value = codeParam;
+
+  const form = document.getElementById("removeForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const confirmPanel = document.getElementById("confirmPanel");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Removing...";
+
+    const data = new FormData(form);
+    const board = (data.get("board") || "").toString();
+    const code = (data.get("code") || "").toString().trim();
+
+    try {
+      const res = await fetch(config.apps_script_api_url, {
+        method: "POST",
+        body: JSON.stringify({ action: "removeListing", board, code }),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
+      } else {
+        throw new Error(result.error || "We couldn't remove that listing.");
+      }
+    } catch (err) {
+      statusEl.textContent = err.message || "Something went wrong. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Remove my listing";
+    }
+  });
+})();
+</script>
+</body>
+</html>
