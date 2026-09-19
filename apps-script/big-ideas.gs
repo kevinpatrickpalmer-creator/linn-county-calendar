@@ -275,6 +275,7 @@ const BOARD_LABELS = {
   "trading-post": "Trading Post listing",
   job: "Jobs Bulletin post",
   "lost-found": "Lost & Found post",
+  club: "Clubs & Classes post",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -377,6 +378,20 @@ const BOARD_CONFIG = {
       return obj;
     },
   },
+  club: {
+    dir: "data/clubs",
+    requiredFields: ["type", "name", "ageGroup", "town", "description"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.name) || "post") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { type: f.type, name: f.name, ageGroup: f.ageGroup, town: f.town, posted: today };
+      ["description", "phone", "email"].forEach(function (k) {
+        if (f[k]) obj[k] = f[k];
+      });
+      return obj;
+    },
+  },
 };
 
 function submitBoardEntry(body) {
@@ -402,6 +417,9 @@ function submitBoardEntry(body) {
     return { success: false, error: "Invalid type." };
   }
   if (board === "lost-found" && ["lost", "found"].indexOf(fields.type) === -1) {
+    return { success: false, error: "Invalid type." };
+  }
+  if (board === "club" && ["looking", "offering"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
 

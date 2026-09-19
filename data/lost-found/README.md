@@ -82,7 +82,14 @@ where the pet/item was lost or found, if a specific location matters.
 should never appear in a file here; `build_lost_found_directory.py`
 holds one back from the public site as a backstop if it ever does.
 
-There's no automatic expiration here either -- when a pet's found or an
-item's claimed, remove its file by hand via
-[`docs/manage-lost-found.html`](../../docs/manage-lost-found.html), same
-as everywhere else on this site.
+A post also expires automatically -- `lost_found_expiry_days` in
+`docs/config.json` sets separate windows for `"Pet"` (currently 60
+days) and everything else (currently 30 days), since pets turn up on
+their own timeline. The poster can also pull their own post down
+early via `docs/remove-listing.html` using the code they were given
+when they posted -- see `removeListing()` in
+`apps-script/big-ideas.gs`. Either way the file itself is left alone
+here; only `build_lost_found_directory.py`'s output changes. A post
+can still be removed by hand via
+[`docs/manage-lost-found.html`](../../docs/manage-lost-found.html) if
+needed.

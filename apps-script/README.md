@@ -4,7 +4,7 @@ Started as just the live backend for `docs/big-ideas.html` (votes have
 to update in real time and be shared across everyone who visits, which
 can't be a static file in this repo). Now also handles every other
 board's submissions -- events, business directory, trading post, jobs,
-lost & found -- so approving one can happen by just replying
+clubs & classes, lost & found -- so approving one can happen by just replying
 "approved" to an email, instead of clicking through to GitHub's
 "create file" page by hand. `big-ideas.gs` is a small script that runs
 for free inside a Google Sheet and does all of this, the same
@@ -68,9 +68,9 @@ this repo, the same action you'd otherwise do by hand through GitHub's
    repo, never in an email, never something Claude sees.)
 
 If this token is missing or wrong, approving an event/directory/trading
-post/jobs/lost & found submission will fail with an error saved right
-in the "Pending" sheet tab (see below) instead of silently doing
-nothing.
+post/jobs/clubs & classes/lost & found submission will fail with an
+error saved right in the "Pending" sheet tab (see below) instead of
+silently doing nothing.
 
 ## Day to day: approving submissions
 

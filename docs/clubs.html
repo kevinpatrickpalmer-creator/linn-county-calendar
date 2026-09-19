@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Clubs & Classes</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Clubs & Classes | Linn County">
+<meta property="og:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/clubs.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clubs & Classes | Linn County">
+<meta name="twitter:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+  .dir-controls input[type="search"] { flex: 1 1 12rem; margin: 0; }
+  .ms-filter { position: relative; }
+  .ms-btn {
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: .68rem .9rem;
+    font-size: .9rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ms-btn.active { border-color: var(--primary); color: var(--primary); }
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + .3rem);
+    left: 0;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: .6rem;
+    min-width: 13rem;
+    max-height: 16rem;
+    overflow-y: auto;
+  }
+  .ms-panel.hidden { display: none; }
+  .ms-panel label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .25rem 0; white-space: nowrap; color: var(--ink);
+    font-weight: 400; margin: 0;
+  }
+  .ms-panel input[type="checkbox"] { accent-color: var(--primary); }
+  .ms-panel .ms-clear {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: var(--primary); font-size: .8rem; font-weight: 600; cursor: pointer;
+    padding: 0 0 .4rem; margin-bottom: .3rem; border-bottom: 1px solid var(--surface-border);
+    font-family: var(--font-body);
+  }
+  #resultsCount { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .75rem; }
+  .dir-category-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 1.5rem 0 .75rem;
+    padding-left: .7rem;
+    border-left: 3px solid var(--primary);
+    color: var(--ink);
+  }
+  .dir-category-heading:first-child { margin-top: 0; }
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .biz-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  /* A seeded sample post, pinned to the top of the board so it isn't
+     blank before anyone's posted for real -- see data/clubs/README.md.
+     Dashed border + corner ribbon so it never reads as a real listing. */
+  .example-card { border-style: dashed; border-color: var(--primary); }
+  .example-ribbon {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--primary-tint);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .job-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+  }
+  .job-badge.looking { color: #d99a44; background: #3a2c14; }
+  .job-badge.offering { color: #6fcf97; background: #12321f; }
+  .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
+  .biz-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    align-self: flex-start;
+    background: rgba(255,255,255,.08);
+    border: 1px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .35rem .85rem .35rem .6rem;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .biz-tag .biz-tag-emoji { font-size: 1.2em; }
+  .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
+  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
+  .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
+  .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .biz-meta a:hover { text-decoration: underline; }
+  #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
+
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  body.themed .hero p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Clubs & Classes</h1>
+    <p class="sub" id="pageSub">Bridge club, Red Hats, a kids' spinning club, swimming lessons, karate, woodworking -- if it's a club or a class, this is where people running one and people looking for one find each other.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<main class="wide">
+  <p class="callout">Run a club or teach a class, or looking for one to join? <a href="submit-clubs.html">Post it free &rarr;</a> No catch, just a way to find each other.</p>
+
+  <div class="dir-controls">
+    <input type="search" id="searchInput" placeholder="What are you looking for?">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="typeFilterBtn">Type: All</button>
+      <div class="ms-panel hidden" id="typeFilterPanel">
+        <button type="button" class="ms-clear" data-filter="type">Show both</button>
+        <div id="typeCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
+      <div class="ms-panel hidden" id="townFilterPanel">
+        <button type="button" class="ms-clear" data-filter="town">Show all towns</button>
+        <div id="townCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="ageGroupFilterBtn">Who's it for: All</button>
+      <div class="ms-panel hidden" id="ageGroupFilterPanel">
+        <button type="button" class="ms-clear" data-filter="ageGroup">Show all ages</button>
+        <div id="ageGroupCheckList"></div>
+      </div>
+    </div>
+  </div>
+
+  <p id="resultsCount"></p>
+  <div id="dirStatus">Loading posts...</div>
+  <div id="dirGrid"></div>
+  <div id="dirEmpty">No posts match your search yet. Try clearing a filter, or <a href="submit-clubs.html">be the first to post &rarr;</a></div>
+
+  <div class="footer-link">
+    <a href="submit-clubs.html">Post to Clubs &amp; Classes &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="remove-listing.html?board=club">Remove your own post &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="index.html">Back to the calendar &rarr;</a>
+  </div>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  let config = {};
+  let posts = [];
+
+  const selectedTowns = new Set();
+  const selectedAgeGroups = new Set();
+  const selectedTypes = new Set();
+  const TYPE_LABELS = { looking: "Looking to Join", offering: "Offering" };
+  const AGE_GROUP_EMOJI = { Kids: "🧒", Teens: "🧑", Adults: "🧑‍🦳", "All Ages": "👪" };
+
+  // Same filler-word list idea as docs/jobs.html, so a typed-out
+  // question ("looking for a club for kids") strips down to just the
+  // words that actually have to match.
+  const SEARCH_STOPWORDS = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
+    "we", "us", "me", "my", "mine", "our", "looking", "look", "for", "find", "need",
+    "needed", "want", "wanted", "who", "what", "where", "when", "why", "how", "can",
+    "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
+    "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
+    "show", "get", "open", "right", "now", "today", "join", "joining", "class",
+    "classes", "club", "clubs", "someone", "somebody", "anyone",
+  ]);
+
+  function searchTokens(query) {
+    return query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOPWORDS.has(word));
+  }
+
+  function matchesSearch(p, tokens, matchAny) {
+    if (!tokens.length) return true;
+    const haystack = `${p.name} ${p.description || ""} ${p.ageGroup || ""} ${p.town || ""}`.toLowerCase();
+    const tokenMatches = (token) => haystack.includes(token);
+    return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
+
+  function daysAgo(dateStr) {
+    if (!dateStr) return "";
+    const posted = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(posted)) return "";
+    const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    if (days < 14) return `Posted ${days} days ago`;
+    if (days < 60) return `Posted ${Math.floor(days / 7)} weeks ago`;
+    return `Posted ${Math.floor(days / 30)} months ago`;
+  }
+
+  // Same multi-checkbox dropdown pattern as docs/jobs.html.
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange, optionLabel }) {
+    const btn = document.getElementById(btnId);
+    const panel = document.getElementById(panelId);
+    const list = document.getElementById(listId);
+
+    function updateBtnLabel() {
+      if (selectedSet.size === 0) {
+        btn.textContent = `${label}: All`;
+        btn.classList.remove("active");
+      } else if (selectedSet.size === 1) {
+        btn.textContent = `${label}: ${optionLabel ? optionLabel([...selectedSet][0]) : [...selectedSet][0]}`;
+        btn.classList.add("active");
+      } else {
+        btn.textContent = `${label}: ${selectedSet.size} selected`;
+        btn.classList.add("active");
+      }
+    }
+
+    for (const opt of options) {
+      const row = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = opt;
+      cb.addEventListener("change", () => {
+        if (cb.checked) selectedSet.add(opt);
+        else selectedSet.delete(opt);
+        updateBtnLabel();
+        onChange();
+      });
+      row.appendChild(cb);
+      row.appendChild(document.createTextNode(" " + (optionLabel ? optionLabel(opt) : opt)));
+      list.appendChild(row);
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasHidden = panel.classList.contains("hidden");
+      document.querySelectorAll(".ms-panel").forEach((p) => p.classList.add("hidden"));
+      if (wasHidden) panel.classList.remove("hidden");
+    });
+
+    panel.querySelector(".ms-clear").addEventListener("click", () => {
+      selectedSet.clear();
+      list.querySelectorAll("input[type=checkbox]").forEach((cb) => { cb.checked = false; });
+      updateBtnLabel();
+      onChange();
+    });
+
+    // Exposed so a tag badge on a card can jump straight to "only this
+    // age group" without duplicating the button-label logic above.
+    return { updateLabel: updateBtnLabel };
+  }
+
+  let ageGroupFilterControls = null;
+
+  // Clicking an age-group tag badge on a card narrows the whole page
+  // down to that one age group, same as picking it from the dropdown.
+  function filterToAgeGroup(ageGroup) {
+    selectedAgeGroups.clear();
+    selectedAgeGroups.add(ageGroup);
+    document.querySelectorAll("#ageGroupCheckList input[type=checkbox]").forEach((cb) => {
+      cb.checked = cb.value === ageGroup;
+    });
+    if (ageGroupFilterControls) ageGroupFilterControls.updateLabel();
+    render();
+    document.querySelector(".dir-controls").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".ms-panel").forEach((panel) => {
+      if (!panel.classList.contains("hidden") && !panel.parentElement.contains(e.target)) {
+        panel.classList.add("hidden");
+      }
+    });
+  });
+
+  function buildCard(p) {
+    const card = document.createElement("div");
+    card.className = "biz-card";
+
+    if (p.example) {
+      card.classList.add("example-card");
+      const ribbon = document.createElement("div");
+      ribbon.className = "example-ribbon";
+      ribbon.textContent = "Example";
+      card.appendChild(ribbon);
+    }
+
+    const badge = document.createElement("div");
+    badge.className = `job-badge ${p.type === "offering" ? "offering" : "looking"}`;
+    badge.textContent = TYPE_LABELS[p.type] || "";
+    card.appendChild(badge);
+
+    const name = document.createElement("div");
+    name.className = "biz-name";
+    name.textContent = p.name;
+    card.appendChild(name);
+
+    const ageGroup = p.ageGroup || "All Ages";
+    const tag = document.createElement("button");
+    tag.type = "button";
+    tag.className = "biz-tag";
+    tag.title = `Show every post tagged ${ageGroup}`;
+    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${AGE_GROUP_EMOJI[ageGroup] || "👪"}</span> ${ageGroup}`;
+    tag.addEventListener("click", () => filterToAgeGroup(ageGroup));
+    card.appendChild(tag);
+
+    const town = document.createElement("div");
+    town.className = "biz-town";
+    town.textContent = p.town;
+    card.appendChild(town);
+
+    if (p.description) {
+      const desc = document.createElement("div");
+      desc.className = "biz-desc";
+      desc.textContent = p.description;
+      card.appendChild(desc);
+    }
+
+    const posted = p.example ? null : daysAgo(p.posted);
+    if (posted) {
+      const postedEl = document.createElement("div");
+      postedEl.className = "biz-posted";
+      postedEl.textContent = posted;
+      card.appendChild(postedEl);
+    }
+
+    const meta = document.createElement("div");
+    meta.className = "biz-meta";
+
+    if (p.phone) {
+      const a = document.createElement("a");
+      a.href = `tel:${p.phone.replace(/[^0-9+]/g, "")}`;
+      a.textContent = p.phone;
+      meta.appendChild(a);
+    }
+    if (p.email) {
+      const a = document.createElement("a");
+      a.href = `mailto:${p.email}`;
+      a.textContent = p.email;
+      meta.appendChild(a);
+    }
+    if (meta.childNodes.length) card.appendChild(meta);
+
+    return card;
+  }
+
+  function render() {
+    const container = document.getElementById("dirGrid");
+    const empty = document.getElementById("dirEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const tokens = searchTokens(document.getElementById("searchInput").value);
+
+    function applyFilters(matchAny) {
+      return posts.filter((p) => {
+        if (selectedTypes.size && !selectedTypes.has(p.type)) return false;
+        if (selectedTowns.size && !selectedTowns.has(p.town)) return false;
+        if (selectedAgeGroups.size && !selectedAgeGroups.has(p.ageGroup || "All Ages")) return false;
+        if (!matchesSearch(p, tokens, matchAny)) return false;
+        return true;
+      });
+    }
+
+    let filtered = applyFilters(false);
+    if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
+
+    // Grouped by type first (Offering / Looking to Join) rather than
+    // age group -- the first thing a reader here cares about is which
+    // side of the board they're browsing. Posts within each group keep
+    // docs/clubs.json's existing newest-first order.
+    const offering = filtered.filter((p) => p.type === "offering");
+    const looking = filtered.filter((p) => p.type !== "offering");
+
+    container.innerHTML = "";
+    const sections = [
+      { label: "Offering", items: offering },
+      { label: "Looking to Join", items: looking },
+    ];
+    for (const section of sections) {
+      if (!section.items.length) continue;
+      const heading = document.createElement("div");
+      heading.className = "dir-category-heading";
+      heading.textContent = section.label;
+      container.appendChild(heading);
+
+      const grid = document.createElement("div");
+      grid.className = "dir-grid";
+      for (const p of section.items) {
+        grid.appendChild(buildCard(p));
+      }
+      container.appendChild(grid);
+    }
+
+    // Excludes the pinned "example" post, same as the hero count above --
+    // otherwise this line and that one would visibly disagree.
+    const realTotal = posts.filter((p) => !p.example).length;
+    const realFiltered = filtered.filter((p) => !p.example).length;
+    resultsCount.textContent = realTotal
+      ? `Showing ${realFiltered} of ${realTotal} post${realTotal === 1 ? "" : "s"}`
+      : "";
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  try {
+    config = await (await fetch("config.json")).json();
+    document.title = `Clubs & Classes | ${config.county_display_name}`;
+    document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+    ageGroupFilterControls = setupMultiSelectFilter({
+      btnId: "ageGroupFilterBtn", panelId: "ageGroupFilterPanel", listId: "ageGroupCheckList",
+      options: config.club_age_groups || [], selectedSet: selectedAgeGroups, label: "Who's it for", onChange: render,
+    });
+
+    setupMultiSelectFilter({
+      btnId: "typeFilterBtn", panelId: "typeFilterPanel", listId: "typeCheckList",
+      options: ["offering", "looking"], selectedSet: selectedTypes, label: "Type", onChange: render,
+      optionLabel: (v) => TYPE_LABELS[v] || v,
+    });
+  } catch (err) {
+    // Filters just won't populate; the page itself can still load below.
+  }
+
+  document.getElementById("searchInput").addEventListener("input", render);
+
+  try {
+    posts = await (await fetch("clubs.json")).json();
+    document.getElementById("dirStatus").style.display = "none";
+    // A pinned "example" post (see data/clubs/README.md) doesn't count
+    // toward this -- it's not real community activity.
+    const realCount = posts.filter((p) => !p.example).length;
+    document.getElementById("statsLine").innerHTML =
+      `<span class="stat-seg">1 County ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Post${realCount === 1 ? "" : "s"}</span>` +
+      `<span class="stat-seg">· Free to Join</span>`;
+
+    // Always the county's own 8 towns, plus any other real town already
+    // showing up in the data -- not just whatever's in the data alone,
+    // which would leave the filter showing nothing while the board is
+    // still thin. Same fix as docs/jobs.html.
+    const towns = [...new Set([...config.towns, ...posts.map((p) => p.town)])].sort();
+    setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+    });
+
+    render();
+  } catch (err) {
+    document.getElementById("dirStatus").textContent = "Couldn't load the posts. Please try refreshing.";
+    document.getElementById("dirStatus").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>
