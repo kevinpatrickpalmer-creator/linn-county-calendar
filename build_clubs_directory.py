@@ -25,7 +25,7 @@ VALID_TYPES = {"looking", "offering"}
 
 # Written in this order for every post, regardless of what order its own
 # JSON keys were in -- keeps docs/clubs.json diffs stable from run to run.
-FIELDS = ["type", "name", "ageGroup", "town", "phone", "email", "description", "posted"]
+FIELDS = ["type", "name", "ageGroup", "category", "town", "phone", "email", "description", "posted"]
 REQUIRED_FIELDS = ("type", "name", "ageGroup", "town", "description")
 
 

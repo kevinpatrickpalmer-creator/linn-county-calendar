@@ -63,6 +63,11 @@
       <option value="" disabled selected>Select one</option>
     </select>
 
+    <label for="category">What kind of club or class? (optional)</label>
+    <select id="category" name="category">
+      <option value="">Not sure, skip this</option>
+    </select>
+
     <label for="town">Town *</label>
     <select id="town" name="town" required>
       <option value="" disabled selected>Select a town</option>
@@ -152,6 +157,14 @@
     ageGroupSelect.appendChild(option);
   }
 
+  const categorySelect = document.getElementById("category");
+  for (const category of config.club_categories || []) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  }
+
   // The name/description fields' labels flip depending on which side of
   // the board this post is on, same "relabel instead of two separate
   // forms" idea as docs/submit-job.html.
@@ -215,6 +228,7 @@
     const postType = (data.get("postType") || "").trim();
     const rawName = (data.get("name") || "").trim();
     const ageGroup = (data.get("ageGroup") || "").trim();
+    const category = (data.get("category") || "").trim();
     const rawTown = (data.get("town") || "").trim();
     const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
     const description = (data.get("description") || "").trim();
@@ -228,7 +242,7 @@
           action: "submitBoard",
           board: "club",
           botcheck: (data.get("botcheck") || "").toString(),
-          fields: { type: postType, name: rawName, ageGroup, town, description, phone, email },
+          fields: { type: postType, name: rawName, ageGroup, category, town, description, phone, email },
         }),
       });
       const result = await res.json();

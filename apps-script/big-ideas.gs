@@ -386,7 +386,7 @@ const BOARD_CONFIG = {
     },
     buildContent: function (f, today) {
       const obj = { type: f.type, name: f.name, ageGroup: f.ageGroup, town: f.town, posted: today };
-      ["description", "phone", "email"].forEach(function (k) {
+      ["category", "description", "phone", "email"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
       return obj;

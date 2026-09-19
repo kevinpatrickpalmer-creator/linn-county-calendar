@@ -31,6 +31,7 @@ Expected shape of each file:
   "type": "offering",
   "name": "Marceline Bridge Club",
   "ageGroup": "Adults",
+  "category": "Cards & Games",
   "town": "Marceline",
   "description": "We meet Thursday evenings at the community center. Beginners welcome, we'll teach you.",
   "phone": "(660) 555-0142",
@@ -45,11 +46,17 @@ class, and wants members/students) or `"looking"` (this person wants
 to join a club or find an instructor) -- `docs/clubs.html` groups
 posts by this and badges each card, so it has to be one of those two
 exact strings. `ageGroup` should match one of `club_age_groups` in
-`docs/config.json` ("Kids", "Teens", "Adults", "All Ages") -- it's
-what the page's filter uses. There's deliberately no fixed list of
-club/class *types* (bridge, karate, spinning, swimming, woodworking,
-whatever else) -- that range is too wide to pin down ahead of time, so
-it just goes in `name`/`description` as free text.
+`docs/config.json` ("Kids", "Teens", "Adults", "All Ages") -- it's one
+of the page's filters. `category` is optional and should match one of
+`club_categories` in `docs/config.json` (Cards & Games, Crafts &
+Hobbies, Sports & Fitness, Music/Arts & Dance, Youth & Scouts, Social &
+Civic Clubs, Support & Interest Groups, Other) -- it's the page's
+other filter and its main clickable tag, same role `category` plays on
+Jobs Bulletin. A post with an unrecognized or missing category still
+shows up under "Other". The exact club/class activity itself (which
+specific card game, which craft, which sport) still isn't its own
+fixed field -- that's finer-grained than the category needs to be, so
+it stays in `name`/`description` as free text.
 
 **`posted`** is a `YYYY-MM-DD` date stamped at the moment of approval
 by `apps-script/big-ideas.gs` -- not something the submitter enters --

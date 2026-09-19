@@ -12,6 +12,7 @@
   "job_categories": ["Yard Work & Snow Removal", "Moving & Hauling", "Handyman & Repairs", "Cleaning", "Odd Jobs / Other"],
   "lost_found_categories": ["Pet", "Item", "Other"],
   "club_age_groups": ["Kids", "Teens", "Adults", "All Ages"],
+  "club_categories": ["Cards & Games", "Crafts & Hobbies", "Sports & Fitness", "Music, Arts & Dance", "Youth & Scouts", "Social & Civic Clubs", "Support & Interest Groups", "Other"],
   "job_expiry_days": 30,
   "lost_found_expiry_days": { "pet": 60, "item": 30 },
   "club_expiry_days": 60,
