@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Builds docs/jobs.json from every approved post in data/jobs/ (see
-data/jobs/README.md for how a file lands there). Same "combine approved
+Builds docs/clubs.json from every approved post in data/clubs/ (see
+data/clubs/README.md for how a file lands there). Same "combine approved
 local files into one fetchable JSON file" approach as
-build_trading_post_directory.py, kept as its own script since this is a
-different content type (two-sided help-wanted/help-offered posts, not
-goods or businesses) with its own required fields.
+build_jobs_directory.py, kept as its own script since this is a
+different content type (two-sided club/class posts, not work, goods,
+or lost pets) with its own required fields.
 
 Run:
-    python build_jobs_directory.py
+    python build_clubs_directory.py
 """
 import glob
 import json
@@ -18,32 +18,31 @@ from datetime import date, timedelta
 
 from calendar_config import load_config
 
-POST_DIR = "data/jobs"
-OUTPUT_PATH = "docs/jobs.json"
+POST_DIR = "data/clubs"
+OUTPUT_PATH = "docs/clubs.json"
 
-VALID_TYPES = {"needed", "offering"}
+VALID_TYPES = {"looking", "offering"}
 
 # Written in this order for every post, regardless of what order its own
-# JSON keys were in -- keeps docs/jobs.json diffs stable from run to run.
-FIELDS = ["type", "name", "category", "town", "phone", "email", "description", "posted"]
-REQUIRED_FIELDS = ("type", "name", "town", "description")
+# JSON keys were in -- keeps docs/clubs.json diffs stable from run to run.
+FIELDS = ["type", "name", "ageGroup", "category", "town", "phone", "email", "description", "posted"]
+REQUIRED_FIELDS = ("type", "name", "ageGroup", "town", "description")
 
 
 def load_posts(config, today=None):
     """A malformed, incomplete, or bad-type file is skipped with a
     warning rather than failing the whole build. A post whose town is
     literally "Other" is held back from the public site entirely rather
-    than published with that unhelpful label -- see data/jobs/README.md.
+    than published with that unhelpful label -- see data/clubs/README.md.
 
-    A post older than config["job_expiry_days"] (by its "posted" date)
-    is held back too -- yard work and odd jobs go stale, and nobody's
-    coming back to manually delete the file once the work's done. The
-    source file in data/jobs/ is left alone either way -- this only
-    controls what makes it into the published docs/jobs.json, so an
-    expired post can still be found in git history rather than being
-    destroyed. The pinned "example" post never expires."""
+    A post older than config["club_expiry_days"] (by its "posted" date)
+    is held back too, same reasoning as Jobs Bulletin. The source file
+    in data/clubs/ is left alone either way -- this only controls what
+    makes it into the published docs/clubs.json, so an expired post can
+    still be found in git history rather than being destroyed. The
+    pinned "example" post never expires."""
     today = today or date.today()
-    expiry_days = config.get("job_expiry_days", 30)
+    expiry_days = config.get("club_expiry_days", 60)
     posts = []
     held_back = 0
     expired = 0
@@ -87,10 +86,9 @@ def load_posts(config, today=None):
         posts.append(post)
 
     # Newest first, so the page doesn't need to re-sort client-side --
-    # a post missing "posted" (shouldn't happen via admin-job.html, but
-    # cheap to guard) sorts last rather than crashing the build.
+    # a post missing "posted" sorts last rather than crashing the build.
     posts.sort(key=lambda p: p.get("posted") or "", reverse=True)
-    # Then pin any "example" post(s) -- see data/jobs/README.md -- above
+    # Then pin any "example" post(s) -- see data/clubs/README.md -- above
     # everything else, newest-first order preserved within each group
     # since sort() is stable.
     posts.sort(key=lambda p: not p.get("example", False))
@@ -102,13 +100,13 @@ def main():
     posts, held_back, expired = load_posts(config)
 
     towns = sorted({p["town"] for p in posts if p["town"] in config["towns"]})
-    needed = sum(1 for p in posts if p["type"] == "needed")
-    offering = len(posts) - needed
-    print(f"Building jobs bulletin: {len(posts)} post(s) ({needed} needing help, {offering} offering help) across {len(towns)} of {len(config['towns'])} official towns")
+    looking = sum(1 for p in posts if p["type"] == "looking")
+    offering = len(posts) - looking
+    print(f"Building Clubs & Classes: {len(posts)} post(s) ({looking} looking to join, {offering} offering) across {len(towns)} of {len(config['towns'])} official towns")
     if held_back:
-        print(f"  ({held_back} post(s) held back -- town unresolved, still \"Other\" in data/jobs/)")
+        print(f"  ({held_back} post(s) held back -- town unresolved, still \"Other\" in data/clubs/)")
     if expired:
-        print(f"  ({expired} post(s) expired -- older than {config.get('job_expiry_days', 30)} days, source file left in data/jobs/)")
+        print(f"  ({expired} post(s) expired -- older than {config.get('club_expiry_days', 60)} days, source file left in data/clubs/)")
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(posts, f, indent=2)

@@ -16,10 +16,15 @@
  *   Ideas: id, title, description, name, town, submitted, upvotes,
  *          downvotes, example, status
  *   Votes: idea_id, voter_id, vote, updated
- *   Pending: id, board, data_json, submitted, status
+ *   Pending: id, board, data_json, submitted, status, removal_code,
+ *     published_path
  *     (one row per event/business/trading-post/job/lost-found
  *     submission; data_json holds that board's own fields, since each
- *     board has a different shape -- see BOARD_CONFIG below)
+ *     board has a different shape -- see BOARD_CONFIG below.
+ *     removal_code lets the poster pull their own listing down later
+ *     via docs/remove-listing.html without needing an account --
+ *     see removeListing() below. published_path is set once approved,
+ *     so removal knows exactly which file to delete.)
  *
  * Moderation: every real submission lands with status "pending" and
  * only becomes real (visible on the site, or committed to GitHub) once
@@ -45,12 +50,14 @@ const ADMIN_EMAIL = "kevinpatrickpalmer@gmail.com";
 const GITHUB_REPO = "kevinpatrickpalmer-creator/linn-county-calendar";
 const GITHUB_BRANCH = "main";
 const SITE_STATE = "MO";
+const SITE_URL = "https://linn.communitycalendarconnect.com";
 
 function getSheet(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(name);
   if (sheet) {
     if (name === IDEAS_SHEET) ensureIdeasColumns(sheet);
+    if (name === PENDING_SHEET) ensurePendingColumns(sheet);
     return sheet;
   }
 
@@ -72,7 +79,7 @@ function getSheet(name) {
   } else if (name === VOTES_SHEET) {
     sheet.appendRow(["idea_id", "voter_id", "vote", "updated"]);
   } else if (name === PENDING_SHEET) {
-    sheet.appendRow(["id", "board", "data_json", "submitted", "status"]);
+    sheet.appendRow(["id", "board", "data_json", "submitted", "status", "removal_code", "published_path"]);
   }
   return sheet;
 }
@@ -89,6 +96,28 @@ function ensureIdeasColumns(sheet) {
   if (missing.length) {
     sheet.getRange(1, lastCol + 1, 1, missing.length).setValues([missing]);
   }
+}
+
+// Same idea as ensureIdeasColumns() -- adds "removal_code"/"published_path"
+// to a Pending sheet that predates the self-service removal feature.
+function ensurePendingColumns(sheet) {
+  const lastCol = sheet.getLastColumn();
+  const header = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  const missing = ["removal_code", "published_path"].filter((col) => header.indexOf(col) === -1);
+  if (missing.length) {
+    sheet.getRange(1, lastCol + 1, 1, missing.length).setValues([missing]);
+  }
+}
+
+// Avoids visually-confusable characters (0/O, 1/I/L) since this is
+// meant to be handwritten or screenshotted and typed back in later.
+function generateRemovalCode() {
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
 }
 
 function doGet(e) {
@@ -113,6 +142,7 @@ function doPost(e) {
     if (body.action === "submit") return jsonResponse(submitIdea(body));
     if (body.action === "vote") return jsonResponse(castVote(body));
     if (body.action === "submitBoard") return jsonResponse(submitBoardEntry(body));
+    if (body.action === "removeListing") return jsonResponse(removeListing(body));
     return jsonResponse({ success: false, error: "Unknown action" });
   } finally {
     lock.releaseLock();
@@ -245,6 +275,7 @@ const BOARD_LABELS = {
   "trading-post": "Trading Post listing",
   job: "Jobs Bulletin post",
   "lost-found": "Lost & Found post",
+  club: "Clubs & Classes post",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -347,6 +378,20 @@ const BOARD_CONFIG = {
       return obj;
     },
   },
+  club: {
+    dir: "data/clubs",
+    requiredFields: ["type", "name", "ageGroup", "town", "description"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.name) || "post") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { type: f.type, name: f.name, ageGroup: f.ageGroup, town: f.town, posted: today };
+      ["category", "description", "phone", "email"].forEach(function (k) {
+        if (f[k]) obj[k] = f[k];
+      });
+      return obj;
+    },
+  },
 };
 
 function submitBoardEntry(body) {
@@ -374,6 +419,9 @@ function submitBoardEntry(body) {
   if (board === "lost-found" && ["lost", "found"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
+  if (board === "club" && ["looking", "offering"].indexOf(fields.type) === -1) {
+    return { success: false, error: "Invalid type." };
+  }
 
   const id = Utilities.getUuid();
   const submitterName = (body.submitterName || "").toString().trim();
@@ -395,8 +443,9 @@ function submitBoardEntry(body) {
     }
   }
 
+  const removalCode = generateRemovalCode();
   const pendingSheet = getSheet(PENDING_SHEET);
-  pendingSheet.appendRow([id, board, JSON.stringify(fields), new Date().toISOString(), "pending"]);
+  pendingSheet.appendRow([id, board, JSON.stringify(fields), new Date().toISOString(), "pending", removalCode, ""]);
 
   try {
     const refCode = id.slice(-8);
@@ -418,7 +467,30 @@ function submitBoardEntry(body) {
     // Row already saved; a failed notification email isn't worth failing over.
   }
 
-  return { success: true, id };
+  // Lets the poster take their own listing down later (item found, job
+  // filled, sold out) without an account -- the code is also shown
+  // right on the confirmation page, but an email means they don't have
+  // to remember to screenshot it.
+  if (fields.email) {
+    try {
+      const boardLabel = BOARD_LABELS[board] || board;
+      MailApp.sendEmail(
+        fields.email,
+        "Save this to remove your " + boardLabel + " listing later",
+        "Thanks for posting to the " + boardLabel + "!\n\n" +
+          "If this ever needs to come down (found, filled, sold out, whatever the case), " +
+          "come back to this page and enter your removal code:\n\n" +
+          SITE_URL + "/remove-listing.html?board=" + encodeURIComponent(board) + "&code=" + removalCode + "\n\n" +
+          "Removal code: " + removalCode + "\n\n" +
+          "Keep this email or write the code down somewhere safe -- there's no account to log back into, " +
+          "this code is the only way to remove it yourself."
+      );
+    } catch (err) {
+      // Not worth failing the submission over.
+    }
+  }
+
+  return { success: true, id, removalCode };
 }
 
 function publishBoardEntry(board, fields, today) {
@@ -427,6 +499,7 @@ function publishBoardEntry(board, fields, today) {
   const content = cfg.buildContent(fields, today);
   const path = cfg.dir + "/" + filename;
   githubPutFile(path, JSON.stringify(content, null, 2) + "\n", "Approve " + board + " submission via email reply", false);
+  return path;
 }
 
 // ---------------------------------------------------------------------
@@ -574,8 +647,9 @@ function applyBoardDecision(refCode, newStatus) {
     if (newStatus === "approved") {
       try {
         const today = new Date().toISOString().slice(0, 10);
-        publishBoardEntry(board, fields, today);
+        const path = publishBoardEntry(board, fields, today);
         sheet.getRange(rowNum, idx.status + 1).setValue("approved");
+        sheet.getRange(rowNum, idx.published_path + 1).setValue(path);
       } catch (err) {
         // Don't silently lose the submission -- leave a visible trail
         // for a person to follow up on instead of just marking it done.
@@ -600,6 +674,47 @@ function applyBoardDecision(refCode, newStatus) {
     return true;
   }
   return false;
+}
+
+// Self-service removal -- docs/remove-listing.html posts here so a
+// poster can pull their own Jobs/Lost & Found/Trading Post listing
+// down (item found, job filled, sold out) without an account, using
+// the removal_code they were shown at submission time. Scoped by
+// board + code, not just code, so a typo in the board dropdown fails
+// cleanly rather than matching some other board's row by coincidence.
+function removeListing(body) {
+  const board = (body.board || "").toString().trim();
+  const code = (body.code || "").toString().trim().toUpperCase();
+  if (!code) return { success: false, error: "Enter your removal code." };
+
+  const sheet = getSheet(PENDING_SHEET);
+  const { idx, rows } = sheetToObjects(sheet);
+  for (let i = 0; i < rows.length; i++) {
+    if (board && rows[i][idx.board] !== board) continue;
+    if (String(rows[i][idx.removal_code] || "").toUpperCase() !== code) continue;
+
+    const rowNum = i + 2;
+    const status = String(rows[i][idx.status] || "").toLowerCase();
+    if (status === "removed") return { success: true }; // already gone; treat as success
+
+    const publishedPath = rows[i][idx.published_path];
+    if (status === "approved" && publishedPath) {
+      try {
+        githubDeleteFile(publishedPath, "Remove listing via self-service removal code");
+      } catch (err) {
+        return { success: false, error: "Couldn't remove the listing right now. Please try again in a few minutes, or use the Contact page." };
+      }
+    }
+
+    const fields = JSON.parse(rows[i][idx.data_json] || "{}");
+    if (fields.photo) {
+      try { githubDeleteFile("docs/" + fields.photo, "Remove photo for removed listing"); } catch (err) {}
+    }
+
+    sheet.getRange(rowNum, idx.status + 1).setValue("removed");
+    return { success: true };
+  }
+  return { success: false, error: "We couldn't find a listing with that code. Double check it and try again, or use the Contact page for help." };
 }
 
 function installReplyTrigger() {

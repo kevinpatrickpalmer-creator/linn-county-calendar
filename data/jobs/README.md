@@ -61,10 +61,14 @@ manual fallback is used instead) -- not something the submitter enters -- so
 each card. Unlike a business or Trading Post listing, a jobs post goes
 stale (the snow melted, the move happened) in a way that matters to a
 browsing reader, so this date is what makes that staleness visible at a
-glance. There's no automatic expiration -- when a post is fulfilled or
-stale, remove its file by hand via
-[`docs/manage-job.html`](../../docs/manage-job.html), same as everywhere
-else on this site.
+glance. A post also expires automatically after `job_expiry_days` in
+`docs/config.json` (currently 30 days), and the poster can pull their
+own post down early via `docs/remove-listing.html` using the code they
+were given when they posted -- see `removeListing()` in
+`apps-script/big-ideas.gs`. Either way the file itself is left alone
+here; only `build_jobs_directory.py`'s output changes. A post can
+still be removed by hand via
+[`docs/manage-job.html`](../../docs/manage-job.html) if needed.
 
 **No street address field, deliberately** -- same reasoning as the
 Trading Post: these are people's homes, not a business with posted

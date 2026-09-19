@@ -6,15 +6,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Post to the Jobs Bulletin</title>
+<title>Post to Clubs & Classes</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Post to the Jobs Bulletin | Linn County">
-<meta property="og:description" content="Post a job you need done, or offer to do work, around Linn County, free.">
-<meta property="og:image" content="https://linncountylocal.com/og-image.png">
-<meta property="og:url" content="https://linncountylocal.com/submit-job.html">
+<meta property="og:title" content="Post to Clubs & Classes | Linn County">
+<meta property="og:description" content="Run a club or teach a class? Or looking for one to join? Post it around Linn County, free.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/submit-clubs.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Post to the Jobs Bulletin | Linn County">
-<meta name="twitter:description" content="Post a job you need done, or offer to do work, around Linn County, free.">
+<meta name="twitter:title" content="Post to Clubs & Classes | Linn County">
+<meta name="twitter:description" content="Run a club or teach a class? Or looking for one to join? Post it around Linn County, free.">
 <link rel="stylesheet" href="theme.css">
 <style>
   form { margin: 0; }
@@ -44,21 +44,26 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>Post to the Jobs Bulletin</h1>
-  <p class="sub" id="pageSub">Need your driveway shoveled, help moving, the yard mowed, a handyman for a project, or workers for a shift at your business? Or got time (yours, or a teenager's) and want to pick up work like that? Post it here. Free, no catch, and a person reviews every post before it goes live.</p>
+  <h1>Post to Clubs & Classes</h1>
+  <p class="sub" id="pageSub">Run a club, or teach a class on the side -- swimming lessons, karate, woodworking, whatever it is? Looking for a club to join, or an instructor? Post it here. Free, no catch, and a person reviews every post before it goes live.</p>
 
-  <form id="jobForm" class="card">
+  <form id="clubForm" class="card">
     <label for="postType">What kind of post is this? *</label>
     <select id="postType" name="postType" required>
       <option value="" disabled selected>Select one</option>
-      <option value="needed">I need help / I'm hiring</option>
-      <option value="offering">I'm offering to do work</option>
+      <option value="offering">I run a club or teach a class</option>
+      <option value="looking">I'm looking for a club or class</option>
     </select>
 
-    <label for="name">Your name or business name *</label>
-    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. Kevin P., or your business name">
+    <label for="name" id="nameLabel">Your name, or the club/class name *</label>
+    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. Marceline Bridge Club, or your own name">
 
-    <label for="category">What kind of work? (optional)</label>
+    <label for="ageGroup">Who's it for? *</label>
+    <select id="ageGroup" name="ageGroup" required>
+      <option value="" disabled selected>Select one</option>
+    </select>
+
+    <label for="category">What kind of club or class? (optional)</label>
     <select id="category" name="category">
       <option value="">Not sure, skip this</option>
     </select>
@@ -83,7 +88,7 @@
     <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
     <p class="hint" id="contactHint">At least one is required, so people can actually reach you about this post.</p>
 
-    <p class="hint">No street address is collected here on purpose -- mention in the details above where the work is, if that matters.</p>
+    <p class="hint">No street address is collected here on purpose -- mention in the details above where and when it meets, if that matters.</p>
     <p class="hint" id="expiryHint"></p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
@@ -100,18 +105,18 @@
     <div class="removal-code-box">
       <p class="removal-code-label">Your removal code -- screenshot this</p>
       <p class="removal-code" id="removalCode"></p>
-      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once it's filled.</p>
+      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once it's full or no longer needed.</p>
       <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
     </div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
   </div>
 
-  <p class="hint" style="text-align:center;"><a href="jobs.html">Browse the Jobs Bulletin &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="clubs.html">Browse Clubs &amp; Classes &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by Hwy 36 Lab</span>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
   </div>
 </main>
 
@@ -119,10 +124,10 @@
 (async function () {
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Post to the Jobs Bulletin | ${config.site_name}`;
+  document.title = `Post to Clubs & Classes | ${config.county_display_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
   document.getElementById("expiryHint").textContent =
-    `Posts come down automatically after ${config.job_expiry_days || 30} days, or remove it yourself anytime once it's filled.`;
+    `Posts come down automatically after ${config.club_expiry_days || 60} days, or remove it yourself anytime once it's filled.`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
@@ -144,34 +149,49 @@
     townOtherInput.required = isOther;
   });
 
+  const ageGroupSelect = document.getElementById("ageGroup");
+  for (const ageGroup of config.club_age_groups || []) {
+    const option = document.createElement("option");
+    option.value = ageGroup;
+    option.textContent = ageGroup;
+    ageGroupSelect.appendChild(option);
+  }
+
   const categorySelect = document.getElementById("category");
-  for (const category of config.job_categories || []) {
+  for (const category of config.club_categories || []) {
     const option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     categorySelect.appendChild(option);
   }
 
-  // The one field whose meaning flips depending on which side of the
-  // bulletin this post is on -- relabeled here rather than having two
-  // separate forms, so a submission link/admin review only ever has one
-  // "description" field to deal with either way.
+  // The name/description fields' labels flip depending on which side of
+  // the board this post is on, same "relabel instead of two separate
+  // forms" idea as docs/submit-job.html.
+  const nameLabel = document.getElementById("nameLabel");
+  const nameInput = document.getElementById("name");
   const descriptionLabel = document.getElementById("descriptionLabel");
   const descriptionInput = document.getElementById("description");
   document.getElementById("postType").addEventListener("change", (e) => {
     if (e.target.value === "offering") {
-      descriptionLabel.textContent = "What kind of work do you do? *";
-      descriptionInput.placeholder = "e.g. Mowing, snow removal, hauling, small repairs. $20/hour or by the job.";
-    } else if (e.target.value === "needed") {
-      descriptionLabel.textContent = "What do you need done? *";
-      descriptionInput.placeholder = "e.g. Need my driveway and sidewalk shoveled after each snow this winter.";
+      nameLabel.textContent = "Your name, or the club/class name *";
+      nameInput.placeholder = "e.g. Marceline Bridge Club, or your own name";
+      descriptionLabel.textContent = "Tell us about it *";
+      descriptionInput.placeholder = "e.g. We meet Thursday evenings at the community center. Beginners welcome.";
+    } else if (e.target.value === "looking") {
+      nameLabel.textContent = "Your name *";
+      nameInput.placeholder = "e.g. Kevin P.";
+      descriptionLabel.textContent = "What are you looking for? *";
+      descriptionInput.placeholder = "e.g. A quilting club for beginners, adults, meets weekly.";
     } else {
+      nameLabel.textContent = "Your name, or the club/class name *";
+      nameInput.placeholder = "e.g. Marceline Bridge Club, or your own name";
       descriptionLabel.textContent = "Details *";
       descriptionInput.placeholder = "Select what kind of post this is above for an example.";
     }
   });
 
-  const form = document.getElementById("jobForm");
+  const form = document.getElementById("clubForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const contactHint = document.getElementById("contactHint");
@@ -207,6 +227,7 @@
 
     const postType = (data.get("postType") || "").trim();
     const rawName = (data.get("name") || "").trim();
+    const ageGroup = (data.get("ageGroup") || "").trim();
     const category = (data.get("category") || "").trim();
     const rawTown = (data.get("town") || "").trim();
     const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
@@ -219,15 +240,17 @@
         method: "POST",
         body: JSON.stringify({
           action: "submitBoard",
-          board: "job",
+          board: "club",
           botcheck: (data.get("botcheck") || "").toString(),
-          fields: { type: postType, name: rawName, category, town, description, phone, email },
+          fields: { type: postType, name: rawName, ageGroup, category, town, description, phone, email },
         }),
       });
       const result = await res.json();
 
       if (result.success) {
         form.reset();
+        nameLabel.textContent = "Your name, or the club/class name *";
+        nameInput.placeholder = "e.g. Marceline Bridge Club, or your own name";
         descriptionLabel.textContent = "Details *";
         descriptionInput.placeholder = "Select what kind of post this is above for an example.";
         document.getElementById("removalCode").textContent = result.removalCode || "";

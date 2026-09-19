@@ -1,0 +1,12 @@
+[
+  {
+    "type": "offering",
+    "name": "Marceline Bridge Club (example)",
+    "ageGroup": "Adults",
+    "category": "Cards & Games",
+    "town": "Marceline",
+    "description": "This is a sample post to show the format. Real posts work just like this. We meet Thursday evenings, beginners welcome, we'll teach you.",
+    "posted": "2026-09-19",
+    "example": true
+  }
+]

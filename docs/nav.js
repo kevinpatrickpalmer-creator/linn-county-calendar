@@ -25,6 +25,7 @@
     ] },
     { label: "Trading Post", href: "trading-post.html" },
     { label: "Jobs Bulletin", href: "jobs.html" },
+    { label: "Clubs & Classes", href: "clubs.html" },
     { label: "Lost & Found", href: "lost-found.html" },
     { label: "Flyer", href: "flyer.html" },
     { label: "Ideas for Your Town?", href: "survey.html", children: [

@@ -32,6 +32,11 @@
   body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
   .confirm-panel p.hint { text-align: center; }
   .confirm-panel .btn.secondary { margin-top: 1.1rem; }
+
+  .removal-code-box { margin: 1.1rem 0; padding: 1rem; border-radius: var(--radius); background: var(--primary-tint); border: 1px solid var(--primary); }
+  .removal-code-label { margin: 0 0 .3rem; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); }
+  .removal-code { margin: 0 0 .5rem; font-size: 1.6rem; font-weight: 800; letter-spacing: .12em; font-family: monospace; }
+  .removal-code-box p.hint { text-align: center; margin: .3rem 0 0; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -43,7 +48,7 @@
   <h1>Post to Lost &amp; Found</h1>
   <p class="sub" id="pageSub">Lost a pet or an item, or found one? Post it here, free. A person reviews every post before it goes live.</p>
 
-  <p class="callout">Lost or found a pet? Please also contact the local police department's non-emergency line and check with area vets &mdash; they may already have someone looking for exactly this, faster than a post here can reach them.</p>
+  <p class="callout" id="preSubmitCallout">Lost or found a pet? Please also contact the local police department's non-emergency line, check with area vets, and check the animal shelter. They may already have someone looking for exactly this, faster than a post here can reach them.</p>
 
   <form id="lfForm" class="card">
     <label for="postType">Lost or found? *</label>
@@ -90,6 +95,7 @@
     <label for="email">Email</label>
     <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
     <p class="hint" id="contactHint">At least one is required, so people can actually reach you about this.</p>
+    <p class="hint" id="expiryHint"></p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
@@ -101,7 +107,13 @@
   <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
     <p class="confirm-icon" aria-hidden="true">✅</p>
     <h2>Got it, thanks!</h2>
-    <p class="hint">Your post was received. A person reviews every submission, and if approved it'll be live on Lost &amp; Found within 24 hours. <strong>No need to submit it again</strong> if you don't see it right away.</p>
+    <p class="hint">A person reviews every post, usually live within 24 hours.</p>
+    <div class="removal-code-box">
+      <p class="removal-code-label">Your removal code -- screenshot this</p>
+      <p class="removal-code" id="removalCode"></p>
+      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once resolved.</p>
+      <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
+    </div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
   </div>
 
@@ -120,6 +132,9 @@
 
   document.title = `Post to Lost & Found | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+  const expiry = config.lost_found_expiry_days || { pet: 60, item: 30 };
+  document.getElementById("expiryHint").textContent =
+    `Posts come down automatically after ${expiry.pet} days for a pet, ${expiry.item} days for an item, or remove it yourself anytime once it's resolved.`;
 
   const townSelect = document.getElementById("town");
   for (const town of config.towns) {
@@ -174,10 +189,12 @@
   const contactHint = document.getElementById("contactHint");
   const confirmPanel = document.getElementById("confirmPanel");
   const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+  const preSubmitCallout = document.getElementById("preSubmitCallout");
 
   submitAnotherBtn.addEventListener("click", () => {
     confirmPanel.hidden = true;
     form.hidden = false;
+    preSubmitCallout.hidden = false;
     document.getElementById("postType").focus();
   });
 
@@ -252,7 +269,10 @@
       if (result.success) {
         form.reset();
         updateLabels();
+        document.getElementById("removalCode").textContent = result.removalCode || "";
+        document.getElementById("removalEmailNote").hidden = !email;
         form.hidden = true;
+        preSubmitCallout.hidden = true;
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();

@@ -6,15 +6,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Trading Post</title>
+<title>Clubs & Classes</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Trading Post | Linn County">
-<meta property="og:description" content="Eggs, raw milk, farm beef, fresh bread, honey, garden produce, and more from neighbors around Linn County.">
-<meta property="og:image" content="https://linncountylocal.com/og-image.png">
-<meta property="og:url" content="https://linncountylocal.com/trading-post.html">
+<meta property="og:title" content="Clubs & Classes | Linn County">
+<meta property="og:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
+<meta property="og:image" content="https://linn.communitycalendarconnect.com/og-image.png">
+<meta property="og:url" content="https://linn.communitycalendarconnect.com/clubs.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Trading Post | Linn County">
-<meta name="twitter:description" content="Eggs, raw milk, farm beef, fresh bread, honey, garden produce, and more from neighbors around Linn County.">
+<meta name="twitter:title" content="Clubs & Classes | Linn County">
+<meta name="twitter:description" content="Run a club or teach a class? Looking for one to join? Find each other here.">
 <link rel="stylesheet" href="theme.css">
 <style>
   .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
@@ -87,12 +87,10 @@
     flex-direction: column;
     gap: .4rem;
   }
-  /* A seeded sample listing, pinned to the top of the board so it isn't
-     blank before anyone's listed for real -- see
-     data/trading-post/README.md. Dashed border + corner ribbon so it
-     never reads as a real listing. */
+  /* A seeded sample post, pinned to the top of the board so it isn't
+     blank before anyone's posted for real -- see data/clubs/README.md.
+     Dashed border + corner ribbon so it never reads as a real listing. */
   .example-card { border-style: dashed; border-color: var(--primary); }
-  .example-card .biz-name { padding-right: 4.5rem; }
   .example-ribbon {
     position: absolute;
     top: .7rem;
@@ -107,6 +105,18 @@
     color: var(--primary);
     border: 1px solid var(--primary);
   }
+  .job-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+  }
+  .job-badge.looking { color: #d99a44; background: #3a2c14; }
+  .job-badge.offering { color: #6fcf97; background: #12321f; }
   .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.3; }
   .biz-tag {
     display: inline-flex;
@@ -127,7 +137,7 @@
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
   .biz-town { font-size: .8rem; color: var(--ink-soft); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
-  .biz-avail { font-size: .82rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
   .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
   .biz-meta a:hover { text-decoration: underline; }
@@ -158,17 +168,23 @@
   <div class="hero-inner">
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
     <span class="eyebrow" id="eyebrow"></span>
-    <h1>Trading Post</h1>
-    <p class="sub" id="pageSub">Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors are raising, growing, or making regularly. One place to find it all, easy to check any time.</p>
-    <p class="sub" style="font-style:italic;">What a community grows, raises, and makes on its own is what keeps it going.</p>
+    <h1>Clubs & Classes</h1>
+    <p class="sub" id="pageSub">Bridge club, Red Hats, a kids' spinning club, swimming lessons, karate, woodworking -- if it's a club or a class, this is where people running one and people looking for one find each other.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
 </div>
 <main class="wide">
-  <p class="callout">Sell something homegrown or homemade? <a href="submit-trading-post.html">Get listed free &rarr;</a> No catch, just another way for people around here to find you.</p>
+  <p class="callout">Run a club or teach a class, or looking for one to join? <a href="submit-clubs.html">Post it free &rarr;</a> No catch, just a way to find each other.</p>
 
   <div class="dir-controls">
     <input type="search" id="searchInput" placeholder="What are you looking for?">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="typeFilterBtn">Type: All</button>
+      <div class="ms-panel hidden" id="typeFilterPanel">
+        <button type="button" class="ms-clear" data-filter="type">Show both</button>
+        <div id="typeCheckList"></div>
+      </div>
+    </div>
     <div class="ms-filter">
       <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
       <div class="ms-panel hidden" id="townFilterPanel">
@@ -183,78 +199,85 @@
         <div id="categoryCheckList"></div>
       </div>
     </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="ageGroupFilterBtn">Who's it for: All</button>
+      <div class="ms-panel hidden" id="ageGroupFilterPanel">
+        <button type="button" class="ms-clear" data-filter="ageGroup">Show all ages</button>
+        <div id="ageGroupCheckList"></div>
+      </div>
+    </div>
   </div>
 
   <p id="resultsCount"></p>
-  <div id="dirStatus">Loading listings...</div>
+  <div id="dirStatus">Loading posts...</div>
   <div id="dirGrid"></div>
-  <div id="dirEmpty">No listings match your search yet. Try clearing a filter, or <a href="submit-trading-post.html">be the first to add one &rarr;</a></div>
+  <div id="dirEmpty">No posts match your search yet. Try clearing a filter, or <a href="submit-clubs.html">be the first to post &rarr;</a></div>
 
   <div class="footer-link">
-    <a href="submit-trading-post.html">List your goods on the Trading Post &rarr;</a>
+    <a href="submit-clubs.html">Post to Clubs &amp; Classes &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="remove-listing.html?board=trading-post">Remove your own listing &rarr;</a>
+    <a href="remove-listing.html?board=club">Remove your own post &rarr;</a>
   </div>
   <div class="footer-link">
-    <a href="index.html">Back to Linn County Local &rarr;</a>
+    <a href="index.html">Back to the calendar &rarr;</a>
   </div>
 
   <div class="site-credit">
     Questions or problems? <a href="contact.html">Contact us</a>
-    <span class="powered-by">Powered by Hwy 36 Lab</span>
+    <span class="powered-by">Powered by communitycalendarconnect.com</span>
   </div>
 </main>
 
 <script>
 (async function () {
   let config = {};
-  let listings = [];
+  let posts = [];
 
   const selectedTowns = new Set();
+  const selectedAgeGroups = new Set();
   const selectedCategories = new Set();
+  const selectedTypes = new Set();
+  const TYPE_LABELS = { looking: "Looking to Join", offering: "Offering" };
 
-  // Same idea as docs/directory.html's CATEGORY_SYNONYMS -- common words
-  // for what a category actually is, so a search for "eggs" or "honey"
-  // works even though that exact word may not appear in a listing's own
-  // name/description.
-  const CATEGORY_SYNONYMS = {
-    "Meat & Livestock": ["beef", "pork", "chicken", "poultry", "lamb", "goat meat", "meat", "steak", "hamburger", "freezer beef", "whole hog", "half hog"],
-    "Eggs & Dairy": ["eggs", "milk", "goat milk", "raw milk", "cheese", "butter", "dairy"],
-    "Produce & Garden": ["vegetables", "veggies", "fruit", "garden", "tomatoes", "sweet corn", "produce"],
-    "Baked Goods": ["bread", "bakery", "pastries", "pies", "cookies", "baking", "baked"],
-    "Honey, Jams & Preserves": ["honey", "jam", "jelly", "preserves", "canned goods", "canning", "syrup"],
-    "Plants, Seedlings & Flowers": ["plants", "seedlings", "flowers", "cut flowers", "starts", "nursery"],
-    "Hay, Straw & Firewood": ["hay", "straw", "firewood", "wood", "round bales", "square bales", "cordwood", "mulch"],
-    "Crafts & Handmade Goods": ["crafts", "handmade", "quilts", "soap", "woodworking", "knitting", "artisan", "homemade"],
-  };
-
-  // Same "color coded tag" idea as docs/directory.html -- one emoji per
+  // Same "color coded tag" idea as docs/jobs.html -- one emoji per
   // category, clickable, no legend required since the category name is
   // always printed right beside it.
   const CATEGORY_EMOJI = {
-    "Meat & Livestock": "🥩",
-    "Eggs & Dairy": "🥚",
-    "Produce & Garden": "🥕",
-    "Baked Goods": "🍞",
-    "Honey, Jams & Preserves": "🍯",
-    "Plants, Seedlings & Flowers": "🌻",
-    "Hay, Straw & Firewood": "🌾",
-    "Crafts & Handmade Goods": "🧶",
-    "Other": "📦",
+    "Cards & Games": "🃏",
+    "Crafts & Hobbies": "🧶",
+    "Sports & Fitness": "🏃",
+    "Music, Arts & Dance": "🎶",
+    "Youth & Scouts": "🎒",
+    "Social & Civic Clubs": "🎉",
+    "Support & Interest Groups": "💬",
+    "Other": "🔖",
   };
 
-  // Same filler-word list as docs/directory.html, so a typed-out question
-  // ("where can I get fresh eggs") strips down to just the words that
-  // actually have to match ("fresh eggs").
+  // Common words for what a category actually covers, so a search for
+  // "bridge" or "spinning" works even if that exact word isn't in a
+  // post's own text -- same idea as docs/jobs.html's CATEGORY_SYNONYMS.
+  const CATEGORY_SYNONYMS = {
+    "Cards & Games": ["bridge", "euchre", "cards", "dominoes", "board games", "chess", "cribbage"],
+    "Crafts & Hobbies": ["spinning", "quilting", "woodworking", "knitting", "sewing", "painting", "crafts", "genealogy"],
+    "Sports & Fitness": ["swimming", "karate", "yoga", "martial arts", "sports", "fitness", "running", "walking"],
+    "Music, Arts & Dance": ["choir", "band", "dance", "dancing", "music", "singing", "art"],
+    "Youth & Scouts": ["4-h", "4h", "scouts", "scouting", "youth group"],
+    "Social & Civic Clubs": ["red hats", "book club", "ladies club", "civic", "social"],
+    "Support & Interest Groups": ["support group", "grief", "recovery", "gardening"],
+  };
+
+  // Same filler-word list idea as docs/jobs.html, so a typed-out
+  // question ("looking for a club for kids") strips down to just the
+  // words that actually have to match.
   const SEARCH_STOPWORDS = new Set([
     "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
     "we", "us", "me", "my", "mine", "our", "looking", "look", "for", "find", "need",
     "needed", "want", "wanted", "who", "what", "where", "when", "why", "how", "can",
     "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
     "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
-    "show", "get", "open", "right", "now", "today", "sell", "selling", "sells", "buy",
-    "help", "service", "services",
+    "show", "get", "open", "right", "now", "today", "join", "joining", "class",
+    "classes", "club", "clubs", "someone", "somebody", "anyone",
   ]);
 
   function searchTokens(query) {
@@ -265,16 +288,28 @@
       .filter((word) => word && !SEARCH_STOPWORDS.has(word));
   }
 
-  function matchesSearch(b, tokens, matchAny) {
+  function matchesSearch(p, tokens, matchAny) {
     if (!tokens.length) return true;
-    const haystack = `${b.name} ${b.description || ""} ${b.availability || ""} ${b.category || ""} ${b.town || ""}`.toLowerCase();
-    const synonyms = CATEGORY_SYNONYMS[b.category] || [];
+    const haystack = `${p.name} ${p.description || ""} ${p.ageGroup || ""} ${p.category || ""} ${p.town || ""}`.toLowerCase();
+    const synonyms = CATEGORY_SYNONYMS[p.category] || [];
     const tokenMatches = (token) => haystack.includes(token) || synonyms.some((phrase) => phrase.includes(token));
     return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
   }
 
-  // Same multi-checkbox dropdown pattern as docs/directory.html.
-  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange }) {
+  function daysAgo(dateStr) {
+    if (!dateStr) return "";
+    const posted = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(posted)) return "";
+    const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    if (days < 14) return `Posted ${days} days ago`;
+    if (days < 60) return `Posted ${Math.floor(days / 7)} weeks ago`;
+    return `Posted ${Math.floor(days / 30)} months ago`;
+  }
+
+  // Same multi-checkbox dropdown pattern as docs/jobs.html.
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange, optionLabel }) {
     const btn = document.getElementById(btnId);
     const panel = document.getElementById(panelId);
     const list = document.getElementById(listId);
@@ -284,7 +319,7 @@
         btn.textContent = `${label}: All`;
         btn.classList.remove("active");
       } else if (selectedSet.size === 1) {
-        btn.textContent = `${label}: ${[...selectedSet][0]}`;
+        btn.textContent = `${label}: ${optionLabel ? optionLabel([...selectedSet][0]) : [...selectedSet][0]}`;
         btn.classList.add("active");
       } else {
         btn.textContent = `${label}: ${selectedSet.size} selected`;
@@ -304,7 +339,7 @@
         onChange();
       });
       row.appendChild(cb);
-      row.appendChild(document.createTextNode(" " + opt));
+      row.appendChild(document.createTextNode(" " + (optionLabel ? optionLabel(opt) : opt)));
       list.appendChild(row);
     }
 
@@ -323,14 +358,15 @@
     });
 
     // Exposed so a tag badge on a card can jump straight to "only this
-    // category" without duplicating the button-label logic above.
+    // age group" without duplicating the button-label logic above.
     return { updateLabel: updateBtnLabel };
   }
 
   let categoryFilterControls = null;
 
-  // Clicking a category tag badge on a card narrows the whole page down
-  // to that one category, same as picking it from the Category dropdown.
+  // Clicking a category tag badge on a card narrows the whole page
+  // down to that one category, same as picking it from the dropdown --
+  // same pattern as docs/jobs.html's filterToCategory().
   function filterToCategory(category) {
     selectedCategories.clear();
     selectedCategories.add(category);
@@ -350,11 +386,11 @@
     });
   });
 
-  function buildCard(b) {
+  function buildCard(p) {
     const card = document.createElement("div");
     card.className = "biz-card";
 
-    if (b.example) {
+    if (p.example) {
       card.classList.add("example-card");
       const ribbon = document.createElement("div");
       ribbon.className = "example-ribbon";
@@ -362,61 +398,58 @@
       card.appendChild(ribbon);
     }
 
+    const badge = document.createElement("div");
+    badge.className = `job-badge ${p.type === "offering" ? "offering" : "looking"}`;
+    badge.textContent = TYPE_LABELS[p.type] || "";
+    card.appendChild(badge);
+
     const name = document.createElement("div");
     name.className = "biz-name";
-    name.textContent = b.name;
+    name.textContent = p.name;
     card.appendChild(name);
 
-    const cat = b.category || "Other";
+    const category = p.category || "Other";
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
-    tag.title = `Show every listing tagged ${cat}`;
-    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📦"}</span> ${cat}`;
-    tag.addEventListener("click", () => filterToCategory(cat));
+    tag.title = `Show every post tagged ${category}`;
+    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[category] || "🔖"}</span> ${category}`;
+    tag.addEventListener("click", () => filterToCategory(category));
     card.appendChild(tag);
 
     const town = document.createElement("div");
     town.className = "biz-town";
-    town.textContent = b.town;
+    town.textContent = p.ageGroup ? `${p.town} · ${p.ageGroup}` : p.town;
     card.appendChild(town);
 
-    if (b.description) {
+    if (p.description) {
       const desc = document.createElement("div");
       desc.className = "biz-desc";
-      desc.textContent = b.description;
+      desc.textContent = p.description;
       card.appendChild(desc);
     }
 
-    if (b.availability) {
-      const avail = document.createElement("div");
-      avail.className = "biz-avail";
-      avail.textContent = b.availability;
-      card.appendChild(avail);
+    const posted = p.example ? null : daysAgo(p.posted);
+    if (posted) {
+      const postedEl = document.createElement("div");
+      postedEl.className = "biz-posted";
+      postedEl.textContent = posted;
+      card.appendChild(postedEl);
     }
 
     const meta = document.createElement("div");
     meta.className = "biz-meta";
 
-    if (b.phone) {
+    if (p.phone) {
       const a = document.createElement("a");
-      a.href = `tel:${b.phone.replace(/[^0-9+]/g, "")}`;
-      a.textContent = b.phone;
+      a.href = `tel:${p.phone.replace(/[^0-9+]/g, "")}`;
+      a.textContent = p.phone;
       meta.appendChild(a);
     }
-    if (b.website) {
+    if (p.email) {
       const a = document.createElement("a");
-      a.href = b.website;
-      // New tab on purpose -- see docs/directory.html for why.
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = "Visit website →";
-      meta.appendChild(a);
-    }
-    if (b.email) {
-      const a = document.createElement("a");
-      a.href = `mailto:${b.email}`;
-      a.textContent = b.email;
+      a.href = `mailto:${p.email}`;
+      a.textContent = p.email;
       meta.appendChild(a);
     }
     if (meta.childNodes.length) card.appendChild(meta);
@@ -431,10 +464,12 @@
     const tokens = searchTokens(document.getElementById("searchInput").value);
 
     function applyFilters(matchAny) {
-      return listings.filter((b) => {
-        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
-        if (selectedCategories.size && !selectedCategories.has(b.category || "Other")) return false;
-        if (!matchesSearch(b, tokens, matchAny)) return false;
+      return posts.filter((p) => {
+        if (selectedTypes.size && !selectedTypes.has(p.type)) return false;
+        if (selectedTowns.size && !selectedTowns.has(p.town)) return false;
+        if (selectedAgeGroups.size && !selectedAgeGroups.has(p.ageGroup || "All Ages")) return false;
+        if (selectedCategories.size && !selectedCategories.has(p.category || "Other")) return false;
+        if (!matchesSearch(p, tokens, matchAny)) return false;
         return true;
       });
     }
@@ -442,81 +477,85 @@
     let filtered = applyFilters(false);
     if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
 
-    // Grouped by category, same reasoning as docs/directory.html: once
-    // every filter is cleared, browsing by what's actually for sale beats
-    // a flat alphabetical wall of names.
-    const byCategory = new Map();
-    for (const b of filtered) {
-      const cat = b.category || "Other";
-      if (!byCategory.has(cat)) byCategory.set(cat, []);
-      byCategory.get(cat).push(b);
-    }
-
-    const categoryOrder = config.trading_post_categories || [];
-    const categories = [...byCategory.keys()].sort((a, b) => {
-      const ai = categoryOrder.indexOf(a), bi = categoryOrder.indexOf(b);
-      if (ai === -1 && bi === -1) return a.localeCompare(b);
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
-    });
+    // Grouped by type first (Offering / Looking to Join) rather than
+    // age group -- the first thing a reader here cares about is which
+    // side of the board they're browsing. Posts within each group keep
+    // docs/clubs.json's existing newest-first order.
+    const offering = filtered.filter((p) => p.type === "offering");
+    const looking = filtered.filter((p) => p.type !== "offering");
 
     container.innerHTML = "";
-    for (const cat of categories) {
+    const sections = [
+      { label: "Offering", items: offering },
+      { label: "Looking to Join", items: looking },
+    ];
+    for (const section of sections) {
+      if (!section.items.length) continue;
       const heading = document.createElement("div");
       heading.className = "dir-category-heading";
-      heading.textContent = cat;
+      heading.textContent = section.label;
       container.appendChild(heading);
 
       const grid = document.createElement("div");
       grid.className = "dir-grid";
-      for (const b of byCategory.get(cat)) {
-        grid.appendChild(buildCard(b));
+      for (const p of section.items) {
+        grid.appendChild(buildCard(p));
       }
       container.appendChild(grid);
     }
 
-    // Excludes the pinned "example" listing, same as the hero count above
-    // -- otherwise this line and that one would visibly disagree.
-    const realTotal = listings.filter((b) => !b.example).length;
-    const realFiltered = filtered.filter((b) => !b.example).length;
+    // Excludes the pinned "example" post, same as the hero count above --
+    // otherwise this line and that one would visibly disagree.
+    const realTotal = posts.filter((p) => !p.example).length;
+    const realFiltered = filtered.filter((p) => !p.example).length;
     resultsCount.textContent = realTotal
-      ? `Showing ${realFiltered} of ${realTotal} listing${realTotal === 1 ? "" : "s"}`
+      ? `Showing ${realFiltered} of ${realTotal} post${realTotal === 1 ? "" : "s"}`
       : "";
     empty.style.display = filtered.length ? "none" : "block";
   }
 
   try {
     config = await (await fetch("config.json")).json();
-    document.title = `Trading Post | ${config.site_name}`;
+    document.title = `Clubs & Classes | ${config.county_display_name}`;
     document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
     categoryFilterControls = setupMultiSelectFilter({
       btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
-      options: config.trading_post_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+      options: config.club_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+    });
+
+    setupMultiSelectFilter({
+      btnId: "ageGroupFilterBtn", panelId: "ageGroupFilterPanel", listId: "ageGroupCheckList",
+      options: config.club_age_groups || [], selectedSet: selectedAgeGroups, label: "Who's it for", onChange: render,
+    });
+
+    setupMultiSelectFilter({
+      btnId: "typeFilterBtn", panelId: "typeFilterPanel", listId: "typeCheckList",
+      options: ["offering", "looking"], selectedSet: selectedTypes, label: "Type", onChange: render,
+      optionLabel: (v) => TYPE_LABELS[v] || v,
     });
   } catch (err) {
-    // Category filter just won't populate; the page itself can still load below.
+    // Filters just won't populate; the page itself can still load below.
   }
 
   document.getElementById("searchInput").addEventListener("input", render);
 
   try {
-    listings = await (await fetch("trading-post.json")).json();
+    posts = await (await fetch("clubs.json")).json();
     document.getElementById("dirStatus").style.display = "none";
-    // A pinned "example" listing (see data/trading-post/README.md)
-    // doesn't count toward this -- it's not real community activity.
-    const realCount = listings.filter((b) => !b.example).length;
+    // A pinned "example" post (see data/clubs/README.md) doesn't count
+    // toward this -- it's not real community activity.
+    const realCount = posts.filter((p) => !p.example).length;
     document.getElementById("statsLine").innerHTML =
       `<span class="stat-seg">1 County ·</span> ` +
-      `<span class="live-count"><span class="live-dot"></span>${realCount} Listing${realCount === 1 ? "" : "s"}</span>` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Post${realCount === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
 
     // Always the county's own 8 towns, plus any other real town already
     // showing up in the data -- not just whatever's in the data alone,
     // which would leave the filter showing nothing while the board is
-    // still thin. Same fix as docs/lost-found.html, same day.
-    const towns = [...new Set([...config.towns, ...listings.map((b) => b.town)])].sort();
+    // still thin. Same fix as docs/jobs.html.
+    const towns = [...new Set([...config.towns, ...posts.map((p) => p.town)])].sort();
     setupMultiSelectFilter({
       btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
       options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
@@ -524,7 +563,7 @@
 
     render();
   } catch (err) {
-    document.getElementById("dirStatus").textContent = "Couldn't load the listings. Please try refreshing.";
+    document.getElementById("dirStatus").textContent = "Couldn't load the posts. Please try refreshing.";
     document.getElementById("dirStatus").style.display = "block";
   }
 })();
