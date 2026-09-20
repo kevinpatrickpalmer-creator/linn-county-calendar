@@ -87,6 +87,15 @@
     flex-direction: column;
     gap: .4rem;
   }
+  .biz-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface-border);
+    display: block;
+    margin-bottom: .2rem;
+  }
   /* A seeded sample listing, pinned to the top of the board so it isn't
      blank before anyone's listed for real -- see
      data/trading-post/README.md. Dashed border + corner ribbon so it
@@ -155,6 +164,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-text="What do people in our community make or grow? Eggs, raw milk, farm beef, honey, garden produce, and more."></script>
+<script src="lightbox.js"></script>
 <div class="hero">
   <div class="hero-inner">
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
@@ -363,6 +373,8 @@
       ribbon.textContent = "Example";
       card.appendChild(ribbon);
     }
+
+    renderPhotoStrip(card, b);
 
     const name = document.createElement("div");
     name.className = "biz-name";

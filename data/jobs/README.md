@@ -39,6 +39,7 @@ Expected shape of each file:
   "description": "Need my driveway and sidewalk shoveled after each snow this winter. I'm elderly and can't do it myself anymore.",
   "phone": "(660) 555-0142",
   "email": "kevin@example.com",
+  "photos": ["job-photos/pending-abc123-1.jpg"],
   "posted": "2026-09-15"
 }
 ```
@@ -75,6 +76,11 @@ Trading Post: these are people's homes, not a business with posted
 hours. `description` is where a poster says where the work is if that
 matters, and `phone`/`email` are how the other side actually gets in
 touch.
+
+**`photos` is optional, up to 3** -- same upload mechanism as every
+other board, see `data/lost-found/README.md` for the full explanation.
+`docs/jobs.html` shows them on the card with a click opening the
+full-size version via `docs/lightbox.js`.
 
 **Town, not "Other":** same rule as the rest of the site -- see
 `data/businesses/README.md` for the reasoning. The literal word "Other"

@@ -42,6 +42,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-manual></script>
+<script src="photo-upload.js"></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -82,6 +83,10 @@
 
     <label for="website">Website or Facebook page (optional)</label>
     <input id="website" name="website" type="url" maxlength="300" placeholder="https://...">
+
+    <label for="photo">Photos (optional, up to 3)</label>
+    <input id="photo" name="photo" type="file" accept="image/*" multiple>
+    <p class="hint" id="photoHint">A picture of the eggs, produce, or whatever you're selling. A person reviews them along with the rest of your listing.</p>
 
     <p class="hint">No street address is collected here on purpose -- use the field above to say how folks should reach you or where to pick things up.</p>
 
@@ -163,6 +168,8 @@
     document.getElementById("name").focus();
   });
 
+  wirePhotoCap("photo", "photoHint");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
@@ -193,16 +200,19 @@
     const phone = (data.get("phone") || "").trim();
     const email = (data.get("email") || "").trim();
     const website = (data.get("website") || "").trim();
+    const photos = await readPhotos("photo");
 
     try {
+      const payload = {
+        action: "submitBoard",
+        board: "trading-post",
+        botcheck: (data.get("botcheck") || "").toString(),
+        fields: { name: rawName, category, town, description, availability, phone, email, website },
+      };
+      if (photos.length) payload.photos = photos;
       const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        body: JSON.stringify({
-          action: "submitBoard",
-          board: "trading-post",
-          botcheck: (data.get("botcheck") || "").toString(),
-          fields: { name: rawName, category, town, description, availability, phone, email, website },
-        }),
+        body: JSON.stringify(payload),
       });
       const result = await res.json();
 

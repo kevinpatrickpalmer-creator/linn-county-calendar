@@ -42,7 +42,8 @@ Expected shape of each file:
   "email": "palmerfarm@example.com",
   "website": "https://www.facebook.com/palmerfamilyfarm",
   "availability": "Eggs available year-round, call ahead. Raw goat milk seasonal, April-October.",
-  "description": "Farm fresh eggs $4/dozen. Raw goat milk $6/half gallon. Pickup at the farm off Route B, or we can meet in town."
+  "description": "Farm fresh eggs $4/dozen. Raw goat milk $6/half gallon. Pickup at the farm off Route B, or we can meet in town.",
+  "photos": ["trading-post-photos/pending-abc123-1.jpg"]
 }
 ```
 
@@ -68,6 +69,11 @@ A submission's real town (including one typed into "Other" on
 "Other" should never appear in a file here, and
 `build_trading_post_directory.py` holds one back from the public site as
 a backstop if it ever does.
+
+**`photos` is optional, up to 3** -- same upload mechanism as every
+other board, see `data/lost-found/README.md` for the full explanation.
+`docs/trading-post.html` shows them on the card with a click opening
+the full-size version via `docs/lightbox.js`.
 
 **`"example": true`** marks a listing as a seeded sample rather than a
 real submission -- for showing the format on an otherwise-empty board

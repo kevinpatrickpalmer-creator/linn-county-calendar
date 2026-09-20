@@ -332,6 +332,11 @@ const BOARD_CONFIG = {
       ["category", "address", "phone", "website", "email", "hours", "description"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      // Array, not a plain string like the fields above -- "photos" ? [k]
+      // would still be truthy for an empty array, so this needs its own
+      // check rather than joining the generic loop above (same on every
+      // board below that supports photos).
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },
   },
@@ -346,6 +351,7 @@ const BOARD_CONFIG = {
       ["category", "description", "availability", "phone", "email", "website"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },
   },
@@ -360,6 +366,7 @@ const BOARD_CONFIG = {
       ["category", "description", "phone", "email"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },
   },
@@ -371,9 +378,13 @@ const BOARD_CONFIG = {
     },
     buildContent: function (f, today) {
       const obj = { type: f.type, category: f.category, name: f.name, town: f.town };
-      ["date", "description", "contact_name", "phone", "email", "photo"].forEach(function (k) {
+      ["date", "description", "contact_name", "phone", "email"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      // Array, not a plain string like the fields above -- "photo" ? [k]
+      // would still be truthy for an empty array, so this needs its own
+      // check rather than joining the generic loop above.
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       obj.posted = today;
       return obj;
     },
@@ -389,6 +400,7 @@ const BOARD_CONFIG = {
       ["category", "description", "phone", "email"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },
   },
@@ -426,21 +438,27 @@ function submitBoardEntry(body) {
   const id = Utilities.getUuid();
   const submitterName = (body.submitterName || "").toString().trim();
 
-  // Lost & Found photos: uploaded to GitHub right away rather than
-  // held in the sheet, which has a per-cell size limit far smaller
-  // than a typical photo. It sits unreferenced by any public JSON
-  // file (so it's invisible on the site) until the post is approved;
-  // if rejected, it's deleted again.
-  if (board === "lost-found" && body.photoBase64 && body.photoExt) {
-    try {
-      const ext = body.photoExt.toString().replace(/[^a-z0-9]/gi, "").toLowerCase() || "jpg";
-      const photoPath = "docs/lost-found-photos/pending-" + id + "." + ext;
-      githubPutFile(photoPath, body.photoBase64, "Add Lost & Found photo (pending review)", true);
-      fields.photo = photoPath.replace(/^docs\//, "");
-    } catch (err) {
-      // Photo upload failing shouldn't block the text submission --
-      // it can be added by hand later if it matters.
-    }
+  // Photos (up to 3, any board -- Lost & Found, a business, a job, a
+  // club, Trading Post goods): uploaded to GitHub right away rather
+  // than held in the sheet, which has a per-cell size limit far smaller
+  // than a typical photo. They sit unreferenced by any public JSON file
+  // (so they're invisible on the site) until the post is approved; if
+  // rejected, they're deleted again. One shared "<board>-photos" folder
+  // naming scheme rather than a special case per board.
+  if (Array.isArray(body.photos) && body.photos.length) {
+    fields.photos = [];
+    body.photos.slice(0, 3).forEach(function (photo, i) {
+      if (!photo || !photo.base64) return;
+      try {
+        const ext = (photo.ext || "jpg").toString().replace(/[^a-z0-9]/gi, "").toLowerCase() || "jpg";
+        const photoPath = "docs/" + board + "-photos/pending-" + id + "-" + (i + 1) + "." + ext;
+        githubPutFile(photoPath, photo.base64, "Add photo (pending review)", true);
+        fields.photos.push(photoPath.replace(/^docs\//, ""));
+      } catch (err) {
+        // One photo failing to upload shouldn't block the rest -- the
+        // others (and the text submission) still go through.
+      }
+    });
   }
 
   const removalCode = generateRemovalCode();
@@ -662,13 +680,14 @@ function applyBoardDecision(refCode, newStatus) {
         return false;
       }
     } else {
-      // fields.photo is stored relative to docs/ (matching the "photo"
-      // field's own published form), but the file actually lives at
-      // docs/<that path> in the repo -- same prefix submitBoardEntry()
-      // uploaded it to, needed here too or the delete silently 404s.
-      if (fields.photo) {
-        try { githubDeleteFile("docs/" + fields.photo, "Remove photo for rejected Lost & Found post"); } catch (err) {}
-      }
+      // fields.photos entries are stored relative to docs/ (matching the
+      // "photos" field's own published form), but each file actually
+      // lives at docs/<that path> in the repo -- same prefix
+      // submitBoardEntry() uploaded them to, needed here too or the
+      // delete silently 404s.
+      (fields.photos || []).forEach(function (photo) {
+        try { githubDeleteFile("docs/" + photo, "Remove photo for rejected submission"); } catch (err) {}
+      });
       sheet.getRange(rowNum, idx.status + 1).setValue("rejected");
     }
     return true;
@@ -707,9 +726,9 @@ function removeListing(body) {
     }
 
     const fields = JSON.parse(rows[i][idx.data_json] || "{}");
-    if (fields.photo) {
-      try { githubDeleteFile("docs/" + fields.photo, "Remove photo for removed listing"); } catch (err) {}
-    }
+    (fields.photos || []).forEach(function (photo) {
+      try { githubDeleteFile("docs/" + photo, "Remove photo for removed listing"); } catch (err) {}
+    });
 
     sheet.getRange(rowNum, idx.status + 1).setValue("removed");
     return { success: true };

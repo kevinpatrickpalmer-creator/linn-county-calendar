@@ -27,12 +27,16 @@ OUTPUT_PATH = "docs/businesses.json"
 # stable from run to run. "place_id" and "source" are deliberately not
 # here -- see data/businesses/README.md -- they're bookkeeping for the
 # scraper's own dedup, never meant for the public site.
-FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "rating", "reviews", "hours", "description", "keywords"]
+FIELDS = ["name", "category", "town", "address", "phone", "website", "email", "photo", "photos", "rating", "reviews", "hours", "description", "keywords"]
 NUMERIC_FIELDS = {"rating", "reviews"}
 # "keywords" is a list (Google's subtypes + reviews_tags -- see
 # scrape_businesses.py's build_listing()), not a string like every other
 # field here -- search-only, docs/directory.html never displays it.
-LIST_FIELDS = {"keywords"}
+# "photos" is also a list -- up to 3 repo-relative paths a person uploaded
+# with their submission (see submit-business.html), distinct from "photo"
+# (a single scraped Google image URL, see scrape_businesses.py). A listing
+# can have either, neither, or in theory both.
+LIST_FIELDS = {"keywords", "photos"}
 # Fields that live per-branch on a multi-location listing's own
 # "locations" entries instead of at the top level -- see
 # _load_multi_location() below.

@@ -159,6 +159,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-text="Where do I go, or who do I call? Every business, shop, service, and organization across the county, in one place."></script>
+<script src="lightbox.js"></script>
 <div class="hero">
   <div class="hero-inner">
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
@@ -479,17 +480,7 @@
     const card = document.createElement("div");
     card.className = "biz-card";
 
-    if (b.photo) {
-      const img = document.createElement("img");
-      img.className = "biz-photo";
-      img.src = b.photo;
-      img.alt = "";
-      img.loading = "lazy";
-      // A hotlinked Google photo URL can 404 or expire -- drop the
-      // element rather than show a broken-image icon on the card.
-      img.addEventListener("error", () => img.remove());
-      card.appendChild(img);
-    }
+    renderPhotoStrip(card, b);
 
     const name = document.createElement("div");
     name.className = "biz-name";

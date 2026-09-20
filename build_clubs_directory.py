@@ -25,8 +25,11 @@ VALID_TYPES = {"looking", "offering"}
 
 # Written in this order for every post, regardless of what order its own
 # JSON keys were in -- keeps docs/clubs.json diffs stable from run to run.
-FIELDS = ["type", "name", "ageGroup", "category", "town", "phone", "email", "description", "posted"]
+FIELDS = ["type", "name", "ageGroup", "category", "town", "phone", "email", "description", "photos", "posted"]
 REQUIRED_FIELDS = ("type", "name", "ageGroup", "town", "description")
+# "photos" is a list (up to 3 repo-relative paths, see submit-clubs.html),
+# not a string like every other field here.
+LIST_FIELDS = {"photos"}
 
 
 def load_posts(config, today=None):
@@ -78,6 +81,11 @@ def load_posts(config, today=None):
 
         post = {}
         for field in FIELDS:
+            if field in LIST_FIELDS:
+                raw_value = data.get(field)
+                if isinstance(raw_value, list) and raw_value:
+                    post[field] = raw_value
+                continue
             value = (data.get(field) or "").strip()
             if value:
                 post[field] = value

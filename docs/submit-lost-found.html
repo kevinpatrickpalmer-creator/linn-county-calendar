@@ -23,7 +23,6 @@
   #status.err { color: var(--primary); }
   .hp { position: absolute; left: -9999px; }
   .hint.err { color: var(--primary); font-weight: 600; }
-  input[type="file"] { padding: .5rem; }
 
   /* Confirmation panel -- see docs/submit.html for why this replaces the
      form entirely on success rather than just adding a status line. */
@@ -43,6 +42,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-manual></script>
+<script src="photo-upload.js"></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -83,9 +83,9 @@
     <label for="description" id="descriptionLabel">More details *</label>
     <textarea id="description" name="description" maxlength="500" required placeholder="Where exactly, any distinguishing details, collar/tags, current status, etc."></textarea>
 
-    <label for="photo">Photo (optional)</label>
-    <input id="photo" name="photo" type="file" accept="image/*">
-    <p class="hint">Helps a lot for a pet or a distinctive item. A person reviews it along with the rest of your post before anything goes live.</p>
+    <label for="photo">Photos (optional, up to 3)</label>
+    <input id="photo" name="photo" type="file" accept="image/*" multiple>
+    <p class="hint" id="photoHint">Helps a lot for a pet or a distinctive item. A person reviews them along with the rest of your post before anything goes live.</p>
 
     <label for="contact_name">Your name *</label>
     <input id="contact_name" name="contact_name" type="text" maxlength="120" required>
@@ -185,6 +185,8 @@
   postTypeSelect.addEventListener("change", updateLabels);
   categorySelect.addEventListener("change", updateLabels);
 
+  wirePhotoCap("photo", "photoHint");
+
   const form = document.getElementById("lfForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
@@ -239,27 +241,12 @@
       fields: { type: postType, category, name: rawName, town, date, description, contact_name: contactName, phone, email },
     };
 
-    // A photo is read into the payload as base64 (if one was picked)
+    // Each photo is read into the payload as base64 (if any were picked)
     // rather than sent as a file attachment -- there's no email
-    // attachment step in this flow anymore, the backend uploads it
+    // attachment step in this flow anymore, the backend uploads them
     // straight to the repo once the post is approved.
-    const photoFile = document.getElementById("photo").files[0];
-    if (photoFile) {
-      try {
-        const dataUrl = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(photoFile);
-        });
-        payload.photoBase64 = dataUrl.split(",")[1] || "";
-        const extMatch = photoFile.name.match(/\.([a-zA-Z0-9]+)$/);
-        payload.photoExt = extMatch ? extMatch[1] : "jpg";
-      } catch (err) {
-        // A photo that fails to read client-side just doesn't get
-        // attached -- not worth blocking the rest of the post over.
-      }
-    }
+    const photos = await readPhotos("photo");
+    if (photos.length) payload.photos = photos;
 
     try {
       const res = await fetch(config.apps_script_api_url, {

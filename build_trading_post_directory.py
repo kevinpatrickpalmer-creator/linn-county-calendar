@@ -5,7 +5,7 @@ data/trading-post/ (see data/trading-post/README.md for how a file lands
 there). Same "combine approved local files into one fetchable JSON file"
 approach as build_business_directory.py, kept as its own script since
 this is a different content type (people, not registered businesses)
-with a different, simpler schema -- no scraping, no photo/rating, no
+with a different, simpler schema -- no scraping, no rating, no
 multi-location chains.
 
 Run:
@@ -24,7 +24,10 @@ OUTPUT_PATH = "docs/trading-post.json"
 # Written in this order for every listing that has a file, regardless of
 # what order its own JSON keys were in -- keeps docs/trading-post.json
 # diffs stable from run to run.
-FIELDS = ["name", "category", "town", "phone", "email", "website", "availability", "description"]
+FIELDS = ["name", "category", "town", "phone", "email", "website", "availability", "description", "photos"]
+# "photos" is a list (up to 3 repo-relative paths, see
+# submit-trading-post.html), not a string like every other field here.
+LIST_FIELDS = {"photos"}
 
 
 def load_listings():
@@ -54,6 +57,11 @@ def load_listings():
         listing = {"name": name, "town": town}
         for field in FIELDS:
             if field in ("name", "town"):
+                continue
+            if field in LIST_FIELDS:
+                raw_value = data.get(field)
+                if isinstance(raw_value, list) and raw_value:
+                    listing[field] = raw_value
                 continue
             value = (data.get(field) or "").strip()
             if value:

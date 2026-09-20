@@ -42,6 +42,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-manual></script>
+<script src="photo-upload.js"></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -85,6 +86,11 @@
     <p class="hint" id="contactHint">At least one is required, so people can actually reach you about this post.</p>
 
     <p class="hint">No street address is collected here on purpose -- mention in the details above where the work is, if that matters.</p>
+
+    <label for="photo">Photos (optional, up to 3)</label>
+    <input id="photo" name="photo" type="file" accept="image/*" multiple>
+    <p class="hint" id="photoHint">A finished job, your work truck, whatever helps someone picture the work. A person reviews them along with the rest of your post.</p>
+
     <p class="hint" id="expiryHint"></p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
@@ -186,6 +192,8 @@
     document.getElementById("postType").focus();
   });
 
+  wirePhotoCap("photo", "photoHint");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
@@ -215,16 +223,19 @@
     const description = (data.get("description") || "").trim();
     const phone = (data.get("phone") || "").trim();
     const email = (data.get("email") || "").trim();
+    const photos = await readPhotos("photo");
 
     try {
+      const payload = {
+        action: "submitBoard",
+        board: "job",
+        botcheck: (data.get("botcheck") || "").toString(),
+        fields: { type: postType, name: rawName, category, town, description, phone, email },
+      };
+      if (photos.length) payload.photos = photos;
       const res = await fetch(config.apps_script_api_url, {
         method: "POST",
-        body: JSON.stringify({
-          action: "submitBoard",
-          board: "job",
-          botcheck: (data.get("botcheck") || "").toString(),
-          fields: { type: postType, name: rawName, category, town, description, phone, email },
-        }),
+        body: JSON.stringify(payload),
       });
       const result = await res.json();
 

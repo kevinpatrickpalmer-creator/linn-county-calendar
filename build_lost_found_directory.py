@@ -26,8 +26,11 @@ VALID_TYPES = {"lost", "found"}
 # Written in this order for every post, regardless of what order its own
 # JSON keys were in -- keeps docs/lost-found.json diffs stable from run
 # to run.
-FIELDS = ["type", "category", "name", "town", "date", "description", "contact_name", "phone", "email", "photo", "posted"]
+FIELDS = ["type", "category", "name", "town", "date", "description", "contact_name", "phone", "email", "photos", "posted"]
 REQUIRED_FIELDS = ("type", "category", "name", "town", "date", "description")
+# "photos" is a list (up to 3 repo-relative paths, see
+# submit-lost-found.html), not a string like every other field here.
+LIST_FIELDS = {"photos"}
 
 
 def load_posts(config, today=None):
@@ -82,6 +85,11 @@ def load_posts(config, today=None):
 
         post = {}
         for field in FIELDS:
+            if field in LIST_FIELDS:
+                raw_value = data.get(field)
+                if isinstance(raw_value, list) and raw_value:
+                    post[field] = raw_value
+                continue
             value = (data.get(field) or "").strip()
             if value:
                 post[field] = value

@@ -34,7 +34,7 @@ Expected shape of each file:
   "contact_name": "Jane Smith",
   "phone": "(660) 555-0142",
   "posted": "2026-09-17",
-  "photo": "lost-found-photos/gray-tabby-marceline.jpg"
+  "photos": ["lost-found-photos/gray-tabby-marceline.jpg"]
 }
 ```
 
@@ -60,18 +60,21 @@ if that manual fallback is ever used instead), same purpose as
 days ago" and sort newest-first, independent of whatever date the
 submitter entered.
 
-**`photo` is optional and, unlike every other photo on this site, isn't
-a Google-hosted URL** -- it's whatever a submitter attached, uploaded
-straight into `docs/lost-found-photos/` by `apps-script/big-ideas.gs`
-at submission time (base64-encoded from the browser, committed via the
-GitHub API), sitting there unreferenced by any public JSON until the
-post is approved. Referenced here as a path relative to `docs/`, e.g.
-`"lost-found-photos/whatever-it-got-named.jpg"` -- `docs/lost-found.html`
-just points an `<img>` straight at that path. A rejected post has its
-photo deleted again; a post with no `photo` field still publishes
-fine, the card just skips the image. (Before this was automated, a
-photo was a manual GitHub upload step -- see the repo history if that
-ever needs resurrecting.)
+**`photos` is optional, up to 3, and, unlike every other photo on this
+site, isn't a Google-hosted URL** -- it's whatever a submitter
+attached, uploaded straight into `docs/lost-found-photos/` by
+`apps-script/big-ideas.gs` at submission time (base64-encoded from the
+browser, committed via the GitHub API), sitting there unreferenced by
+any public JSON until the post is approved. Each entry is a path
+relative to `docs/`, e.g. `"lost-found-photos/whatever-it-got-named.jpg"`
+-- `docs/lost-found.html` points an `<img>` straight at each path, and
+a click opens it full-size via `docs/lightbox.js`. A rejected post has
+its photos deleted again; a post with no `photos` field still publishes
+fine, the card just skips the image. This same `photos` array field is
+shared by every board that takes photos (Business, Jobs, Clubs,
+Trading Post) -- see their own READMEs. (Before this was automated, a
+photo was a manual GitHub upload step, and capped at one -- see the
+repo history if that ever needs resurrecting.)
 
 **No street address field, deliberately** -- same reasoning as
 `data/jobs/` and Trading Post: `description` is where a poster says

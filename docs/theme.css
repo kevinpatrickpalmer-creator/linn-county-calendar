@@ -354,6 +354,7 @@ body.themed textarea:focus {
 }
 body.themed select { margin-bottom: .75rem; }
 body.themed textarea { resize: vertical; min-height: 5rem; }
+body.themed input[type="file"] { padding: .5rem; }
 body.themed .card {
   background: var(--surface);
   border: 1px solid var(--surface-border);

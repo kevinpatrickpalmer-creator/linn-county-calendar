@@ -36,6 +36,7 @@ Expected shape of each file:
   "description": "We meet Thursday evenings at the community center. Beginners welcome, we'll teach you.",
   "phone": "(660) 555-0142",
   "email": "kevin@example.com",
+  "photos": ["club-photos/pending-abc123-1.jpg"],
   "posted": "2026-09-19"
 }
 ```
@@ -74,6 +75,11 @@ Bulletin and Trading Post: these are people's homes and informal
 meetups, not a business with posted hours. `description` is where a
 poster says where/when it meets if that matters, and `phone`/`email`
 are how the other side actually gets in touch.
+
+**`photos` is optional, up to 3** -- same upload mechanism as every
+other board, see `data/lost-found/README.md` for the full explanation.
+`docs/clubs.html` shows them on the card with a click opening the
+full-size version via `docs/lightbox.js`.
 
 **Town, not "Other":** same rule as the rest of the site -- see
 `data/businesses/README.md` for the reasoning. The literal word

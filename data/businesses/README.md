@@ -31,6 +31,7 @@ Expected shape of each file:
   "website": "https://knottstreeservice.com",
   "email": "info@knottstreeservice.com",
   "photo": "https://lh3.googleusercontent.com/...",
+  "photos": ["business-photos/pending-abc123-1.jpg"],
   "rating": 4.8,
   "reviews": 23,
   "hours": "Mon-Fri 8am-5pm",
@@ -45,13 +46,20 @@ but a listing with an unrecognized or missing category still shows up
 under "Other".
 
 `photo`, `rating`, and `reviews` come from Google Maps via
-`scrape_businesses.py` -- not every business has all (or any) of these on
-Google, and there's no manual-submission equivalent (`submit-business.html`
-doesn't collect a photo -- this site has no image upload/hosting
-infrastructure), so they're expected to be missing on plenty of
-listings, scraped or hand-added alike. `docs/directory.html` renders
-whichever of these a listing actually has and simply omits what it
-doesn't; nothing here is required for a listing to publish.
+`scrape_businesses.py` -- not every business has all (or any) of these
+on Google, so they're expected to be missing on plenty of scraped
+listings. `docs/directory.html` renders whichever of these a listing
+actually has and simply omits what it doesn't; nothing here is
+required for a listing to publish.
+
+**`photos` is separate from `photo` above** -- up to 3 repo-relative
+paths a submitter uploaded through `submit-business.html`, same
+mechanism and same field name as every other board's own photo
+uploads (see `data/lost-found/README.md` for the full explanation of
+how an upload gets from the submit form to a committed file).
+`docs/directory.html` shows either `photo` or `photos`, whichever a
+listing has, with a click opening the full-size version via
+`docs/lightbox.js`.
 
 `keywords` also comes from Google Maps, but it's search-only --
 `docs/directory.html` never displays it, only matches against it. It's

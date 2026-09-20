@@ -87,6 +87,15 @@
     flex-direction: column;
     gap: .4rem;
   }
+  .biz-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface-border);
+    display: block;
+    margin-bottom: .2rem;
+  }
   /* A seeded sample post, pinned to the top of the board so it isn't
      blank before anyone's posted for real -- see data/clubs/README.md.
      Dashed border + corner ribbon so it never reads as a real listing. */
@@ -165,6 +174,7 @@
 <body class="themed">
 <script src="nav.js"></script>
 <script src="share.js" data-text="Want to join a club or class, or need members or students? Bridge club, Red Hats, swimming lessons, karate, woodworking, whatever it is, find each other here."></script>
+<script src="lightbox.js"></script>
 <div class="hero">
   <div class="hero-inner">
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
@@ -400,6 +410,8 @@
       ribbon.textContent = "Example";
       card.appendChild(ribbon);
     }
+
+    renderPhotoStrip(card, p);
 
     const badge = document.createElement("div");
     badge.className = `job-badge ${p.type === "offering" ? "offering" : "looking"}`;
