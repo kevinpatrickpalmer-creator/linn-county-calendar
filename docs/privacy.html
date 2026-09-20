@@ -28,7 +28,9 @@
   <section>
     <h2>What we collect, and why</h2>
     <ul>
-      <li><strong>If you submit an event:</strong> the event details, plus your contact email and/or phone number. That contact info is shown <strong>publicly</strong> on the calendar listing, on purpose, so people with questions about the event can reach you directly. We don't call you or use it for anything else.</li>
+      <li><strong>If you submit anything</strong> (an event, a business listing, a trading post item, a job post, a club or class, a lost pet or item, or a big idea): the details of that submission, plus your contact info if you gave any, and a photo if you attached one. Once approved, that's shown <strong>publicly</strong> on the listing itself, on purpose, so people can reach you directly. We don't use it for anything else.</li>
+      <li><strong>Removal codes:</strong> submitting to a board also gives you a private code so you can take your own post down later. If you gave an email, we send that code there too. It's tied to that one post, not to you.</li>
+      <li><strong>Voting on Big Ideas:</strong> your browser gets a random ID, stored only on your device, so clicking an arrow twice cancels your vote instead of double counting it. We can't tell who voted for what.</li>
       <li><strong>If you sign up for reminder emails or the newsletter:</strong> your email address, which opt-ins you checked, and any towns you chose to filter by. Used only to send the emails you actually opted into.</li>
       <li><strong>If you use the contact form:</strong> your name, email, and message, sent directly to us so we can reply. Not shown publicly, and not used for anything else.</li>
       <li><strong>If you just subscribe to the calendar</strong> on your phone or computer's calendar app: nothing personal is collected at all. That's a direct connection between your device and the calendar file. We don't know who's subscribed.</li>
@@ -40,9 +42,10 @@
     <h2>Where this goes</h2>
     <p>We use a few outside services to run this site, and each only sees the specific piece of information it needs to do its job:</p>
     <ul>
-      <li>Event submissions and contact form messages are emailed to the admin via <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>.</li>
+      <li>Contact form messages are emailed to us via <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>.</li>
+      <li>Every other submission (events, business listings, trading post, jobs, clubs &amp; classes, lost &amp; found, big ideas) is held for review in a private Google Sheet, using Google Apps Script. Once approved, it's committed straight into this site's own public GitHub repository so it can go live, the same place the site's code already lives. That means an approved submission's public details, and any photo, become part of that repository's history, even after the post itself is later removed from the live site.</li>
       <li>Reminder/newsletter sign-ups are stored in a Google Form and Sheet.</li>
-      <li>Reminder emails are sent through <a href="https://www.brevo.com" target="_blank" rel="noopener">Brevo</a>.</li>
+      <li>Reminder emails are sent through <a href="https://www.brevo.com" target="_blank" rel="noopener">Brevo</a>, from info@linncountylocal.com.</li>
       <li>The site itself is hosted on GitHub Pages, which, like any web host, keeps standard technical access logs.</li>
     </ul>
   </section>
@@ -51,7 +54,7 @@
     <h2>What we don't do</h2>
     <ul>
       <li>We don't sell, rent, or trade your information to anyone.</li>
-      <li>We don't call or text you using contact info submitted for an event listing.</li>
+      <li>We don't call or text you using contact info from any submission.</li>
       <li>We don't use your email for anything beyond what you specifically opted into.</li>
     </ul>
   </section>
@@ -66,6 +69,7 @@
     <ul>
       <li>To stop reminder/newsletter emails, use the unsubscribe link included in every email, or go directly to <a href="unsubscribe.html">unsubscribe.html</a>.</li>
       <li>To stop seeing events on your phone or computer, remove the subscribed calendar in your device's own calendar app settings.</li>
+      <li>To take a post down early (a job, trading post, lost &amp; found, or clubs &amp; classes listing), use the removal code you were given when you posted it, on the <a href="remove-listing.html">Remove a Listing</a> page.</li>
       <li>Questions about a specific listing, or anything else here: use the contact form linked below.</li>
     </ul>
   </section>
@@ -86,8 +90,8 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Privacy Policy | ${config.calendar_title}`;
-  document.getElementById("pageTitle").textContent = `Privacy Policy for ${config.calendar_title}`;
+  document.title = `Privacy Policy | ${config.site_name}`;
+  document.getElementById("pageTitle").textContent = `Privacy Policy for ${config.site_name}`;
 })();
 </script>
 </body>
