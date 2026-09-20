@@ -5,7 +5,7 @@ happening tomorrow.
 
 Subscriber opt-ins (email + reminder + newsletter checkboxes, plus an
 optional set of towns and event types for the reminder) are collected by
-docs/index.html, which posts directly to a Google Form; that form's
+docs/alerts.html, which posts directly to a Google Form; that form's
 linked Google Sheet is published to the web as CSV, which this script
 reads with a plain HTTP GET -- no Google API/auth needed. The newsletter
 opt-in column is stored here but not otherwise used yet.
@@ -14,7 +14,7 @@ A subscriber with no towns/types selected gets every town's/type's events
 (that's the default/simple path). One with specific towns and/or types
 checked only gets events matching all of the filters they picked.
 
-Sending uses Brevo's API, from an address at communitycalendarconnect.com
+Sending uses Brevo's API, from an address at linncountylocal.com
 (domain-authenticated with SPF/DKIM/DMARC for proper deliverability).
 Requires a BREVO_API_KEY environment variable/secret.
 
