@@ -225,6 +225,30 @@ body.themed p.callout {
 }
 body.themed p.callout a { color: var(--primary); font-weight: 600; }
 
+/* A big, icon-led button for "go post/list something" -- the old
+   pattern buried that link mid-sentence in the callout above it,
+   easy to skim right past. This sits above the callout instead:
+   scannable at a glance, no reading required (Kevin's ask,
+   2026-09-21). The callout still carries the fuller context for
+   anyone who wants it. */
+body.themed a.icon-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  margin: 0 0 .9rem;
+  padding: .95rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff9f4;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.02rem;
+  box-shadow: var(--shadow-sm);
+}
+body.themed a.icon-cta:hover { background: var(--primary-dark); }
+body.themed a.icon-cta .icon-cta-icon { font-size: 1.5rem; line-height: 1; }
+
 body.themed .btn {
   display: block;
   width: 100%;

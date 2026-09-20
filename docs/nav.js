@@ -23,10 +23,18 @@
     { label: "Business Directory", href: "directory.html", children: [
       { label: "List a Business or Service", href: "submit-business.html" },
     ] },
-    { label: "Trading Post", href: "trading-post.html" },
-    { label: "Jobs Bulletin", href: "jobs.html" },
-    { label: "Clubs & Classes", href: "clubs.html" },
-    { label: "Lost & Found", href: "lost-found.html" },
+    { label: "Trading Post", href: "trading-post.html", children: [
+      { label: "List Something", href: "submit-trading-post.html" },
+    ] },
+    { label: "Jobs Bulletin", href: "jobs.html", children: [
+      { label: "Post to the Bulletin", href: "submit-job.html" },
+    ] },
+    { label: "Clubs & Classes", href: "clubs.html", children: [
+      { label: "Post a Club or Class", href: "submit-clubs.html" },
+    ] },
+    { label: "Lost & Found", href: "lost-found.html", children: [
+      { label: "Post to Lost & Found", href: "submit-lost-found.html" },
+    ] },
     { label: "Flyer", href: "flyer.html" },
     { label: "Big Idea Board", href: "big-ideas.html", children: [
       { label: "Submit Idea", href: "big-ideas.html#submitSection" },
