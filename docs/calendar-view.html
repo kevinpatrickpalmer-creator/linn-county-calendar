@@ -205,6 +205,25 @@
   .list-type.cat-yellow { color: var(--cat-yellow-text); background: var(--cat-yellow-tint); border-color: var(--cat-yellow); }
   .list-type.cat-green { color: var(--success); background: var(--success-tint); border-color: var(--success); }
   .list-type.cat-gray { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
+
+  /* Town tags -- a category tag alone only says what kind of event this
+     is, not where, so this sits right beside it (Kevin's ask,
+     2026-09-20). Same colors as docs/big-ideas.html's town tags, for
+     one consistent "this is Marceline's color" language site-wide. */
+  .town-tag {
+    display: inline-block; margin-top: .3rem; margin-left: .35rem;
+    font-size: .68rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
+    padding: .15rem .5rem; border-radius: 999px; border: 1px solid;
+  }
+  .town-tag.brookfield { color: #6fa8dc; background: #16283a; border-color: #6fa8dc; }
+  .town-tag.marceline { color: #d4af37; background: #332a0f; border-color: #d4af37; }
+  .town-tag.bucklin { color: #e06666; background: #3a1414; border-color: #e06666; }
+  .town-tag.browning { color: #93c47d; background: #1c2e17; border-color: #93c47d; }
+  .town-tag.laclede { color: #b4a7d6; background: #241f33; border-color: #b4a7d6; }
+  .town-tag.linneus { color: #f6b26b; background: #3a2510; border-color: #f6b26b; }
+  .town-tag.meadville { color: #76a5af; background: #17282b; border-color: #76a5af; }
+  .town-tag.purdin { color: #d5a6bd; background: #331f28; border-color: #d5a6bd; }
+  .town-tag.default { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
   #listEmpty { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: var(--navy); text-decoration: none; margin-left: .75rem; font-weight: 500; }
@@ -410,7 +429,9 @@
   <div id="detailBackdrop">
     <div id="detail" role="dialog" aria-modal="true" aria-labelledby="detailName">
       <h2 id="detailName"></h2>
-      <div class="list-type" id="detailType" style="margin-bottom:.5rem;"></div>
+      <div style="margin-bottom:.5rem;">
+        <span class="list-type" id="detailType"></span><span class="town-tag" id="detailTown"></span>
+      </div>
       <div class="meta" id="detailWhen"></div>
       <div class="meta" id="detailLocation"></div>
       <div class="desc" id="detailDescription"></div>
@@ -484,6 +505,16 @@ function typeColorClass(eventType) {
     if (types.includes(eventType)) return color === "blue" ? "" : `cat-${color}`;
   }
   return "";
+}
+
+// Same town-tag color set as docs/big-ideas.html, so "Marceline's color"
+// means the same thing everywhere on the site. Anything outside the
+// county's 8 towns (extractTown() already collapses those to "Other")
+// falls back to a neutral tag rather than guessing a color.
+const TOWN_TAG_COLORS = new Set(["brookfield", "marceline", "bucklin", "browning", "laclede", "linneus", "meadville", "purdin"]);
+function townTagClass(town) {
+  const key = (town || "").toLowerCase().replace(/[^a-z]/g, "");
+  return TOWN_TAG_COLORS.has(key) ? key : "default";
 }
 
 function unescapeText(s) {
@@ -624,6 +655,9 @@ function showDetail(ev) {
   document.getElementById("detailType").textContent = ev.eventType || "";
   document.getElementById("detailType").className = `list-type ${typeColorClass(ev.eventType)}`;
   document.getElementById("detailType").style.display = ev.eventType ? "inline-block" : "none";
+  document.getElementById("detailTown").textContent = ev.town || "";
+  document.getElementById("detailTown").className = `town-tag ${townTagClass(ev.town)}`;
+  document.getElementById("detailTown").style.display = ev.town ? "inline-block" : "none";
   document.getElementById("detailDescription").textContent = ev.description || "";
   document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
   document.getElementById("detailBackdrop").classList.add("open");
@@ -773,6 +807,12 @@ function renderListView(year, month, todayKey) {
         type.className = `list-type ${typeColorClass(ev.eventType)}`;
         type.textContent = ev.eventType;
         main.appendChild(type);
+      }
+      if (ev.town) {
+        const townTag = document.createElement("div");
+        townTag.className = `town-tag ${townTagClass(ev.town)}`;
+        townTag.textContent = ev.town;
+        main.appendChild(townTag);
       }
       row.appendChild(main);
 
