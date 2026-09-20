@@ -42,6 +42,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -134,6 +135,7 @@
     <p class="confirm-icon" aria-hidden="true">✅</p>
     <h2>Got it, thanks!</h2>
     <p class="hint">A person reviews every event, usually live within 24 hours.</p>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another event</button>
   </div>
 
@@ -294,6 +296,12 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/calendar-view.html`,
+          text: "Browse every local event, meeting, and happening around Linn County, kept up to date automatically.",
+          subject: "Linn County Community Calendar",
+          label: "Know someone else who should see this? Share the calendar:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

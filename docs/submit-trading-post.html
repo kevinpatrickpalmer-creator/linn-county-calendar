@@ -41,6 +41,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -101,6 +102,7 @@
       <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once sold out.</p>
       <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
     </div>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another listing</button>
   </div>
 
@@ -212,6 +214,12 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/trading-post.html`,
+          text: "What do people in our community make or grow? Eggs, raw milk, farm beef, honey, garden produce, and more.",
+          subject: "Trading Post",
+          label: "Know someone else who should see this? Share the Trading Post:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

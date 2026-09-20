@@ -41,6 +41,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -108,6 +109,7 @@
       <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once it's full or no longer needed.</p>
       <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
     </div>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
   </div>
 
@@ -259,6 +261,12 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/clubs.html`,
+          text: "Want to join a club or class, or need members or students? Bridge club, Red Hats, swimming lessons, karate, woodworking, whatever it is, find each other here.",
+          subject: "Clubs & Classes",
+          label: "Know someone else who should see this? Share Clubs & Classes:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

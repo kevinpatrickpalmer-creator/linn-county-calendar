@@ -390,6 +390,10 @@ body.themed .town-picker .checkbox-row { margin: .5rem 0; }
 body.themed .footer-link { text-align: center; margin-top: .5rem; }
 body.themed .footer-link a { color: var(--navy); font-size: .9rem; font-weight: 500; }
 
+/* Auto-mounted by share.js before .site-credit on every page that
+   includes it -- see that file for why. */
+body.themed .share-section { margin-top: 1.4rem; }
+
 body.themed .submit-qr { text-align: center; margin-top: .6rem; }
 body.themed .submit-qr .qr-box {
   display: inline-block;

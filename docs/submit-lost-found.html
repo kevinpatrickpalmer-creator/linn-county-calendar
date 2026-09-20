@@ -42,6 +42,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -114,6 +115,7 @@
       <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once resolved.</p>
       <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
     </div>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
   </div>
 
@@ -276,6 +278,12 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/lost-found.html`,
+          text: "Lost a pet or an item, or found one? Post it here so more people see it, fast.",
+          subject: "Lost & Found",
+          label: "Know someone else who should see this? Share Lost & Found:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

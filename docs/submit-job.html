@@ -41,6 +41,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -103,6 +104,7 @@
       <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> once it's filled.</p>
       <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
     </div>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
   </div>
 
@@ -236,6 +238,14 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        // Shares the Jobs Bulletin itself, not this one post -- there's
+        // no separate page per listing, everything lives on jobs.html.
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/jobs.html`,
+          text: "Who's looking for work? Who needs a worker? Snow shoveling, mowing, moving, a handyman for a project, or a shift to fill at a local business.",
+          subject: "Jobs Bulletin",
+          label: "Know someone else who should see this? Share the Jobs Bulletin:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

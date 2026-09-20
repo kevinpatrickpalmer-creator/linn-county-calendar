@@ -38,6 +38,7 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
+<script src="share.js" data-manual></script>
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
@@ -103,6 +104,7 @@
     <p class="confirm-icon" aria-hidden="true">✅</p>
     <h2>Got it, thanks!</h2>
     <p class="hint">A person reviews every listing, usually live within 24 hours.</p>
+    <div id="shareSection"></div>
     <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another listing</button>
   </div>
 
@@ -215,6 +217,12 @@
         confirmPanel.hidden = false;
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/directory.html`,
+          text: "Where do I go, or who do I call? Every business, shop, service, and organization across the county, in one place.",
+          subject: "Business Directory",
+          label: "Know someone else who should see this? Share the Directory:",
+        });
       } else {
         throw new Error(result.error || "Submission failed");
       }

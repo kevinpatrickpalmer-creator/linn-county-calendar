@@ -339,6 +339,31 @@
   }
   .site-credit .powered-by { display: block; margin-top: .3rem; color: var(--ink-faint); font-size: .75rem; }
   .site-credit a { color: inherit; text-decoration: underline; }
+
+  /* This page's <body> has no "themed" class (it's built to also work
+     embedded standalone on another site), so it doesn't pick up
+     theme.css's body.themed .share-* rules -- same properties, repeated
+     here unprefixed. See docs/share.js. */
+  .share-section { margin-top: 1.4rem; text-align: center; }
+  .share-label { margin: 1.1rem 0 .55rem; font-size: .85rem; font-weight: 600; color: var(--ink-soft); }
+  .share-row { display: flex; flex-wrap: wrap; gap: .55rem; justify-content: center; }
+  .share-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    flex: 1 1 auto; min-width: 6.5rem; padding: .6rem .8rem;
+    font-size: .85rem; font-weight: 600; font-family: inherit;
+    border: none; border-radius: 8px; background: var(--navy); color: #fff;
+    text-align: center; text-decoration: none; cursor: pointer; transition: filter .15s ease;
+  }
+  .share-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .share-btn:hover { filter: brightness(1.08); }
+  .share-btn.facebook { background: #1877f2; }
+  .share-btn.whatsapp { background: #25d366; }
+  .share-btn.instagram { background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); }
+  .share-btn.email { background: #1f3a54; }
+  .share-btn.copylink { background: var(--surface); color: var(--navy); border: 1px solid var(--surface-border); }
+  .share-btn.copylink:hover { border-color: var(--navy); filter: none; }
+  .share-btn.copied { background: var(--success) !important; color: #fff; border-color: transparent; }
+  .share-section p.hint { margin: .5rem 0 0; font-size: .8rem; color: var(--ink-faint); }
   @media (max-width: 480px) {
     .day { min-height: 4.4rem; font-size: .68rem; }
     .pill { font-size: .62rem; }
@@ -354,7 +379,7 @@
     html, body { background: #fff; color: #000; }
     .hero { background: none; border-bottom: none; padding: 0; margin: 0 0 .6rem; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    .stats-line, .month-count, #detailBackdrop, #status {
+    .stats-line, .month-count, #detailBackdrop, #status, .share-section {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
@@ -379,6 +404,7 @@
 </head>
 <body>
 <script src="nav.js"></script>
+<script src="share.js" data-text="Browse every local event, meeting, and happening around Linn County, kept up to date automatically."></script>
 <div class="hero">
   <div class="hero-inner">
     <div class="topbar">
