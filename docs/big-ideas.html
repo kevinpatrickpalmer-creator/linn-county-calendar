@@ -6,14 +6,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Big Ideas</title>
+<title>Big Idea Board</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Big Ideas | Linn County">
+<meta property="og:title" content="Big Idea Board | Linn County">
 <meta property="og:description" content="Got a big idea for your town? Post it, and see what your neighbors think. Upvote the ones you'd want to see happen.">
 <meta property="og:image" content="https://linncountylocal.com/og-image.png">
 <meta property="og:url" content="https://linncountylocal.com/big-ideas.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Big Ideas | Linn County">
+<meta name="twitter:title" content="Big Idea Board | Linn County">
 <meta name="twitter:description" content="Got a big idea for your town? Post it, and see what your neighbors think. Upvote the ones you'd want to see happen.">
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -126,6 +126,10 @@
   #submitStatus.err { color: var(--primary); }
   .hp { position: absolute; left: -9999px; }
   form#ideaForm { margin: 0; }
+  /* The nav bar is fixed at 48px tall (see nav.js) -- without this, jumping
+     straight here from the nav's "Submit Idea" link lands with the "Share
+     your idea" heading hidden right behind it. */
+  #submitSection { scroll-margin-top: 64px; }
 
   .confirm-panel { text-align: center; }
   .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
@@ -140,7 +144,7 @@
   <div class="hero-inner">
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
     <span class="eyebrow" id="eyebrow"></span>
-    <h1>Big Ideas</h1>
+    <h1>Big Idea Board</h1>
     <p class="sub">Got a big idea for your town? Tag it, post it below, and see what your neighbors think. If it's big enough for the whole county, even better. The ones people actually want rise to the top.</p>
     <p class="sub" style="font-style:italic;">The towns that grow are the ones where good ideas actually go somewhere.</p>
     <p class="stats-line" id="statsLine"></p>
@@ -201,7 +205,7 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Big Ideas | ${config.site_name}`;
+  document.title = `Big Idea Board | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const townSelect = document.getElementById("town");
@@ -247,7 +251,7 @@
   const statsLine = document.getElementById("statsLine");
 
   if (!apiUrl) {
-    ideasStatus.textContent = "The Big Ideas board is being set up -- check back soon.";
+    ideasStatus.textContent = "The Big Idea Board is being set up -- check back soon.";
     document.getElementById("submitSection").style.display = "none";
     return;
   }
@@ -419,6 +423,26 @@
       `<span class="stat-seg">1 County ·</span> ` +
       `<span class="live-count"><span class="live-dot"></span>${realCount} Idea${realCount === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
+
+    // Arriving via the nav's "Submit Idea" link (#submitSection) scrolls
+    // there on page load, but the idea list above it hasn't finished
+    // loading yet at that point -- once it does, everything shifts down
+    // and leaves the target scrolled past. Re-scroll now that layout's
+    // settled. Computed by hand rather than relying on scroll-margin-top
+    // (set below too, as a same-purpose belt-and-suspenders for browsers
+    // that get the timing right on their own) since not every engine
+    // honors it for a script-triggered scroll.
+    if (window.location.hash === "#submitSection") {
+      // Deferred a tick so this runs after the browser's own native
+      // scroll-to-fragment (which can otherwise fire after this code
+      // and override it, landing back under the nav bar).
+      setTimeout(() => {
+        const target = document.getElementById("submitSection");
+        const navBar = document.querySelector(".site-nav-bar");
+        const offset = (navBar ? navBar.getBoundingClientRect().height : 0) + 16;
+        window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY - offset);
+      }, 0);
+    }
   } catch (err) {
     ideasStatus.textContent = "Couldn't load ideas right now. Please try refreshing.";
   }

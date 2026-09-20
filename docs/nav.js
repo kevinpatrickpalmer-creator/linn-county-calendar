@@ -28,8 +28,8 @@
     { label: "Clubs & Classes", href: "clubs.html" },
     { label: "Lost & Found", href: "lost-found.html" },
     { label: "Flyer", href: "flyer.html" },
-    { label: "Ideas for Your Town?", href: "survey.html", children: [
-      { label: "Big Ideas", href: "big-ideas.html" },
+    { label: "Big Idea Board", href: "big-ideas.html", children: [
+      { label: "Submit Idea", href: "big-ideas.html#submitSection" },
     ] },
     { label: "Contact", href: "contact.html" },
   ];
