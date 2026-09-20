@@ -430,7 +430,7 @@
     <div id="detail" role="dialog" aria-modal="true" aria-labelledby="detailName">
       <h2 id="detailName"></h2>
       <div style="margin-bottom:.5rem;">
-        <span class="list-type" id="detailType"></span><span class="town-tag" id="detailTown"></span>
+        <span class="list-type" id="detailType"></span><span id="detailTowns"></span>
       </div>
       <div class="meta" id="detailWhen"></div>
       <div class="meta" id="detailLocation"></div>
@@ -489,6 +489,27 @@ function extractTown(location) {
   return town;
 }
 
+// A sports rivalry ("Annual Marceline vs. Brookfield Bell Game") often
+// names a second county town right in the title, one the LOCATION field
+// never mentions since it's just where the game's being played -- Kevin's
+// catch, 2026-09-20. Scans the title for any other county town by name
+// and returns them in the order they appear, so a game like that gets a
+// tag for both towns, not just the host. An opposing team from outside
+// the county ("vs. Trenton") isn't one of siteConfig.towns, so it's
+// correctly left out rather than guessed at.
+function extractExtraTowns(summary, primaryTown) {
+  if (!summary || !siteConfig) return [];
+  const found = [];
+  for (const town of siteConfig.towns) {
+    if (town === primaryTown) continue;
+    const re = new RegExp(`\\b${town.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+    const match = re.exec(summary);
+    if (match) found.push({ town, index: match.index });
+  }
+  found.sort((a, b) => a.index - b.index);
+  return found.map((f) => f.town);
+}
+
 // Groups the 12 event types into a handful of badge colors -- see the
 // .list-type.cat-* rules above for the actual colors. Obituary/Visitation
 // and Other are deliberately left out of the red/yellow/green rotation
@@ -538,7 +559,10 @@ function parseICS(raw) {
       continue;
     }
     if (line === "END:VEVENT") {
-      if (current) events.push(current);
+      if (current) {
+        current.extraTowns = extractExtraTowns(current.summary, current.town);
+        events.push(current);
+      }
       current = null;
       continue;
     }
@@ -655,9 +679,18 @@ function showDetail(ev) {
   document.getElementById("detailType").textContent = ev.eventType || "";
   document.getElementById("detailType").className = `list-type ${typeColorClass(ev.eventType)}`;
   document.getElementById("detailType").style.display = ev.eventType ? "inline-block" : "none";
-  document.getElementById("detailTown").textContent = ev.town || "";
-  document.getElementById("detailTown").className = `town-tag ${townTagClass(ev.town)}`;
-  document.getElementById("detailTown").style.display = ev.town ? "inline-block" : "none";
+  const detailTowns = document.getElementById("detailTowns");
+  detailTowns.innerHTML = "";
+  // Usually just the one (home) town, but a rivalry game like "Marceline
+  // vs. Brookfield" gets a tag for each town named in the title -- see
+  // extractExtraTowns().
+  for (const town of [ev.town, ...(ev.extraTowns || [])]) {
+    if (!town) continue;
+    const tag = document.createElement("span");
+    tag.className = `town-tag ${townTagClass(town)}`;
+    tag.textContent = town;
+    detailTowns.appendChild(tag);
+  }
   document.getElementById("detailDescription").textContent = ev.description || "";
   document.getElementById("detailDescription").style.display = ev.description ? "block" : "none";
   document.getElementById("detailBackdrop").classList.add("open");
@@ -808,10 +841,14 @@ function renderListView(year, month, todayKey) {
         type.textContent = ev.eventType;
         main.appendChild(type);
       }
-      if (ev.town) {
+      // Usually just the one (home) town, but a rivalry game like
+      // "Marceline vs. Brookfield" gets a tag for each town named in the
+      // title too -- see extractExtraTowns().
+      for (const town of [ev.town, ...(ev.extraTowns || [])]) {
+        if (!town) continue;
         const townTag = document.createElement("div");
-        townTag.className = `town-tag ${townTagClass(ev.town)}`;
-        townTag.textContent = ev.town;
+        townTag.className = `town-tag ${townTagClass(town)}`;
+        townTag.textContent = town;
         main.appendChild(townTag);
       }
       row.appendChild(main);
