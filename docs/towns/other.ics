@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:JV/V Softball @ Salisbury
 DTSTART:20260921T220000Z
 DTEND:20260922T000000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:19046918-2026-09-21-500@linn-county-scraper.local
 LOCATION:Salisbury\, MO
 X-EVENT-TYPE:Sports
@@ -19,7 +19,7 @@ BEGIN:VEVENT
 SUMMARY:Girls Golf - Salisbury Invitational
 DTSTART:20260922T140000Z
 DTEND:20260922T150000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:18990317-2026-09-22-900@linn-county-scraper.local
 LOCATION:Salisbury Municipal Golf | Salisbury\, MO
 X-EVENT-TYPE:Sports
@@ -28,7 +28,7 @@ BEGIN:VEVENT
 SUMMARY:HS XC @ Robert Kelsay Invite
 DTSTART:20261019T210000Z
 DTEND:20261019T220000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:19087310-2026-10-19-400@linn-county-scraper.local
 LOCATION:Salisbury\, MO
 X-EVENT-TYPE:Sports
@@ -37,7 +37,7 @@ BEGIN:VEVENT
 SUMMARY:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.
 DTSTART:20270721T230000Z
 DTEND:20270722T000000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2027-07-21-piecemakers-quilt-guild-meets-every-3rd-tue
  sday-at-6-p-m-2027-07-21-600@linn-county-scraper.local
 DESCRIPTION:Piecemakers Quilt Guild meets every 3rd Tuesday at 6 p.m.\, at
@@ -49,7 +49,7 @@ BEGIN:VEVENT
 SUMMARY:Primary Election
 DTSTART;VALUE=DATE:20260804
 DTEND;VALUE=DATE:20260805
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
  nty-scraper.local
 DESCRIPTION:Primary Election.
@@ -59,7 +59,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming
 DTSTART;VALUE=DATE:20260805
 DTEND;VALUE=DATE:20260806
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-08-05-92nd-bevier-homecoming-2026-08-05-allday@li
  nn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -70,7 +70,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming
 DTSTART;VALUE=DATE:20260806
 DTEND;VALUE=DATE:20260807
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-08-06-92nd-bevier-homecoming-2026-08-06-allday@li
  nn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -81,7 +81,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming
 DTSTART;VALUE=DATE:20260807
 DTEND;VALUE=DATE:20260808
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-08-07-92nd-bevier-homecoming-2026-08-07-allday@li
  nn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -92,7 +92,7 @@ BEGIN:VEVENT
 SUMMARY:92nd Bevier Homecoming
 DTSTART;VALUE=DATE:20260808
 DTEND;VALUE=DATE:20260809
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-08-08-92nd-bevier-homecoming-2026-08-08-allday@li
  nn-county-scraper.local
 DESCRIPTION:92nd Bevier Homecoming. Carnival rides\, food vendors\, live m
@@ -103,7 +103,7 @@ BEGIN:VEVENT
 SUMMARY:General Election
 DTSTART;VALUE=DATE:20261103
 DTEND;VALUE=DATE:20261104
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
  nty-scraper.local
 DESCRIPTION:General Election.
@@ -113,7 +113,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20261003T150000Z
 DTEND:20261003T160000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:teterauction-2026-10-03-real-estate-personal-property-auction-chillico
  the-2026-10-03-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -124,7 +124,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20261010T150000Z
 DTEND:20261010T160000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:teterauction-2026-10-10-final-liquidation-auction-chillicothe-2026-10-
  10-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -135,7 +135,7 @@ BEGIN:VEVENT
 SUMMARY:No-Reserve Business Liquidation Auction
 DTSTART:20261017T150000Z
 DTEND:20261017T160000Z
-DTSTAMP:20260920T130635Z
+DTSTAMP:20260920T222432Z
 UID:teterauction-2026-10-17-no-reserve-business-liquidation-auction-chilli
  cothe-2026-10-17-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
