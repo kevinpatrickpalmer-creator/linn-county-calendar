@@ -51,10 +51,28 @@
     return new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`);
   }
 
+  // Mirrors extractTown()/extractExtraTowns() in calendar-view.html --
+  // LOCATION reads "District Name | Town, ST", and a title can also name
+  // a second county town on its own (an intra-county matchup, now that
+  // sports titles spell out both teams, e.g. "Softball: Linn County R-I
+  // at Meadville" where Meadville is itself one of the 8 towns). Kept in
+  // sync by hand with the same fields calendar-view.html reads.
+  function extractTown(location, state, towns) {
+    if (!location) return "";
+    const lastSegment = location.split("|").pop().trim();
+    const m = lastSegment.match(new RegExp(`([A-Za-z .]+?),\\s*${state}\\b`));
+    const town = m ? m[1].trim() : "";
+    return town && towns.includes(town) ? town : "";
+  }
+  function extractExtraTowns(summary, primaryTown, towns) {
+    if (!summary) return [];
+    return towns.filter((town) => town !== primaryTown && new RegExp(`\\b${town}\\b`, "i").test(summary));
+  }
+
   // Trimmed down from calendar-view.html's parseICS -- this ticker only
-  // needs SUMMARY and DTSTART, not the town/category machinery the full
-  // calendar view uses for filtering.
-  function parseUpcomingEvents(raw) {
+  // needs SUMMARY, LOCATION, and DTSTART, not the category machinery
+  // the full calendar view uses for filtering.
+  function parseUpcomingEvents(raw, state, towns) {
     const unfolded = raw.replace(/\r\n[ \t]/g, "").replace(/\n[ \t]/g, "");
     const lines = unfolded.split(/\r?\n/);
     const events = [];
@@ -74,7 +92,12 @@
       const key = rawKey.split(";")[0];
       const isDateOnly = rawKey.includes("VALUE=DATE");
       if (key === "SUMMARY") current.summary = unescapeText(value);
+      if (key === "LOCATION") current.location = unescapeText(value);
       if (key === "DTSTART") { current.start = parseICSDate(value, isDateOnly); current.allDay = isDateOnly; }
+    }
+    for (const ev of events) {
+      const town = extractTown(ev.location, state, towns);
+      ev.towns = [town, ...extractExtraTowns(ev.summary, town, towns)].filter(Boolean);
     }
     const now = new Date();
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -142,13 +165,15 @@
     const items = [];
 
     if (icsText) {
-      for (const ev of parseUpcomingEvents(icsText)) {
+      const towns = config.towns || [];
+      for (const ev of parseUpcomingEvents(icsText, config.state, towns)) {
+        const when = eventWhen(ev.start);
         items.push({
           dotVar: "--sec-calendar",
           label: "Calendar",
           href: "calendar-view.html",
           text: truncate(ev.summary, 70),
-          meta: eventWhen(ev.start),
+          meta: ev.towns.length ? `${when} · ${ev.towns.join(" & ")}` : when,
           sortDate: ev.start,
         });
       }

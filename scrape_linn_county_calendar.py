@@ -894,13 +894,24 @@ def get_mshsaa_school_events(school_id, district, town):
             time_match = TIME_RE.search(time_lines[0])
             first_time = time_match.group(0) if time_match else ""
 
-        symbol = {"Home": "vs", "Away": "@"}.get(home_away, "")
-        if sport_short and symbol:
-            name = f"{sport_short} {symbol} {opponent}"
-        elif sport_short:
-            name = f"{sport_short}: {opponent}"
+        # Kevin's catch, Sept 2026: "Softball @ Meadville" only names the
+        # opponent -- MSHSAA's own schedule page never says which of our
+        # county's own schools this is, that's implicit in whose schedule
+        # you're looking at. Spelling it out as "Visitor at Home" (the
+        # standard sports notation) fixes that without needing a separate
+        # town lookup: our_team already comes from this same school's own
+        # `district` (every entry in MSHSAA_SCHOOLS ends in " School
+        # District"), and the loser/winner-agnostic "at" makes clear which
+        # team is playing on whose turf.
+        our_team = re.sub(r"\s+School District$", "", district)
+        if home_away == "Home":
+            matchup = f"{opponent} at {our_team}"
+        elif home_away == "Away":
+            matchup = f"{our_team} at {opponent}"
         else:
-            name = opponent
+            matchup = f"{our_team} vs {opponent}"
+
+        name = f"{sport_short}: {matchup}" if sport_short else matchup
 
         description = "; ".join(filter(None, [home_away, ", ".join(time_lines)]))
 
@@ -1622,6 +1633,13 @@ def event_uid(ev):
     return f"{key}-{ev['date']}-{time_slug}@{CONFIG['uid_domain']}"
 
 
+# Shared with the CitySpark sports-dedup below (see main()) so both
+# places agree on what "sports-shaped" means instead of drifting apart.
+SPORTS_NAME_RE = re.compile(
+    r"\b(softball|baseball|football|basketball|volleyball|wrestling|swim(ming)?|\btrack\b|cross country|\bxc\b|tennis|cheer(leading)?|\bgolf\b|soccer|bell game)\b",
+    re.IGNORECASE,
+)
+
 # Order matters: the first pattern that matches wins, so put more
 # specific phrases ahead of general ones (e.g. "estate sale" is checked
 # before the bare word "sale" would ever get a chance to).
@@ -1642,7 +1660,7 @@ EVENT_TYPE_KEYWORDS = [
     # and "bell game" (an annual rivalry-football tradition here, not a
     # generic phrase) both found checking October -- see Sports' comment
     # above for why this list exists at all.
-    (re.compile(r"\b(softball|baseball|football|basketball|volleyball|wrestling|swim(ming)?|\btrack\b|cross country|\bxc\b|tennis|cheer(leading)?|\bgolf\b|soccer|bell game)\b", re.IGNORECASE), "Sports"),
+    (SPORTS_NAME_RE, "Sports"),
     (re.compile(r"\b(festival|\bfair\b|parade|derby|homecoming|railroad days|trapshoot|celebration|car show|hayride|oktober\s?fest)\b", re.IGNORECASE), "Festival / Fair"),
     (re.compile(r"\b(church|revival|vbs|bible study|worship|ministerial alliance)\b", re.IGNORECASE), "Religious / Church"),
     (re.compile(r"\bchamber\b", re.IGNORECASE), "Business / Chamber"),
@@ -1940,12 +1958,29 @@ def main():
 
     # MSHSAA now covers every school district's games directly and far
     # more completely than CitySpark ever did (see MSHSAA_SCHOOLS above)
-    # -- drop CitySpark's own school-district-tagged entries so the same
-    # game doesn't show up twice, once from each source. CitySpark's
-    # other, non-school content for these towns (city council, trash
-    # collection, library, etc.) is untouched.
-    mshsaa_district_prefixes = tuple(f"{s['district']} |" for s in MSHSAA_SCHOOLS)
-    events = [ev for ev in events if not ev["location"].startswith(mshsaa_district_prefixes)]
+    # -- drop CitySpark's own sports-shaped entries so the same game
+    # doesn't show up twice, once from each source. CitySpark's other,
+    # non-school content for these towns (city council, trash collection,
+    # library, etc.) is untouched.
+    #
+    # Kevin's catch, Sept 2026: CitySpark's own sports titles (e.g. "JV/V
+    # Softball @ Salisbury") only ever name the opponent, never which of
+    # our county's schools is playing -- unlike get_mshsaa_school_events()
+    # above, CitySpark gives no structured home/away or district field to
+    # reconstruct that from, just one opaque title string. Rather than
+    # guess at fixing free text, this now prefers MSHSAA (the official
+    # source) for sports wholesale, matching by name rather than the old
+    # location-prefix check -- that check only caught a game if CitySpark
+    # happened to tag its location starting with "{district} |", which
+    # apparently Marceline's own entries never did, letting titles like
+    # the one above straight through. Trade-off worth knowing about: this
+    # also drops CitySpark's own "Bell Game" listing (an annual Marceline/
+    # Brookfield rivalry tradition) in favor of MSHSAA's plainer entry for
+    # the same game -- MSHSAA's now-fixed "Team A at Team B" formatting
+    # covers the "which two towns" info the Bell Game's special name used
+    # to carry, but if CitySpark's listing had its own extra detail (a
+    # pep rally, ticket info), that's no longer surfaced here.
+    events = [ev for ev in events if not SPORTS_NAME_RE.search(ev["name"])]
 
     brookfield_events = get_brookfield_city_events()
     record_health("City of Brookfield calendar", len(brookfield_events))
