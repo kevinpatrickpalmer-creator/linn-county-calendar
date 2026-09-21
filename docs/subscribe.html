@@ -57,6 +57,56 @@
     .hero { padding: 2rem 1.1rem 1.85rem; }
     .hero h1 { font-size: 1.6rem; }
   }
+
+  /* Shown right after someone taps Subscribe or Download, asking if they
+     also want email alerts -- replaces the old standing "Stay in the
+     loop by email" section, which nobody's actually mid-task when they
+     read it. Catching them right after they've just subscribed is the
+     one moment this is actually relevant. */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    z-index: 1000;
+  }
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 380px;
+    width: 100%;
+    position: relative;
+  }
+  .modal-box h3 { margin: 0 0 .6rem; }
+  .modal-box p { margin: 0; color: var(--ink-soft); }
+  .modal-close {
+    position: absolute;
+    top: .6rem;
+    right: .75rem;
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: .25rem;
+  }
+  .modal-close:hover { color: var(--ink); }
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin-top: 1.2rem;
+  }
+  /* .btn.secondary normally carries its own margin-top (theme.css), which
+     would stack on top of this flex row's own gap -- zeroed here so the
+     two buttons space out evenly instead of unevenly. */
+  .modal-actions .btn.secondary { margin-top: 0; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="qrcode.js"></script>
@@ -109,7 +159,7 @@
     </div>
     <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
 
-    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app. Before you do, you can also <a href="alerts.html">sign up for email reminders</a>, in case your phone's notifications don't come through.</p>
+    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app.</p>
 
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <p class="or-divider">OR</p>
@@ -127,12 +177,6 @@
     </details>
 
     <div id="shareSection"></div>
-  </section>
-
-  <section>
-    <h2>Stay in the loop by email</h2>
-    <p class="hint">A separate, optional option: get a reminder email the day before each event, or a weekly summary, instead of (or in addition to) subscribing to the calendar above.</p>
-    <a class="btn secondary" href="alerts.html">Set up email alerts &rarr;</a>
   </section>
 
   <div class="footer-link">
@@ -166,6 +210,18 @@
     <span class="powered-by">Powered by Hwy 36 Labs</span>
   </div>
 </main>
+
+<div class="modal-overlay" id="alertsModalOverlay" style="display:none;">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="alertsModalClose" aria-label="Close">&times;</button>
+    <h3>Want email alerts too?</h3>
+    <p>Calendar apps don't always send reminders. Get an email the day before events, or a weekly roundup, sent straight to your inbox.</p>
+    <div class="modal-actions">
+      <a class="btn" href="alerts.html">Yes, set up email alerts &rarr;</a>
+      <button type="button" class="btn secondary" id="alertsModalDismiss">No thanks</button>
+    </div>
+  </div>
+</div>
 
 <script>
 (async function () {
@@ -299,6 +355,33 @@
   includeSports.addEventListener("change", updateSubscribeLinks);
   includeObituaries.addEventListener("change", updateSubscribeLinks);
   updateSubscribeLinks();
+
+  // Ask about email alerts right after someone actually subscribes,
+  // instead of pitching it pre-emptively on the page -- neither
+  // webcal:// (an OS-level app handoff) nor a file download navigates
+  // away from this page, so the modal showing alongside either one is
+  // safe, nothing here blocks or delays the click's own default action.
+  const alertsModalOverlay = document.getElementById("alertsModalOverlay");
+  const alertsModalClose = document.getElementById("alertsModalClose");
+  const alertsModalDismiss = document.getElementById("alertsModalDismiss");
+
+  function showAlertsModal() {
+    alertsModalOverlay.style.display = "flex";
+  }
+  function hideAlertsModal() {
+    alertsModalOverlay.style.display = "none";
+  }
+
+  subscribeBtn.addEventListener("click", showAlertsModal);
+  downloadLink.addEventListener("click", showAlertsModal);
+  alertsModalClose.addEventListener("click", hideAlertsModal);
+  alertsModalDismiss.addEventListener("click", hideAlertsModal);
+  alertsModalOverlay.addEventListener("click", (e) => {
+    if (e.target === alertsModalOverlay) hideAlertsModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") hideAlertsModal();
+  });
 })();
 </script>
 </body>
