@@ -130,6 +130,26 @@
     margin: 0 0 1rem;
   }
 
+  /* Small pulsing dot next to the ticker's own heading -- same
+     live-pulse animation as the hero's visitor line (theme.css), a
+     quiet "this is live" cue instead of the literal scrolling-band
+     ticker Kevin pictured first; motion here, not on anything you
+     need to click reliably. */
+  .whats-happening .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45em;
+  }
+  .whats-happening .section-heading .live-dot {
+    width: .5em; height: .5em; border-radius: 50%; flex-shrink: 0;
+    background: var(--primary);
+    animation: live-pulse 1.8s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .whats-happening .section-heading .live-dot { animation: none; }
+  }
+
   /* What's Happening Now -- same card/grid language as .utility-grid
      (auto-fit columns, --sec-* dots) so it reads as part of the same
      system, just a lighter/denser row style since these are feed items,
@@ -203,7 +223,7 @@
 </div>
 <main class="wide">
   <section class="whats-happening" id="whatsHappening" style="display:none;">
-    <p class="section-heading">What's Happening Now</p>
+    <p class="section-heading"><span class="live-dot" aria-hidden="true"></span>What's Happening Now</p>
     <div class="wh-list" id="whList"></div>
   </section>
   <p class="section-heading">What do you need today?</p>
