@@ -300,6 +300,7 @@ const BOARD_LABELS = {
   notice: "Community Notice",
   volunteer: "Volunteer & Help Needed post",
   support: "Community Support post",
+  alert: "Local Alert",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -525,6 +526,27 @@ const BOARD_CONFIG = {
       ["phone", "email"].forEach(function (k) {
         if (f[k]) obj[k] = f[k];
       });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
+      return obj;
+    },
+  },
+  // The 12th board, more urgent than a Notice -- a water main break, a
+  // road closure, a boil water order, built with the expectation that a
+  // city or county department (not just a resident) is often the one
+  // posting (Kevin's framing, 2026-09-21: "imagine that the city's
+  // likely going to use this tool"). Same shape as "notice" (one-sided,
+  // no contact info collected, a broadcast not something to respond
+  // to) but its own board/directory/expiry -- alerts need to age off
+  // much faster than routine notices, see alert_expiry_days in
+  // docs/config.json.
+  alert: {
+    dir: "data/alerts",
+    requiredFields: ["category", "town", "message", "submitter_name"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.message).slice(0, 60) || "alert") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { category: f.category, town: f.town, message: f.message, submitter_name: f.submitter_name, posted: today };
       if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },

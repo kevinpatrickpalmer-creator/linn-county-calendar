@@ -47,6 +47,9 @@
     { label: "Community Support", href: "support.html", dot: "--sec-support", children: [
       { label: "Post to Community Support", href: "submit-support.html" },
     ] },
+    { label: "Local Alerts", href: "local-alerts.html", dot: "--sec-alerts", children: [
+      { label: "Post a Local Alert", href: "submit-alert.html" },
+    ] },
     { label: "Flyer", href: "flyer.html" },
     { label: "Big Idea Board", href: "big-ideas.html", dot: "--sec-ideas", children: [
       { label: "Submit Idea", href: "big-ideas.html#submitSection" },

@@ -1,0 +1,42 @@
+name: Update Local Alerts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/alerts/**"
+  workflow_dispatch: {}
+  # Alerts expire fast (see load_alerts() in build_alerts_directory.py,
+  # the shortest window on the site) -- this reruns the build more
+  # often than the other boards' daily schedule so a resolved alert
+  # doesn't linger, even during a lull with nothing new coming in.
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-alerts
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build docs/local-alerts.json
+        run: python build_alerts_directory.py
+
+      - name: Commit updated alerts file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/local-alerts.json
+          git diff --cached --quiet || git commit -m "Update Local Alerts"
+          git push

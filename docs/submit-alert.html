@@ -6,15 +6,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Ask the Community</title>
+<title>Post a Local Alert</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Ask the Community | Linn County">
-<meta property="og:description" content="Post a practical question and let your neighbors answer, free.">
+<meta property="og:title" content="Post a Local Alert | Linn County">
+<meta property="og:description" content="A road closure, an outage, a boil water order. Let people know right now, free.">
 <meta property="og:image" content="https://linncountylocal.com/og-image.png">
-<meta property="og:url" content="https://linncountylocal.com/submit-question.html">
+<meta property="og:url" content="https://linncountylocal.com/submit-alert.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ask the Community | Linn County">
-<meta name="twitter:description" content="Post a practical question and let your neighbors answer, free.">
+<meta name="twitter:title" content="Post a Local Alert | Linn County">
+<meta name="twitter:description" content="A road closure, an outage, a boil water order. Let people know right now, free.">
 <link rel="stylesheet" href="theme.css">
 <style>
   form { margin: 0; }
@@ -24,8 +24,6 @@
   .hp { position: absolute; left: -9999px; }
   .hint.err { color: var(--primary); font-weight: 600; }
 
-  /* Confirmation panel -- see docs/submit.html for why this replaces the
-     form entirely on success rather than just adding a status line. */
   .confirm-panel { text-align: center; }
   .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
   body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
@@ -46,16 +44,14 @@
 <main>
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>Ask the Community</h1>
-  <p class="sub" id="pageSub">Trying to find someone who fixes old sewing machines, wondering if anybody's up for a barbecue this weekend, or just don't know who to ask? Post it here, free, and your neighbors can answer, right on the page. A person reviews every question before it goes live.</p>
+  <h1>Post a Local Alert</h1>
+  <p class="sub" id="pageSub">A road closure, a water main break, a boil water order, a power outage, anything people need to know about right now. Post it here, free. A person reviews every alert before it goes live, usually fast.</p>
+  <p class="hint">Posting for the city, county, or a utility? Use your department's name below so people know it's official. A resident can post one too.</p>
 
-  <form id="qForm" class="card">
-    <label for="question">Your question *</label>
-    <textarea id="question" name="question" maxlength="500" required placeholder="e.g. Does anyone know someone who repairs old sewing machines?"></textarea>
-
-    <label for="category">What kind of question? (optional)</label>
-    <select id="category" name="category">
-      <option value="">Not sure, skip this</option>
+  <form id="aForm" class="card">
+    <label for="category">What kind of alert? *</label>
+    <select id="category" name="category" required>
+      <option value="" disabled selected>Select one</option>
     </select>
 
     <label for="town">Town *</label>
@@ -68,35 +64,40 @@
       <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
     </div>
 
+    <label for="message">What's happening? *</label>
+    <textarea id="message" name="message" maxlength="500" required placeholder="e.g. A boil water order is in effect for the north side of town due to a water main break on Kansas Ave. Boil tap water for at least one minute before drinking or cooking until further notice."></textarea>
+
     <label for="photo">Photos (optional, up to 3)</label>
     <input id="photo" name="photo" type="file" accept="image/*" multiple>
-    <p class="hint" id="photoHint">If a picture helps explain the question (what something is, what's broken), attach it here.</p>
+    <p class="hint" id="photoHint">A closure sign, actual conditions, whatever helps people understand it.</p>
 
-    <label for="submitter_name">Your name *</label>
-    <input id="submitter_name" name="submitter_name" type="text" maxlength="120" required placeholder="e.g. Jane S.">
-    <p class="hint">No phone or email here on purpose -- answers show up right on the page, so nobody needs to reach you privately just to help.</p>
+    <label for="submitter_name">Posted by *</label>
+    <input id="submitter_name" name="submitter_name" type="text" maxlength="120" required placeholder="e.g. City of Marceline, Marceline Water Department, or your name">
+    <p class="hint">No phone or email here on purpose -- this is something people should know, not something they need to write back about.</p>
+
+    <p class="hint" id="expiryHint"></p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
 
-    <button type="submit" id="submitBtn">Post question</button>
+    <button type="submit" id="submitBtn">Post alert</button>
     <div id="status" role="status"></div>
   </form>
 
   <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
     <p class="confirm-icon" aria-hidden="true">✅</p>
     <h2>Got it, thanks!</h2>
-    <p class="hint">A person reviews every question, usually live within 24 hours.</p>
+    <p class="hint">A person reviews every alert before it goes live, usually fast.</p>
     <div class="removal-code-box">
       <p class="removal-code-label">Your removal code -- screenshot this</p>
       <p class="removal-code" id="removalCode"></p>
-      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> if you don't need it posted anymore.</p>
+      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> as soon as it's resolved.</p>
     </div>
     <div id="shareSection"></div>
-    <button type="button" id="submitAnotherBtn" class="btn secondary">Ask another question</button>
+    <button type="button" id="submitAnotherBtn" class="btn secondary">Post another alert</button>
   </div>
 
-  <p class="hint" style="text-align:center;"><a href="ask-community.html">Browse Ask the Community &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="local-alerts.html">Browse Local Alerts &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
   <div class="site-credit">
@@ -107,15 +108,15 @@
 
 <script>
 (async function () {
-  // Matches submit-trading-post.html/submit-job.html/submit-clubs.html's
-  // own COUNTYWIDE_TOWN literal -- most questions aren't tied to one
-  // town at all ("does anyone know a good X"), so this belongs here too.
+  // Matches every other board's own COUNTYWIDE_TOWN literal.
   const COUNTYWIDE_TOWN = "All of Linn County";
 
   const config = await (await fetch("config.json")).json();
 
-  document.title = `Ask the Community | ${config.site_name}`;
+  document.title = `Post a Local Alert | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+  document.getElementById("expiryHint").textContent =
+    `Alerts come down automatically after ${config.alert_expiry_days || 5} days, or remove it yourself as soon as it's resolved.`;
 
   const townSelect = document.getElementById("town");
   const countywideOption = document.createElement("option");
@@ -142,14 +143,14 @@
   });
 
   const categorySelect = document.getElementById("category");
-  for (const category of config.question_categories || []) {
+  for (const category of config.alert_categories || []) {
     const option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     categorySelect.appendChild(option);
   }
 
-  const form = document.getElementById("qForm");
+  const form = document.getElementById("aForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const confirmPanel = document.getElementById("confirmPanel");
@@ -158,7 +159,7 @@
   submitAnotherBtn.addEventListener("click", () => {
     confirmPanel.hidden = true;
     form.hidden = false;
-    document.getElementById("question").focus();
+    document.getElementById("category").focus();
   });
 
   wirePhotoCap("photo", "photoHint");
@@ -173,20 +174,20 @@
 
     const data = new FormData(form);
 
-    const question = (data.get("question") || "").trim();
     const category = (data.get("category") || "").trim();
     const rawTown = (data.get("town") || "").trim();
     const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+    const message = (data.get("message") || "").trim();
     const submitterName = (data.get("submitter_name") || "").trim();
     const photos = await readPhotos("photo");
 
     try {
       const payload = {
         action: "submitBoard",
-        board: "question",
+        board: "alert",
         submitterName,
         botcheck: (data.get("botcheck") || "").toString(),
-        fields: { question, category, town, submitter_name: submitterName },
+        fields: { category, town, message, submitter_name: submitterName },
       };
       if (photos.length) payload.photos = photos;
       const res = await fetch(config.apps_script_api_url, {
@@ -203,20 +204,20 @@
         confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         confirmPanel.focus();
         renderShareRow(document.getElementById("shareSection"), {
-          url: `https://${config.domain}/ask-community.html`,
-          text: "Trying to find someone who fixes old sewing machines, or just don't know who to ask? Post a question and let your neighbors answer.",
-          subject: "Ask the Community",
-          label: "This only works if people know it's here. Share Ask the Community:",
+          url: `https://${config.domain}/local-alerts.html`,
+          text: "A road closure, an outage, a boil water order. Local Alerts, free.",
+          subject: "Local Alerts",
+          label: "This only works if people know it's here. Share Local Alerts:",
         });
       } else {
         throw new Error(result.error || "Submission failed");
       }
     } catch (err) {
-      statusEl.textContent = "Something went wrong posting your question. Please try again in a moment.";
+      statusEl.textContent = "Something went wrong posting your alert. Please try again in a moment.";
       statusEl.className = "err";
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Post question";
+      submitBtn.textContent = "Post alert";
     }
   });
 })();

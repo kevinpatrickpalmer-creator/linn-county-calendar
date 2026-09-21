@@ -59,8 +59,12 @@
      these dots can't drift out of sync with each other (Kevin's ask,
      2026-09-21: nav and homepage dots "should match"). Flyer/Contact
      aren't core content sections and don't get one, on purpose -- the
-     dots double as a quiet visual cue for "this is one of the 11 real
-     sections" vs. a utility link. */
+     dots double as a quiet visual cue for "this is one of the 12 real
+     sections" vs. a utility link. --sec-alerts intentionally matches
+     --cat-red exactly (not its own hue) so the nav dot, the homepage
+     card dot, and docs/local-alerts.html's own red-tinted card all
+     read as the same "this one's urgent" signal, not three unrelated
+     colors that happen to be red-ish. */
   --sec-calendar: #7bb0f7;
   --sec-directory: #5fb0a8;
   --sec-trading-post: #8bc16c;
@@ -69,6 +73,7 @@
   --sec-volunteer: #e0788f;
   --sec-support: #d888c9;
   --sec-clubs: #b39ddb;
+  --sec-alerts: #f2867c;
   --sec-ask: #6fc3d9;
   --sec-notices: #9aa5c9;
   --sec-ideas: #c9d95a;
