@@ -143,6 +143,9 @@ function doGet(e) {
   if (action === "list") {
     return jsonResponse(listIdeas(e.parameter.voterId || ""));
   }
+  if (action === "calendar") {
+    return icsResponse(buildFilteredCalendar(e.parameter.towns || "", e.parameter.types || ""));
+  }
   return jsonResponse({ error: "Unknown action" });
 }
 
@@ -958,4 +961,92 @@ function castVote(body) {
 
 function jsonResponse(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function icsResponse(text) {
+  return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.ICAL);
+}
+
+// Same 8 towns as config.json's "towns" list -- Apps Script has no
+// access to that file directly (it's a GitHub Pages static file, not
+// something this script reads), so this is kept in sync by hand. Only
+// used to recognize a known town vs. bucket an event into "Other",
+// exactly like calendar-view.html's own extractTown().
+const CALENDAR_TOWNS = ["Brookfield", "Browning", "Bucklin", "Laclede", "Linneus", "Marceline", "Meadville", "Purdin"];
+
+// Mirrors extractTown() in docs/calendar-view.html and
+// docs/whats-happening.js -- LOCATION reads "District Name | Town, ST"
+// (or just "Town, ST"), take the last "|"-segment so a venue name that
+// happens to contain another town's name doesn't get misread. The raw
+// ICS text escapes that comma as "\," (RFC 5545, commas are list
+// separators), which breaks the town regex below if left as-is -- e.g.
+// "Marceline\, MO" never matches "Marceline, MO" -- so it's unescaped
+// first, same as calendar-view.html/whats-happening.js's own
+// unescapeText() already does for SUMMARY/LOCATION.
+function extractEventTown(rawLocation) {
+  if (!rawLocation) return "Other";
+  const location = rawLocation.replace(/\\,/g, ",").replace(/\\;/g, ";").replace(/\\\\/g, "\\");
+  const lastSegment = location.split("|").pop().trim();
+  const m = lastSegment.match(new RegExp("([A-Za-z .]+?),\\s*" + SITE_STATE + "\\b"));
+  const town = m ? m[1].trim() : null;
+  if (!town || CALENDAR_TOWNS.indexOf(town) === -1) return "Other";
+  return town;
+}
+
+// Subscribing to "every combination of the 12 event types x 9 towns"
+// can't be pre-built as static files ahead of time (thousands of
+// combinations) the way the single-type and per-town files already on
+// docs/towns/ are -- see scrape_linn_county_calendar.py's
+// _write_type_variant_ics_files() docstring for that math. This does
+// the equivalent filtering live, per request, against whatever the
+// scraper last published at linn_county_events.ics, so
+// docs/subscribe.html can offer real multi-select checkboxes for both
+// towns and types (Kevin's request, Sept 2026) instead of the old
+// one-town/one-type-at-a-time static files.
+//
+// Deliberately just text-block filtering, not a real iCal parser --
+// every VEVENT block already exists exactly as build_calendar() wrote
+// it, this only needs to keep or drop whole blocks based on their own
+// LOCATION/X-EVENT-TYPE lines, never rewrite one. A LOCATION value long
+// enough to hit RFC 5545's 75-octet line-folding isn't expected here
+// (checked against real data when this was built), so folded
+// continuation lines aren't unfolded first -- same simplification
+// whats-happening.js's own trimmed-down ICS reader already makes.
+function buildFilteredCalendar(townsParam, typesParam) {
+  const selectedTowns = townsParam ? townsParam.split(",").filter(Boolean) : [];
+  const selectedTypes = typesParam ? typesParam.split(",").filter(Boolean) : [];
+
+  const resp = UrlFetchApp.fetch(`${SITE_URL}/linn_county_events.ics`, { muteHttpExceptions: true });
+  const raw = resp.getContentText();
+
+  const firstBegin = raw.indexOf("BEGIN:VEVENT");
+  const lastEnd = raw.lastIndexOf("END:VEVENT") + "END:VEVENT".length;
+  if (firstBegin === -1 || lastEnd === -1) return raw; // unexpected shape -- fail open with the unfiltered feed
+
+  const header = raw.slice(0, firstBegin);
+  const footer = raw.slice(lastEnd);
+  const blocks = raw.slice(firstBegin, lastEnd).split("BEGIN:VEVENT").slice(1);
+
+  const kept = [];
+  for (const block of blocks) {
+    if (selectedTowns.length) {
+      const locationMatch = block.match(/LOCATION:([^\r\n]+)/);
+      const town = extractEventTown(locationMatch ? locationMatch[1] : "");
+      if (selectedTowns.indexOf(town) === -1) continue;
+    }
+    if (selectedTypes.length) {
+      const typeMatch = block.match(/X-EVENT-TYPE:([^\r\n]+)/);
+      const eventType = typeMatch ? typeMatch[1].trim() : "";
+      if (selectedTypes.indexOf(eventType) === -1) continue;
+    }
+    kept.push("BEGIN:VEVENT" + block);
+  }
+
+  const nameParts = [];
+  if (selectedTowns.length) nameParts.push(selectedTowns.join(", "));
+  if (selectedTypes.length) nameParts.push(selectedTypes.join(", "));
+  const calname = "Linn County Community Calendar" + (nameParts.length ? " (" + nameParts.join(" · ") + ")" : "");
+  const newHeader = header.replace(/X-WR-CALNAME:[^\r\n]*/, "X-WR-CALNAME:" + calname);
+
+  return newHeader + kept.join("") + footer;
 }

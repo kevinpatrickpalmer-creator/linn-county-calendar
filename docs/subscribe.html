@@ -132,28 +132,13 @@
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
 
-    <label for="subscribeTown">Which town?</label>
-    <select id="subscribeTown">
-      <option value="">Whole county (all towns)</option>
-    </select>
+    <label>Which towns?</label>
+    <p class="hint">Leave all unchecked to get every town's events.</p>
+    <div id="townCheckboxes"></div>
 
-    <label for="subscribeType">Which type of events?</label>
-    <select id="subscribeType">
-      <option value="">Every type</option>
-    </select>
-
-    <div id="includeCategories">
-      <label>Include:</label>
-      <div class="checkbox-row">
-        <input type="checkbox" id="includeSports" checked>
-        <label for="includeSports">School sports games</label>
-      </div>
-      <div class="checkbox-row">
-        <input type="checkbox" id="includeObituaries" checked>
-        <label for="includeObituaries">Obituaries</label>
-      </div>
-    </div>
-    <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
+    <label>Which types of events?</label>
+    <p class="hint">Leave all unchecked to get every type of event.</p>
+    <div id="typeCheckboxes"></div>
 
     <!-- Which of these two shows is decided by screen width on load (see
          the script below, same breakpoint the old .qr-callout used to
@@ -285,86 +270,65 @@
     subject: config.calendar_title,
   });
 
-  // Matches the slug write_town_ics_files() uses in
-  // scrape_linn_county_calendar.py (re.sub(r"[^a-z0-9]+", "-", ...)).
-  function townSlug(town) {
-    return town.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  }
-
-  // Matches _type_slug() in scrape_linn_county_calendar.py exactly.
-  function typeSlug(type) {
-    return type.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  }
-
   const subscribeBtn = document.getElementById("subscribeBtn");
   const downloadLink = document.getElementById("downloadLink");
-  const subscribeTown = document.getElementById("subscribeTown");
-  const subscribeType = document.getElementById("subscribeType");
   const unsubscribeHint = document.getElementById("unsubscribeHint");
-  const includeSports = document.getElementById("includeSports");
-  const includeObituaries = document.getElementById("includeObituaries");
-  const includeCategories = document.getElementById("includeCategories");
-  const typeOverrideHint = document.getElementById("typeOverrideHint");
 
-  // Order matters here -- it has to match FILTERABLE_CATEGORIES in
-  // scrape_linn_county_calendar.py, since that's the order
-  // _write_category_variant_ics_files() builds each "-no-<category>"
-  // filename suffix in.
-  function categorySuffix() {
-    const excluded = [];
-    if (!includeSports.checked) excluded.push("sports");
-    if (!includeObituaries.checked) excluded.push("obituary");
-    return excluded.map((c) => `-no-${c}`).join("");
+  // Real multi-select (tick any combination of towns and/or types)
+  // isn't something pre-built static files can offer -- see
+  // buildFilteredCalendar()'s own comment in apps-script/big-ideas.gs
+  // for the combinatorics -- so these two checkbox lists (same pattern
+  // already used on docs/alerts.html) feed a live Apps Script endpoint
+  // that filters the published calendar on request instead of one of
+  // the old one-town/one-type-at-a-time static files. Kevin's request,
+  // Sept 2026: he wanted a scannable tick-list, not a dropdown limited
+  // to picking one thing at a time.
+  const townCheckboxes = document.getElementById("townCheckboxes");
+  for (const town of [...config.towns, "Other"]) {
+    const row = document.createElement("div");
+    row.className = "checkbox-row";
+    const id = `sub-town-${town.toLowerCase()}`;
+    const displayLabel = town === "Other" ? "Other (outside the 8 towns)" : town;
+    row.innerHTML = `<input type="checkbox" class="sub-town-checkbox" id="${id}" value="${town}">
+      <label for="${id}">${displayLabel}</label>`;
+    townCheckboxes.appendChild(row);
   }
 
-  // A specific type already fully determines whether sports/obituaries
-  // are in it, so the two choices are mutually exclusive -- picking a
-  // type hides (rather than combines with) the sports/obituary
-  // checkboxes, since crossing every town x category-combo x type would
-  // explode into hundreds of extra pre-built files. See
-  // _write_type_variant_ics_files()'s docstring for the full reasoning.
-  function syncTypeOverride() {
-    const hasType = !!subscribeType.value;
-    includeCategories.style.display = hasType ? "none" : "";
-    typeOverrideHint.style.display = hasType ? "block" : "none";
+  const typeCheckboxes = document.getElementById("typeCheckboxes");
+  for (const type of config.event_types) {
+    const row = document.createElement("div");
+    row.className = "checkbox-row";
+    const id = `sub-type-${type.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    row.innerHTML = `<input type="checkbox" class="sub-type-checkbox" id="${id}" value="${type}">
+      <label for="${id}">${type}</label>`;
+    typeCheckboxes.appendChild(row);
+  }
+
+  function checkedValues(selector) {
+    return Array.from(document.querySelectorAll(selector)).map((el) => el.value);
   }
 
   function updateSubscribeLinks() {
-    const town = subscribeTown.value;
-    const type = subscribeType.value;
-    const suffix = type ? `-type-${typeSlug(type)}` : categorySuffix();
-    const icsPath = town ? `towns/${townSlug(town)}${suffix}.ics` : `linn_county_events${suffix}.ics`;
-    const calNameBase = town ? `${town} Events (${config.calendar_title})` : config.calendar_title;
-    const calName = type ? `${calNameBase} (${type})` : calNameBase;
-    subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
-    downloadLink.href = icsPath;
+    const towns = checkedValues(".sub-town-checkbox:checked");
+    const types = checkedValues(".sub-type-checkbox:checked");
+    const params = new URLSearchParams({ action: "calendar" });
+    if (towns.length) params.set("towns", towns.join(","));
+    if (types.length) params.set("types", types.join(","));
+    const feedUrl = `${config.apps_script_api_url}?${params.toString()}`;
+
+    subscribeBtn.href = feedUrl.replace(/^https:\/\//, "webcal://");
+    downloadLink.href = feedUrl;
+
+    const nameParts = [];
+    if (towns.length) nameParts.push(towns.join(", "));
+    if (types.length) nameParts.push(types.join(", "));
+    const calName = config.calendar_title + (nameParts.length ? ` (${nameParts.join(" · ")})` : "");
     unsubscribeHint.textContent = `To stop, remove "${calName}" from your calendar app.`;
   }
 
-  for (const town of config.towns) {
-    const opt = document.createElement("option");
-    opt.value = town;
-    opt.textContent = town;
-    subscribeTown.appendChild(opt);
-  }
-  // Events outside the county's 8 incorporated towns (a neighboring
-  // town, an unincorporated place, a lake) all land in this bucket --
-  // see town_or_other() in calendar_config.py and the matching
-  // docs/towns/other.ics write_town_ics_files() generates.
-  const otherSubscribeOpt = document.createElement("option");
-  otherSubscribeOpt.value = "Other";
-  otherSubscribeOpt.textContent = "Other (outside the 8 towns)";
-  subscribeTown.appendChild(otherSubscribeOpt);
-  for (const type of config.event_types) {
-    const opt = document.createElement("option");
-    opt.value = type;
-    opt.textContent = type;
-    subscribeType.appendChild(opt);
-  }
-  subscribeTown.addEventListener("change", updateSubscribeLinks);
-  subscribeType.addEventListener("change", () => { syncTypeOverride(); updateSubscribeLinks(); });
-  includeSports.addEventListener("change", updateSubscribeLinks);
-  includeObituaries.addEventListener("change", updateSubscribeLinks);
+  document.querySelectorAll(".sub-town-checkbox, .sub-type-checkbox").forEach((el) => {
+    el.addEventListener("change", updateSubscribeLinks);
+  });
   updateSubscribeLinks();
 
   // Ask about email alerts right after someone actually subscribes,
