@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Community Notices</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Community Notices | Linn County">
+<meta property="og:description" content="Closures, schedule changes, and things people around here should know.">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/notices.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Community Notices | Linn County">
+<meta name="twitter:description" content="Closures, schedule changes, and things people around here should know.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+  .dir-controls input[type="search"] { flex: 1 1 12rem; margin: 0; }
+  .ms-filter { position: relative; }
+  .ms-btn {
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: .68rem .9rem;
+    font-size: .9rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ms-btn.active { border-color: var(--primary); color: var(--primary); }
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + .3rem);
+    left: 0;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: .6rem;
+    min-width: 13rem;
+    max-height: 16rem;
+    overflow-y: auto;
+  }
+  .ms-panel.hidden { display: none; }
+  .ms-panel label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .25rem 0; white-space: nowrap; color: var(--ink);
+    font-weight: 400; margin: 0;
+  }
+  .ms-panel input[type="checkbox"] { accent-color: var(--primary); }
+  .ms-panel .ms-clear {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: var(--primary); font-size: .8rem; font-weight: 600; cursor: pointer;
+    padding: 0 0 .4rem; margin-bottom: .3rem; border-bottom: 1px solid var(--surface-border);
+    font-family: var(--font-body);
+  }
+  #resultsCount { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .75rem; }
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .biz-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .biz-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface-border);
+    display: block;
+    margin-bottom: .2rem;
+  }
+  .example-card { border-style: dashed; border-color: var(--primary); }
+  .example-ribbon {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--primary-tint);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.35; }
+  .biz-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    align-self: flex-start;
+    background: rgba(255,255,255,.08);
+    border: 1px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .35rem .85rem .35rem .6rem;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .biz-tag .biz-tag-emoji { font-size: 1.2em; }
+  .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
+  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
+
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  body.themed .hero p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<script src="share.js" data-text="A closure, a schedule change, something people around here should know. Community Notices, free."></script>
+<script src="lightbox.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Community Notices</h1>
+    <p class="sub" id="pageSub">A closure, a schedule change, something people around here should know but isn't really an event.</p>
+    <p class="sub" style="font-style:italic;">Knowing what's changed is half of staying close-knit.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<main class="wide">
+  <a class="icon-cta" href="submit-notice.html"><span class="icon-cta-icon" aria-hidden="true">📌</span> Post a Notice, free</a>
+  <p class="callout">A closure, hours changing, something short-lived people should know. Not a scheduled event, that's what the <a href="calendar-view.html">calendar</a> is for.</p>
+
+  <div class="dir-controls">
+    <input type="search" id="searchInput" placeholder="Search notices">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
+      <div class="ms-panel hidden" id="townFilterPanel">
+        <button type="button" class="ms-clear" data-filter="town">Show all towns</button>
+        <div id="townCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="categoryFilterBtn">Category: All</button>
+      <div class="ms-panel hidden" id="categoryFilterPanel">
+        <button type="button" class="ms-clear" data-filter="category">Show all categories</button>
+        <div id="categoryCheckList"></div>
+      </div>
+    </div>
+  </div>
+
+  <p id="resultsCount"></p>
+  <div id="dirStatus">Loading notices...</div>
+  <div id="dirGrid"></div>
+  <div id="dirEmpty">No notices match your search yet. Try clearing a filter, or <a href="submit-notice.html">be the first to post &rarr;</a></div>
+
+  <div class="footer-link">
+    <a href="submit-notice.html">Post a Notice &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="remove-listing.html?board=notice">Remove your own notice &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="index.html">Back to Linn County Local &rarr;</a>
+  </div>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by Hwy 36 Labs</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  let config = {};
+  let notices = [];
+
+  const selectedTowns = new Set();
+  const selectedCategories = new Set();
+
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
+  const CATEGORY_EMOJI = {
+    "Hours & Closures": "🔒",
+    "Schedule Change": "🔁",
+    "Public Notice": "📣",
+    "Other": "📌",
+  };
+
+  const SEARCH_STOPWORDS = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
+    "we", "us", "me", "my", "mine", "our", "who", "what", "where", "when", "why", "how",
+    "can", "could", "would", "should", "will", "please", "near", "nearby", "around",
+    "in", "at", "on", "to", "of", "with", "local", "some", "any", "good", "will", "be",
+  ]);
+
+  function searchTokens(query) {
+    return query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOPWORDS.has(word));
+  }
+
+  function matchesSearch(n, tokens, matchAny) {
+    if (!tokens.length) return true;
+    const haystack = `${n.message} ${n.category || ""} ${n.town || ""} ${n.submitter_name || ""}`.toLowerCase();
+    const tokenMatches = (token) => haystack.includes(token);
+    return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
+
+  function daysAgo(dateStr) {
+    if (!dateStr) return "";
+    const posted = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(posted)) return "";
+    const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+    if (days <= 0) return "Posted today";
+    if (days === 1) return "Posted yesterday";
+    if (days < 14) return `Posted ${days} days ago`;
+    return `Posted ${Math.floor(days / 7)} weeks ago`;
+  }
+
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange, optionLabel }) {
+    const btn = document.getElementById(btnId);
+    const panel = document.getElementById(panelId);
+    const list = document.getElementById(listId);
+
+    function updateBtnLabel() {
+      if (selectedSet.size === 0) {
+        btn.textContent = `${label}: All`;
+        btn.classList.remove("active");
+      } else if (selectedSet.size === 1) {
+        btn.textContent = `${label}: ${optionLabel ? optionLabel([...selectedSet][0]) : [...selectedSet][0]}`;
+        btn.classList.add("active");
+      } else {
+        btn.textContent = `${label}: ${selectedSet.size} selected`;
+        btn.classList.add("active");
+      }
+    }
+
+    for (const opt of options) {
+      const row = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = opt;
+      cb.addEventListener("change", () => {
+        if (cb.checked) selectedSet.add(opt);
+        else selectedSet.delete(opt);
+        updateBtnLabel();
+        onChange();
+      });
+      row.appendChild(cb);
+      row.appendChild(document.createTextNode(" " + (optionLabel ? optionLabel(opt) : opt)));
+      list.appendChild(row);
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasHidden = panel.classList.contains("hidden");
+      document.querySelectorAll(".ms-panel").forEach((p) => p.classList.add("hidden"));
+      if (wasHidden) panel.classList.remove("hidden");
+    });
+
+    panel.querySelector(".ms-clear").addEventListener("click", () => {
+      selectedSet.clear();
+      list.querySelectorAll("input[type=checkbox]").forEach((cb) => { cb.checked = false; });
+      updateBtnLabel();
+      onChange();
+    });
+
+    return { updateLabel: updateBtnLabel };
+  }
+
+  let categoryFilterControls = null;
+
+  function filterToCategory(category) {
+    selectedCategories.clear();
+    selectedCategories.add(category);
+    document.querySelectorAll("#categoryCheckList input[type=checkbox]").forEach((cb) => {
+      cb.checked = cb.value === category;
+    });
+    if (categoryFilterControls) categoryFilterControls.updateLabel();
+    render();
+    document.querySelector(".dir-controls").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".ms-panel").forEach((panel) => {
+      if (!panel.classList.contains("hidden") && !panel.parentElement.contains(e.target)) {
+        panel.classList.add("hidden");
+      }
+    });
+  });
+
+  function buildCard(n) {
+    const card = document.createElement("div");
+    card.className = "biz-card";
+
+    if (n.example) {
+      card.classList.add("example-card");
+      const ribbon = document.createElement("div");
+      ribbon.className = "example-ribbon";
+      ribbon.textContent = "Example";
+      card.appendChild(ribbon);
+    }
+
+    renderPhotoStrip(card, n);
+
+    const cat = n.category || "Other";
+    const tag = document.createElement("button");
+    tag.type = "button";
+    tag.className = "biz-tag";
+    tag.title = `Show every notice tagged ${cat}`;
+    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📌"}</span> ${cat}`;
+    tag.addEventListener("click", () => filterToCategory(cat));
+    card.appendChild(tag);
+
+    const message = document.createElement("div");
+    message.className = "biz-name";
+    message.textContent = n.message;
+    card.appendChild(message);
+
+    const town = document.createElement("div");
+    town.className = "biz-town";
+    town.textContent = [`Posted by ${n.submitter_name}`, n.town].filter(Boolean).join(" · ");
+    card.appendChild(town);
+
+    const posted = n.example ? null : daysAgo(n.posted);
+    if (posted) {
+      const postedEl = document.createElement("div");
+      postedEl.className = "biz-posted";
+      postedEl.textContent = posted;
+      card.appendChild(postedEl);
+    }
+
+    return card;
+  }
+
+  function render() {
+    const container = document.getElementById("dirGrid");
+    const empty = document.getElementById("dirEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const tokens = searchTokens(document.getElementById("searchInput").value);
+
+    function applyFilters(matchAny) {
+      return notices.filter((n) => {
+        if (selectedTowns.size && n.town !== COUNTYWIDE_TOWN && !selectedTowns.has(n.town)) return false;
+        if (selectedCategories.size && !selectedCategories.has(n.category || "Other")) return false;
+        if (!matchesSearch(n, tokens, matchAny)) return false;
+        return true;
+      });
+    }
+
+    let filtered = applyFilters(false);
+    if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
+
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "dir-grid";
+    for (const n of filtered) {
+      grid.appendChild(buildCard(n));
+    }
+    container.appendChild(grid);
+
+    const realTotal = notices.filter((n) => !n.example).length;
+    const realFiltered = filtered.filter((n) => !n.example).length;
+    resultsCount.textContent = realTotal
+      ? `Showing ${realFiltered} of ${realTotal} notice${realTotal === 1 ? "" : "s"}`
+      : "";
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  try {
+    config = await (await fetch("config.json")).json();
+    document.title = `Community Notices | ${config.site_name}`;
+    document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+    categoryFilterControls = setupMultiSelectFilter({
+      btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
+      options: config.notice_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+    });
+  } catch (err) {
+    // Filters just won't populate; the page itself can still load below.
+  }
+
+  document.getElementById("searchInput").addEventListener("input", render);
+
+  try {
+    notices = await (await fetch("notices.json")).json();
+    document.getElementById("dirStatus").style.display = "none";
+    const realCount = notices.filter((n) => !n.example).length;
+    document.getElementById("statsLine").innerHTML =
+      `<span class="stat-seg">1 County ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Notice${realCount === 1 ? "" : "s"}</span>`;
+
+    const towns = [...new Set([...config.towns, ...notices.map((n) => n.town)])].sort();
+    setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+    });
+
+    render();
+  } catch (err) {
+    document.getElementById("dirStatus").textContent = "Couldn't load the notices. Please try refreshing.";
+    document.getElementById("dirStatus").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>

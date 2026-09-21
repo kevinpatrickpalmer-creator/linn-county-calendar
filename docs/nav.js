@@ -29,6 +29,9 @@
     { label: "Jobs Bulletin", href: "jobs.html", children: [
       { label: "Post to the Bulletin", href: "submit-job.html" },
     ] },
+    { label: "Volunteer & Help Needed", href: "volunteer.html", children: [
+      { label: "Post a Volunteer Need", href: "submit-volunteer.html" },
+    ] },
     { label: "Clubs & Classes", href: "clubs.html", children: [
       { label: "Post a Club or Class", href: "submit-clubs.html" },
     ] },
@@ -37,6 +40,9 @@
     ] },
     { label: "Ask the Community", href: "ask-community.html", children: [
       { label: "Ask a Question", href: "submit-question.html" },
+    ] },
+    { label: "Notices", href: "notices.html", children: [
+      { label: "Post a Notice", href: "submit-notice.html" },
     ] },
     { label: "Flyer", href: "flyer.html" },
     { label: "Big Idea Board", href: "big-ideas.html", children: [

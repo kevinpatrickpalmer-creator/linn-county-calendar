@@ -1,0 +1,42 @@
+name: Update Volunteer & Help Needed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/volunteer/**"
+  workflow_dispatch: {}
+  # Posts expire by age (see load_posts() in build_volunteer_directory.py),
+  # not just on a new submission -- this reruns the build daily so a
+  # post actually drops off the site once it's stale, even during a
+  # lull with nothing new coming in.
+  schedule:
+    - cron: "20 13 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-volunteer
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build docs/volunteer.json
+        run: python build_volunteer_directory.py
+
+      - name: Commit updated volunteer file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/volunteer.json
+          git diff --cached --quiet || git commit -m "Update Volunteer & Help Needed"
+          git push

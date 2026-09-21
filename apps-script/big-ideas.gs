@@ -297,6 +297,8 @@ const BOARD_LABELS = {
   club: "Clubs & Classes post",
   question: "Ask the Community question",
   answer: "Ask the Community answer",
+  notice: "Community Notice",
+  volunteer: "Volunteer & Help Needed post",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -462,6 +464,44 @@ const BOARD_CONFIG = {
       return { id: id, question_id: f.question_id, answer: f.answer, submitter_name: f.submitter_name, posted: today };
     },
   },
+  // Short-lived info, not a listing and not an event (see
+  // data/notices/README.md for the distinction from the calendar) --
+  // one-sided like Trading Post/Business, no phone/email collected at
+  // all, same reasoning as Ask the Community: nobody needs to privately
+  // reach the poster for a notice to do its job, it's just something
+  // people should know.
+  notice: {
+    dir: "data/notices",
+    requiredFields: ["town", "message", "submitter_name"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.message).slice(0, 60) || "notice") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { town: f.town, message: f.message, submitter_name: f.submitter_name, posted: today };
+      if (f.category) obj.category = f.category;
+      if (f.photos && f.photos.length) obj.photos = f.photos;
+      return obj;
+    },
+  },
+  // Two-sided like Jobs Bulletin (needed/offering), same shape, just
+  // volunteer time instead of paid work -- kept as its own board rather
+  // than folded into Jobs since browsing "paid work" and "volunteer
+  // opportunities" are different asks (Kevin's call, 2026-09-21).
+  volunteer: {
+    dir: "data/volunteer",
+    requiredFields: ["type", "name", "town", "description"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.name) || "post") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { type: f.type, name: f.name, town: f.town, posted: today };
+      ["category", "description", "phone", "email"].forEach(function (k) {
+        if (f[k]) obj[k] = f[k];
+      });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
+      return obj;
+    },
+  },
 };
 
 function submitBoardEntry(body) {
@@ -490,6 +530,9 @@ function submitBoardEntry(body) {
     return { success: false, error: "Invalid type." };
   }
   if (board === "club" && ["looking", "offering"].indexOf(fields.type) === -1) {
+    return { success: false, error: "Invalid type." };
+  }
+  if (board === "volunteer" && ["needed", "offering"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
 
