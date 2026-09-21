@@ -164,9 +164,8 @@
     <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     <p class="or-divider">OR</p>
     <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
-    <a class="btn secondary" href="calendar-view.html">View calendar online &rarr;</a>
-    <p class="hint">To check it worked, open your phone or computer's own calendar app. You should see events start showing up there within a minute or two. If nothing appears, make sure your calendar app finished adding the subscription (some ask you to confirm before it's actually added).</p>
-    <p class="hint">Not getting reminders? Subscribed calendars often don't have notifications turned on by default. Check your calendar app's alert settings for this calendar, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
+    <p class="hint">To check it worked, open your calendar app, events should show up within a minute or two.</p>
+    <p class="hint">Not getting reminders? Turn on notifications for this calendar in your app's settings, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
 
     <details>
@@ -326,8 +325,7 @@
     const calName = type ? `${calNameBase} (${type})` : calNameBase;
     subscribeBtn.href = `webcal://${config.domain}/${icsPath}`;
     downloadLink.href = icsPath;
-    unsubscribeHint.textContent =
-      `To stop getting these events, remove/unsubscribe from "${calName}" in your phone or computer's calendar app settings. That's done on your device, not here.`;
+    unsubscribeHint.textContent = `To stop, remove "${calName}" from your calendar app.`;
   }
 
   for (const town of config.towns) {
