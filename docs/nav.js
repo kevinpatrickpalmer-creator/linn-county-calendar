@@ -51,7 +51,7 @@
   style.textContent = `
     .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
+      min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
       background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
     }
     .site-brand {
@@ -68,11 +68,20 @@
       color: var(--ink, #1a1a1a); font-size: 1.3rem; line-height: 1; padding: 0;
     }
     /* No overflow-x:auto here above the breakpoint (the hamburger already
-       covers cases where the row doesn't fit) -- a CSS quirk makes
-       overflow-x:auto force overflow-y to auto too, which was silently
-       clipping the Business Directory submenu below to nothing. */
+       covers cases where the row doesn't fit below it) -- a CSS quirk
+       makes overflow-x:auto force overflow-y to auto too, which was
+       silently clipping the Business Directory submenu below to nothing.
+       Above the breakpoint, a row that still doesn't fit (more tabs than
+       a given screen has room for, even though it's wider than the
+       breakpoint) wraps onto a second line instead -- items were
+       silently overflowing past the edge of the screen with no way to
+       reach them at all once there were enough tabs to not fit even a
+       1280-1400px laptop window (Kevin's catch, 2026-09-21). The bar
+       itself has min-height, not a fixed height, so it grows to fit
+       either row count; JS below keeps the spacer in sync with however
+       tall that ends up being. */
     .site-nav {
-      display: flex; align-items: stretch; flex: 1; min-width: 0;
+      display: flex; align-items: stretch; flex-wrap: wrap; flex: 1; min-width: 0;
       scrollbar-width: none;
     }
     .site-nav::-webkit-scrollbar { display: none; }
@@ -86,7 +95,7 @@
        you're already on -- one accent color throughout, same blue used
        everywhere else on the site, not a different color per tab. */
     .site-nav a {
-      flex-shrink: 0; display: flex; align-items: center;
+      flex-shrink: 0; display: flex; align-items: center; min-height: ${NAV_HEIGHT};
       padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
       letter-spacing: .01em;
       font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -116,7 +125,10 @@
       .nav-toggle { display: flex; }
       .site-nav {
         display: none; position: fixed; top: ${NAV_HEIGHT}; left: 0; right: 0;
-        flex-direction: column; overflow-x: visible; overflow-y: auto;
+        /* flex-wrap:nowrap overrides the desktop row-wrap rule above --
+           without this, a column this tall wraps into a second column
+           instead of just scrolling, once it's taller than max-height. */
+        flex-direction: column; flex-wrap: nowrap; overflow-x: visible; overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         max-height: calc(100vh - ${NAV_HEIGHT});
         background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
@@ -245,6 +257,22 @@
 
   document.body.insertBefore(spacer, document.body.firstChild);
   document.body.insertBefore(bar, document.body.firstChild);
+
+  // The spacer's CSS height is just a same-as-NAV_HEIGHT fallback for
+  // before this runs -- once the bar can wrap onto a second row (see
+  // .site-nav's flex-wrap above), its real height varies with viewport
+  // width and how many tabs fit per row, so the spacer has to track it
+  // directly rather than assume one fixed number. ResizeObserver instead
+  // of a window resize listener because a wrap can also be triggered by
+  // things that change without the window itself resizing (a page's own
+  // fonts loading in, an aria-expanded submenu, browser zoom).
+  const syncSpacerHeight = () => { spacer.style.height = bar.offsetHeight + "px"; };
+  if (window.ResizeObserver) {
+    new ResizeObserver(syncSpacerHeight).observe(bar);
+  } else {
+    syncSpacerHeight();
+    window.addEventListener("resize", syncSpacerHeight);
+  }
 })();
 
 // Counts a visit once per browser (a localStorage flag, not a real
