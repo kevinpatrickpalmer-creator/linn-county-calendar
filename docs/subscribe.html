@@ -22,16 +22,88 @@
      with asides bolted on -- Kevin's catch, Sept 2026: mixing both
      into one linear page was confusing people, especially anyone less
      comfortable with tech, since they had to figure out which parts
-     even applied to them. JS decides which one to show on load by
-     screen width (matching the old QR-only breakpoint below), and the
-     toggle link is the manual override for whenever that guess is
-     wrong. Only one is ever visible at a time. */
-  .device-toggle {
-    font-size: .85rem;
+     even applied to them.
+     Screen width picks a starting guess (see the script below), but
+     unlike the first version of this fix, the choice itself is now an
+     always-visible pair of tabs (#deviceTabs), not a silent guess with
+     a tiny text link to override -- Kevin hit a real bug from that
+     version: a narrow-but-still-a-computer browser window guessed
+     "phone," hid the Download button entirely, and the only way back
+     to it was a small link easy to miss, which read as "there's no
+     subscribe button at all." Two big, always-visible, labeled tabs
+     can't hide a whole path behind a guess. */
+  .step-heading {
+    text-align: center;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
     color: var(--ink-faint);
-    margin: 0 0 .9rem;
+    margin: 1.75rem 0 .9rem;
   }
-  .device-toggle a { color: var(--navy); }
+  .device-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+    margin-bottom: 1.25rem;
+  }
+  .device-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: 1rem .75rem;
+    background: var(--surface);
+    border: 2px solid var(--surface-border);
+    border-radius: var(--radius);
+    color: var(--ink-soft);
+    font-family: var(--font-body);
+    font-size: .88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+  }
+  .device-tab svg { width: 26px; height: 26px; }
+  .device-tab:hover { border-color: var(--navy); }
+  .device-tab.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-tint);
+  }
+
+  /* Each way to get the calendar (scan to your phone / download to this
+     computer) gets its own boxed "card" with an icon pair showing where
+     it leads, rather than just a button in a shared list -- the arrow
+     from one icon to the next is the point: camera-to-phone means
+     "scanning gets it onto a phone," even if you're looking at this on
+     a computer screen right now. */
+  .path-option {
+    text-align: center;
+    padding: 1.1rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    margin-bottom: .75rem;
+  }
+  .path-option-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    color: var(--primary);
+    margin-bottom: .5rem;
+  }
+  .path-option-icons svg { width: 26px; height: 26px; }
+  .path-option-icons .path-arrow {
+    font-size: 1.3rem;
+    color: var(--ink-faint);
+  }
+  .path-option-label {
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--ink);
+    margin: 0 0 .5rem;
+  }
 
   /* Two columns instead of one long stack -- Kevin's catch, Sept 2026,
      with 9 towns and 12 types each this ran long as a single column.
@@ -146,6 +218,19 @@
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
 
+    <p class="step-heading">Step 1 &middot; Which device is this for?</p>
+    <div class="device-tabs">
+      <button type="button" class="device-tab" id="tabPhone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        <span>Phone or tablet</span>
+      </button>
+      <button type="button" class="device-tab" id="tabComputer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Computer</span>
+      </button>
+    </div>
+
+    <p class="step-heading">Step 2 &middot; What do you want on it?</p>
     <label>Which towns?</label>
     <p class="hint">Leave all unchecked to get every town's events.</p>
     <div id="townCheckboxes"></div>
@@ -154,35 +239,47 @@
     <p class="hint">Leave all unchecked to get every type of event.</p>
     <div id="typeCheckboxes"></div>
 
-    <p class="callout">Your picks above already apply, whichever way you subscribe below.</p>
+    <p class="step-heading">Step 3 &middot; Get your calendar</p>
 
-    <!-- Which of these two shows is decided by screen width on load (see
-         the script below, same breakpoint the old .qr-callout used to
-         hide itself on phones) -- only one is ever visible at a time,
-         so nobody has to figure out which instructions are meant for
-         them. The toggle link is the manual override for whenever that
-         guess is wrong. -->
+    <!-- Which of these two shows is decided by the Step 1 tabs -- see the
+         script below. Both tabs are always visible and clickable (unlike
+         the old version's hidden-by-default block with a small text link
+         to switch), so a wrong starting guess never hides a whole path;
+         the other tab is sitting right there. -->
     <div id="phonePath">
-      <p class="device-toggle">On a computer or tablet? <a href="#" id="switchToComputer">Switch to computer instructions</a></p>
-      <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app.</p>
+      <p class="callout">Tapping Subscribe below opens your phone's calendar app directly.</p>
       <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
     </div>
 
     <div id="computerPath">
-      <p class="device-toggle">On your phone? <a href="#" id="switchToPhone">Switch to phone instructions</a></p>
-      <p class="hint">Want this on your phone? Scan the code below with your phone's camera.</p>
-      <div class="subscribe-qr">
-        <div class="qr-box" id="subscribeQR"></div>
+      <div class="path-option">
+        <div class="path-option-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="14" r="4"/></svg>
+          <span class="path-arrow">&rarr;</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        </div>
+        <p class="path-option-label">Get it on your phone</p>
+        <p class="hint">Scan this with your phone's camera.</p>
+        <div class="subscribe-qr">
+          <div class="qr-box" id="subscribeQR"></div>
+        </div>
       </div>
+
       <p class="or-divider">OR</p>
-      <p class="hint">Want it on this computer instead?</p>
-      <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
-      <details>
-        <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
-        <p><strong>Mac (Apple Calendar):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
-        <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
-        <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
-      </details>
+
+      <div class="path-option">
+        <div class="path-option-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <p class="path-option-label">Get it on this computer</p>
+        <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
+        <details>
+          <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
+          <p><strong>Mac (Apple Calendar):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
+          <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
+          <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
+        </details>
+      </div>
     </div>
 
     <p class="hint">Not getting reminders? Turn on notifications for this calendar in your app's settings, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
@@ -374,31 +471,41 @@
     if (e.key === "Escape") hideAlertsModal();
   });
 
-  // Picks one instruction set on load (screen width, a typical phone's
-  // vs. a computer/tablet's) and lets either toggle link switch it by
-  // hand for whenever that guess is wrong -- see the CSS comment above
-  // #phonePath/#computerPath for why this replaced one shared flow.
+  // Step 1's tabs pick which of #phonePath/#computerPath shows -- see the
+  // CSS comment above .device-tabs for why this replaced a hidden
+  // auto-guess with a small text link to override it. Screen width still
+  // picks the starting tab (nobody should have to tap anything if the
+  // guess is already right), but guarded against a zero/missing width
+  // reading (seen in testing) that would otherwise default a real
+  // computer to the phone tab and hide the Download button entirely --
+  // Kevin's "there is no button to subscribe" report traced back to
+  // exactly that.
   const phonePath = document.getElementById("phonePath");
   const computerPath = document.getElementById("computerPath");
-  const switchToComputer = document.getElementById("switchToComputer");
-  const switchToPhone = document.getElementById("switchToPhone");
+  const tabPhone = document.getElementById("tabPhone");
+  const tabComputer = document.getElementById("tabComputer");
 
   function showPhonePath() {
     phonePath.style.display = "";
     computerPath.style.display = "none";
+    tabPhone.classList.add("active");
+    tabComputer.classList.remove("active");
   }
   function showComputerPath() {
     phonePath.style.display = "none";
     computerPath.style.display = "";
+    tabPhone.classList.remove("active");
+    tabComputer.classList.add("active");
   }
 
-  if (window.innerWidth <= 600) {
+  const looksLikePhone = window.innerWidth > 0 && window.innerWidth <= 600;
+  if (looksLikePhone) {
     showPhonePath();
   } else {
     showComputerPath();
   }
-  switchToComputer.addEventListener("click", (e) => { e.preventDefault(); showComputerPath(); });
-  switchToPhone.addEventListener("click", (e) => { e.preventDefault(); showPhonePath(); });
+  tabPhone.addEventListener("click", showPhonePath);
+  tabComputer.addEventListener("click", showComputerPath);
 })();
 </script>
 </body>
