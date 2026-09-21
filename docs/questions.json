@@ -1,0 +1,18 @@
+[
+  {
+    "id": "example-question-1",
+    "town": "All of Linn County",
+    "category": "Recommendations",
+    "question": "Does anyone know someone who repairs old sewing machines? (example)",
+    "submitter_name": "Jane (example)",
+    "posted": "2026-09-20",
+    "example": true,
+    "answers": [
+      {
+        "answer": "Try Dale's Sewing & Vacuum in Brookfield, he's fixed two of ours over the years. (example)",
+        "submitter_name": "Kevin (example)",
+        "posted": "2026-09-20"
+      }
+    ]
+  }
+]

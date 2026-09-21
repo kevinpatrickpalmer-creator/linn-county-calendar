@@ -295,6 +295,8 @@ const BOARD_LABELS = {
   job: "Jobs Bulletin post",
   "lost-found": "Lost & Found post",
   club: "Clubs & Classes post",
+  question: "Ask the Community question",
+  answer: "Ask the Community answer",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -423,6 +425,43 @@ const BOARD_CONFIG = {
       return obj;
     },
   },
+  // Ask the Community's two board types. Unlike every board above, an
+  // answer belongs to a specific question -- that's the one relationship
+  // on this whole site where one published listing has to reference
+  // another by a stable id, so this is also the one board where
+  // buildFilename/buildContent actually use the "id" argument
+  // publishBoardEntry() passes through (every other board ignores it).
+  // build_questions_directory.py is what actually joins them back
+  // together at build time; docs/questions.json ships each question
+  // with its approved answers already nested under it.
+  question: {
+    dir: "data/questions",
+    requiredFields: ["town", "question", "submitter_name"],
+    buildFilename: function (f, today, id) {
+      return today + "-" + (slugify(f.question).slice(0, 60) || "question") + "-" + id.slice(0, 8) + ".json";
+    },
+    buildContent: function (f, today, id) {
+      // The full id, not the 8-char refCode slice used elsewhere for
+      // matching an email reply -- this one has to survive round-tripping
+      // through docs/questions.json and back as an answer's question_id,
+      // so it needs to actually be unique, not just unique-enough for a
+      // ref code.
+      const obj = { id: id, town: f.town, question: f.question, submitter_name: f.submitter_name, posted: today };
+      if (f.category) obj.category = f.category;
+      if (f.photos && f.photos.length) obj.photos = f.photos;
+      return obj;
+    },
+  },
+  answer: {
+    dir: "data/answers",
+    requiredFields: ["question_id", "answer", "submitter_name"],
+    buildFilename: function (f, today, id) {
+      return f.question_id.slice(0, 8) + "-" + today + "-" + id.slice(0, 8) + ".json";
+    },
+    buildContent: function (f, today, id) {
+      return { id: id, question_id: f.question_id, answer: f.answer, submitter_name: f.submitter_name, posted: today };
+    },
+  },
 };
 
 function submitBoardEntry(body) {
@@ -530,10 +569,10 @@ function submitBoardEntry(body) {
   return { success: true, id, removalCode };
 }
 
-function publishBoardEntry(board, fields, today) {
+function publishBoardEntry(board, fields, today, id) {
   const cfg = BOARD_CONFIG[board];
-  const filename = cfg.buildFilename(fields, today);
-  const content = cfg.buildContent(fields, today);
+  const filename = cfg.buildFilename(fields, today, id);
+  const content = cfg.buildContent(fields, today, id);
   const path = cfg.dir + "/" + filename;
   githubPutFile(path, JSON.stringify(content, null, 2) + "\n", "Approve " + board + " submission via email reply", false);
   return path;
@@ -684,7 +723,7 @@ function applyBoardDecision(refCode, newStatus) {
     if (newStatus === "approved") {
       try {
         const today = new Date().toISOString().slice(0, 10);
-        const path = publishBoardEntry(board, fields, today);
+        const path = publishBoardEntry(board, fields, today, id);
         sheet.getRange(rowNum, idx.status + 1).setValue("approved");
         sheet.getRange(rowNum, idx.published_path + 1).setValue(path);
       } catch (err) {

@@ -35,6 +35,9 @@
     { label: "Lost & Found", href: "lost-found.html", children: [
       { label: "Post to Lost & Found", href: "submit-lost-found.html" },
     ] },
+    { label: "Ask the Community", href: "ask-community.html", children: [
+      { label: "Ask a Question", href: "submit-question.html" },
+    ] },
     { label: "Flyer", href: "flyer.html" },
     { label: "Big Idea Board", href: "big-ideas.html", children: [
       { label: "Submit Idea", href: "big-ideas.html#submitSection" },

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Ask the Community</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ask the Community | Linn County">
+<meta property="og:description" content="Practical local questions, answered by your neighbors, right on the page.">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/ask-community.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ask the Community | Linn County">
+<meta name="twitter:description" content="Practical local questions, answered by your neighbors, right on the page.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .dir-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+  .dir-controls input[type="search"] { flex: 1 1 12rem; margin: 0; }
+  .ms-filter { position: relative; }
+  .ms-btn {
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: .68rem .9rem;
+    font-size: .9rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ms-btn.active { border-color: var(--primary); color: var(--primary); }
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + .3rem);
+    left: 0;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: .6rem;
+    min-width: 13rem;
+    max-height: 16rem;
+    overflow-y: auto;
+  }
+  .ms-panel.hidden { display: none; }
+  .ms-panel label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .25rem 0; white-space: nowrap; color: var(--ink);
+    font-weight: 400; margin: 0;
+  }
+  .ms-panel input[type="checkbox"] { accent-color: var(--primary); }
+  .ms-panel .ms-clear {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    color: var(--primary); font-size: .8rem; font-weight: 600; cursor: pointer;
+    padding: 0 0 .4rem; margin-bottom: .3rem; border-bottom: 1px solid var(--surface-border);
+    font-family: var(--font-body);
+  }
+  #resultsCount { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .75rem; }
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .biz-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .biz-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface-border);
+    display: block;
+    margin-bottom: .2rem;
+  }
+  .example-card { border-style: dashed; border-color: var(--primary); }
+  .example-ribbon {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--primary-tint);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .biz-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.35; }
+  .biz-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    align-self: flex-start;
+    background: rgba(255,255,255,.08);
+    border: 1px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .35rem .85rem .35rem .6rem;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .biz-tag .biz-tag-emoji { font-size: 1.2em; }
+  .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
+  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
+
+  /* The answer thread on a question card -- the one layout on the site
+     with a nested list inside a card, since this is the one board where
+     a listing can have several other listings attached under it. */
+  .qa-answers { display: flex; flex-direction: column; gap: .55rem; margin-top: .2rem; }
+  .qa-answers-heading { font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); margin: .3rem 0 0; }
+  .qa-answer { background: rgba(255,255,255,.05); border-radius: var(--radius-sm); padding: .6rem .7rem; }
+  .qa-answer-text { font-size: .88rem; color: var(--ink); line-height: 1.45; }
+  .qa-answer-meta { font-size: .74rem; color: var(--ink-soft); margin-top: .25rem; }
+  .qa-no-answers { font-size: .85rem; color: var(--ink-soft); font-style: italic; margin: .2rem 0 0; }
+  body.themed a.qa-answer-btn { margin-top: .5rem; }
+
+  /* Hero -- see docs/directory.html for why this is a full-bleed band
+     ahead of <main> rather than another block inside it. */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 2.5rem 1.25rem 2.25rem;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero .mo-badge { width: 72px; height: 72px; }
+  .hero .mo-badge img { width: 46px; }
+  .hero h1 { font-size: 2rem; }
+  body.themed .hero p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.1rem 1.85rem; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<script src="share.js" data-text="Trying to find someone who fixes old sewing machines, or just don't know who to ask? Post a question and let your neighbors answer."></script>
+<script src="lightbox.js"></script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Ask the Community</h1>
+    <p class="sub" id="pageSub">Trying to find someone who fixes old sewing machines, where to get something done, or just don't know who to ask? Post it here and any neighbor who knows can answer, right on the page.</p>
+    <p class="sub" style="font-style:italic;">The people who know the answer are usually closer than you think.</p>
+    <p class="stats-line" id="statsLine"></p>
+  </div>
+</div>
+<main class="wide">
+  <a class="icon-cta" href="submit-question.html"><span class="icon-cta-icon" aria-hidden="true">🙋</span> Ask a Question, free</a>
+  <p class="callout">Anyone can answer, no account needed, just whoever knows the answer.</p>
+
+  <div class="dir-controls">
+    <input type="search" id="searchInput" placeholder="What are you trying to find out?">
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="townFilterBtn">Towns: All</button>
+      <div class="ms-panel hidden" id="townFilterPanel">
+        <button type="button" class="ms-clear" data-filter="town">Show all towns</button>
+        <div id="townCheckList"></div>
+      </div>
+    </div>
+    <div class="ms-filter">
+      <button type="button" class="ms-btn" id="categoryFilterBtn">Category: All</button>
+      <div class="ms-panel hidden" id="categoryFilterPanel">
+        <button type="button" class="ms-clear" data-filter="category">Show all categories</button>
+        <div id="categoryCheckList"></div>
+      </div>
+    </div>
+  </div>
+
+  <p id="resultsCount"></p>
+  <div id="dirStatus">Loading questions...</div>
+  <div id="dirGrid"></div>
+  <div id="dirEmpty">No questions match your search yet. Try clearing a filter, or <a href="submit-question.html">be the first to ask &rarr;</a></div>
+
+  <div class="footer-link">
+    <a href="submit-question.html">Ask a Question &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="remove-listing.html?board=question">Remove your own question or answer &rarr;</a>
+  </div>
+  <div class="footer-link">
+    <a href="index.html">Back to Linn County Local &rarr;</a>
+  </div>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by Hwy 36 Labs</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  let config = {};
+  let questions = [];
+
+  const selectedTowns = new Set();
+  const selectedCategories = new Set();
+
+  // Matches submit-question.html's own COUNTYWIDE_TOWN literal. Listed
+  // as its own town like any other so a visitor can filter down to just
+  // countywide questions if they want, but it also has to pass every
+  // OTHER town's filter too -- see applyFilters() below.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
+  const CATEGORY_EMOJI = {
+    "Recommendations": "👍",
+    "Where to Find Something": "🔍",
+    "Local Know-How": "💡",
+    "Other": "❓",
+  };
+
+  // A question is already phrased as a question, so stripping the
+  // question-words themselves out of a search leaves just what's
+  // actually being asked about -- same idea as docs/jobs.html's own
+  // stopword list, tuned for "does anyone know..." phrasing instead of
+  // "looking for...".
+  const SEARCH_STOPWORDS = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "am", "i", "im", "i'm", "you", "your",
+    "we", "us", "me", "my", "mine", "our", "does", "anybody", "anyone", "somebody",
+    "someone", "know", "knows", "who", "what", "where", "when", "why", "how", "can",
+    "could", "would", "should", "will", "please", "near", "nearby", "around", "in",
+    "at", "on", "to", "of", "with", "local", "some", "any", "good", "best", "great",
+    "find", "get", "there", "here", "this", "that", "have", "has", "or",
+  ]);
+
+  function searchTokens(query) {
+    return query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOPWORDS.has(word));
+  }
+
+  function matchesSearch(q, tokens, matchAny) {
+    if (!tokens.length) return true;
+    const answerText = (q.answers || []).map((a) => a.answer).join(" ");
+    const haystack = `${q.question} ${answerText} ${q.category || ""} ${q.town || ""}`.toLowerCase();
+    const tokenMatches = (token) => haystack.includes(token);
+    return matchAny ? tokens.some(tokenMatches) : tokens.every(tokenMatches);
+  }
+
+  function daysAgo(dateStr) {
+    if (!dateStr) return "";
+    const posted = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(posted)) return "";
+    const days = Math.floor((Date.now() - posted.getTime()) / 86400000);
+    if (days <= 0) return "today";
+    if (days === 1) return "yesterday";
+    if (days < 14) return `${days} days ago`;
+    if (days < 60) return `${Math.floor(days / 7)} weeks ago`;
+    return `${Math.floor(days / 30)} months ago`;
+  }
+
+  // Same multi-checkbox dropdown pattern as docs/jobs.html.
+  function setupMultiSelectFilter({ btnId, panelId, listId, options, selectedSet, label, onChange, optionLabel }) {
+    const btn = document.getElementById(btnId);
+    const panel = document.getElementById(panelId);
+    const list = document.getElementById(listId);
+
+    function updateBtnLabel() {
+      if (selectedSet.size === 0) {
+        btn.textContent = `${label}: All`;
+        btn.classList.remove("active");
+      } else if (selectedSet.size === 1) {
+        btn.textContent = `${label}: ${optionLabel ? optionLabel([...selectedSet][0]) : [...selectedSet][0]}`;
+        btn.classList.add("active");
+      } else {
+        btn.textContent = `${label}: ${selectedSet.size} selected`;
+        btn.classList.add("active");
+      }
+    }
+
+    for (const opt of options) {
+      const row = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = opt;
+      cb.addEventListener("change", () => {
+        if (cb.checked) selectedSet.add(opt);
+        else selectedSet.delete(opt);
+        updateBtnLabel();
+        onChange();
+      });
+      row.appendChild(cb);
+      row.appendChild(document.createTextNode(" " + (optionLabel ? optionLabel(opt) : opt)));
+      list.appendChild(row);
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasHidden = panel.classList.contains("hidden");
+      document.querySelectorAll(".ms-panel").forEach((p) => p.classList.add("hidden"));
+      if (wasHidden) panel.classList.remove("hidden");
+    });
+
+    panel.querySelector(".ms-clear").addEventListener("click", () => {
+      selectedSet.clear();
+      list.querySelectorAll("input[type=checkbox]").forEach((cb) => { cb.checked = false; });
+      updateBtnLabel();
+      onChange();
+    });
+
+    return { updateLabel: updateBtnLabel };
+  }
+
+  let categoryFilterControls = null;
+
+  function filterToCategory(category) {
+    selectedCategories.clear();
+    selectedCategories.add(category);
+    document.querySelectorAll("#categoryCheckList input[type=checkbox]").forEach((cb) => {
+      cb.checked = cb.value === category;
+    });
+    if (categoryFilterControls) categoryFilterControls.updateLabel();
+    render();
+    document.querySelector(".dir-controls").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".ms-panel").forEach((panel) => {
+      if (!panel.classList.contains("hidden") && !panel.parentElement.contains(e.target)) {
+        panel.classList.add("hidden");
+      }
+    });
+  });
+
+  function buildCard(q) {
+    const card = document.createElement("div");
+    card.className = "biz-card";
+
+    if (q.example) {
+      card.classList.add("example-card");
+      const ribbon = document.createElement("div");
+      ribbon.className = "example-ribbon";
+      ribbon.textContent = "Example";
+      card.appendChild(ribbon);
+    }
+
+    renderPhotoStrip(card, q);
+
+    const cat = q.category || "Other";
+    const tag = document.createElement("button");
+    tag.type = "button";
+    tag.className = "biz-tag";
+    tag.title = `Show every question tagged ${cat}`;
+    tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "❓"}</span> ${cat}`;
+    tag.addEventListener("click", () => filterToCategory(cat));
+    card.appendChild(tag);
+
+    const question = document.createElement("div");
+    question.className = "biz-name";
+    question.textContent = q.question;
+    card.appendChild(question);
+
+    const meta = document.createElement("div");
+    meta.className = "biz-town";
+    const metaParts = [`Asked by ${q.submitter_name}`, q.town];
+    if (!q.example) metaParts.push(daysAgo(q.posted) ? `Posted ${daysAgo(q.posted)}` : "");
+    meta.textContent = metaParts.filter(Boolean).join(" · ");
+    card.appendChild(meta);
+
+    const answers = q.answers || [];
+    if (answers.length) {
+      const heading = document.createElement("div");
+      heading.className = "qa-answers-heading";
+      heading.textContent = `${answers.length} Answer${answers.length === 1 ? "" : "s"}`;
+      card.appendChild(heading);
+
+      const list = document.createElement("div");
+      list.className = "qa-answers";
+      for (const a of answers) {
+        const item = document.createElement("div");
+        item.className = "qa-answer";
+        const text = document.createElement("div");
+        text.className = "qa-answer-text";
+        text.textContent = a.answer;
+        item.appendChild(text);
+        const answerMeta = document.createElement("div");
+        answerMeta.className = "qa-answer-meta";
+        const agoText = daysAgo(a.posted);
+        answerMeta.textContent = [`Answered by ${a.submitter_name}`, agoText ? `Posted ${agoText}` : ""].filter(Boolean).join(" · ");
+        item.appendChild(answerMeta);
+        list.appendChild(item);
+      }
+      card.appendChild(list);
+    } else {
+      const none = document.createElement("div");
+      none.className = "qa-no-answers";
+      none.textContent = "No answers yet, be the first to help.";
+      card.appendChild(none);
+    }
+
+    if (!q.example) {
+      const answerBtn = document.createElement("a");
+      answerBtn.className = "btn qa-answer-btn";
+      answerBtn.href = `submit-answer.html?id=${encodeURIComponent(q.id)}`;
+      answerBtn.textContent = "Answer this question";
+      card.appendChild(answerBtn);
+    }
+
+    return card;
+  }
+
+  function render() {
+    const container = document.getElementById("dirGrid");
+    const empty = document.getElementById("dirEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const tokens = searchTokens(document.getElementById("searchInput").value);
+
+    function applyFilters(matchAny) {
+      return questions.filter((q) => {
+        if (selectedTowns.size && q.town !== COUNTYWIDE_TOWN && !selectedTowns.has(q.town)) return false;
+        if (selectedCategories.size && !selectedCategories.has(q.category || "Other")) return false;
+        if (!matchesSearch(q, tokens, matchAny)) return false;
+        return true;
+      });
+    }
+
+    let filtered = applyFilters(false);
+    if (!filtered.length && tokens.length > 1) filtered = applyFilters(true);
+
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "dir-grid";
+    for (const q of filtered) {
+      grid.appendChild(buildCard(q));
+    }
+    container.appendChild(grid);
+
+    const realTotal = questions.filter((q) => !q.example).length;
+    const realFiltered = filtered.filter((q) => !q.example).length;
+    resultsCount.textContent = realTotal
+      ? `Showing ${realFiltered} of ${realTotal} question${realTotal === 1 ? "" : "s"}`
+      : "";
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  try {
+    config = await (await fetch("config.json")).json();
+    document.title = `Ask the Community | ${config.site_name}`;
+    document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+    categoryFilterControls = setupMultiSelectFilter({
+      btnId: "categoryFilterBtn", panelId: "categoryFilterPanel", listId: "categoryCheckList",
+      options: config.question_categories || [], selectedSet: selectedCategories, label: "Category", onChange: render,
+    });
+  } catch (err) {
+    // Filters just won't populate; the page itself can still load below.
+  }
+
+  document.getElementById("searchInput").addEventListener("input", render);
+
+  try {
+    questions = await (await fetch("questions.json")).json();
+    document.getElementById("dirStatus").style.display = "none";
+    // A pinned "example" question (see data/questions/README.md) doesn't
+    // count toward this -- it's not real community activity.
+    const realCount = questions.filter((q) => !q.example).length;
+    const answeredCount = questions.filter((q) => !q.example && (q.answers || []).length).length;
+    document.getElementById("statsLine").innerHTML =
+      `<span class="stat-seg">1 County ·</span> ` +
+      `<span class="live-count"><span class="live-dot"></span>${realCount} Question${realCount === 1 ? "" : "s"}</span>` +
+      `<span class="stat-seg">· ${answeredCount} Answered</span>`;
+
+    // Always the county's own 8 towns, plus any other real town already
+    // showing up in the data -- same fix as every other board's list
+    // page, so the filter isn't empty while the board is still thin.
+    const towns = [...new Set([...config.towns, ...questions.map((q) => q.town)])].sort();
+    setupMultiSelectFilter({
+      btnId: "townFilterBtn", panelId: "townFilterPanel", listId: "townCheckList",
+      options: towns, selectedSet: selectedTowns, label: "Towns", onChange: render,
+    });
+
+    render();
+  } catch (err) {
+    document.getElementById("dirStatus").textContent = "Couldn't load the questions. Please try refreshing.";
+    document.getElementById("dirStatus").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>
