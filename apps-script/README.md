@@ -116,19 +116,43 @@ been approved, just delete its row from the sheet. Votes for a Big
 Idea are tracked separately in the "Votes" tab and can be
 ignored/left alone.
 
-## Lost & Found photos
+## Photos
 
-A photo attached to a Lost & Found submission is uploaded to
-`docs/lost-found-photos/` right away (as part of submitting, before
-review), sitting there unreferenced by any public listing until the
-post is approved -- at which point the published JSON points to it. A
-rejected post has its photo deleted again automatically.
+A photo attached to any board's submission (up to 3 -- Business,
+Trading Post, Jobs, Clubs & Classes, or Lost & Found) is uploaded to
+that board's own `docs/<board>-photos/` folder right away (as part of
+submitting, before review), sitting there unreferenced by any public
+listing until the post is approved -- at which point the published
+JSON's `photos` array points to it. A rejected or later-removed post
+has its photos deleted again automatically.
 
 ## If the code ever needs to change
 
-Update `big-ideas.gs` in this repo, then copy the new version into the
-Apps Script editor (Extensions &rarr; Apps Script, from the same
-sheet) and deploy again: **Deploy &rarr; Manage deployments &rarr;
-edit (pencil icon) &rarr; New version &rarr; Deploy**. Using "New
-version" instead of creating a whole new deployment keeps the same
-Web app URL, so nothing on the site needs to change.
+**Set up once, on this machine:** `npm install -g @google/clasp`, then
+`clasp login` (opens a Google OAuth consent screen in your browser --
+sign in with the same account that owns the Sheet/script). This repo's
+`apps-script/.clasp.json` already points at the deployed script by ID,
+and `apps-script/appsscript.json` is the pulled-down manifest (timezone,
+web app access settings) -- neither needs to change again.
+
+**Every deploy after that** is two commands from inside `apps-script/`:
+
+```
+clasp push
+clasp deploy -i AKfycbyn-V3wvJhzxISmojkX0SJJaDbRAsKB8WeWrntt3YQU3hnTVMFZq_4itaGcpQSvP1sf
+```
+
+`push` uploads `big-ideas.gs` as the new HEAD version; `deploy -i
+<the existing deployment ID>` points the live Web app URL at that new
+version, so the URL in `docs/config.json` never changes. This is what
+Claude runs directly now, batching up several code changes into one
+push/deploy is completely fine (see `apps-script/big-ideas.gs`'s own
+git history for what's shipped this way) -- no more manual copy-paste
+into the Apps Script editor needed on a normal update.
+
+**Fallback**, if clasp/auth is ever broken on this machine or you're
+on a different one: copy the full contents of `big-ideas.gs` into the
+Apps Script editor (Extensions &rarr; Apps Script, from the Sheet) and
+**Deploy &rarr; Manage deployments &rarr; edit (pencil icon) &rarr;
+New version &rarr; Deploy**. Same "keeps the same Web app URL" result,
+just by hand.
