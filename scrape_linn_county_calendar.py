@@ -270,6 +270,19 @@ MSHSAA_SCHOOLS = [
     {"school_id": "363", "district": "Meadville R-IV School District", "town": "Meadville"},
 ]
 
+# When two of the schools above play each other, the game shows up once
+# in each side's own MSHSAA schedule -- Kevin's catch, Sept 2026 (the
+# Marceline/Brookfield football game listed twice). Each school names an
+# opponent by its plain town/district name, dropping the "R-III"/"R-V"
+# suffix our own `district` carries (e.g. Brookfield's schedule calls
+# Marceline just "Marceline", never "Marceline R-V") -- this maps that
+# short form back to the school it belongs to, so get_mshsaa_school_events()
+# can recognize an opponent as "one of ours" and tag the game for the
+# dedup pass in main() rather than guessing from free text.
+MSHSAA_BASE_NAMES = {
+    re.sub(r"\s+R-[IVX]+\s+School District$", "", s["district"]): s["school_id"] for s in MSHSAA_SCHOOLS
+}
+
 # Fifth source: the newspaper also runs a hand-typed "Community Calendar"
 # page (distinct from the CitySpark widget at CALENDAR_URL) -- staff type
 # up submissions they receive by email as plain prose under date headers,
@@ -913,6 +926,29 @@ def get_mshsaa_school_events(school_id, district, town):
 
         name = f"{sport_short}: {matchup}" if sport_short else matchup
 
+        # If the opponent is itself one of our MSHSAA_SCHOOLS (an
+        # intra-county matchup), this same game will also show up in
+        # *that* school's own schedule -- see MSHSAA_BASE_NAMES above.
+        # Both sides must reduce to the same key for the pair to collide:
+        # our_base (not our_team) strips the "R-III"/"R-V" suffix so it
+        # matches the plain form `opponent` already uses -- otherwise this
+        # side's key would carry our own "R-x" suffix while the other
+        # school's matching event carries theirs instead, and the two
+        # would never look like the same game. Order doesn't matter
+        # (frozenset), letting main()'s dedup pass collapse the pair
+        # without needing to fuzzy-match title text.
+        our_base = re.sub(r"\s+R-[IVX]+$", "", our_team)
+        dedupe_key = None
+        if opponent in MSHSAA_BASE_NAMES and MSHSAA_BASE_NAMES[opponent] != school_id:
+            # Full `sport`, not sport_short -- same reasoning as the slug
+            # above: sport_short alone can't tell a boys game from a girls
+            # game, and merging two real, different games would be worse
+            # than leaving a real duplicate pair alone. Both schools pull
+            # from the same shared MSHSAA platform rather than formatting
+            # this text independently, so the same fixture should carry
+            # matching sport/level metadata on both sides.
+            dedupe_key = (frozenset({our_base, opponent}), current_date.isoformat(), first_time, sport)
+
         description = "; ".join(filter(None, [home_away, ", ".join(time_lines)]))
 
         # Full `sport` (not sport_short) because that's the only field
@@ -945,6 +981,10 @@ def get_mshsaa_school_events(school_id, district, town):
                 # caught by this; tagging by source is reliable, tagging
                 # by guessing at event names is not.
                 "category": "sports",
+                # Internal only -- main()'s dedup pass pops this before
+                # anything reaches build_calendar(), so it never ends up
+                # in the actual ICS output.
+                "_dedupe_key": dedupe_key,
             }
         )
 
@@ -1994,6 +2034,27 @@ def main():
         if school_events:
             print(f"Including {len(school_events)} event(s) from {school['district']}'s MSHSAA schedule\n")
             events.extend(school_events)
+
+    # Kevin's catch, Sept 2026: when two MSHSAA_SCHOOLS play each other
+    # (e.g. Marceline @ Brookfield football), the game showed up twice --
+    # once from each school's own schedule. get_mshsaa_school_events()
+    # tags each such event with a `_dedupe_key` that both sides resolve
+    # to identically (see its own comment for why); collapsing on that
+    # key here, once every school's events are in, keeps the first copy
+    # encountered (MSHSAA_SCHOOLS' own fixed order, so which copy survives
+    # is stable across reruns) and drops the rest. Every non-sports event,
+    # and every sports event whose opponent isn't one of our own schools,
+    # has no key at all and passes through untouched.
+    seen_matchups = set()
+    deduped_events = []
+    for ev in events:
+        key = ev.pop("_dedupe_key", None)
+        if key is not None:
+            if key in seen_matchups:
+                continue
+            seen_matchups.add(key)
+        deduped_events.append(ev)
+    events = deduped_events
 
     # The newspaper's hand-typed calendar inevitably covers some of the
     # same real-world events already captured more cleanly above (e.g.
