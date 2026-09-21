@@ -170,7 +170,7 @@
     <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
     <span class="eyebrow" id="eyebrow"></span>
     <h1>Trading Post</h1>
-    <p class="sub" id="pageSub">What do people in our community make or grow? Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, whatever your neighbors raise or make regularly.</p>
+    <p class="sub" id="pageSub">What do people in our community make, grow, or raise? Eggs, raw milk, farm beef, fresh bread, honey, garden produce, hay, firewood, handmade goods, puppies or livestock somebody breeds. If it's legal to sell, it belongs here.</p>
     <p class="sub" style="font-style:italic;">What a community grows, raises, and makes on its own is what keeps it going.</p>
     <p class="stats-line" id="statsLine"></p>
   </div>
@@ -226,12 +226,19 @@
   const selectedTowns = new Set();
   const selectedCategories = new Set();
 
+  // Matches submit-trading-post.html's own COUNTYWIDE_TOWN literal.
+  // Listed as its own town like any other so a visitor can filter down
+  // to just countywide sellers if they want, but it also has to pass
+  // every OTHER town's filter too -- that's the whole point of someone
+  // choosing it over their own town, see applyFilters() below.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
   // Same idea as docs/directory.html's CATEGORY_SYNONYMS -- common words
   // for what a category actually is, so a search for "eggs" or "honey"
   // works even though that exact word may not appear in a listing's own
   // name/description.
   const CATEGORY_SYNONYMS = {
-    "Meat & Livestock": ["beef", "pork", "chicken", "poultry", "lamb", "goat meat", "meat", "steak", "hamburger", "freezer beef", "whole hog", "half hog"],
+    "Meat, Livestock & Animals": ["beef", "pork", "chicken", "poultry", "lamb", "goat meat", "meat", "steak", "hamburger", "freezer beef", "whole hog", "half hog", "puppies", "kittens", "chicks", "baby chicks", "calves", "livestock", "breeder", "breeding stock", "farm animals", "rabbits", "goats", "piglets"],
     "Eggs & Dairy": ["eggs", "milk", "goat milk", "raw milk", "cheese", "butter", "dairy"],
     "Produce & Garden": ["vegetables", "veggies", "fruit", "garden", "tomatoes", "sweet corn", "produce"],
     "Baked Goods": ["bread", "bakery", "pastries", "pies", "cookies", "baking", "baked"],
@@ -245,7 +252,7 @@
   // category, clickable, no legend required since the category name is
   // always printed right beside it.
   const CATEGORY_EMOJI = {
-    "Meat & Livestock": "🥩",
+    "Meat, Livestock & Animals": "🐄",
     "Eggs & Dairy": "🥚",
     "Produce & Garden": "🥕",
     "Baked Goods": "🍞",
@@ -446,7 +453,7 @@
 
     function applyFilters(matchAny) {
       return listings.filter((b) => {
-        if (selectedTowns.size && !selectedTowns.has(b.town)) return false;
+        if (selectedTowns.size && b.town !== COUNTYWIDE_TOWN && !selectedTowns.has(b.town)) return false;
         if (selectedCategories.size && !selectedCategories.has(b.category || "Other")) return false;
         if (!matchesSearch(b, tokens, matchAny)) return false;
         return true;

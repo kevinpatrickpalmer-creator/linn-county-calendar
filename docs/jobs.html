@@ -245,6 +245,12 @@
   const selectedTypes = new Set();
   const TYPE_LABELS = { needed: "Needs Help", offering: "Offering Help" };
 
+  // Matches submit-job.html's own COUNTYWIDE_TOWN literal. Listed as its
+  // own town like any other so a visitor can filter down to just
+  // countywide posts if they want, but it also has to pass every OTHER
+  // town's filter too -- see applyFilters() below.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
   // Same idea as docs/trading-post.html's CATEGORY_SYNONYMS -- common
   // words for what a category actually covers, so a search for "shovel"
   // or "movers" works even if that exact word isn't in a post's own text.
@@ -468,7 +474,7 @@
     function applyFilters(matchAny) {
       return posts.filter((p) => {
         if (selectedTypes.size && !selectedTypes.has(p.type)) return false;
-        if (selectedTowns.size && !selectedTowns.has(p.town)) return false;
+        if (selectedTowns.size && p.town !== COUNTYWIDE_TOWN && !selectedTowns.has(p.town)) return false;
         if (selectedCategories.size && !selectedCategories.has(p.category || "Odd Jobs / Other")) return false;
         if (!matchesSearch(p, tokens, matchAny)) return false;
         return true;

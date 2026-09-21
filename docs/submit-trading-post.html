@@ -47,7 +47,7 @@
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
   <h1>List on the Trading Post</h1>
-  <p class="sub" id="pageSub">Sell eggs, raw milk, sides of beef, garden produce, honey, fresh bread, hay, firewood, or anything else you raise, grow, or make on a regular basis? This is the place folks around here can find you. Free to list, no catch, and a person reviews every submission before it goes live.</p>
+  <p class="sub" id="pageSub">Sell eggs, raw milk, sides of beef, garden produce, honey, fresh bread, hay, firewood, puppies or livestock you breed, or anything else you raise, grow, or make on a regular basis? If it's legal to sell, it belongs here. Free to list, no catch, and a person reviews every submission before it goes live.</p>
 
   <form id="tpForm" class="card">
     <label for="name">Your name or farm/stand name *</label>
@@ -122,12 +122,24 @@
 
 <script>
 (async function () {
+  // A separate literal town value, not a checkbox layered on top of the
+  // town select -- lets someone selling something countywide (eggs, hay,
+  // beef, whatever isn't tied to one stand) say so with the same single
+  // required field everything else already uses, instead of a second
+  // control to manage state for. docs/trading-post.html matches this
+  // exact string against every town filter, not just its own checkbox.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
   const config = await (await fetch("config.json")).json();
 
   document.title = `List on the Trading Post | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
   const townSelect = document.getElementById("town");
+  const countywideOption = document.createElement("option");
+  countywideOption.value = COUNTYWIDE_TOWN;
+  countywideOption.textContent = COUNTYWIDE_TOWN;
+  townSelect.appendChild(countywideOption);
   for (const town of config.towns) {
     const option = document.createElement("option");
     option.value = town;

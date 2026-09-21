@@ -125,6 +125,14 @@
 
 <script>
 (async function () {
+  // A separate literal town value, not a checkbox layered on top of the
+  // town select -- lets a post that isn't tied to one town (willing to
+  // travel/work anywhere in the county, or hiring for a countywide role)
+  // say so with the same single required field everything else already
+  // uses. docs/jobs.html matches this exact string against every town
+  // filter, not just its own checkbox.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
   const config = await (await fetch("config.json")).json();
 
   document.title = `Post to the Jobs Bulletin | ${config.site_name}`;
@@ -133,6 +141,10 @@
     `Posts come down automatically after ${config.job_expiry_days || 30} days, or remove it yourself anytime once it's filled.`;
 
   const townSelect = document.getElementById("town");
+  const countywideOption = document.createElement("option");
+  countywideOption.value = COUNTYWIDE_TOWN;
+  countywideOption.textContent = COUNTYWIDE_TOWN;
+  townSelect.appendChild(countywideOption);
   for (const town of config.towns) {
     const option = document.createElement("option");
     option.value = town;
