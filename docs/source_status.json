@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T22:24:32.799308+00:00",
+  "generated_at": "2026-09-21T15:01:40.889474+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -21,13 +21,13 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 225,
+      "count": 227,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 110,
+      "count": 111,
       "ok": true,
       "error": null
     },
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 77,
+      "count": 79,
       "ok": true,
       "error": null
     },

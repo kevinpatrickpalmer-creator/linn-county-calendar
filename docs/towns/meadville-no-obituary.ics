@@ -8,10 +8,10 @@ X-WR-CALNAME:Meadville Events (Linn County Community Calendar) (No Obituar
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Softball vs Linn County
+SUMMARY:Softball: Linn County at Meadville R-IV
 DTSTART:20260921T220000Z
 DTEND:20260921T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-21-softball-high-school-fall-season-home-linn-count
  y-2026-09-21-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -20,10 +20,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Boonville Meet
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Boonville
+  Meet
 DTSTART;VALUE=DATE:20260922
 DTEND;VALUE=DATE:20260923
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-22-varsity-boys-cross-country-tournament-boonville-
  meet-2026-09-22-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -32,10 +33,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Boonville Meet
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Boonvill
+ e Meet
 DTSTART;VALUE=DATE:20260922
 DTEND;VALUE=DATE:20260923
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-22-varsity-girls-cross-country-tournament-boonville
  -meet-2026-09-22-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -44,10 +46,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Golf Tournament: Salisbury Invitational
+SUMMARY:Varsity Girls Golf Tournament: Meadville R-IV vs Salisbury Invitat
+ ional
 DTSTART;VALUE=DATE:20260923
 DTEND;VALUE=DATE:20260924
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-23-varsity-girls-golf-tournament-salisbury-invitati
  onal-2026-09-23-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -56,11 +59,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Chillicothe High School Inv
- itational Meet
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Chillicot
+ he High School Invitational Meet
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-24-varsity-boys-cross-country-tournament-chillicoth
  e-high-school-invitational-meet-2026-09-24-allday@linn-county-scraper.loca
  l
@@ -70,10 +73,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Chillicothe Invitational
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Chillico
+ the Invitational
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-24-varsity-girls-cross-country-tournament-chillicot
  he-invitational-2026-09-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -82,11 +86,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Boys Cross Country Tournament: Chillicothe Invitationa
- l
+SUMMARY:Junior High Boys Cross Country Tournament: Meadville R-IV vs Chill
+ icothe Invitational
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-24-junior-high-boys-cross-country-tournament-chilli
  cothe-invitational-2026-09-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -95,11 +99,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Girls Cross Country Tournament: Chillicothe Invitation
- al
+SUMMARY:Junior High Girls Cross Country Tournament: Meadville R-IV vs Chil
+ licothe Invitational
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-24-junior-high-girls-cross-country-tournament-chill
  icothe-invitational-2026-09-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -108,10 +112,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Golf Tournament: Chillicothe Invitational
+SUMMARY:Varsity Girls Golf Tournament: Meadville R-IV vs Chillicothe Invit
+ ational
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-24-varsity-girls-golf-tournament-chillicothe-invita
  tional-2026-09-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -120,10 +125,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball vs Novinger
+SUMMARY:Softball: Novinger at Meadville R-IV
 DTSTART:20260925T220000Z
 DTEND:20260925T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-25-softball-high-school-fall-season-home-novinger-2
  026-09-25-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -132,10 +137,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Baseball vs Atlanta
+SUMMARY:Baseball: Atlanta at Meadville R-IV
 DTSTART:20260925T233000Z
 DTEND:20260926T003000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-25-baseball-high-school-fall-season-home-atlanta-20
  26-09-25-630@linn-county-scraper.local
 CATEGORIES:sports
@@ -144,10 +149,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Softball Tournament: Brunswick Tournament
+SUMMARY:Varsity Girls Softball Tournament: Meadville R-IV vs Brunswick Tou
+ rnament
 DTSTART;VALUE=DATE:20260926
 DTEND;VALUE=DATE:20260927
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-26-varsity-girls-softball-tournament-brunswick-tour
  nament-2026-09-26-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -156,10 +162,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball vs Grundy County
+SUMMARY:Softball: Grundy County at Meadville R-IV
 DTSTART:20260928T220000Z
 DTEND:20260928T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-28-softball-high-school-fall-season-home-grundy-cou
  nty-2026-09-28-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -168,10 +174,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball @ Bevier
+SUMMARY:Softball: Meadville R-IV at Bevier
 DTSTART:20260929T220000Z
 DTEND:20260929T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-09-29-softball-high-school-fall-season-away-bevier-202
  6-09-29-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -180,10 +186,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball vs Brunswick
+SUMMARY:Softball: Brunswick at Meadville R-IV
 DTSTART:20261001T220000Z
 DTEND:20261001T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-01-softball-high-school-fall-season-home-brunswick-
  2026-10-01-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -192,10 +198,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Moberly Invitational
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Moberly I
+ nvitational
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-01-varsity-boys-cross-country-tournament-moberly-in
  vitational-2026-10-01-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -204,10 +211,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Moberly Invitational
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Moberly 
+ Invitational
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-01-varsity-girls-cross-country-tournament-moberly-i
  nvitational-2026-10-01-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -216,10 +224,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Baseball @ La Plata
+SUMMARY:Baseball: Meadville R-IV at La Plata
 DTSTART:20261002T233000Z
 DTEND:20261003T003000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-02-baseball-high-school-fall-season-away-la-plata-2
  026-10-02-630@linn-county-scraper.local
 CATEGORIES:sports
@@ -228,10 +236,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Softball Tournament: NHC Aggie Softball Tournament
+SUMMARY:Varsity Girls Softball Tournament: Meadville R-IV vs NHC Aggie Sof
+ tball Tournament
 DTSTART;VALUE=DATE:20261003
 DTEND;VALUE=DATE:20261004
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-03-varsity-girls-softball-tournament-nhc-aggie-soft
  ball-tournament-2026-10-03-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -240,10 +249,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Baseball vs Bucklin
+SUMMARY:Baseball: Bucklin at Meadville R-IV
 DTSTART:20261005T233000Z
 DTEND:20261006T003000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-05-baseball-high-school-fall-season-home-bucklin-20
  26-10-05-630@linn-county-scraper.local
 CATEGORIES:sports
@@ -252,10 +261,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball vs La Plata
+SUMMARY:Softball: La Plata at Meadville R-IV
 DTSTART:20261007T220000Z
 DTEND:20261007T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-07-softball-high-school-fall-season-home-la-plata-2
  026-10-07-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -264,10 +273,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Softball @ Gilman City
+SUMMARY:Softball: Meadville R-IV at Gilman City
 DTSTART:20261008T223000Z
 DTEND:20261008T233000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-08-softball-high-school-fall-season-away-gilman-cit
  y-2026-10-08-530@linn-county-scraper.local
 CATEGORIES:sports
@@ -276,10 +285,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Novinger
+SUMMARY:Basketball: Novinger at Meadville R-IV
 DTSTART:20261009T230000Z
 DTEND:20261010T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-09-basketball-junior-high-boys-and-girls-home-novin
  ger-2026-10-09-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -288,10 +297,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Brashear
+SUMMARY:Basketball: Brashear at Meadville R-IV
 DTSTART:20261012T230000Z
 DTEND:20261013T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-12-basketball-junior-high-boys-and-girls-home-brash
  ear-2026-10-12-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -300,10 +309,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Cameron XC Invitational
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Cameron X
+ C Invitational
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-13-varsity-boys-cross-country-tournament-cameron-xc
  -invitational-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -312,10 +322,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Cameron XC Meet
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Cameron 
+ XC Meet
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-13-varsity-girls-cross-country-tournament-cameron-x
  c-meet-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -324,10 +335,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Boys Cross Country Tournament: Cameron XC Meet
+SUMMARY:Junior High Boys Cross Country Tournament: Meadville R-IV vs Camer
+ on XC Meet
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-13-junior-high-boys-cross-country-tournament-camero
  n-xc-meet-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -336,10 +348,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Girls Cross Country Tournament: Cameron XC Meet
+SUMMARY:Junior High Girls Cross Country Tournament: Meadville R-IV vs Came
+ ron XC Meet
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-13-junior-high-girls-cross-country-tournament-camer
  on-xc-meet-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -348,10 +361,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Softball Tournament: District Tournament
+SUMMARY:Varsity Girls Softball Tournament: Meadville R-IV vs District Tour
+ nament
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-13-varsity-girls-softball-tournament-district-tourn
  ament-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -360,10 +374,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Grundy County
+SUMMARY:Basketball: Meadville R-IV at Grundy County
 DTSTART:20261015T230000Z
 DTEND:20261016T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-15-basketball-junior-high-boys-and-girls-away-grund
  y-county-2026-10-15-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -372,10 +386,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Hale
+SUMMARY:Basketball: Meadville R-IV at Hale
 DTSTART:20261016T230000Z
 DTEND:20261017T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-16-basketball-junior-high-girls-away-hale-2026-10-1
  6-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -384,11 +398,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Robert Kelsay Invitational-
- Salisbury
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Robert Ke
+ lsay Invitational-Salisbury
 DTSTART;VALUE=DATE:20261019
 DTEND;VALUE=DATE:20261020
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-19-varsity-boys-cross-country-tournament-robert-kel
  say-invitational-salisbury-2026-10-19-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -397,11 +411,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Robert Kelsay Invitational
- -Salisbury
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Robert K
+ elsay Invitational-Salisbury
 DTSTART;VALUE=DATE:20261019
 DTEND;VALUE=DATE:20261020
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-19-varsity-girls-cross-country-tournament-robert-ke
  lsay-invitational-salisbury-2026-10-19-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -410,10 +424,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Bevier
+SUMMARY:Basketball: Meadville R-IV at Bevier
 DTSTART:20261020T230000Z
 DTEND:20261021T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-20-basketball-junior-high-boys-and-girls-away-bevie
  r-2026-10-20-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -422,10 +436,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Atlanta
+SUMMARY:Basketball: Atlanta at Meadville R-IV
 DTSTART:20261021T230000Z
 DTEND:20261022T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-21-basketball-junior-high-boys-and-girls-home-atlan
  ta-2026-10-21-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -434,10 +448,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Linn County
+SUMMARY:Basketball: Linn County at Meadville R-IV
 DTSTART:20261022T230000Z
 DTEND:20261023T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-22-basketball-junior-high-boys-and-girls-home-linn-
  county-2026-10-22-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -446,10 +460,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Softball Tournament: Class 1 - State Tournament
+SUMMARY:Varsity Girls Softball Tournament: Meadville R-IV vs Class 1 - Sta
+ te Tournament
 DTSTART;VALUE=DATE:20261024
 DTEND;VALUE=DATE:20261025
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-24-varsity-girls-softball-tournament-class-1-state-
  tournament-2026-10-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -458,10 +473,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ La Plata
+SUMMARY:Basketball: Meadville R-IV at La Plata
 DTSTART:20261027T230000Z
 DTEND:20261028T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-27-basketball-junior-high-boys-and-girls-away-la-pl
  ata-2026-10-27-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -470,10 +485,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball: Keytesville
+SUMMARY:Basketball: Meadville R-IV vs Keytesville
 DTSTART:20261030T230000Z
 DTEND:20261031T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-30-basketball-junior-high-girls-keytesville-2026-10
  -30-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -482,10 +497,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Northwestern (Mendon)
+SUMMARY:Basketball: Meadville R-IV at Northwestern (Mendon)
 DTSTART:20261030T230000Z
 DTEND:20261031T000000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-30-basketball-junior-high-boys-and-girls-away-north
  western-mendon-2026-10-30-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -494,11 +509,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Cross Country Tournament: Class 1 District 4 Boys Cro
- ss Country Tournament
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Class 1 D
+ istrict 4 Boys Cross Country Tournament
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-31-varsity-boys-cross-country-tournament-class-1-di
  strict-4-boys-cross-country-tournament-2026-10-31-allday@linn-county-scrap
  er.local
@@ -508,11 +523,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Cross Country Tournament: Class 1 District 4 Tournam
- ent
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Class 1 
+ District 4 Tournament
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-10-31-varsity-girls-cross-country-tournament-class-1-d
  istrict-4-tournament-2026-10-31-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -521,10 +536,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Green City
+SUMMARY:Basketball: Green City at Meadville R-IV
 DTSTART:20261103T000000Z
 DTEND:20261103T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-02-basketball-junior-high-boys-and-girls-home-green
  -city-2026-11-02-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -533,10 +548,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Bucklin
+SUMMARY:Basketball: Bucklin at Meadville R-IV
 DTSTART:20261106T000000Z
 DTEND:20261106T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-05-basketball-junior-high-boys-and-girls-home-buckl
  in-2026-11-05-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -545,10 +560,36 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Brunswick
+SUMMARY:Varsity Boys Cross Country Tournament: Meadville R-IV vs Class 1 S
+ tate Tournament
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261108
+DTSTAMP:20260921T150140Z
+UID:mshsaa-363-2026-11-07-varsity-boys-cross-country-tournament-class-1-st
+ ate-tournament-2026-11-07-allday@linn-county-scraper.local
+CATEGORIES:sports
+DESCRIPTION:TBD: Varsity Boys
+LOCATION:Meadville R-IV School District | Meadville\, MO
+X-EVENT-TYPE:Sports
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Varsity Girls Cross Country Tournament: Meadville R-IV vs Class 1 
+ State Tournament
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261108
+DTSTAMP:20260921T150140Z
+UID:mshsaa-363-2026-11-07-varsity-girls-cross-country-tournament-class-1-s
+ tate-tournament-2026-11-07-allday@linn-county-scraper.local
+CATEGORIES:sports
+DESCRIPTION:TBD: Varsity Girls
+LOCATION:Meadville R-IV School District | Meadville\, MO
+X-EVENT-TYPE:Sports
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Basketball: Meadville R-IV at Brunswick
 DTSTART:20261110T000000Z
 DTEND:20261110T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-09-basketball-junior-high-boys-and-girls-away-bruns
  wick-2026-11-09-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -557,10 +598,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Southwest (Livingston County)
+SUMMARY:Basketball: Southwest (Livingston County) at Meadville R-IV
 DTSTART:20261114T000000Z
 DTEND:20261114T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-13-basketball-junior-high-boys-and-girls-home-south
  west-livingston-county-2026-11-13-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -569,10 +610,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Hale
+SUMMARY:Basketball: Meadville R-IV at Hale
 DTSTART:20261118T000000Z
 DTEND:20261118T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-17-basketball-junior-high-boys-and-girls-away-hale-
  2026-11-17-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -581,10 +622,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Glasgow
+SUMMARY:Basketball: Glasgow at Meadville R-IV
 DTSTART:20261121T000000Z
 DTEND:20261121T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-20-basketball-high-school-boys-and-girls-home-glasg
  ow-2026-11-20-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -593,10 +634,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Osborn
+SUMMARY:Basketball: Meadville R-IV at Osborn
 DTSTART:20261125T000000Z
 DTEND:20261125T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-24-basketball-high-school-girls-away-osborn-2026-11
  -24-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -605,10 +646,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Stewartsville
+SUMMARY:Basketball: Meadville R-IV at Stewartsville
 DTSTART:20261124T233000Z
 DTEND:20261125T003000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-24-basketball-high-school-boys-away-stewartsville-2
  026-11-24-530@linn-county-scraper.local
 CATEGORIES:sports
@@ -617,10 +658,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Basketball Tournament: Northwestern Invitational
+SUMMARY:Varsity Boys Basketball Tournament: Meadville R-IV vs Northwestern
+  Invitational
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-30-varsity-boys-basketball-tournament-northwestern-
  invitational-2026-11-30-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -629,10 +671,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Basketball Tournament: Northwestern Invitational
+SUMMARY:Varsity Girls Basketball Tournament: Meadville R-IV vs Northwester
+ n Invitational
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-11-30-varsity-girls-basketball-tournament-northwestern
  -invitational-2026-11-30-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -641,10 +684,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Atlanta
+SUMMARY:Basketball: Meadville R-IV at Atlanta
 DTSTART:20261209T000000Z
 DTEND:20261209T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-12-08-basketball-high-school-boys-and-girls-away-atlan
  ta-2026-12-08-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -653,10 +696,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Brashear
+SUMMARY:Basketball: Meadville R-IV at Brashear
 DTSTART:20261212T000000Z
 DTEND:20261212T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-12-11-basketball-high-school-boys-and-girls-away-brash
  ear-2026-12-11-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -665,10 +708,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Linn County
+SUMMARY:Basketball: Meadville R-IV at Linn County
 DTSTART:20261216T000000Z
 DTEND:20261216T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2026-12-15-basketball-high-school-boys-and-girls-away-linn-
  county-2026-12-15-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -677,10 +720,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Bevier
+SUMMARY:Basketball: Bevier at Meadville R-IV
 DTSTART:20270113T000000Z
 DTEND:20270113T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-01-12-basketball-high-school-boys-and-girls-home-bevie
  r-2027-01-12-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -689,10 +732,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs La Plata
+SUMMARY:Basketball: La Plata at Meadville R-IV
 DTSTART:20270116T000000Z
 DTEND:20270116T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-01-15-basketball-high-school-boys-and-girls-home-la-pl
  ata-2027-01-15-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -701,10 +744,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Green City
+SUMMARY:Basketball: Meadville R-IV at Green City
 DTSTART:20270120T000000Z
 DTEND:20270120T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-01-19-basketball-high-school-boys-and-girls-away-green
  -city-2027-01-19-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -713,10 +756,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Northwestern (Mendon)
+SUMMARY:Basketball: Meadville R-IV at Northwestern (Mendon)
 DTSTART:20270123T000000Z
 DTEND:20270123T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-01-22-basketball-high-school-boys-and-girls-away-north
  western-mendon-2027-01-22-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -725,10 +768,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Basketball Tournament vs Meadville Invitational
+SUMMARY:Varsity Girls Basketball Tournament: Meadville Invitational at Mea
+ dville R-IV
 DTSTART;VALUE=DATE:20270125
 DTEND;VALUE=DATE:20270126
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-01-25-varsity-girls-basketball-tournament-home-meadvil
  le-invitational-2027-01-25-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -737,10 +781,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Tina-Avalon
+SUMMARY:Basketball: Tina-Avalon at Meadville R-IV
 DTSTART:20270205T000000Z
 DTEND:20270205T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-04-basketball-high-school-boys-and-girls-home-tina-
  avalon-2027-02-04-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -749,10 +793,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Novinger
+SUMMARY:Basketball: Meadville R-IV at Novinger
 DTSTART:20270206T000000Z
 DTEND:20270206T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-05-basketball-high-school-boys-and-girls-away-novin
  ger-2027-02-05-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -761,10 +805,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Brookfield
+SUMMARY:Basketball: Brookfield at Meadville R-IV
 DTSTART:20270210T000000Z
 DTEND:20270210T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-09-basketball-high-school-boys-and-girls-home-brook
  field-2027-02-09-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -773,10 +817,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Macon County
+SUMMARY:Basketball: Macon County at Meadville R-IV
 DTSTART:20270213T000000Z
 DTEND:20270213T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-12-basketball-high-school-boys-and-girls-home-macon
  -county-2027-02-12-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -785,10 +829,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball vs Norborne
+SUMMARY:Basketball: Norborne at Meadville R-IV
 DTSTART:20270217T000000Z
 DTEND:20270217T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-16-basketball-high-school-boys-and-girls-home-norbo
  rne-2027-02-16-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -797,10 +841,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Basketball @ Grundy County
+SUMMARY:Basketball: Meadville R-IV at Grundy County
 DTSTART:20270219T000000Z
 DTEND:20270219T010000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-02-18-basketball-high-school-boys-and-girls-away-grund
  y-county-2027-02-18-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -809,11 +853,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Track and Field Tournament: La Plata Early Bird with 
- Atlanta\, Brashear\, Green City\, Meadville and Novinger
+SUMMARY:Varsity Boys Track and Field Tournament: Meadville R-IV vs La Plat
+ a Early Bird with Atlanta\, Brashear\, Green City\, Meadville and Novinger
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-03-29-varsity-boys-track-and-field-tournament-la-plata
  -early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-2027-0
  3-29-allday@linn-county-scraper.local
@@ -823,11 +867,12 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Track and Field Tournament: La Plata Early Bird with
-  Atlanta\, Brashear\, Green City\, Meadville and Novinger
+SUMMARY:Varsity Girls Track and Field Tournament: Meadville R-IV vs La Pla
+ ta Early Bird with Atlanta\, Brashear\, Green City\, Meadville and Novinge
+ r
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-03-29-varsity-girls-track-and-field-tournament-la-plat
  a-early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-2027-
  03-29-allday@linn-county-scraper.local
@@ -837,11 +882,12 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Boys Track and Field Tournament: La Plata Early Bird w
- ith Atlanta\, Brashear\, Green City\, Meadville and Novinger
+SUMMARY:Junior High Boys Track and Field Tournament: Meadville R-IV vs La 
+ Plata Early Bird with Atlanta\, Brashear\, Green City\, Meadville and Novi
+ nger
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-03-29-junior-high-boys-track-and-field-tournament-la-p
  lata-early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-20
  27-03-29-allday@linn-county-scraper.local
@@ -851,11 +897,12 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Girls Track and Field Tournament: La Plata Early Bird 
- with Atlanta\, Brashear\, Green City\, Meadville and Novinger
+SUMMARY:Junior High Girls Track and Field Tournament: Meadville R-IV vs La
+  Plata Early Bird with Atlanta\, Brashear\, Green City\, Meadville and Nov
+ inger
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-03-29-junior-high-girls-track-and-field-tournament-la-
  plata-early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-2
  027-03-29-allday@linn-county-scraper.local
@@ -865,10 +912,10 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Baseball @ Putnam County
+SUMMARY:Baseball: Meadville R-IV at Putnam County
 DTSTART:20270330T220000Z
 DTEND:20270330T230000Z
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-03-30-baseball-high-school-spring-season-away-putnam-c
  ounty-2027-03-30-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -877,10 +924,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Track and Field Tournament: La Plata HS Relays
+SUMMARY:Varsity Boys Track and Field Tournament: Meadville R-IV vs La Plat
+ a HS Relays
 DTSTART;VALUE=DATE:20270405
 DTEND;VALUE=DATE:20270406
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-05-varsity-boys-track-and-field-tournament-la-plata
  -hs-relays-2027-04-05-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -889,10 +937,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Boys Track and Field Tournament: La Plata JH Relays
+SUMMARY:Junior High Boys Track and Field Tournament: Meadville R-IV vs La 
+ Plata JH Relays
 DTSTART;VALUE=DATE:20270412
 DTEND;VALUE=DATE:20270413
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-12-junior-high-boys-track-and-field-tournament-la-p
  lata-jh-relays-2027-04-12-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -901,10 +950,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Junior High Girls Track and Field Tournament: La Plata JH Relays
+SUMMARY:Junior High Girls Track and Field Tournament: Meadville R-IV vs La
+  Plata JH Relays
 DTSTART;VALUE=DATE:20270412
 DTEND;VALUE=DATE:20270413
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-12-junior-high-girls-track-and-field-tournament-la-
  plata-jh-relays-2027-04-12-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -913,10 +963,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Boys Track and Field Tournament: SH HS Bulldog Relays
+SUMMARY:Varsity Boys Track and Field Tournament: Meadville R-IV vs SH HS B
+ ulldog Relays
 DTSTART;VALUE=DATE:20270429
 DTEND;VALUE=DATE:20270430
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-29-varsity-boys-track-and-field-tournament-sh-hs-bu
  lldog-relays-2027-04-29-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -925,10 +976,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Varsity Girls Track and Field Tournament: SH HS Bulldog Relays
+SUMMARY:Varsity Girls Track and Field Tournament: Meadville R-IV vs SH HS 
+ Bulldog Relays
 DTSTART;VALUE=DATE:20270429
 DTEND;VALUE=DATE:20270430
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-29-varsity-girls-track-and-field-tournament-sh-hs-b
  ulldog-relays-2027-04-29-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -937,10 +989,11 @@ LOCATION:Meadville R-IV School District | Meadville\, MO
 X-EVENT-TYPE:Sports
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:State Solo & Small Ensemble: 2027 State Music Festival
+SUMMARY:State Solo & Small Ensemble: Meadville R-IV vs 2027 State Music Fe
+ stival
 DTSTART;VALUE=DATE:20270430
 DTEND;VALUE=DATE:20270501
-DTSTAMP:20260920T222432Z
+DTSTAMP:20260921T150140Z
 UID:mshsaa-363-2027-04-30-state-solo-small-ensemble-2027-state-music-festi
  val-2027-04-30-allday@linn-county-scraper.local
 CATEGORIES:sports
