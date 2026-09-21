@@ -1,0 +1,9 @@
+{
+  "type": "offering",
+  "category": "Food",
+  "name": "Example Community Food Pantry",
+  "town": "Brookfield",
+  "description": "Open Wednesdays 10am-2pm, no appointment needed. Stop by or call if those hours don't work for you. (example)",
+  "posted": "2026-09-21",
+  "example": true
+}

@@ -44,6 +44,9 @@
     { label: "Notices", href: "notices.html", children: [
       { label: "Post a Notice", href: "submit-notice.html" },
     ] },
+    { label: "Community Support", href: "support.html", children: [
+      { label: "Post to Community Support", href: "submit-support.html" },
+    ] },
     { label: "Flyer", href: "flyer.html" },
     { label: "Big Idea Board", href: "big-ideas.html", children: [
       { label: "Submit Idea", href: "big-ideas.html#submitSection" },

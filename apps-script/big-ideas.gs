@@ -299,6 +299,7 @@ const BOARD_LABELS = {
   answer: "Ask the Community answer",
   notice: "Community Notice",
   volunteer: "Volunteer & Help Needed post",
+  support: "Community Support post",
 };
 
 // Mirrors each board's old admin-*.html "build the JSON, then open a
@@ -502,6 +503,32 @@ const BOARD_CONFIG = {
       return obj;
     },
   },
+  // Not anonymous -- the poster provides their own contact info same as
+  // Jobs/Trading Post/Volunteer, that's the "meet the community
+  // halfway" design Kevin settled on (2026-09-21) instead of routing
+  // requests privately through an admin. Two-sided like Jobs/Volunteer
+  // (needed/offering), added the same day once Kevin pointed out an
+  // organization with a standing resource (a food pantry, a clothing
+  // drive) needs a place to say "we're here" the same way a person
+  // needing help needs a place to ask -- "offering" covers that side.
+  // Benefit dinners/fundraisers are folded in as just another category
+  // here rather than their own board, per the plan doc's own note that
+  // it might not need to be a standalone section.
+  support: {
+    dir: "data/support",
+    requiredFields: ["type", "category", "name", "town", "description"],
+    buildFilename: function (f, today) {
+      return slugify(f.town) + "-" + (slugify(f.name) || "post") + "-" + today + ".json";
+    },
+    buildContent: function (f, today) {
+      const obj = { type: f.type, category: f.category, name: f.name, town: f.town, description: f.description, posted: today };
+      ["phone", "email"].forEach(function (k) {
+        if (f[k]) obj[k] = f[k];
+      });
+      if (f.photos && f.photos.length) obj.photos = f.photos;
+      return obj;
+    },
+  },
 };
 
 function submitBoardEntry(body) {
@@ -533,6 +560,9 @@ function submitBoardEntry(body) {
     return { success: false, error: "Invalid type." };
   }
   if (board === "volunteer" && ["needed", "offering"].indexOf(fields.type) === -1) {
+    return { success: false, error: "Invalid type." };
+  }
+  if (board === "support" && ["needed", "offering"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
 

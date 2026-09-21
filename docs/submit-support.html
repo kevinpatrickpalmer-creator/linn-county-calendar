@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Post to Community Support</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Community Support | Linn County">
+<meta property="og:description" content="A bill that's due, a benefit dinner, whatever the need. Let your neighbors know, free.">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/submit-support.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Community Support | Linn County">
+<meta name="twitter:description" content="A bill that's due, a benefit dinner, whatever the need. Let your neighbors know, free.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #status { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #status.ok { color: var(--success); }
+  #status.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+  .hint.err { color: var(--primary); font-weight: 600; }
+
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+  .confirm-panel .btn.secondary { margin-top: 1.1rem; }
+
+  .removal-code-box { margin: 1.1rem 0; padding: 1rem; border-radius: var(--radius); background: var(--primary-tint); border: 1px solid var(--primary); }
+  .removal-code-label { margin: 0 0 .3rem; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); }
+  .removal-code { margin: 0 0 .5rem; font-size: 1.6rem; font-weight: 800; letter-spacing: .12em; font-family: monospace; }
+  .removal-code-box p.hint { text-align: center; margin: .3rem 0 0; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<script src="share.js" data-manual></script>
+<script src="photo-upload.js"></script>
+<main>
+  <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Post to Community Support</h1>
+  <p class="sub" id="pageSub">A bill that's due, help with food or medical costs, a benefit dinner for someone going through a hard stretch, or a food pantry, clothing drive, or charity letting people know it's here. Post it here, free. A person reviews every post before it goes live.</p>
+  <p class="hint">Include a phone number or email below so people who want to help can actually reach you.</p>
+
+  <form id="sForm" class="card">
+    <label for="postType">What kind of post is this? *</label>
+    <select id="postType" name="postType" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="needed">Someone needs help</option>
+      <option value="offering">We're a food pantry, charity, or program offering help</option>
+    </select>
+
+    <label for="category">What kind of help? *</label>
+    <select id="category" name="category" required>
+      <option value="" disabled selected>Select one</option>
+    </select>
+
+    <label for="name" id="nameLabel">Who's this for? *</label>
+    <input id="name" name="name" type="text" maxlength="120" required placeholder="e.g. The Palmer Family, or your own name">
+
+    <label for="town">Town *</label>
+    <select id="town" name="town" required>
+      <option value="" disabled selected>Select a town</option>
+    </select>
+
+    <div id="townOtherWrap" style="display:none;">
+      <label for="townOther">Town or place name *</label>
+      <input id="townOther" name="townOther" type="text" maxlength="80" placeholder="e.g. Hurricane Branch, Lake Nehai Tonka">
+    </div>
+
+    <label for="description" id="descriptionLabel">Tell us about it *</label>
+    <textarea id="description" name="description" maxlength="800" required placeholder="Select what kind of post this is above for an example."></textarea>
+
+    <label for="photo">Photos (optional, up to 3)</label>
+    <input id="photo" name="photo" type="file" accept="image/*" multiple>
+    <p class="hint" id="photoHint">A benefit dinner flyer, for instance.</p>
+
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+    <p class="hint" id="contactHint">At least one is required, so people who want to help can reach you.</p>
+
+    <p class="hint" id="expiryHint"></p>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Submit post</button>
+    <div id="status" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it, thanks!</h2>
+    <p class="hint">A person reviews every post, usually live within 24 hours.</p>
+    <div class="removal-code-box">
+      <p class="removal-code-label">Your removal code -- screenshot this</p>
+      <p class="removal-code" id="removalCode"></p>
+      <p class="hint">Use it on <a href="remove-listing.html">Remove a listing</a> whenever you're ready to take it down.</p>
+      <p class="hint" id="removalEmailNote" hidden>Also emailed to you.</p>
+    </div>
+    <div id="shareSection"></div>
+    <button type="button" id="submitAnotherBtn" class="btn secondary">Submit another post</button>
+  </div>
+
+  <p class="hint" style="text-align:center;"><a href="support.html">Browse Community Support &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by Hwy 36 Labs</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  // Matches every other board's own COUNTYWIDE_TOWN literal.
+  const COUNTYWIDE_TOWN = "All of Linn County";
+
+  const config = await (await fetch("config.json")).json();
+
+  document.title = `Post to Community Support | ${config.site_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+  document.getElementById("expiryHint").textContent =
+    `Posts come down automatically after ${config.support_expiry_days || 30} days, or remove it yourself anytime.`;
+
+  const townSelect = document.getElementById("town");
+  const countywideOption = document.createElement("option");
+  countywideOption.value = COUNTYWIDE_TOWN;
+  countywideOption.textContent = COUNTYWIDE_TOWN;
+  townSelect.appendChild(countywideOption);
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+  const otherTownOption = document.createElement("option");
+  otherTownOption.value = "__other__";
+  otherTownOption.textContent = "Other (not on this list)";
+  townSelect.appendChild(otherTownOption);
+
+  const townOtherWrap = document.getElementById("townOtherWrap");
+  const townOtherInput = document.getElementById("townOther");
+  townSelect.addEventListener("change", () => {
+    const isOther = townSelect.value === "__other__";
+    townOtherWrap.style.display = isOther ? "block" : "none";
+    townOtherInput.required = isOther;
+  });
+
+  const categorySelect = document.getElementById("category");
+  for (const category of config.support_categories || []) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  }
+
+  // Same "relabel instead of two separate forms" idea as
+  // docs/submit-job.html/docs/submit-volunteer.html -- the name/
+  // description fields' meaning flips depending on which side of the
+  // board this post is on.
+  const nameLabel = document.getElementById("nameLabel");
+  const nameInput = document.getElementById("name");
+  const descriptionLabel = document.getElementById("descriptionLabel");
+  const descriptionInput = document.getElementById("description");
+  document.getElementById("postType").addEventListener("change", (e) => {
+    if (e.target.value === "needed") {
+      nameLabel.textContent = "Who's this for? *";
+      nameInput.placeholder = "e.g. The Palmer Family, or your own name";
+      descriptionLabel.textContent = "Tell us about it *";
+      descriptionInput.placeholder = "What's going on, and what kind of help would make a difference. As much or as little as you're comfortable sharing.";
+    } else if (e.target.value === "offering") {
+      nameLabel.textContent = "Organization or program name *";
+      nameInput.placeholder = "e.g. Brookfield Community Food Pantry";
+      descriptionLabel.textContent = "What do you offer, and how do people reach you? *";
+      descriptionInput.placeholder = "e.g. Open Wednesdays 10am-2pm, no appointment needed. Stop by or call.";
+    } else {
+      nameLabel.textContent = "Who's this for? *";
+      nameInput.placeholder = "e.g. The Palmer Family, or your own name";
+      descriptionLabel.textContent = "Tell us about it *";
+      descriptionInput.placeholder = "Select what kind of post this is above for an example.";
+    }
+  });
+
+  const form = document.getElementById("sForm");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+  const contactHint = document.getElementById("contactHint");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+
+  submitAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("postType").focus();
+  });
+
+  wirePhotoCap("photo", "photoHint");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+
+    const phoneVal = document.getElementById("phone").value.trim();
+    const emailVal = document.getElementById("email").value.trim();
+    if (!phoneVal && !emailVal) {
+      contactHint.classList.add("err");
+      contactHint.textContent = "Please provide a phone number or email so people who want to help can reach you.";
+      document.getElementById("phone").focus();
+      return;
+    }
+    contactHint.classList.remove("err");
+    contactHint.textContent = "At least one is required, so people who want to help can reach you.";
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const data = new FormData(form);
+
+    const postType = (data.get("postType") || "").trim();
+    const category = (data.get("category") || "").trim();
+    const rawName = (data.get("name") || "").trim();
+    const rawTown = (data.get("town") || "").trim();
+    const town = rawTown === "__other__" ? (data.get("townOther") || "").trim() : rawTown;
+    const description = (data.get("description") || "").trim();
+    const phone = (data.get("phone") || "").trim();
+    const email = (data.get("email") || "").trim();
+    const photos = await readPhotos("photo");
+
+    try {
+      const payload = {
+        action: "submitBoard",
+        board: "support",
+        botcheck: (data.get("botcheck") || "").toString(),
+        fields: { type: postType, category, name: rawName, town, description, phone, email },
+      };
+      if (photos.length) payload.photos = photos;
+      const res = await fetch(config.apps_script_api_url, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        form.reset();
+        nameLabel.textContent = "Who's this for? *";
+        nameInput.placeholder = "e.g. The Palmer Family, or your own name";
+        descriptionLabel.textContent = "Tell us about it *";
+        descriptionInput.placeholder = "Select what kind of post this is above for an example.";
+        document.getElementById("removalCode").textContent = result.removalCode || "";
+        document.getElementById("removalEmailNote").hidden = !email;
+        form.hidden = true;
+        confirmPanel.hidden = false;
+        confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        confirmPanel.focus();
+        renderShareRow(document.getElementById("shareSection"), {
+          url: `https://${config.domain}/support.html`,
+          text: "A bill that's due, a benefit dinner, whatever the need. Community Support, free.",
+          subject: "Community Support",
+          label: "This only works if people know it's here. Share Community Support:",
+        });
+      } else {
+        throw new Error(result.error || "Submission failed");
+      }
+    } catch (err) {
+      statusEl.textContent = "Something went wrong submitting your post. Please try again in a moment.";
+      statusEl.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit post";
+    }
+  });
+})();
+</script>
+</body>
+</html>
