@@ -15,40 +15,40 @@
 // (Kevin's ask, 2026-09-17); above it, nothing changes from before.
 (function () {
   const NAV_ITEMS = [
-    { label: "County Calendar", href: "calendar-view.html", children: [
+    { label: "County Calendar", href: "calendar-view.html", dot: "--sec-calendar", children: [
       { label: "Subscribe", href: "subscribe.html" },
       { label: "Email Alerts", href: "alerts.html" },
       { label: "Submit Event", href: "submit.html" },
     ] },
-    { label: "Business Directory", href: "directory.html", children: [
+    { label: "Business Directory", href: "directory.html", dot: "--sec-directory", children: [
       { label: "List a Business or Service", href: "submit-business.html" },
     ] },
-    { label: "Trading Post", href: "trading-post.html", children: [
+    { label: "Trading Post", href: "trading-post.html", dot: "--sec-trading-post", children: [
       { label: "List Something", href: "submit-trading-post.html" },
     ] },
-    { label: "Jobs Bulletin", href: "jobs.html", children: [
+    { label: "Jobs Bulletin", href: "jobs.html", dot: "--sec-jobs", children: [
       { label: "Post to the Bulletin", href: "submit-job.html" },
     ] },
-    { label: "Volunteer & Help Needed", href: "volunteer.html", children: [
+    { label: "Volunteer & Help Needed", href: "volunteer.html", dot: "--sec-volunteer", children: [
       { label: "Post a Volunteer Need", href: "submit-volunteer.html" },
     ] },
-    { label: "Clubs & Classes", href: "clubs.html", children: [
+    { label: "Clubs & Classes", href: "clubs.html", dot: "--sec-clubs", children: [
       { label: "Post a Club or Class", href: "submit-clubs.html" },
     ] },
-    { label: "Lost & Found", href: "lost-found.html", children: [
+    { label: "Lost & Found", href: "lost-found.html", dot: "--sec-lost-found", children: [
       { label: "Post to Lost & Found", href: "submit-lost-found.html" },
     ] },
-    { label: "Ask the Community", href: "ask-community.html", children: [
+    { label: "Ask the Community", href: "ask-community.html", dot: "--sec-ask", children: [
       { label: "Ask a Question", href: "submit-question.html" },
     ] },
-    { label: "Notices", href: "notices.html", children: [
+    { label: "Notices", href: "notices.html", dot: "--sec-notices", children: [
       { label: "Post a Notice", href: "submit-notice.html" },
     ] },
-    { label: "Community Support", href: "support.html", children: [
+    { label: "Community Support", href: "support.html", dot: "--sec-support", children: [
       { label: "Post to Community Support", href: "submit-support.html" },
     ] },
     { label: "Flyer", href: "flyer.html" },
-    { label: "Big Idea Board", href: "big-ideas.html", children: [
+    { label: "Big Idea Board", href: "big-ideas.html", dot: "--sec-ideas", children: [
       { label: "Submit Idea", href: "big-ideas.html#submitSection" },
     ] },
     { label: "Contact", href: "contact.html" },
@@ -101,8 +101,13 @@
        because the only visible reaction was that thin line). A
        background fill now covers the tab's full padded box, not just a
        sliver under the text, on hover, on press, and for whichever tab
-       you're already on -- one accent color throughout, same blue used
-       everywhere else on the site, not a different color per tab. */
+       you're already on -- one accent color for that fill, same blue
+       used everywhere else on the site. The per-tab .nav-dot below is
+       the one deliberate exception to "one accent color" on this site,
+       added 2026-09-21 alongside a matching dot on each homepage card
+       (see docs/index.html), same idea as the existing town-tag colors
+       on the calendar/Big Idea Board, just for sections instead of
+       towns -- a quiet wayfinding aid, not a chrome/button color. */
     .site-nav a {
       flex-shrink: 0; display: flex; align-items: center; min-height: ${NAV_HEIGHT};
       padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
@@ -116,6 +121,10 @@
     .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
     .site-nav a.active:hover { background: rgba(123, 176, 247, .28); }
     .site-nav a:active { background: rgba(127,127,127,.28); }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+      margin-right: .5rem; display: inline-block;
+    }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     /* A tab with a submenu (e.g. Business Directory -> List a Business or
        Service) -- the tab itself still navigates on click, the dropdown
@@ -168,7 +177,17 @@
   function makeLink(item) {
     const a = document.createElement("a");
     a.href = item.href;
-    a.textContent = item.label;
+    // item.dot is a CSS custom property name (see the --sec-* palette
+    // in theme.css) -- only the 11 core sections have one, so a plain
+    // utility link like Flyer/Contact renders with no dot at all.
+    if (item.dot) {
+      const dot = document.createElement("span");
+      dot.className = "nav-dot";
+      dot.style.background = `var(${item.dot})`;
+      dot.setAttribute("aria-hidden", "true");
+      a.appendChild(dot);
+    }
+    a.appendChild(document.createTextNode(item.label));
     // Links/text are natively draggable in the browser -- the tiniest bit
     // of mouse movement during a click (routine with a trackpad) can get
     // read as starting a drag instead of a click, which cancels the
