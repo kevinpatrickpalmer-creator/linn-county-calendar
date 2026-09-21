@@ -129,6 +129,49 @@
     color: var(--ink-faint);
     margin: 0 0 1rem;
   }
+
+  /* What's Happening Now -- same card/grid language as .utility-grid
+     (auto-fit columns, --sec-* dots) so it reads as part of the same
+     system, just a lighter/denser row style since these are feed items,
+     not the 12 fixed section cards. */
+  .wh-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: .6rem;
+    margin-bottom: 1.75rem;
+  }
+  a.wh-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: .7rem .9rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  a.wh-item:hover {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+  }
+  .wh-item .wh-dot {
+    width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+    margin-top: .4em;
+  }
+  .wh-item .wh-body { min-width: 0; }
+  .wh-item .wh-text {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .wh-item .wh-meta {
+    font-size: .78rem;
+    color: var(--ink-soft);
+    margin-top: .15rem;
+  }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -147,6 +190,10 @@
   </div>
 </div>
 <main class="wide">
+  <section class="whats-happening" id="whatsHappening" style="display:none;">
+    <p class="section-heading">What's Happening Now</p>
+    <div class="wh-list" id="whList"></div>
+  </section>
   <p class="section-heading">What do you need today?</p>
   <div class="utility-grid">
     <a class="utility-card" href="calendar-view.html">
@@ -248,6 +295,7 @@
   </div>
 </main>
 
+<script src="whats-happening.js"></script>
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
