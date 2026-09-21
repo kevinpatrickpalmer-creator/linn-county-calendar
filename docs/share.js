@@ -30,7 +30,7 @@
     const url = opts.url || location.href;
     const text = opts.text || document.title;
     const subject = opts.subject || document.title;
-    const label = opts.label || "Know someone who'd want this? Share it:";
+    const label = opts.label || "This only works if people know it's here. Share it with a neighbor:";
 
     container.innerHTML =
       `<p class="share-label">${label}</p>` +
