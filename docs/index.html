@@ -35,6 +35,28 @@
     margin: -.4rem 0 .9rem;
     font-size: .95rem;
   }
+  /* Its own line, not another .stats-line -- that class's flanking rules
+     look right once, but doubled up right underneath the real stats-line
+     it reads as visual clutter, not a second fact worth the same weight.
+     Reuses .live-dot's pulse animation (theme.css) but in the page's
+     muted ink-soft, not primary blue -- this is a quieter aside, not
+     another headline number competing with the Events count above it. */
+  .hero .visitor-line {
+    text-align: center;
+    margin: -1.1rem 0 0;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .hero .visitor-line .live-count { display: inline-flex; align-items: center; gap: .4em; }
+  .hero .visitor-line .live-dot {
+    width: .5em; height: .5em; border-radius: 50%; flex-shrink: 0;
+    background: var(--ink-soft);
+    animation: live-pulse 1.8s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero .visitor-line .live-dot { animation: none; }
+  }
   @media (max-width: 480px) {
     .hero { padding: 2rem 1.1rem 1.85rem; }
     .hero h1 { font-size: 1.7rem; }
@@ -112,6 +134,7 @@
     <p class="sub" id="pageSub">Everything Linn County, all in one place.</p>
     <p class="made-for" id="madeFor">Made for locals.</p>
     <p class="stats-line" id="statsLine"></p>
+    <p class="visitor-line" id="visitorLine"></p>
   </div>
 </div>
 <main class="wide">
@@ -204,6 +227,15 @@
   } catch (err) {
     document.getElementById("statsLine").textContent =
       `1 County · ${config.towns.length} Towns`;
+  }
+
+  // window.linnVisitCountReady comes from nav.js -- null if the backend
+  // call failed for any reason, in which case this line just stays
+  // blank rather than showing a broken or misleading number.
+  const visitCount = await window.linnVisitCountReady;
+  if (typeof visitCount === "number") {
+    document.getElementById("visitorLine").innerHTML =
+      `<span class="live-count"><span class="live-dot"></span>${visitCount.toLocaleString()} locals have stopped by</span>`;
   }
 })();
 </script>

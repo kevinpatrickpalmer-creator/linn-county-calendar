@@ -243,3 +243,42 @@
   document.body.insertBefore(spacer, document.body.firstChild);
   document.body.insertBefore(bar, document.body.firstChild);
 })();
+
+// Counts a visit once per browser (a localStorage flag, not a real
+// fingerprint -- "unique" here means "unique browser that hasn't set
+// the flag before," which is what a small-town site showing "people are
+// using this" needs, not analytics-grade dedup) and exposes the
+// county-wide running total for any page to display -- currently just
+// docs/index.html, via window.linnVisitCountReady. Runs on every page
+// since a visitor can land anywhere first, not just the homepage, but
+// only ever increments the shared total the first time a given browser
+// is seen, regardless of which page that happens on.
+(function () {
+  const FLAG_KEY = "lcl_visited";
+  let alreadyVisited = false;
+  try {
+    alreadyVisited = localStorage.getItem(FLAG_KEY) === "1";
+  } catch (err) {
+    // Private browsing / blocked storage -- treat as already-visited so
+    // a browser that can't remember never gets counted more than once
+    // by accident on repeat page loads within the same session.
+    alreadyVisited = true;
+  }
+
+  window.linnVisitCountReady = (async () => {
+    try {
+      const config = await (await fetch("config.json")).json();
+      const res = await fetch(config.apps_script_api_url, {
+        method: "POST",
+        body: JSON.stringify({ action: "recordVisit", increment: !alreadyVisited }),
+      });
+      const result = await res.json();
+      if (!alreadyVisited && result.success) {
+        try { localStorage.setItem(FLAG_KEY, "1"); } catch (err) {}
+      }
+      return result.success ? result.count : null;
+    } catch (err) {
+      return null;
+    }
+  })();
+})();

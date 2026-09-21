@@ -120,6 +120,24 @@ function generateRemovalCode() {
   return code;
 }
 
+// A single running total in Script Properties, not a Sheet -- there's
+// nothing here worth a spreadsheet row (no per-visit detail, just one
+// number), and Script Properties is a plain key/value read-modify-write,
+// no need to hunt down/lock a specific cell. "Unique" is approximate --
+// one increment per browser, tracked by nav.js setting a localStorage
+// flag the first time it calls this with increment:true -- not a real
+// fingerprint/cookie-across-devices count, which is more machinery than
+// a small-town site showing "people are using this" needs.
+function recordVisit(body) {
+  const props = PropertiesService.getScriptProperties();
+  let count = parseInt(props.getProperty("visit_count") || "0", 10);
+  if (body.increment) {
+    count += 1;
+    props.setProperty("visit_count", String(count));
+  }
+  return { success: true, count: count };
+}
+
 function doGet(e) {
   const action = (e.parameter.action || "list");
   if (action === "list") {
@@ -143,6 +161,7 @@ function doPost(e) {
     if (body.action === "vote") return jsonResponse(castVote(body));
     if (body.action === "submitBoard") return jsonResponse(submitBoardEntry(body));
     if (body.action === "removeListing") return jsonResponse(removeListing(body));
+    if (body.action === "recordVisit") return jsonResponse(recordVisit(body));
     return jsonResponse({ success: false, error: "Unknown action" });
   } finally {
     lock.releaseLock();
