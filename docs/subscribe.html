@@ -33,6 +33,20 @@
   }
   .device-toggle a { color: var(--navy); }
 
+  /* Two columns instead of one long stack -- Kevin's catch, Sept 2026,
+     with 9 towns and 12 types each this ran long as a single column.
+     Collapses back to one column on a narrow phone screen, where a
+     longer label (e.g. "Auction / Estate Sale") would otherwise wrap
+     awkwardly inside a half-width column. */
+  #townCheckboxes, #typeCheckboxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+  @media (max-width: 480px) {
+    #townCheckboxes, #typeCheckboxes { grid-template-columns: 1fr; }
+  }
+
   .subscribe-qr { text-align: center; margin: .75rem 0; }
   .subscribe-qr .qr-box {
     display: inline-block;
@@ -139,6 +153,8 @@
     <label>Which types of events?</label>
     <p class="hint">Leave all unchecked to get every type of event.</p>
     <div id="typeCheckboxes"></div>
+
+    <p class="callout">No need to save. Whatever you've checked above is already built into the button below.</p>
 
     <!-- Which of these two shows is decided by screen width on load (see
          the script below, same breakpoint the old .qr-callout used to
