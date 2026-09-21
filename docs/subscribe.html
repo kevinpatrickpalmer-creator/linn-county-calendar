@@ -242,14 +242,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
         <p class="path-option-label">Get it on this computer</p>
-        <a class="btn secondary" id="downloadLink" href="linn_county_events.ics" download="linn-county-calendar.ics">Download calendar file</a>
         <button type="button" class="btn secondary" id="copyLinkBtn">Copy subscription link</button>
-        <details>
-          <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
-          <p><strong>Mac (Apple Calendar):</strong> Tap "Copy subscription link" above. In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
-          <p><strong>Windows (Outlook):</strong> Tap "Copy subscription link" above. In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
-          <p><strong>Google Calendar (any computer):</strong> Tap "Copy subscription link" above. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
-        </details>
+        <p class="hint" style="margin-top:1rem;">Then paste it into your calendar app:</p>
+        <p><strong>Mac (Apple Calendar):</strong> In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
+        <p><strong>Windows (Outlook):</strong> Go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
+        <p><strong>Google Calendar (any computer):</strong> On the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
       </div>
     </div>
 
@@ -294,8 +291,8 @@
 <div class="modal-overlay" id="alertsModalOverlay" style="display:none;">
   <div class="modal-box">
     <button type="button" class="modal-close" id="alertsModalClose" aria-label="Close">&times;</button>
-    <h3>You're all set</h3>
-    <p>Your calendar app should start filling in within a few minutes, open it to check.</p>
+    <h3 id="alertsModalHeading">You're all set</h3>
+    <p id="alertsModalMessage">Your calendar app should start filling in within a few minutes, open it to check.</p>
     <p>Want email alerts too? Calendar apps don't always send reminders, so you can also get an email the day before events, or a weekly roundup, sent straight to your inbox.</p>
     <div class="modal-actions">
       <a class="btn" href="alerts.html">Yes, set up email alerts &rarr;</a>
@@ -360,7 +357,6 @@
   });
 
   const subscribeBtn = document.getElementById("subscribeBtn");
-  const downloadLink = document.getElementById("downloadLink");
   const unsubscribeHint = document.getElementById("unsubscribeHint");
 
   // Real multi-select (tick any combination of towns and/or types)
@@ -406,7 +402,6 @@
     currentFeedUrl = `${config.apps_script_api_url}?${params.toString()}`;
 
     subscribeBtn.href = currentFeedUrl.replace(/^https:\/\//, "webcal://");
-    downloadLink.href = currentFeedUrl;
 
     const nameParts = [];
     if (towns.length) nameParts.push(towns.join(", "));
@@ -421,44 +416,14 @@
   });
   updateSubscribeLinks();
 
-  // Clicking downloadLink directly (href pointing straight at the Apps
-  // Script feed) triggered a save dialog suggesting "echo" as the
-  // filename -- Kevin's catch, Sept 2026. That's Apps Script's own
-  // redirect target (script.googleusercontent.com/macros/echo?...)
-  // leaking through, since ContentService has no way to set a real
-  // Content-Disposition header. Fetching the feed and downloading it as
-  // a same-origin blob: URL sidesteps that entirely, a blob: URL's
-  // `download` attribute is honored reliably where a cross-origin
-  // link's often isn't. href stays pointed at the real feed URL as a
-  // fallback (a slightly wrong filename beats a dead button if fetch
-  // fails), and separately so right-clicking it still exposes the real
-  // link if someone wants it directly.
-  downloadLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    fetch(currentFeedUrl)
-      .then((res) => res.text())
-      .then((text) => {
-        const blob = new Blob([text], { type: "text/calendar" });
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = blobUrl;
-        a.download = "linn-county-calendar.ics";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(blobUrl);
-      })
-      .catch(() => {
-        window.location.href = currentFeedUrl;
-      });
-  });
-
-  // A dedicated Copy button, not "right-click the download button and
-  // choose Copy Link Address" -- Kevin's catch, that instruction (still
-  // in the Mac/Windows/Google steps below) was confusing layered on top
-  // of a button whose main job now is triggering the blob download
-  // above. Same copy-to-clipboard approach docs/share.js's own Copy
-  // Link button already uses.
+  // Kevin's call, Sept 2026: dropped the separate "Download calendar
+  // file" button entirely -- a copy-paste link is less friction than a
+  // downloaded file someone then has to go find, and the file version
+  // had its own bug history (see git log) besides. Copy is now the one
+  // action on this path, same copy-to-clipboard approach docs/share.js's
+  // own Copy Link button already uses, with a window.prompt fallback if
+  // the Clipboard API is blocked (a browser permission, an extension,
+  // an org policy).
   const copyLinkBtn = document.getElementById("copyLinkBtn");
   copyLinkBtn.addEventListener("click", async () => {
     const original = copyLinkBtn.textContent;
@@ -477,23 +442,36 @@
   });
 
   // Ask about email alerts right after someone actually subscribes,
-  // instead of pitching it pre-emptively on the page -- neither
-  // webcal:// (an OS-level app handoff) nor a file download navigates
-  // away from this page, so the modal showing alongside either one is
-  // safe, nothing here blocks or delays the click's own default action.
+  // instead of pitching it pre-emptively on the page -- webcal:// (an
+  // OS-level app handoff) doesn't navigate away from this page, and
+  // neither does a clipboard copy, so the modal showing alongside
+  // either is safe, nothing here blocks or delays the click's own
+  // default action.
   const alertsModalOverlay = document.getElementById("alertsModalOverlay");
+  const alertsModalHeading = document.getElementById("alertsModalHeading");
+  const alertsModalMessage = document.getElementById("alertsModalMessage");
   const alertsModalClose = document.getElementById("alertsModalClose");
   const alertsModalDismiss = document.getElementById("alertsModalDismiss");
 
-  function showAlertsModal() {
+  function showAlertsModal(heading, message) {
+    alertsModalHeading.textContent = heading;
+    alertsModalMessage.textContent = message;
     alertsModalOverlay.style.display = "flex";
   }
   function hideAlertsModal() {
     alertsModalOverlay.style.display = "none";
   }
 
-  subscribeBtn.addEventListener("click", showAlertsModal);
-  downloadLink.addEventListener("click", showAlertsModal);
+  subscribeBtn.addEventListener("click", () => {
+    showAlertsModal("You're all set", "Your calendar app should start filling in within a few minutes, open it to check.");
+  });
+  // The copy button only puts the link on the clipboard -- pasting it
+  // into a calendar app is still a manual step from here (see the
+  // instructions above), so this can't claim "you're all set" the way
+  // the phone path's direct webcal:// handoff can.
+  copyLinkBtn.addEventListener("click", () => {
+    showAlertsModal("Link copied", "Paste it into your calendar app (see the steps above) to finish subscribing.");
+  });
   alertsModalClose.addEventListener("click", hideAlertsModal);
   alertsModalDismiss.addEventListener("click", hideAlertsModal);
   alertsModalOverlay.addEventListener("click", (e) => {
