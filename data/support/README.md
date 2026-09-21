@@ -96,12 +96,20 @@ Useful for a benefit dinner flyer, for instance.
 "Other" should never appear in a file here; `build_support_directory.py`
 holds one back from the public site as a backstop if it ever does.
 
-A post also expires automatically -- `support_expiry_days` in
-`docs/config.json` (currently 30 days) -- and the poster can pull their
-own post down early via `docs/remove-listing.html` using the code they
-were given when they posted, see `removeListing()` in
-`apps-script/big-ideas.gs`. Either way the file itself is left alone
-here; only `build_support_directory.py`'s output changes.
+**A `"needed"` post expires automatically, a `"offering"` post doesn't**
+-- `support_expiry_days` in `docs/config.json` (currently 30 days)
+only ever applies to the `"needed"` side, since an organization's
+standing resource (a food pantry, a clothing drive) is evergreen the
+same way a Trading Post or Business Directory listing is, not a
+time-bound ask (Kevin's call, 2026-09-21: "anything evergreen should
+never expire unless taken down with a code"). See `load_posts()` in
+`build_support_directory.py` for exactly where that split happens.
+Either type can be pulled down early via `docs/remove-listing.html`
+using the code the poster was given when they posted, see
+`removeListing()` in `apps-script/big-ideas.gs` -- that's the *only*
+way an `"offering"` post ever comes down. The file itself is always
+left alone in this directory either way; only
+`build_support_directory.py`'s output changes.
 
 **`"example": true`** marks a post as a seeded sample rather than a
 real submission -- for showing the format on an otherwise-empty board

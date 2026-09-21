@@ -5,7 +5,8 @@ data/support/README.md for how a file lands there). Same two-sided
 build approach as build_volunteer_directory.py, kept as its own script
 since this is a different content type (a need, an organization's
 standing resource, or a benefit/fundraiser to help meet one) with its
-own board and directory.
+own board and directory -- and its own expiry rule, see load_posts()
+below: only "needed" posts age off, an "offering" post is evergreen.
 
 Run:
     python build_support_directory.py
@@ -32,11 +33,18 @@ LIST_FIELDS = {"photos"}
 
 
 def load_posts(config, today=None):
-    """Same shape as load_posts() in build_volunteer_directory.py -- a
-    malformed, incomplete, or bad-type file is skipped with a warning; a
-    post whose town is literally "Other" is held back; an old-enough
-    post expires by its "posted" date; a pinned "example" post is
-    exempt from both and always sorts first."""
+    """Same shape as load_posts() in build_volunteer_directory.py, with
+    one difference: only "needed" posts expire by age. An "offering"
+    post is an organization's standing resource (a food pantry, a
+    clothing drive, a charity), evergreen the same way a Trading Post
+    or Business Directory listing is, not a time-bound ask the way a
+    personal request is -- it shouldn't age off the site on its own,
+    only ever come down if the poster removes it with their code
+    (Kevin's call, 2026-09-21: "anything evergreen should never expire
+    unless taken down with a code"). A malformed, incomplete, or
+    bad-type file is skipped with a warning; a post whose town is
+    literally "Other" is held back; a pinned "example" post is exempt
+    from expiry entirely and always sorts first."""
     today = today or date.today()
     expiry_days = config.get("support_expiry_days", 30)
     posts = []
@@ -63,7 +71,7 @@ def load_posts(config, today=None):
 
         is_example = bool(data.get("example"))
         posted = (data.get("posted") or "").strip()
-        if not is_example and posted:
+        if not is_example and values["type"] == "needed" and posted:
             try:
                 posted_date = date.fromisoformat(posted)
                 if today - posted_date > timedelta(days=expiry_days):

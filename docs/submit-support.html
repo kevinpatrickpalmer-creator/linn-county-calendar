@@ -129,8 +129,19 @@
 
   document.title = `Post to Community Support | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
-  document.getElementById("expiryHint").textContent =
-    `Posts come down automatically after ${config.support_expiry_days || 30} days, or remove it yourself anytime.`;
+
+  // A "needed" post comes down automatically since the need itself
+  // usually resolves; an "offering" post (a standing resource like a
+  // food pantry) doesn't expire on its own the same way a Trading Post
+  // or Business Directory listing doesn't -- only removed by hand, see
+  // build_support_directory.py.
+  const expiryHint = document.getElementById("expiryHint");
+  function updateExpiryHint(type) {
+    expiryHint.textContent = type === "offering"
+      ? "This won't come down automatically, it stays up until you remove it yourself."
+      : `Posts come down automatically after ${config.support_expiry_days || 30} days, or remove it yourself anytime.`;
+  }
+  updateExpiryHint("");
 
   const townSelect = document.getElementById("town");
   const countywideOption = document.createElement("option");
@@ -189,6 +200,7 @@
       descriptionLabel.textContent = "Tell us about it *";
       descriptionInput.placeholder = "Select what kind of post this is above for an example.";
     }
+    updateExpiryHint(e.target.value);
   });
 
   const form = document.getElementById("sForm");
@@ -257,6 +269,7 @@
         nameInput.placeholder = "e.g. The Palmer Family, or your own name";
         descriptionLabel.textContent = "Tell us about it *";
         descriptionInput.placeholder = "Select what kind of post this is above for an example.";
+        updateExpiryHint("");
         document.getElementById("removalCode").textContent = result.removalCode || "";
         document.getElementById("removalEmailNote").hidden = !email;
         form.hidden = true;
