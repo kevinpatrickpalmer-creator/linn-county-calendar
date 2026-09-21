@@ -30,7 +30,7 @@ Expected shape of each file:
 ```json
 {
   "type": "needed",
-  "name": "Linn County Cleanup Day Committee",
+  "name": "Marceline Park Cleanup Committee",
   "category": "Cleanup & Outdoor",
   "town": "Marceline",
   "description": "Looking for 10-15 volunteers for the fall cleanup day at the park, Saturday morning. Bring gloves if you have them, we'll have trash bags and tools.",
