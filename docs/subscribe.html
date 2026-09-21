@@ -17,29 +17,32 @@
 <meta name="twitter:description" content="Local events, meetings, and happenings around Linn County, kept up to date automatically. Free, no login, no app.">
 <link rel="stylesheet" href="theme.css">
 <style>
-  .qr-callout {
-    display: flex;
-    align-items: center;
-    gap: .9rem;
+  /* Phone vs. computer instructions are two separate blocks (#phonePath
+     / #computerPath in the markup below) rather than one shared flow
+     with asides bolted on -- Kevin's catch, Sept 2026: mixing both
+     into one linear page was confusing people, especially anyone less
+     comfortable with tech, since they had to figure out which parts
+     even applied to them. JS decides which one to show on load by
+     screen width (matching the old QR-only breakpoint below), and the
+     toggle link is the manual override for whenever that guess is
+     wrong. Only one is ever visible at a time. */
+  .device-toggle {
+    font-size: .85rem;
+    color: var(--ink-faint);
+    margin: 0 0 .9rem;
   }
-  .qr-callout .qr-callout-text { flex: 1; }
-  .qr-callout .qr-box {
-    flex-shrink: 0;
+  .device-toggle a { color: var(--navy); }
+
+  .subscribe-qr { text-align: center; margin: .75rem 0; }
+  .subscribe-qr .qr-box {
     display: inline-block;
     background: #fff;
-    padding: 8px;
-    border-radius: 6px;
+    padding: 10px;
+    border-radius: 8px;
     line-height: 0;
     border: 1px solid var(--surface-border);
   }
-  .qr-callout .qr-box svg { width: 100px; height: 100px; display: block; }
-  /* Someone already viewing this on a phone can't usefully scan a QR
-     code shown on that same phone -- this is only useful to a visitor
-     on a computer or tablet, so it doesn't take up space for anyone
-     else. Threshold matches a typical phone width, not a tablet's. */
-  @media (max-width: 600px) {
-    .qr-callout { display: none; }
-  }
+  .subscribe-qr .qr-box svg { width: 130px; height: 130px; display: block; }
 
   /* Hero -- see docs/directory.html for why this is a full-bleed band
      ahead of <main> rather than another block inside it. Inner width
@@ -129,13 +132,6 @@
     <h2>Subscribe to the calendar</h2>
     <p class="hint">Adds this calendar to your phone or computer's calendar app. It refreshes on its own every few hours.</p>
 
-    <div class="callout qr-callout">
-      <div class="qr-callout-text">
-        <strong>On a computer or tablet right now?</strong> Subscribing here only adds the calendar to this device. Your phone won't automatically get it too unless your calendars are already synced together. Scan this with your phone's camera to subscribe there as well.
-      </div>
-      <div class="qr-box" id="subscribeQR"></div>
-    </div>
-
     <label for="subscribeTown">Which town?</label>
     <select id="subscribeTown">
       <option value="">Whole county (all towns)</option>
@@ -159,21 +155,38 @@
     </div>
     <p class="hint" id="typeOverrideHint" style="display:none;">Picking one specific type above already covers this, so these don't apply.</p>
 
-    <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app.</p>
+    <!-- Which of these two shows is decided by screen width on load (see
+         the script below, same breakpoint the old .qr-callout used to
+         hide itself on phones) -- only one is ever visible at a time,
+         so nobody has to figure out which instructions are meant for
+         them. The toggle link is the manual override for whenever that
+         guess is wrong. -->
+    <div id="phonePath">
+      <p class="device-toggle">On a computer or tablet? <a href="#" id="switchToComputer">Switch to computer instructions</a></p>
+      <p class="callout">Heads up: tapping Subscribe takes you to your phone's calendar app.</p>
+      <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
+      <p class="hint">To check it worked, open your calendar app, events should show up within a minute or two.</p>
+    </div>
 
-    <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
-    <p class="or-divider">OR</p>
-    <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
-    <p class="hint">To check it worked, open your calendar app, events should show up within a minute or two.</p>
+    <div id="computerPath">
+      <p class="device-toggle">On your phone? <a href="#" id="switchToPhone">Switch to phone instructions</a></p>
+      <p class="hint">Want this on your phone? Scan the code below with your phone's camera.</p>
+      <div class="subscribe-qr">
+        <div class="qr-box" id="subscribeQR"></div>
+      </div>
+      <p class="or-divider">OR</p>
+      <p class="hint">Want it on this computer instead?</p>
+      <a class="btn secondary" id="downloadLink" href="linn_county_events.ics">Download / copy link to subscribe</a>
+      <details>
+        <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
+        <p><strong>Mac (Apple Calendar):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
+        <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
+        <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
+      </details>
+    </div>
+
     <p class="hint">Not getting reminders? Turn on notifications for this calendar in your app's settings, or <a href="alerts.html">sign up for email reminders</a> instead.</p>
     <p class="hint" id="unsubscribeHint"></p>
-
-    <details>
-      <summary>How to subscribe on a Windows PC or Mac, and turn on notifications</summary>
-      <p><strong>Mac (Apple Calendar):</strong> Click "Subscribe to Calendar" above. The Calendar app opens with an "Add Subscription" window. Set "Auto-refresh" to something like every hour, then click OK. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
-      <p><strong>Windows (Outlook):</strong> Right-click "Download / copy link to subscribe" above and choose "Copy Link Address." In Outlook, go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
-      <p><strong>Google Calendar (any computer):</strong> Right-click "Download / copy link to subscribe" above and copy the link address. In Google Calendar on the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
-    </details>
 
     <div id="shareSection"></div>
   </section>
@@ -380,6 +393,32 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") hideAlertsModal();
   });
+
+  // Picks one instruction set on load (screen width, a typical phone's
+  // vs. a computer/tablet's) and lets either toggle link switch it by
+  // hand for whenever that guess is wrong -- see the CSS comment above
+  // #phonePath/#computerPath for why this replaced one shared flow.
+  const phonePath = document.getElementById("phonePath");
+  const computerPath = document.getElementById("computerPath");
+  const switchToComputer = document.getElementById("switchToComputer");
+  const switchToPhone = document.getElementById("switchToPhone");
+
+  function showPhonePath() {
+    phonePath.style.display = "";
+    computerPath.style.display = "none";
+  }
+  function showComputerPath() {
+    phonePath.style.display = "none";
+    computerPath.style.display = "";
+  }
+
+  if (window.innerWidth <= 600) {
+    showPhonePath();
+  } else {
+    showComputerPath();
+  }
+  switchToComputer.addEventListener("click", (e) => { e.preventDefault(); showComputerPath(); });
+  switchToPhone.addEventListener("click", (e) => { e.preventDefault(); showPhonePath(); });
 })();
 </script>
 </body>
