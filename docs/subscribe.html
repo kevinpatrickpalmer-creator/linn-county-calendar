@@ -183,7 +183,6 @@
   .modal-actions .btn.secondary { margin-top: 0; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
-<script src="qrcode.js"></script>
 <script src="share.js" data-manual></script>
 </head>
 <body class="themed">
@@ -260,10 +259,6 @@
   <div class="footer-link">
     <a href="submit.html">Submit a community event &rarr;</a>
   </div>
-  <div class="submit-qr">
-    <div class="qr-box" id="submitQR"></div>
-    <p>Scan to submit an event</p>
-  </div>
   <div class="footer-link">
     <a href="directory.html">Browse the business &amp; organization directory &rarr;</a>
   </div>
@@ -323,29 +318,6 @@
     document.getElementById("statsLine").textContent =
       `1 County · ${config.towns.length} Towns · 1 Calendar`;
   }
-
-  // qrcode.js always renders modules as fill="black" (see its own
-  // createSvgTag()) -- swapped here, scoped to just this one SVG string
-  // rather than touching the shared library, so this QR reads as
-  // visibly different from the black "scan to subscribe" one below it
-  // on the same page (Kevin's catch, Sept 2026). Uses the site's own
-  // --primary blue hue rather than an unrelated color (Kevin's follow-up:
-  // stay consistent with the blue already used everywhere else), but
-  // darkened well past the actual --primary value (#7bb0f7) -- that's
-  // a pale blue tuned to pop against this site's dark background, not
-  // to scan reliably off the QR's own white background, so a deep navy
-  // in the same hue is used instead, dark enough to keep a real
-  // high-contrast QR fill.
-  function recolorQr(svg, color) {
-    return svg.replace('fill="black"', `fill="${color}"`);
-  }
-
-  // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
-  // printable flyer uses, so both point to the exact same submit.html URL.
-  const qr = qrcode(0, "M");
-  qr.addData(`https://${config.domain}/submit.html`);
-  qr.make();
-  document.getElementById("submitQR").innerHTML = recolorQr(qr.createSvgTag({ scalable: true, margin: 2 }), "#1a4d8f");
 
   // Shares the friendly landing page, not a raw webcal:// link -- someone
   // clicking a shared link should land somewhere that explains what this is
