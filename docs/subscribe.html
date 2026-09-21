@@ -355,12 +355,23 @@
       `1 County · ${config.towns.length} Towns · 1 Calendar`;
   }
 
+  // qrcode.js always renders modules as fill="black" (see its own
+  // createSvgTag()) -- swapped to a dark green here, scoped to just this
+  // one SVG string rather than touching the shared library, so this QR
+  // reads as visibly different from the black "scan to subscribe" one
+  // below it on the same page (Kevin's catch, Sept 2026) without
+  // touching contrast enough to risk scan reliability -- still a single
+  // solid, dark, high-contrast fill against the white background.
+  function recolorQr(svg, color) {
+    return svg.replace('fill="black"', `fill="${color}"`);
+  }
+
   // qrcode.js (docs/qrcode.js) is the same MIT-licensed generator the
   // printable flyer uses, so both point to the exact same submit.html URL.
   const qr = qrcode(0, "M");
   qr.addData(`https://${config.domain}/submit.html`);
   qr.make();
-  document.getElementById("submitQR").innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
+  document.getElementById("submitQR").innerHTML = recolorQr(qr.createSvgTag({ scalable: true, margin: 2 }), "#1f6b3a");
 
   // Points at this same page rather than a webcal:// link directly --
   // scanning it just opens this page on the phone, where its own
