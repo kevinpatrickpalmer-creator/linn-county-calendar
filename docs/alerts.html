@@ -171,19 +171,16 @@
       });
       const nextSteps = [];
       if (reminder) {
-        nextSteps.push(
-          "You'll get your first reminder email the evening before an event you're tracking is happening. A quiet inbox until then just means nothing's coming up yet."
-        );
+        nextSteps.push("You'll get a reminder email the evening before events you're tracking.");
       }
       if (weeklyDigest) {
-        nextSteps.push("You'll get your first weekly summary email the next time it goes out.");
+        nextSteps.push("You'll get the weekly summary next time it goes out.");
       }
       if (newsletter) {
-        nextSteps.push("We'll email you the moment the Community App is ready. There's no set timeline yet.");
+        nextSteps.push("We'll email you when the Community App is ready.");
       }
       const nextStepsText = nextSteps.length ? ` ${nextSteps.join(" ")}` : "";
-      statusEl.textContent =
-        `Saved!${nextStepsText} You can update your preferences any time by submitting this form again.`;
+      statusEl.textContent = `Saved!${nextStepsText}`;
       statusEl.className = "ok";
     } catch (err) {
       statusEl.textContent = "Something went wrong saving your preferences. Please try again.";
