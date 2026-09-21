@@ -106,9 +106,10 @@
     }
   }
 
-  function boardItems(list, dotVar, href, toText, toMeta) {
+  function boardItems(list, dotVar, label, href, toText, toMeta) {
     return list.map((item) => ({
       dotVar,
+      label,
       href,
       text: toText(item),
       meta: toMeta(item),
@@ -144,6 +145,7 @@
       for (const ev of parseUpcomingEvents(icsText)) {
         items.push({
           dotVar: "--sec-calendar",
+          label: "Calendar",
           href: "calendar-view.html",
           text: truncate(ev.summary, 70),
           meta: eventWhen(ev.start),
@@ -152,39 +154,39 @@
       }
     }
 
-    items.push(...boardItems(jobs, "--sec-jobs", "jobs.html",
+    items.push(...boardItems(jobs, "--sec-jobs", "Jobs Bulletin", "jobs.html",
       (i) => i.category,
       (i) => `${i.type === "offering" ? "Offering work" : "Looking for work"} · ${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(notices, "--sec-notices", "notices.html",
+    items.push(...boardItems(notices, "--sec-notices", "Notices", "notices.html",
       (i) => truncate(i.message, 80),
       (i) => `${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(volunteer, "--sec-volunteer", "volunteer.html",
+    items.push(...boardItems(volunteer, "--sec-volunteer", "Volunteer & Help Needed", "volunteer.html",
       (i) => i.category,
       (i) => `${i.type === "needed" ? "Volunteers needed" : "Help offered"} · ${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(lostFound, "--sec-lost-found", "lost-found.html",
+    items.push(...boardItems(lostFound, "--sec-lost-found", "Lost & Found", "lost-found.html",
       (i) => truncate(i.name, 70),
       (i) => `${i.type === "lost" ? "Lost" : "Found"} · ${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(clubs, "--sec-clubs", "clubs.html",
+    items.push(...boardItems(clubs, "--sec-clubs", "Clubs & Classes", "clubs.html",
       (i) => i.name,
       (i) => `${i.category} · ${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(questions, "--sec-ask", "ask-community.html",
+    items.push(...boardItems(questions, "--sec-ask", "Ask the Community", "ask-community.html",
       (i) => truncate(i.question, 80),
       (i) => `${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(support, "--sec-support", "support.html",
+    items.push(...boardItems(support, "--sec-support", "Community Support", "support.html",
       (i) => i.name,
       (i) => `${i.type === "needed" ? "Needed" : "Offering"} · ${i.category} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(alerts, "--sec-alerts", "local-alerts.html",
+    items.push(...boardItems(alerts, "--sec-alerts", "Local Alerts", "local-alerts.html",
       (i) => truncate(i.message, 80),
       (i) => `${i.town} · ${relTime(i.posted)}`));
 
-    items.push(...boardItems(ideas, "--sec-ideas", "big-ideas.html",
+    items.push(...boardItems(ideas, "--sec-ideas", "Big Idea Board", "big-ideas.html",
       (i) => i.title,
       (i) => `${i.town ? i.town + " · " : ""}${relTime(i.submitted)}`));
 
@@ -205,12 +207,17 @@
 
       const body = document.createElement("div");
       body.className = "wh-body";
+      const tag = document.createElement("div");
+      tag.className = "wh-tag";
+      tag.style.color = `var(${item.dotVar})`;
+      tag.textContent = item.label;
       const text = document.createElement("div");
       text.className = "wh-text";
       text.textContent = item.text;
       const meta = document.createElement("div");
       meta.className = "wh-meta";
       meta.textContent = item.meta;
+      body.appendChild(tag);
       body.appendChild(text);
       body.appendChild(meta);
 
