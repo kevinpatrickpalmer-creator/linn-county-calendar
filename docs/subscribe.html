@@ -94,6 +94,10 @@
     margin-bottom: .5rem;
   }
   .path-option-icons svg { width: 26px; height: 26px; }
+  .path-option-icons .path-arrow {
+    font-size: 1.3rem;
+    color: var(--ink-faint);
+  }
   .path-option-label {
     font-weight: 700;
     font-size: .95rem;
@@ -101,16 +105,17 @@
     margin: 0 0 .5rem;
   }
 
-  /* Only shown on the computer path, as a second card below "Get it on
-     this computer" -- Kevin's catch, Sept 2026: sync tips alone don't
-     cover someone who's deliberately not synced (a separate business
-     calendar, doesn't want it on their computer at all) and doesn't
-     want to type the address into their phone by hand. Points at this
-     same page rather than a webcal:// link directly, since a raw
-     webcal:// URL encoded into a QR doesn't reliably open a calendar
-     app when scanned (spotty support on Android in particular), where
-     a normal https:// URL always opens fine in the phone's browser and
-     that page's own Subscribe button does the real work. */
+  /* Shown as a second card on both device paths -- on computer, for
+     someone deliberately not synced (a separate business calendar,
+     doesn't want it on their computer at all) who doesn't want to type
+     the address into their phone by hand; on phone, for handing the
+     calendar to someone standing right there instead of texting them a
+     link. Points at this same page rather than a webcal:// link
+     directly, since a raw webcal:// URL encoded into a QR doesn't
+     reliably open a calendar app when scanned (spotty support on
+     Android in particular), where a normal https:// URL always opens
+     fine in the phone's browser and that page's own Subscribe button
+     does the real work. */
   .subscribe-qr { text-align: center; margin: .75rem 0 .25rem; }
   .subscribe-qr .qr-box {
     display: inline-block;
@@ -255,6 +260,19 @@
     <div id="phonePath">
       <p class="callout">Tapping Subscribe below opens your phone's calendar app directly.</p>
       <a class="btn" id="subscribeBtn" href="#">Subscribe to Calendar</a>
+
+      <div class="path-option" style="margin-top:1.5rem;">
+        <div class="path-option-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          <span class="path-arrow">&rarr;</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        </div>
+        <p class="path-option-label">Sharing this with someone nearby?</p>
+        <p class="hint">Have them scan this with their own phone's camera to open this page and subscribe themselves.</p>
+        <div class="subscribe-qr">
+          <div class="qr-box" id="subscribeQRPhone"></div>
+        </div>
+      </div>
     </div>
 
     <div id="computerPath">
@@ -363,7 +381,9 @@
   const subscribeQr = qrcode(0, "M");
   subscribeQr.addData(`https://${config.domain}/subscribe.html`);
   subscribeQr.make();
-  document.getElementById("subscribeQR").innerHTML = recolorQr(subscribeQr.createSvgTag({ scalable: true, margin: 2 }), "#1a4d8f");
+  const subscribeQrSvg = recolorQr(subscribeQr.createSvgTag({ scalable: true, margin: 2 }), "#1a4d8f");
+  document.getElementById("subscribeQR").innerHTML = subscribeQrSvg;
+  document.getElementById("subscribeQRPhone").innerHTML = subscribeQrSvg;
 
   // Shares the friendly landing page, not a raw webcal:// link -- someone
   // clicking a shared link should land somewhere that explains what this is
