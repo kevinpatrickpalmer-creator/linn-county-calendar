@@ -101,6 +101,27 @@
     margin: 0 0 .5rem;
   }
 
+  /* Only shown on the computer path, as a second card below "Get it on
+     this computer" -- Kevin's catch, Sept 2026: sync tips alone don't
+     cover someone who's deliberately not synced (a separate business
+     calendar, doesn't want it on their computer at all) and doesn't
+     want to type the address into their phone by hand. Points at this
+     same page rather than a webcal:// link directly, since a raw
+     webcal:// URL encoded into a QR doesn't reliably open a calendar
+     app when scanned (spotty support on Android in particular), where
+     a normal https:// URL always opens fine in the phone's browser and
+     that page's own Subscribe button does the real work. */
+  .subscribe-qr { text-align: center; margin: .75rem 0 .25rem; }
+  .subscribe-qr .qr-box {
+    display: inline-block;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    line-height: 0;
+    border: 1px solid var(--surface-border);
+  }
+  .subscribe-qr .qr-box svg { width: 130px; height: 130px; display: block; }
+
   /* Two columns instead of one long stack -- Kevin's catch, Sept 2026,
      with 9 towns and 12 types each this ran long as a single column.
      Collapses back to one column on a narrow phone screen, where a
@@ -184,6 +205,7 @@
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="share.js" data-manual></script>
+<script src="qrcode.js"></script>
 </head>
 <body class="themed">
 <script src="nav.js"></script>
@@ -242,11 +264,22 @@
         </div>
         <p class="path-option-label">Get it on this computer</p>
         <button type="button" class="btn secondary" id="copyLinkBtn">Copy subscription link</button>
-        <p class="hint">Tip: if your phone and computer share the same account with calendar sync turned on, this will show up on your phone too.</p>
+        <p class="hint">Tip: if your phone and computer share the same account with calendar sync turned on, this will show up on your phone too. If not, scan the code below to get it on your phone directly.</p>
         <p class="hint" style="margin-top:1rem;">Then paste it into your calendar app:</p>
         <p><strong>Mac (Apple Calendar):</strong> In Calendar, go to File &rarr; New Calendar Subscription, paste the link, and click Subscribe. Set "Auto-refresh" to something like every hour. For notifications, go to Calendar &rarr; Settings &rarr; Alerts and set a default alert time for subscribed calendars.</p>
         <p><strong>Windows (Outlook):</strong> Go to Calendar &rarr; Add calendar &rarr; Subscribe from web, and paste the link (in classic desktop Outlook: File &rarr; Account Settings &rarr; Internet Calendars &rarr; New). Outlook doesn't reliably send reminders for calendars added this way, so we'd suggest <a href="alerts.html">email reminders</a> instead.</p>
         <p><strong>Google Calendar (any computer):</strong> On the web, click the + next to "Other calendars" in the left sidebar, choose "From URL," and paste it. Google Calendar doesn't support notifications at all for calendars added this way, so if this is how you use your calendar, <a href="alerts.html">email reminders</a> are the only way to get a heads-up.</p>
+      </div>
+
+      <div class="path-option">
+        <div class="path-option-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        </div>
+        <p class="path-option-label">Not synced? Get it on your phone directly</p>
+        <p class="hint">Scan this with your phone's camera. It opens this same page there, so you can subscribe with one tap.</p>
+        <div class="subscribe-qr">
+          <div class="qr-box" id="subscribeQR"></div>
+        </div>
       </div>
     </div>
 
@@ -318,6 +351,19 @@
     document.getElementById("statsLine").textContent =
       `1 County · ${config.towns.length} Towns · 1 Calendar`;
   }
+
+  // qrcode.js always renders modules as fill="black" (see its own
+  // createSvgTag()) -- swapped here to the site's own --primary blue hue,
+  // darkened well past the actual --primary value (#7bb0f7), which is a
+  // pale blue tuned to pop against this site's dark background, not to
+  // scan reliably off the QR's own white background.
+  function recolorQr(svg, color) {
+    return svg.replace('fill="black"', `fill="${color}"`);
+  }
+  const subscribeQr = qrcode(0, "M");
+  subscribeQr.addData(`https://${config.domain}/subscribe.html`);
+  subscribeQr.make();
+  document.getElementById("subscribeQR").innerHTML = recolorQr(subscribeQr.createSvgTag({ scalable: true, margin: 2 }), "#1a4d8f");
 
   // Shares the friendly landing page, not a raw webcal:// link -- someone
   // clicking a shared link should land somewhere that explains what this is
