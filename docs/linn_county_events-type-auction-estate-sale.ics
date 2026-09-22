@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Moms Breaking the Silence 7th Annual Dinner and Auction
 DTSTART:20261017T210000Z
 DTEND:20261018T010000Z
-DTSTAMP:20260921T150140Z
+DTSTAMP:20260922T043627Z
 UID:19954668-2026-10-17-400@linn-county-scraper.local
 LOCATION:Marceline\, MO
 X-EVENT-TYPE:Auction / Estate Sale
@@ -19,7 +19,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260921T150140Z
+DTSTAMP:20260922T043627Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -30,7 +30,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20261003T150000Z
 DTEND:20261003T160000Z
-DTSTAMP:20260921T150140Z
+DTSTAMP:20260922T043627Z
 UID:teterauction-2026-10-03-real-estate-personal-property-auction-chillico
  the-2026-10-03-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -41,7 +41,7 @@ BEGIN:VEVENT
 SUMMARY:Final Liquidation Auction
 DTSTART:20261010T150000Z
 DTEND:20261010T160000Z
-DTSTAMP:20260921T150140Z
+DTSTAMP:20260922T043627Z
 UID:teterauction-2026-10-10-final-liquidation-auction-chillicothe-2026-10-
  10-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
@@ -52,7 +52,7 @@ BEGIN:VEVENT
 SUMMARY:No-Reserve Business Liquidation Auction
 DTSTART:20261017T150000Z
 DTEND:20261017T160000Z
-DTSTAMP:20260921T150140Z
+DTSTAMP:20260922T043627Z
 UID:teterauction-2026-10-17-no-reserve-business-liquidation-auction-chilli
  cothe-2026-10-17-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
