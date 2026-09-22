@@ -150,38 +150,25 @@
     .whats-happening .section-heading .live-dot { animation: none; }
   }
 
-  /* Wrapped in its own soft glow, not just floating on the plain page
-     background like the section cards below -- Kevin's catch, Sept
-     2026: a navy tint here (tried first) didn't register at all, since
-     the whole site already leans blue everywhere else. Yellow isn't
-     used as a background anywhere else on the site, so it reads as a
-     different zone at a glance instead of a shade shift you have to
-     look for. Same warm gold as --sec-lost-found rather than a new
-     arbitrary color. Targeted by #whatsHappening, not .whats-happening
-     -- theme.css's own "body.themed section" rule (background, border,
-     padding, box-shadow, margin) is MORE specific than a single class
-     selector and was silently winning over every property here, which
-     is the real reason the first attempt looked like nothing had
-     changed at all -- an ID selector is the simplest way to reliably
-     out-rank it.
-
-     One accent color, not two -- Kevin's follow-up catch: at the low
-     opacity first used here, the yellow fill was blending with the
-     near-black page background into something that read as dark green
-     to him (he's colorblind), while the more solid 1px border still
-     read as yellow, i.e. two different colors by his own eye instead
-     of the one intended. Fill is now strong enough to actually read as
-     yellow rather than shift hue at low opacity, and the border uses
-     --primary, the site's own established blue, the same color already
-     used for this kind of "highlighted" border everywhere else (the
-     county badge, card hover states) rather than introducing a second
-     yellow tone for it. */
+  /* No box around the section itself -- Kevin's catch, Sept 2026: a
+     wrapping panel (tried twice, navy then yellow) always ended up
+     looking like a box nested inside a box once the ticker was already
+     a single card (a.wh-item below), and the yellow fill itself kept
+     reading as dark green to him regardless of opacity (he's
+     colorblind). Stripped down to nothing here -- background, border,
+     and shadow all removed, only margin-bottom left for spacing -- and
+     overridden by ID rather than class because theme.css's own
+     "body.themed section" rule (background, border, padding,
+     box-shadow, margin) is more specific than a single class selector
+     and would otherwise silently reintroduce its own default card
+     styling here, which is exactly the second box this is trying to
+     avoid. The glow/border now lives on the one real element, the item
+     card itself, below. */
   #whatsHappening.whats-happening {
-    background: rgba(224, 196, 88, .28);
-    border: 1px solid var(--primary);
-    box-shadow: 0 0 24px rgba(224, 196, 88, .18);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
     margin-bottom: 1.75rem;
   }
 
@@ -195,20 +182,25 @@
     max-width: 640px;
     margin: 0 auto;
   }
+  /* Carries its own highlight directly (border + soft glow) now that
+     there's no wrapping panel -- blue rather than yellow, since yellow
+     is the color that gave Kevin trouble, and blue is already this
+     site's established "highlighted" color everywhere else (the county
+     badge, card hover states), so nothing new is being introduced. */
   a.wh-item {
     display: flex;
     align-items: flex-start;
     gap: .6rem;
     background: var(--surface);
-    border: 1px solid var(--surface-border);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 22px rgba(123, 176, 247, .3);
     border-radius: var(--radius);
     padding: .7rem .9rem;
     text-decoration: none;
     color: inherit;
-    transition: border-color .15s ease, background-color .15s ease, opacity .22s ease;
+    transition: background-color .15s ease, opacity .22s ease;
   }
   a.wh-item:hover {
-    border-color: var(--primary);
     background: var(--primary-tint);
   }
   /* Faded out for FADE_MS while the JS swaps the content underneath,
