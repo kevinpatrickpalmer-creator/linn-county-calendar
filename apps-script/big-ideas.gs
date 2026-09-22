@@ -581,7 +581,7 @@ function submitBoardEntry(body) {
   if (board === "lost-found" && ["lost", "found"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
-  if (board === "club" && ["looking", "offering"].indexOf(fields.type) === -1) {
+  if (board === "club" && ["looking", "offering", "starting"].indexOf(fields.type) === -1) {
     return { success: false, error: "Invalid type." };
   }
   if (board === "volunteer" && ["needed", "offering"].indexOf(fields.type) === -1) {

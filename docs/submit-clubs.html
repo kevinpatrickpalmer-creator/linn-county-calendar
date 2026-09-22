@@ -47,7 +47,7 @@
   <div class="mo-badge"><img src="mo-map-linn.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
   <h1>Post to Clubs & Classes</h1>
-  <p class="sub" id="pageSub">Run a club, or teach a class on the side -- swimming lessons, karate, woodworking, whatever it is? Looking for a club to join, or an instructor? Post it here. Free, no catch, and a person reviews every post before it goes live.</p>
+  <p class="sub" id="pageSub">Run a club, or teach a class on the side -- swimming lessons, karate, woodworking, whatever it is? Looking for a club to join, or want to start a new one and find people to start it with you? Post it here. Free, no catch, and a person reviews every post before it goes live.</p>
 
   <form id="clubForm" class="card">
     <label for="postType">What kind of post is this? *</label>
@@ -55,6 +55,7 @@
       <option value="" disabled selected>Select one</option>
       <option value="offering">I run a club or teach a class</option>
       <option value="looking">I'm looking for a club or class</option>
+      <option value="starting">I want to start a new club or group</option>
     </select>
 
     <label for="name" id="nameLabel">Your name, or the club/class name *</label>
@@ -203,6 +204,11 @@
       nameInput.placeholder = "e.g. Kevin P.";
       descriptionLabel.textContent = "What are you looking for? *";
       descriptionInput.placeholder = "e.g. A quilting club for beginners, adults, meets weekly.";
+    } else if (e.target.value === "starting") {
+      nameLabel.textContent = "Your name *";
+      nameInput.placeholder = "e.g. Kevin P.";
+      descriptionLabel.textContent = "What do you want to start? *";
+      descriptionInput.placeholder = "e.g. A weekly hiking group for beginners. Looking for 4 or 5 others interested in getting it going.";
     } else {
       nameLabel.textContent = "Your name, or the club/class name *";
       nameInput.placeholder = "e.g. Marceline Bridge Club, or your own name";
