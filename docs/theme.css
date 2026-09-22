@@ -108,26 +108,22 @@ body.themed main {
 }
 body.themed main.wide { max-width: 900px; }
 
-/* Badge (used for the county emblem on index/submit/etc). Border is
-   --primary, not --surface-border -- a Kevin-reported catch, 2026-09-16:
-   the old --surface-border outline on a --surface fill was only ever
-   about 1.1:1 contrast against the page (basically invisible without
-   zooming in), which matters more than it might look like it should for
-   a resident with limited eyesight. --primary against --surface is
-   7.6:1. */
+/* Badge (used for the county emblem on index/submit/etc). Used to be a
+   plain circle drawn in CSS (background + border-radius) around a
+   smaller inner image -- now the Missouri-state-outline shape and its
+   own border are drawn directly inside logo-badge.svg itself, so this
+   wrapper is just a sizing/centering box, no background or radius of
+   its own, and the image fills it edge to edge rather than floating
+   smaller inside a separate circular frame. */
 .mo-badge {
   width: 60px;
   height: 60px;
-  border-radius: 999px;
-  background: var(--surface);
-  border: 2px solid var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto .7rem;
-  box-shadow: var(--shadow-sm);
 }
-.mo-badge img { width: 40px; height: auto; display: block; }
+.mo-badge img { width: 100%; height: auto; display: block; }
 
 .eyebrow {
   display: block;
