@@ -219,36 +219,73 @@
 
     const now = Date.now();
     items.sort((a, b) => Math.abs(a.sortDate - now) - Math.abs(b.sortDate - now));
+    const rotateItems = items.slice(0, MAX_ITEMS);
 
-    for (const item of items.slice(0, MAX_ITEMS)) {
-      const a = document.createElement("a");
-      a.className = "wh-item";
+    // One item at a time on a rotating carousel, not a grid of up to 8 --
+    // Kevin's catch, Sept 2026: the full grid was too big and pulled focus
+    // away from the section cards below it. The point was always just a
+    // quiet "this site is active" signal, not a second content block to
+    // read, so a single rotating line does that with a fraction of the
+    // footprint. Builds the one <a> once and mutates it in place on each
+    // tick rather than replacing the DOM node, so the fade transition
+    // below has something stable to animate.
+    const a = document.createElement("a");
+    a.className = "wh-item";
+    const dot = document.createElement("span");
+    dot.className = "wh-dot";
+    dot.setAttribute("aria-hidden", "true");
+    const body = document.createElement("div");
+    body.className = "wh-body";
+    const tag = document.createElement("div");
+    tag.className = "wh-tag";
+    const text = document.createElement("div");
+    text.className = "wh-text";
+    const meta = document.createElement("div");
+    meta.className = "wh-meta";
+    body.appendChild(tag);
+    body.appendChild(text);
+    body.appendChild(meta);
+    a.appendChild(dot);
+    a.appendChild(body);
+    listEl.appendChild(a);
+
+    function showItem(item) {
       a.href = item.href;
-
-      const dot = document.createElement("span");
-      dot.className = "wh-dot";
       dot.style.background = `var(${item.dotVar})`;
-      dot.setAttribute("aria-hidden", "true");
-
-      const body = document.createElement("div");
-      body.className = "wh-body";
-      const tag = document.createElement("div");
-      tag.className = "wh-tag";
       tag.style.color = `var(${item.dotVar})`;
       tag.textContent = item.label;
-      const text = document.createElement("div");
-      text.className = "wh-text";
       text.textContent = item.text;
-      const meta = document.createElement("div");
-      meta.className = "wh-meta";
       meta.textContent = item.meta;
-      body.appendChild(tag);
-      body.appendChild(text);
-      body.appendChild(meta);
+    }
+    showItem(rotateItems[0]);
 
-      a.appendChild(dot);
-      a.appendChild(body);
-      listEl.appendChild(a);
+    if (rotateItems.length > 1) {
+      const ROTATE_MS = 2500;
+      const FADE_MS = 220;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let index = 0;
+      let timer = null;
+
+      function advance() {
+        index = (index + 1) % rotateItems.length;
+        if (reduceMotion) {
+          showItem(rotateItems[index]);
+          return;
+        }
+        a.classList.add("wh-fade");
+        setTimeout(() => {
+          showItem(rotateItems[index]);
+          a.classList.remove("wh-fade");
+        }, FADE_MS);
+      }
+      function start() { timer = setInterval(advance, ROTATE_MS); }
+      function stop() { clearInterval(timer); }
+
+      start();
+      // Paused on hover -- nobody should have the item change out from
+      // under them right as they're reading it or about to click.
+      a.addEventListener("mouseenter", stop);
+      a.addEventListener("mouseleave", start);
     }
 
     section.style.display = "";

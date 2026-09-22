@@ -169,21 +169,19 @@
     border: 1px solid rgba(224, 196, 88, .3);
     box-shadow: 0 0 32px rgba(224, 196, 88, .22);
     border-radius: var(--radius);
-    padding: 1.25rem 1.25rem .1rem;
+    padding: 1rem 1.25rem;
     margin-bottom: 1.75rem;
   }
 
-  /* What's Happening Now -- same card/grid language as .utility-grid
-     (auto-fit columns, --sec-* dots) so it reads as part of the same
-     system, just a lighter/denser row style since these are feed items,
-     not the 12 fixed section cards. Individual items keep the plain
-     --surface card color, so they read as floating on top of the
-     tinted panel above rather than blending into it. */
-  .wh-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: .6rem;
-    margin-bottom: 1.15rem;
+  /* One item at a time on a rotating carousel (see whats-happening.js),
+     not a grid of up to 8 -- Kevin's catch, Sept 2026: the full grid was
+     too big and competed with the section cards below for attention.
+     The point was always just a quiet "this site is active" signal, not
+     a second block of content to read, so this is sized and centered
+     like a single compact line rather than a wide standalone card. */
+  .wh-carousel {
+    max-width: 640px;
+    margin: 0 auto;
   }
   a.wh-item {
     display: flex;
@@ -195,12 +193,18 @@
     padding: .7rem .9rem;
     text-decoration: none;
     color: inherit;
-    transition: border-color .15s ease, background-color .15s ease;
+    transition: border-color .15s ease, background-color .15s ease, opacity .22s ease;
   }
   a.wh-item:hover {
     border-color: var(--primary);
     background: var(--primary-tint);
   }
+  /* Faded out for FADE_MS while the JS swaps the content underneath,
+     then faded back in -- so items visibly cross-fade instead of
+     snapping to new text mid-rotation. Skipped entirely for
+     prefers-reduced-motion (see whats-happening.js), which still
+     rotates the content, just without this transition. */
+  a.wh-item.wh-fade { opacity: 0; }
   .wh-item .wh-dot {
     width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
     margin-top: .4em;
@@ -249,7 +253,7 @@
 <main class="wide">
   <section class="whats-happening" id="whatsHappening" style="display:none;">
     <p class="section-heading"><span class="live-dot" aria-hidden="true"></span>What's Happening Now</p>
-    <div class="wh-list" id="whList"></div>
+    <div class="wh-carousel" id="whList"></div>
   </section>
   <p class="section-heading">What do you need today?</p>
   <div class="utility-grid">
