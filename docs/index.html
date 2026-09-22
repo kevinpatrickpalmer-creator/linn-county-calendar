@@ -163,11 +163,23 @@
      selector and was silently winning over every property here, which
      is the real reason the first attempt looked like nothing had
      changed at all -- an ID selector is the simplest way to reliably
-     out-rank it. */
+     out-rank it.
+
+     One accent color, not two -- Kevin's follow-up catch: at the low
+     opacity first used here, the yellow fill was blending with the
+     near-black page background into something that read as dark green
+     to him (he's colorblind), while the more solid 1px border still
+     read as yellow, i.e. two different colors by his own eye instead
+     of the one intended. Fill is now strong enough to actually read as
+     yellow rather than shift hue at low opacity, and the border uses
+     --primary, the site's own established blue, the same color already
+     used for this kind of "highlighted" border everywhere else (the
+     county badge, card hover states) rather than introducing a second
+     yellow tone for it. */
   #whatsHappening.whats-happening {
-    background: rgba(224, 196, 88, .12);
-    border: 1px solid rgba(224, 196, 88, .3);
-    box-shadow: 0 0 32px rgba(224, 196, 88, .22);
+    background: rgba(224, 196, 88, .28);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 24px rgba(224, 196, 88, .18);
     border-radius: var(--radius);
     padding: 1rem 1.25rem;
     margin-bottom: 1.75rem;
