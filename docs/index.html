@@ -150,17 +150,24 @@
     .whats-happening .section-heading .live-dot { animation: none; }
   }
 
-  /* Wrapped in its own tinted panel, not just floating on the plain
-     page background like the section cards below -- Kevin's catch,
-     Sept 2026: the ticker and the cards used identical styling and
-     blended together. Reuses --primary-tint, the same "highlighted
-     zone" background this site already uses for callout boxes
-     (theme.css's p.callout), rather than inventing a new visual
-     language -- subtle enough to stay in the site's calm,
-     unpolished-on-purpose feel instead of a loud banner. */
-  .whats-happening {
-    background: var(--primary-tint);
-    border: 1px solid var(--surface-border);
+  /* Wrapped in its own soft glow, not just floating on the plain page
+     background like the section cards below -- Kevin's catch, Sept
+     2026: a navy tint here (tried first) didn't register at all, since
+     the whole site already leans blue everywhere else. Yellow isn't
+     used as a background anywhere else on the site, so it reads as a
+     different zone at a glance instead of a shade shift you have to
+     look for. Same warm gold as --sec-lost-found rather than a new
+     arbitrary color. Targeted by #whatsHappening, not .whats-happening
+     -- theme.css's own "body.themed section" rule (background, border,
+     padding, box-shadow, margin) is MORE specific than a single class
+     selector and was silently winning over every property here, which
+     is the real reason the first attempt looked like nothing had
+     changed at all -- an ID selector is the simplest way to reliably
+     out-rank it. */
+  #whatsHappening.whats-happening {
+    background: rgba(224, 196, 88, .12);
+    border: 1px solid rgba(224, 196, 88, .3);
+    box-shadow: 0 0 32px rgba(224, 196, 88, .22);
     border-radius: var(--radius);
     padding: 1.25rem 1.25rem .1rem;
     margin-bottom: 1.75rem;
