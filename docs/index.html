@@ -150,15 +150,33 @@
     .whats-happening .section-heading .live-dot { animation: none; }
   }
 
+  /* Wrapped in its own tinted panel, not just floating on the plain
+     page background like the section cards below -- Kevin's catch,
+     Sept 2026: the ticker and the cards used identical styling and
+     blended together. Reuses --primary-tint, the same "highlighted
+     zone" background this site already uses for callout boxes
+     (theme.css's p.callout), rather than inventing a new visual
+     language -- subtle enough to stay in the site's calm,
+     unpolished-on-purpose feel instead of a loud banner. */
+  .whats-happening {
+    background: var(--primary-tint);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.25rem .1rem;
+    margin-bottom: 1.75rem;
+  }
+
   /* What's Happening Now -- same card/grid language as .utility-grid
      (auto-fit columns, --sec-* dots) so it reads as part of the same
      system, just a lighter/denser row style since these are feed items,
-     not the 12 fixed section cards. */
+     not the 12 fixed section cards. Individual items keep the plain
+     --surface card color, so they read as floating on top of the
+     tinted panel above rather than blending into it. */
   .wh-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: .6rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.15rem;
   }
   a.wh-item {
     display: flex;
