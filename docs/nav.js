@@ -64,12 +64,12 @@
     .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
-      background: var(--surface, #fff); border-bottom: 1px solid var(--surface-border, #e2e2e2);
+      background: var(--surface, #fff); border-bottom: 3px solid var(--surface-border, #1a1a1a);
     }
     .site-brand {
       flex-shrink: 0; display: flex; align-items: center;
-      padding: 0 .9rem; font-size: .9rem; font-weight: 800; white-space: nowrap;
-      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 0 .9rem; font-size: 1rem; font-weight: 700; white-space: nowrap;
+      font-family: var(--font-display, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
       color: var(--ink, #1a1a1a); text-decoration: none; -webkit-user-drag: none;
       border-right: 1px solid var(--surface-border, #e2e2e2);
     }
@@ -113,16 +113,16 @@
        towns -- a quiet wayfinding aid, not a chrome/button color. */
     .site-nav a {
       flex-shrink: 0; display: flex; align-items: center; min-height: ${NAV_HEIGHT};
-      padding: 0 .9rem; font-size: .84rem; font-weight: 600; white-space: nowrap;
+      padding: 0 .9rem; font-size: .84rem; font-weight: 700; white-space: nowrap;
       letter-spacing: .01em;
-      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--font-body, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
       color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
       background: transparent; transition: background-color .1s ease, color .1s ease;
       -webkit-user-drag: none;
     }
-    .site-nav a.active { color: var(--primary, #4285f4); border-bottom-color: var(--primary, #4285f4); background: rgba(123, 176, 247, .28); }
+    .site-nav a.active { color: var(--primary, #2f6fed); border-bottom-color: var(--primary, #2f6fed); background: var(--primary-tint, #eaf1ff); }
     .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
-    .site-nav a.active:hover { background: rgba(123, 176, 247, .28); }
+    .site-nav a.active:hover { background: var(--primary-tint, #eaf1ff); }
     .site-nav a:active { background: rgba(127,127,127,.28); }
     .nav-dot {
       width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
@@ -160,7 +160,7 @@
         padding: .9rem 1.1rem; border-bottom: 1px solid var(--surface-border, #e2e2e2);
         border-left: 3px solid transparent;
       }
-      .site-nav a.active { border-left-color: var(--primary, #4285f4); border-bottom-color: var(--surface-border, #e2e2e2); }
+      .site-nav a.active { border-left-color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #e2e2e2); }
       /* No hover on touch -- the submenu is just always open, indented
          under its parent, right in the vertical stack. */
       .nav-item { flex-direction: column; }
