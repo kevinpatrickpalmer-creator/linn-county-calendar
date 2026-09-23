@@ -11,7 +11,7 @@ BEGIN:VEVENT
 SUMMARY:Airport Board Meeting
 DTSTART:20261013T233000Z
 DTEND:20261014T003000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:19447226-2026-10-13-630@linn-county-scraper.local
 LOCATION:North Central | Brookfield\, MO
 X-EVENT-TYPE:Meeting
@@ -20,7 +20,7 @@ BEGIN:VEVENT
 SUMMARY:TwoYear Anniversary Bash!!!!
 DTSTART:20261024T150000Z
 DTEND:20261024T160000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:17816512-2026-10-24-1000@linn-county-scraper.local
 DESCRIPTION:Our two year “anniversary” is fast approaching at Tooeys! 
  We are going to throw a bash that includes discounts and giveaways! We wil
@@ -32,7 +32,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20260922T223000Z
 DTEND:20260923T010000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfcity-city-council-meeting-15-2026-09-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -48,7 +48,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261027T223000Z
 DTEND:20261028T010000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfcity-city-council-meeting-16-2026-10-27-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -64,7 +64,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261124T233000Z
 DTEND:20261125T020000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfcity-city-council-meeting-17-2026-11-24-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -80,7 +80,7 @@ BEGIN:VEVENT
 SUMMARY:City Council Meeting
 DTSTART:20261222T233000Z
 DTEND:20261223T020000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfcity-city-council-meeting-18-2026-12-22-0530@linn-county-scraper.loc
  al
 DESCRIPTION:The Brookfield City Council regularly scheduled meetings are t
@@ -97,7 +97,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20270711T153000Z
 DTEND:20270711T163000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2027-07-11-linn-county-historical-society-tillman-hous
  e-museum-open-to--2027-07-11-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -111,7 +111,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20270718T153000Z
 DTEND:20270718T163000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2027-07-18-linn-county-historical-society-tillman-hous
  e-museum-open-to--2027-07-18-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -124,7 +124,7 @@ BEGIN:VEVENT
 SUMMARY:Blake Banks
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260726
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2026-07-25-blake-banks-2026-07-25-allday@linn-county-s
  craper.local
 DESCRIPTION:Blake Banks\, The Hicks\, DJ Kiki in concert at 32980 Galley D
@@ -139,7 +139,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260725T153000Z
 DTEND:20260725T163000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2026-07-25-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-07-25-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -153,7 +153,7 @@ SUMMARY:Linn County Historical Society Tillman House Museum open to the pu
  blic
 DTSTART:20260801T153000Z
 DTEND:20260801T163000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2026-08-01-linn-county-historical-society-tillman-hous
  e-museum-open-to--2026-08-01-1030@linn-county-scraper.local
 DESCRIPTION:Linn County Historical Society Tillman House Museum open to th
@@ -166,7 +166,7 @@ BEGIN:VEVENT
 SUMMARY:Brookfield High School Homecoming vs. Trenton
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:leadereditorial-2026-09-18-brookfield-high-school-homecoming-vs-trento
  n-2026-09-18-allday@linn-county-scraper.local
 DESCRIPTION:Brookfield High School Homecoming vs. Trenton. More details to
@@ -178,7 +178,7 @@ BEGIN:VEVENT
 SUMMARY:1st Annual Ministries in Linn County Craft Fair
 DTSTART:20260926T140000Z
 DTEND:20260926T210000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-1st-annual-ministries-in-linn-county-craft-fair-2026-09-26-0
  900@linn-county-scraper.local
 DESCRIPTION:Click the Link for more info!
@@ -189,7 +189,7 @@ BEGIN:VEVENT
 SUMMARY:Bell Game 🏈🔔
 DTSTART:20261024T000000Z
 DTEND:20261024T020000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-bell-game-%f0%9f%8f%88%f0%9f%94%94-2026-10-23-0700@linn-coun
  ty-scraper.local
 DESCRIPTION:Come out & enjoy the annual rivalry between the Brookfield Bul
@@ -202,7 +202,7 @@ BEGIN:VEVENT
 SUMMARY:Pink Out Game 🩷🥎
 DTSTART:20260924T220000Z
 DTEND:20260925T020000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-pink-out-game-%f0%9f%a9%b7%f0%9f%a5%8e-2026-09-24-0500@linn-
  county-scraper.local
 DESCRIPTION:Pink Out Softball Game played by the Brookfield Lady Bulldogs 
@@ -215,7 +215,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Prom
 DTSTART:20270410T144300Z
 DTEND:20270410T154300Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-bhs-prom-2027-04-10-0943@linn-county-scraper.local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
 X-EVENT-TYPE:Other
@@ -224,7 +224,7 @@ BEGIN:VEVENT
 SUMMARY:BHS Graduation Ceremony
 DTSTART:20270509T180000Z
 DTEND:20270509T200000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-bhs-graduation-ceremony-2027-05-09-0100@linn-county-scraper.
  local
 LOCATION:Brookfield R-3 High School | Brookfield\, MO
@@ -234,7 +234,7 @@ BEGIN:VEVENT
 SUMMARY:Tailgate with the Chamber 🐾🏈
 DTSTART:20260925T223000Z
 DTEND:20260926T000000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-tailgate-with-the-chamber-%f0%9f%90%be%f0%9f%8f%88-2026-09-2
  5-0530@linn-county-scraper.local
 DESCRIPTION:Join the Chamber and local Chamber business members for a pre-
@@ -248,7 +248,7 @@ BEGIN:VEVENT
 SUMMARY:Movie Night - Crossroads Christian Church
 DTSTART:20261024T210000Z
 DTEND:20261025T000000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:bfchamber-movie-night-crossroads-christian-church-2026-10-24-0400@linn
  -county-scraper.local
 DESCRIPTION:Free movie night by Crossroads Christian Church at Brookfield 
@@ -262,7 +262,7 @@ BEGIN:VEVENT
 SUMMARY:Real Estate & Personal Property Auction
 DTSTART:20260926T150000Z
 DTEND:20260926T160000Z
-DTSTAMP:20260922T225824Z
+DTSTAMP:20260923T043817Z
 UID:teterauction-2026-09-26-real-estate-personal-property-auction-brookfie
  ld-2026-09-26-1000@linn-county-scraper.local
 DESCRIPTION:See https://www.teterauction.com/ for full auction details.
