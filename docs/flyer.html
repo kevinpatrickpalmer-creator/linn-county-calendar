@@ -76,53 +76,29 @@
     flex-direction: column;
   }
 
-  /* ---------- Masthead ---------- */
+  /* ---------- Masthead: a real screenshot of the site's own nav bar,
+     not a hand-built banner ----------
+     Kevin's idea: prove this is a real, full website by showing it,
+     rather than describing it. flyer-nav-header.png is an actual
+     html2canvas capture of nav.js's rendered .site-nav-bar (the "Linn
+     County Local" wordmark plus all 13 tabs), captured at 4x scale for
+     print, not a mockup. Bleeds edge-to-edge the same way the old blue
+     banner did, cancelling .page's own padding. */
   .masthead-band {
-    /* Fixed, not var(--primary) -- that token lightens in dark mode for
-       text contrast, which would wash out this large solid fill. Uses
-       the darker of the two site blues so white nameplate text stays
-       legible against a big block of it. */
-    background: #2b6fd1;
-    /* Bleed edge-to-edge by cancelling .page's own padding, then add it
-       back internally -- this is the block that has to read as a solid
-       color rectangle from across a room, not just accent text. */
     margin: -.55in -.7in 0;
-    padding: .4in .7in .32in;
-    text-align: center;
+    line-height: 0;
   }
-  .masthead-band .masthead-logo {
-    display: inline-flex;
-    background: #fff;
-    border-radius: 999px;
-    padding: .55rem .7rem .4rem;
-    margin: 0 0 .5rem;
-  }
-  .masthead-logo img {
-    width: 68px;
-    height: auto;
+  .masthead-band img {
     display: block;
+    width: 100%;
+    height: auto;
   }
-
-  .kicker {
+  .header-caption {
+    text-align: center;
     font-size: .74rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: #fbdbdf;
-    text-align: center;
-    margin: 0 0 .35rem;
-  }
-
-  .nameplate {
-    font-family: var(--font-display);
-    font-weight: 700;
-    text-align: center;
-    font-size: 3.05rem;
-    line-height: 1.03;
-    letter-spacing: -.01em;
-    text-wrap: balance;
-    margin: 0;
-    color: #fff;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: .5rem 0 0;
   }
 
   .masthead-rule {
@@ -130,7 +106,7 @@
     border-top: 3px solid var(--primary);
     border-bottom: 1px solid var(--surface-border);
     height: 4px;
-    margin: 0;
+    margin: .5rem 0 0;
   }
 
   .masthead-sub {
@@ -181,18 +157,27 @@
   }
   .body-text strong { color: var(--ink); }
 
-  /* ---------- Single centered "get started" column ----------
-     Used to be a two-column subscribe-vs-add-event split, back when
-     this flyer was calendar-only. Now that it's pitching the whole
-     platform, one QR pointed at the homepage covers every board at
-     once, rather than picking just two of twelve to feature. */
-  .single-col {
-    max-width: 4in;
-    margin: 0 auto 1rem;
+  /* ---------- Two-column "right now" split ----------
+     The calendar gets its own column: it's the one thing on here with
+     real, immediate content today, not a "come see what's here"
+     pitch like the rest of the platform. Second column covers
+     everything else in one QR to the homepage, rather than picking
+     one more of the other eleven boards to feature over the rest. */
+  .two-col {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 0 0 1rem;
   }
-  .single-col .col {
+  .two-col .col {
+    flex: 1;
     text-align: center;
     padding: 0 .9rem;
+  }
+  .two-col .col-divider {
+    width: 1px;
+    background: var(--rule);
+    margin: 0 .1rem;
   }
   .col-label {
     font-size: .82rem;
@@ -245,8 +230,8 @@
     text-align: center;
   }
   .qr-block .qr-img {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     margin: 0 auto;
   }
   .qr-block .qr-img svg { display: block; width: 100%; height: 100%; }
@@ -257,15 +242,6 @@
     letter-spacing: .06em;
     text-transform: uppercase;
     color: var(--ink-soft);
-  }
-
-  .throughline {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--primary);
-    text-align: center;
-    margin: 0 0 .45rem;
   }
 
   .spacer { flex: 1; }
@@ -294,8 +270,10 @@
 
   @media (max-width: 640px) {
     .page { padding: .6in .5in .5in; }
-    .nameplate { font-size: 2rem; }
+    .masthead-band { margin: -.6in -.5in 0; }
     .hero { font-size: 1.25rem; }
+    .two-col { flex-direction: column; gap: 1.1rem; }
+    .two-col .col-divider { width: 100%; height: 1px; margin: 0; }
     .footer { flex-direction: column; align-items: flex-start; }
     .footer .credit { text-align: left; }
     .toolbar { flex-direction: column; align-items: stretch; }
@@ -345,12 +323,9 @@
 <div class="page">
 
   <div class="masthead-band">
-  <div class="masthead-logo" aria-label="Linn County Local logo">
-    <img src="logo-badge.svg" alt="" aria-hidden="true">
+    <img src="flyer-nav-header.png" alt="The Linn County Local website, showing the nav bar with the community calendar, business directory, jobs bulletin, trading post, and more">
   </div>
-  <p class="kicker">A Free Community Service</p>
-  <h1 class="nameplate" id="nameplate"></h1>
-  </div>
+  <p class="header-caption">This is the real site. Everything below is on it right now.</p>
   <hr class="masthead-rule">
   <div class="masthead-sub">
     <span id="townsLeft"></span>
@@ -359,27 +334,42 @@
 
   <p class="hero" id="heroLine"></p>
 
-  <p class="section-label">What it is</p>
+  <p class="section-label">What it offers</p>
   <p class="body-text" id="whatItIs"></p>
 
   <p class="section-label">Who it's for</p>
   <p class="body-text" id="whoItsFor"></p>
 
   <p class="section-label">Get started</p>
-  <p class="throughline">Know before it's too late to show up.</p>
 
-  <div class="single-col">
+  <div class="two-col">
     <div class="col">
+      <p class="col-label">Right now: the calendar</p>
+      <div class="qr-block">
+        <div class="qr-img" id="qrCalendar"></div>
+        <p class="qr-caption">Scan to subscribe</p>
+      </div>
+      <p class="col-url" id="calendarUrl"></p>
+      <p class="col-hint">Scan the QR code, or go to the address above, to subscribe.</p>
+      <ul class="col-benefits">
+        <li><span class="mark">&bull;</span><span>Know before it's too late to show up.</span></li>
+        <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
+        <li><span class="mark">&bull;</span><span>New events show up on their own. Nothing to check back for.</span></li>
+      </ul>
+    </div>
+    <div class="col-divider"></div>
+    <div class="col">
+      <p class="col-label">See everything else</p>
       <div class="qr-block">
         <div class="qr-img" id="qrMain"></div>
-        <p class="qr-caption">Scan to get started</p>
+        <p class="qr-caption">Scan to explore</p>
       </div>
       <p class="col-url" id="siteUrl"></p>
       <p class="col-hint">Scan the QR code, or go to the address above.</p>
       <ul class="col-benefits">
+        <li><span class="mark">&bull;</span><span>Jobs, trading post, lost &amp; found, and more.</span></li>
         <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
-        <li><span class="mark">&bull;</span><span>Get free alerts for just what you care about.</span></li>
-        <li><span class="mark">&bull;</span><span>See something missing? Post it yourself, free, in a couple minutes.</span></li>
+        <li><span class="mark">&bull;</span><span>See something missing? Post it yourself, free.</span></li>
       </ul>
     </div>
   </div>
@@ -403,7 +393,6 @@
   const config = await (await fetch("config.json")).json();
 
   document.title = `Print Flyer | ${config.site_name}`;
-  document.getElementById("nameplate").textContent = config.site_name;
 
   const half = Math.ceil(config.towns.length / 2);
   document.getElementById("townsLeft").textContent = config.towns.slice(0, half).join(" · ");
@@ -411,29 +400,37 @@
 
   document.getElementById("heroLine").textContent = config.tagline;
 
+  // Short, declarative, a little proud of itself -- the same voice as
+  // the one-line taglines on each homepage card, not a feature list.
   document.getElementById("whatItIs").textContent =
-    `This isn't just a calendar anymore. It's one place for everything going on around ${config.county_display_name}: local events, who's hiring, what's for sale, who needs a hand, lost pets, community questions, local alerts, and more. Free to use, free to post to, and growing every week.`;
+    `What's happening. Who's hiring. What's for sale. Who needs a hand. It's all here, and it's all free.`;
 
   document.getElementById("whoItsFor").textContent =
-    `For locals: find out what's happening, who's hiring, what's for sale, and who could use a hand, all in one place instead of buried in a feed. For local businesses and organizations: a free way to get in front of the whole county, list a job, post an event, or just be found.`;
+    `Built for locals looking for something. Built for businesses wanting to be found. Built for this county, not a stranger's algorithm.`;
 
   // The domain has no spaces or hyphens, so a plain text wrap picks an
   // arbitrary mid-word break point once a column gets narrow. Inserting a
   // <wbr> after each "." gives the browser a sane place to break instead.
-  function fillDomain(el, domain) {
-    const parts = domain.split(".");
+  function fillDomain(el, path) {
+    const parts = config.domain.split(".");
     parts.forEach((part, i) => {
       el.appendChild(document.createTextNode(i === 0 ? part : `.${part}`));
       if (i < parts.length - 1) el.appendChild(document.createElement("wbr"));
     });
+    if (path) el.appendChild(Object.assign(document.createElement("span"), { className: "path", textContent: path }));
   }
-  fillDomain(document.getElementById("siteUrl"), config.domain);
+  fillDomain(document.getElementById("siteUrl"));
+  fillDomain(document.getElementById("calendarUrl"), "/subscribe.html");
 
-  // Points at the homepage, not a specific board -- this flyer now
-  // pitches the whole platform, not just the calendar, so the QR code
-  // should land somewhere a scanner can see everything on offer and
-  // pick their own way in, rather than dropping them into one board's
-  // subscribe or submit flow.
+  // The calendar gets its own QR straight to the subscribe page, the
+  // one thing here with real, immediate content today. The second QR
+  // points at the homepage, not a specific board, so a scan lands
+  // somewhere that shows everything else on offer.
+  const qrCalendar = qrcode(0, "M");
+  qrCalendar.addData(`https://${config.domain}/subscribe.html`);
+  qrCalendar.make();
+  document.getElementById("qrCalendar").innerHTML = qrCalendar.createSvgTag({ scalable: true, margin: 2 });
+
   const qrMain = qrcode(0, "M");
   qrMain.addData(`https://${config.domain}/`);
   qrMain.make();
