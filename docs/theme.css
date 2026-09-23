@@ -108,20 +108,21 @@ body.themed main {
 }
 body.themed main.wide { max-width: 900px; }
 
-/* Badge (used for the county emblem on index/submit/etc). Used to be a
-   plain circle drawn in CSS (background + border-radius) around a
-   smaller inner image -- now the Missouri-state-outline shape and its
-   own border are drawn directly inside logo-badge.svg itself, so this
-   wrapper is just a sizing/centering box, no background or radius of
-   its own, and the image fills it edge to edge rather than floating
-   smaller inside a separate circular frame. */
+/* Badge (used for the county emblem on index/submit/etc). Sits inside
+   a white circle, same treatment Kevin liked on the old flyer masthead
+   logo, so the badge reads as a coin/medallion instead of floating
+   directly on whatever background the page has. */
 .mo-badge {
   width: 60px;
   height: 60px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto .7rem;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px;
 }
 .mo-badge img { width: 100%; height: auto; display: block; }
 
