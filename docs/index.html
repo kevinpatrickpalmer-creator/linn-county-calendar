@@ -153,6 +153,57 @@
     padding: .5rem 1.1rem;
     box-shadow: var(--shadow-sm);
   }
+  /* "Have something to add?" row -- iPhone-style app icon tiles for the
+     4 actual contribute actions (submit an event, list a business, post
+     a club, share an idea), replacing the plain-text link list that used
+     to sit here. Printable flyer and Privacy Policy stay as plain text
+     below -- they're not "contribute content" actions, so they don't
+     belong in this row (Kevin's ask, 2026-09-23: bold color-coded icon
+     buttons "like on an iPhone"). Each tile reuses its parent section's
+     --sec-* color and the same icon as that section's card above, so a
+     local recognizes "that's the calendar one" instead of learning a
+     second, unrelated set of colors/icons. */
+  .shortcut-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.3rem;
+    margin: 0 0 2rem;
+  }
+  .shortcut-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    width: 96px;
+    text-decoration: none;
+  }
+  .shortcut-tile .tile-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 22px;
+    border: 4px solid var(--surface-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    transition: transform .12s ease;
+  }
+  .shortcut-tile:hover .tile-icon { transform: translate(-2px, -2px); }
+  .shortcut-tile .tile-label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: .78rem;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--ink);
+  }
+  .shortcut-tile.calendar .tile-icon { background: var(--sec-calendar); }
+  .shortcut-tile.directory .tile-icon { background: var(--sec-directory); }
+  .shortcut-tile.clubs .tile-icon { background: var(--sec-clubs); }
+  .shortcut-tile.ideas .tile-icon { background: var(--sec-ideas); }
+
   .section-heading {
     text-align: center;
     font-size: .78rem;
@@ -380,18 +431,26 @@
     </a>
   </div>
 
-  <div class="footer-link">
-    <a href="submit.html">Submit a community event &rarr;</a>
+  <p class="section-heading">Have something to add?</p>
+  <div class="shortcut-row">
+    <a class="shortcut-tile calendar" href="submit.html">
+      <span class="tile-icon" aria-hidden="true">&#128197;</span>
+      <span class="tile-label">Submit an Event</span>
+    </a>
+    <a class="shortcut-tile directory" href="submit-business.html">
+      <span class="tile-icon" aria-hidden="true">&#127978;</span>
+      <span class="tile-label">List a Business</span>
+    </a>
+    <a class="shortcut-tile clubs" href="submit-clubs.html">
+      <span class="tile-icon" aria-hidden="true">&#127912;</span>
+      <span class="tile-label">Post a Club</span>
+    </a>
+    <a class="shortcut-tile ideas" href="survey.html">
+      <span class="tile-icon" aria-hidden="true">&#128161;</span>
+      <span class="tile-label">Share an Idea</span>
+    </a>
   </div>
-  <div class="footer-link">
-    <a href="submit-business.html">List your business or organization, free &rarr;</a>
-  </div>
-  <div class="footer-link">
-    <a href="submit-clubs.html">Post your club or class, free &rarr;</a>
-  </div>
-  <div class="footer-link">
-    <a href="survey.html">Ideas for your town? &rarr;</a>
-  </div>
+
   <div class="footer-link">
     <a href="flyer.html">Printable flyer to post around town</a>
   </div>
