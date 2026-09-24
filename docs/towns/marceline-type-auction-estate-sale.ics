@@ -7,4 +7,13 @@ X-WR-CALNAME:Marceline Events (Linn County Community Calendar) (Auction /
  Estate Sale)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
+BEGIN:VEVENT
+SUMMARY:Moms Breaking the Silence 7th Annual Dinner and Auction
+DTSTART:20261017T210000Z
+DTEND:20261018T010000Z
+DTSTAMP:20260924T200022Z
+UID:19954668-2026-10-17-400@linn-county-scraper.local
+LOCATION:Marceline\, MO
+X-EVENT-TYPE:Auction / Estate Sale
+END:VEVENT
 END:VCALENDAR
