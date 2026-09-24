@@ -64,7 +64,8 @@
     .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
-      background: var(--surface, #fff); border-bottom: 3px solid var(--surface-border, #1a1a1a);
+      background-color: var(--paper, #dcc19d); background-image: var(--cork-noise, none);
+      border-bottom: 3px solid var(--surface-border, #1a1a1a);
     }
     .site-brand {
       flex-shrink: 0; display: flex; align-items: center;
