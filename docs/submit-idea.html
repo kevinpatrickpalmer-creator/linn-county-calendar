@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Share Your Idea</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Share Your Idea | Linn County">
+<meta property="og:description" content="Got a big idea for your town? Tag it, post it, and see what your neighbors think.">
+<meta property="og:image" content="https://linncountylocal.com/og-image.png">
+<meta property="og:url" content="https://linncountylocal.com/submit-idea.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Share Your Idea | Linn County">
+<meta name="twitter:description" content="Got a big idea for your town? Tag it, post it, and see what your neighbors think.">
+<link rel="stylesheet" href="theme.css">
+<style>
+  form { margin: 0; }
+  #submitStatus { margin-top: 1rem; font-size: .95rem; text-align: center; }
+  #submitStatus.ok { color: var(--success); }
+  #submitStatus.err { color: var(--primary); }
+  .hp { position: absolute; left: -9999px; }
+
+  .confirm-panel { text-align: center; }
+  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
+  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
+  .confirm-panel p.hint { text-align: center; }
+  .confirm-panel .btn.secondary { margin-top: 1.1rem; }
+</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body class="themed">
+<script src="nav.js"></script>
+<script src="share.js" data-manual></script>
+<main>
+  <div class="mo-badge"><img src="logo-badge.svg" alt="" aria-hidden="true"></div>
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>Share Your Idea</h1>
+  <p class="sub">Got a big idea for your town? Tag it, post it below, and see what your neighbors think. If it's big enough for the whole county, even better. The ones people actually want rise to the top.</p>
+
+  <form id="ideaForm" class="card">
+    <label for="title">Your idea, in a few words *</label>
+    <input id="title" name="title" type="text" maxlength="120" required placeholder="e.g. A splash pad at the city park">
+
+    <label for="description">Tell us more *</label>
+    <textarea id="description" name="description" maxlength="1000" required placeholder="What would it take? Who would it help?"></textarea>
+
+    <label for="name">Your name (optional)</label>
+    <input id="name" name="name" type="text" maxlength="100">
+
+    <label for="town">Town (optional)</label>
+    <select id="town" name="town">
+      <option value="">Prefer not to say</option>
+    </select>
+
+    <label for="email">Email (optional)</label>
+    <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+
+    <label for="phone">Phone (optional)</label>
+    <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
+    <p class="hint">Left blank by default. If you add one, it shows on your idea so neighbors who want to help can reach you directly.</p>
+
+    <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
+    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Post idea</button>
+    <div id="submitStatus" role="status"></div>
+  </form>
+
+  <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
+    <p class="confirm-icon" aria-hidden="true">✅</p>
+    <h2>Got it, thanks!</h2>
+    <p class="hint">A person reviews every idea, usually live within 24 hours.</p>
+    <button type="button" id="postAnotherBtn" class="btn secondary">Post another idea</button>
+  </div>
+
+  <p class="hint" style="text-align:center;"><a href="big-ideas.html">Browse the Big Idea Board &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="survey.html">Prefer a quick survey instead? &rarr;</a></p>
+  <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
+
+  <div class="site-credit">
+    Questions or problems? <a href="contact.html">Contact us</a>
+    <span class="powered-by">Powered by Hwy 36 Labs</span>
+  </div>
+</main>
+
+<script>
+(async function () {
+  const config = await (await fetch("config.json")).json();
+  document.title = `Share Your Idea | ${config.site_name}`;
+  document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
+
+  const townSelect = document.getElementById("town");
+  const countyOption = document.createElement("option");
+  countyOption.value = "Linn County";
+  countyOption.textContent = "Linn County (countywide idea)";
+  townSelect.appendChild(countyOption);
+  for (const town of config.towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  }
+
+  // A blank "your idea" box is the hardest part to start -- these rotate
+  // through the title/description placeholders (only visible while the
+  // fields are empty) so people see a few examples before typing their
+  // own, instead of staring at one static hint. Same prompts as the old
+  // inline form on big-ideas.html (Kevin's ask, 2026-09-17).
+  const IDEA_PROMPTS = [
+    { title: "A covered pavilion at the ballfield", description: "Somewhere families could sit out of the sun during games." },
+    { title: "A dog park near the walking trail", description: "A fenced space where people could let dogs off-leash safely." },
+    { title: "A skate park for teenagers", description: "Somewhere to go besides the parking lot behind the gas station." },
+    { title: "A shared community kitchen", description: "A commercial kitchen space local bakers and food makers could rent by the hour." },
+    { title: "A splash pad at the city park", description: "Somewhere for kids to cool off in summer without needing a pool." },
+    { title: "A ride-share board for medical appointments", description: "A way to connect folks who need a ride to the next town over with someone already headed that way." },
+    { title: "An indoor space for winter farmers markets", description: "Somewhere vendors could still sell once it's too cold to be outside." },
+  ];
+  const titleInput = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  let promptIndex = Math.floor(Math.random() * IDEA_PROMPTS.length);
+  function rotatePrompt() {
+    promptIndex = (promptIndex + 1) % IDEA_PROMPTS.length;
+    const prompt = IDEA_PROMPTS[promptIndex];
+    titleInput.placeholder = `e.g. ${prompt.title}`;
+    descriptionInput.placeholder = prompt.description;
+  }
+  rotatePrompt();
+  setInterval(rotatePrompt, 4000);
+
+  const apiUrl = config.apps_script_api_url;
+  const form = document.getElementById("ideaForm");
+  const submitStatus = document.getElementById("submitStatus");
+  const submitBtn = document.getElementById("submitBtn");
+  const confirmPanel = document.getElementById("confirmPanel");
+  const postAnotherBtn = document.getElementById("postAnotherBtn");
+
+  if (!apiUrl) {
+    submitStatus.textContent = "The Big Idea Board is being set up -- check back soon.";
+    form.querySelector("button[type=submit]").disabled = true;
+    return;
+  }
+
+  postAnotherBtn.addEventListener("click", () => {
+    confirmPanel.hidden = true;
+    form.hidden = false;
+    document.getElementById("title").focus();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitStatus.textContent = "";
+    submitStatus.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Posting...";
+
+    const data = new FormData(form);
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "submit",
+          title: (data.get("title") || "").toString().trim(),
+          description: (data.get("description") || "").toString().trim(),
+          name: (data.get("name") || "").toString().trim(),
+          town: (data.get("town") || "").toString().trim(),
+          email: (data.get("email") || "").toString().trim(),
+          phone: (data.get("phone") || "").toString().trim(),
+          botcheck: (data.get("botcheck") || "").toString().trim(),
+        }),
+      });
+      const result = await res.json();
+      if (!result.success) throw new Error(result.error || "Submission failed");
+
+      form.reset();
+      form.hidden = true;
+      confirmPanel.hidden = false;
+      confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      confirmPanel.focus();
+    } catch (err) {
+      submitStatus.textContent = "Something went wrong posting your idea. Please try again in a moment.";
+      submitStatus.className = "err";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Post idea";
+    }
+  });
+})();
+</script>
+</body>
+</html>

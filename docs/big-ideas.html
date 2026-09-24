@@ -122,19 +122,6 @@
   .town-tag.default { color: var(--ink-soft); background: var(--rule); border-color: var(--ink-faint); }
 
   #ideasStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
-  #submitStatus { margin-top: 1rem; font-size: .95rem; text-align: center; }
-  #submitStatus.err { color: var(--primary); }
-  .hp { position: absolute; left: -9999px; }
-  form#ideaForm { margin: 0; }
-  /* The nav bar is fixed at 48px tall (see nav.js) -- without this, jumping
-     straight here from the nav's "Submit Idea" link lands with the "Share
-     your idea" heading hidden right behind it. */
-  #submitSection { scroll-margin-top: 64px; }
-
-  .confirm-panel { text-align: center; }
-  .confirm-panel .confirm-icon { font-size: 2.75rem; line-height: 1; margin: 0 0 .6rem; }
-  body.themed .confirm-panel h2 { text-align: center; border-left: none; padding-left: 0; margin: 0 0 .7rem; }
-  .confirm-panel p.hint { text-align: center; }
 </style>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d925775715eb4a179876e0e5c75e0dda"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -152,47 +139,11 @@
   </div>
 </div>
 <main class="wide">
+  <a class="icon-cta" href="submit-idea.html"><span class="icon-cta-icon" aria-hidden="true">💡</span> Share Your Idea, free</a>
+  <p class="callout">Got a big idea for your town? Post it and see what your neighbors think. A person reviews every idea before it goes live.</p>
+
   <div id="ideasStatus">Loading ideas...</div>
   <div id="ideaList" style="display:none;"></div>
-
-  <div id="submitSection">
-    <h2>Share your idea</h2>
-    <form id="ideaForm" class="card">
-      <label for="title">Your idea, in a few words *</label>
-      <input id="title" name="title" type="text" maxlength="120" required placeholder="e.g. A splash pad at the city park">
-
-      <label for="description">Tell us more *</label>
-      <textarea id="description" name="description" maxlength="1000" required placeholder="What would it take? Who would it help?"></textarea>
-
-      <label for="name">Your name (optional)</label>
-      <input id="name" name="name" type="text" maxlength="100">
-
-      <label for="town">Town (optional)</label>
-      <select id="town" name="town">
-        <option value="">Prefer not to say</option>
-      </select>
-
-      <label for="email">Email (optional)</label>
-      <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
-
-      <label for="phone">Phone (optional)</label>
-      <input id="phone" name="phone" type="tel" maxlength="30" placeholder="(555) 555-5555">
-      <p class="hint">Left blank by default. If you add one, it shows on your idea so neighbors who want to help can reach you directly.</p>
-
-      <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
-      <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
-
-      <button type="submit" id="submitBtn">Post idea</button>
-      <div id="submitStatus" role="status"></div>
-    </form>
-
-    <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
-      <p class="confirm-icon" aria-hidden="true">✅</p>
-      <h2>Got it, thanks!</h2>
-      <p class="hint">A person reviews every idea, usually live within 24 hours.</p>
-      <button type="button" id="postAnotherBtn" class="btn secondary">Post another idea</button>
-    </div>
-  </div>
 
   <p class="hint" style="text-align:center;"><a href="survey.html">Prefer a quick survey instead? &rarr;</a></p>
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
@@ -209,43 +160,6 @@
   document.title = `Big Idea Board | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
-  const townSelect = document.getElementById("town");
-  const countyOption = document.createElement("option");
-  countyOption.value = "Linn County";
-  countyOption.textContent = "Linn County (countywide idea)";
-  townSelect.appendChild(countyOption);
-  for (const town of config.towns) {
-    const option = document.createElement("option");
-    option.value = town;
-    option.textContent = town;
-    townSelect.appendChild(option);
-  }
-
-  // A blank "your idea" box is the hardest part to start -- these rotate
-  // through the title/description placeholders (only visible while the
-  // fields are empty) so people see a few examples before typing their
-  // own, instead of staring at one static hint. Kevin's ask, 2026-09-17.
-  const IDEA_PROMPTS = [
-    { title: "A covered pavilion at the ballfield", description: "Somewhere families could sit out of the sun during games." },
-    { title: "A dog park near the walking trail", description: "A fenced space where people could let dogs off-leash safely." },
-    { title: "A skate park for teenagers", description: "Somewhere to go besides the parking lot behind the gas station." },
-    { title: "A shared community kitchen", description: "A commercial kitchen space local bakers and food makers could rent by the hour." },
-    { title: "A splash pad at the city park", description: "Somewhere for kids to cool off in summer without needing a pool." },
-    { title: "A ride-share board for medical appointments", description: "A way to connect folks who need a ride to the next town over with someone already headed that way." },
-    { title: "An indoor space for winter farmers markets", description: "Somewhere vendors could still sell once it's too cold to be outside." },
-  ];
-  const titleInput = document.getElementById("title");
-  const descriptionInput = document.getElementById("description");
-  let promptIndex = Math.floor(Math.random() * IDEA_PROMPTS.length);
-  function rotatePrompt() {
-    promptIndex = (promptIndex + 1) % IDEA_PROMPTS.length;
-    const prompt = IDEA_PROMPTS[promptIndex];
-    titleInput.placeholder = `e.g. ${prompt.title}`;
-    descriptionInput.placeholder = prompt.description;
-  }
-  rotatePrompt();
-  setInterval(rotatePrompt, 4000);
-
   const apiUrl = config.apps_script_api_url;
   const ideasStatus = document.getElementById("ideasStatus");
   const ideaList = document.getElementById("ideaList");
@@ -253,7 +167,6 @@
 
   if (!apiUrl) {
     ideasStatus.textContent = "The Big Idea Board is being set up -- check back soon.";
-    document.getElementById("submitSection").style.display = "none";
     return;
   }
 
@@ -424,80 +337,9 @@
       `<span class="stat-seg">1 County ·</span> ` +
       `<span class="live-count"><span class="live-dot"></span>${realCount} Idea${realCount === 1 ? "" : "s"}</span>` +
       `<span class="stat-seg">· Free to Join</span>`;
-
-    // Arriving via the nav's "Submit Idea" link (#submitSection) scrolls
-    // there on page load, but the idea list above it hasn't finished
-    // loading yet at that point -- once it does, everything shifts down
-    // and leaves the target scrolled past. Re-scroll now that layout's
-    // settled. Computed by hand rather than relying on scroll-margin-top
-    // (set below too, as a same-purpose belt-and-suspenders for browsers
-    // that get the timing right on their own) since not every engine
-    // honors it for a script-triggered scroll.
-    if (window.location.hash === "#submitSection") {
-      // Deferred a tick so this runs after the browser's own native
-      // scroll-to-fragment (which can otherwise fire after this code
-      // and override it, landing back under the nav bar).
-      setTimeout(() => {
-        const target = document.getElementById("submitSection");
-        const navBar = document.querySelector(".site-nav-bar");
-        const offset = (navBar ? navBar.getBoundingClientRect().height : 0) + 16;
-        window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY - offset);
-      }, 0);
-    }
   } catch (err) {
     ideasStatus.textContent = "Couldn't load ideas right now. Please try refreshing.";
   }
-
-  const form = document.getElementById("ideaForm");
-  const submitStatus = document.getElementById("submitStatus");
-  const submitBtn = document.getElementById("submitBtn");
-  const confirmPanel = document.getElementById("confirmPanel");
-  const postAnotherBtn = document.getElementById("postAnotherBtn");
-
-  postAnotherBtn.addEventListener("click", () => {
-    confirmPanel.hidden = true;
-    form.hidden = false;
-    document.getElementById("title").focus();
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    submitStatus.textContent = "";
-    submitStatus.className = "";
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Posting...";
-
-    const data = new FormData(form);
-    try {
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        body: JSON.stringify({
-          action: "submit",
-          title: (data.get("title") || "").toString().trim(),
-          description: (data.get("description") || "").toString().trim(),
-          name: (data.get("name") || "").toString().trim(),
-          town: (data.get("town") || "").toString().trim(),
-          email: (data.get("email") || "").toString().trim(),
-          phone: (data.get("phone") || "").toString().trim(),
-          botcheck: (data.get("botcheck") || "").toString().trim(),
-        }),
-      });
-      const result = await res.json();
-      if (!result.success) throw new Error(result.error || "Submission failed");
-
-      form.reset();
-      form.hidden = true;
-      confirmPanel.hidden = false;
-      confirmPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-      confirmPanel.focus();
-    } catch (err) {
-      submitStatus.textContent = "Something went wrong posting your idea. Please try again in a moment.";
-      submitStatus.className = "err";
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Post idea";
-    }
-  });
 })();
 </script>
 </body>
