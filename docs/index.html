@@ -266,59 +266,62 @@
     max-width: 640px;
     margin: 0 auto;
   }
-  /* Carries its own highlight directly (border + soft glow) now that
-     there's no wrapping panel -- blue rather than yellow, since yellow
-     is the color that gave Kevin trouble, and blue is already this
-     site's established "highlighted" color everywhere else (the county
-     badge, card hover states), so nothing new is being introduced. */
+  /* Filled with the item's own --sec-* color (set inline by
+     whats-happening.js) instead of a plain white card -- same pinned
+     index-card treatment as the section grid below, so the ticker
+     doesn't read as a plainer, second-class version of it (Kevin's ask,
+     2026-09-23: "the carousel ... should be filled in with a color"). */
   a.wh-item {
     display: flex;
     align-items: flex-start;
     gap: .6rem;
-    background: var(--surface);
-    border: 3px solid var(--surface-border);
-    box-shadow: var(--shadow-sm);
+    border: 4px solid var(--surface-border);
+    box-shadow: var(--shadow-md);
     border-radius: var(--radius);
-    padding: .7rem .9rem;
+    padding: .8rem 1rem;
     text-decoration: none;
-    color: inherit;
-    transition: background-color .15s ease, opacity .22s ease;
+    color: var(--ink);
+    transition: transform .12s ease, opacity .22s ease;
   }
-  a.wh-item:hover {
-    background: var(--primary-tint);
-  }
+  a.wh-item:hover { transform: translate(-2px, -2px); }
   /* Faded out for FADE_MS while the JS swaps the content underneath,
      then faded back in -- so items visibly cross-fade instead of
      snapping to new text mid-rotation. Skipped entirely for
      prefers-reduced-motion (see whats-happening.js), which still
      rotates the content, just without this transition. */
   a.wh-item.wh-fade { opacity: 0; }
+  /* A plain white bullet now that the whole card carries the section
+     color -- a colored dot on top of the same color would disappear. */
   .wh-item .wh-dot {
-    width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
     margin-top: .4em;
+    background: #fff;
+    border: 2px solid var(--surface-border);
   }
   .wh-item .wh-body { min-width: 0; }
-  /* Which board a ticker item came from -- the dot alone reads as
-     decoration, not a source, so this spells it out (in that board's
-     same --sec-* color) rather than making someone guess where an
-     item came from, e.g. mistaking a Big Idea Board submission for
-     something already real/established. */
+  /* Which board a ticker item came from -- spelled out in text since
+     the dot alone doesn't say enough (e.g. mistaking a Big Idea Board
+     submission for something already real/established). Dark ink, not
+     a --sec-* color, since it now sits on that same color as the card
+     fill rather than on a white background. */
   .wh-item .wh-tag {
     font-size: .68rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: .04em;
     text-transform: uppercase;
+    color: var(--ink);
     margin-bottom: .2rem;
   }
   .wh-item .wh-text {
     font-size: .9rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--ink);
     line-height: 1.4;
   }
   .wh-item .wh-meta {
     font-size: .78rem;
-    color: var(--ink-soft);
+    font-weight: 600;
+    color: var(--ink);
     margin-top: .15rem;
   }
 </style>

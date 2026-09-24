@@ -251,8 +251,7 @@
 
     function showItem(item) {
       a.href = item.href;
-      dot.style.background = `var(${item.dotVar})`;
-      tag.style.color = `var(${item.dotVar}-text)`;
+      a.style.background = `var(${item.dotVar})`;
       tag.textContent = item.label;
       text.textContent = item.text;
       meta.textContent = item.meta;
