@@ -451,10 +451,14 @@
   .share-btn.copied { background: var(--success) !important; color: #fff; border-color: transparent; }
   .share-section p.hint { margin: .5rem 0 0; font-size: .8rem; color: var(--ink-faint); }
   @media (max-width: 480px) {
-    .day { min-height: 4.4rem; font-size: .68rem; border-radius: 6px; }
+    .day { min-height: 4.4rem; font-size: .68rem; border-radius: 6px; padding: .2rem; }
     .grid { border-radius: 12px; padding: .6rem; gap: 4px; }
     .pill { font-size: .62rem; }
     .topbar h1 { font-size: 1rem; }
+    /* "17 events" overflows a ~45px-wide mobile cell -- just the
+       number fits, so the "events"/"event" label drops off here. */
+    .day-count-label { display: none; }
+    .day-count { padding: .15rem .35rem; font-size: .68rem; }
   }
 
   /* ---------- Print: a clean page, not a printout of the phone-sized web
@@ -982,7 +986,10 @@ function renderGridView(year, month, todayKey) {
       cell.classList.add("has-events");
       const countBtn = document.createElement("button");
       countBtn.className = "day-count";
-      countBtn.textContent = dayEvents.length === 1 ? "1 event" : `${dayEvents.length} events`;
+      // "events"/"event" is its own span, hidden below 480px (see CSS) --
+      // "17 events" overflowed a mobile cell's ~45px width badly, so
+      // narrow screens fall back to just the bare number.
+      countBtn.innerHTML = `${dayEvents.length}<span class="day-count-label">&nbsp;${dayEvents.length === 1 ? "event" : "events"}</span>`;
       countBtn.addEventListener("click", () => showDayDetail(dayEvents, cellDate));
       cell.appendChild(countBtn);
       cell.addEventListener("click", (e) => {
