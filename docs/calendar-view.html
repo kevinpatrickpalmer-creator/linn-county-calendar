@@ -286,8 +286,19 @@
     gap: 2px;
     overflow: hidden;
   }
-  .day.other-month { background: var(--paper); border-color: var(--ink-faint); color: var(--ink-faint); }
-  .day.today { background: var(--primary-tint); border-color: var(--primary); border-width: 3px; }
+  /* Plain white, not the site's tan background -- tan reads as "this is
+     highlighted," so every overflow day at the start/end of the grid
+     was competing with today's own highlight for attention (Kevin's
+     catch, 2026-09-24: "only the current day ... should be filled with
+     a color"). Faded text/border alone is enough to mark these as
+     outside the current month. */
+  .day.other-month { background: var(--surface); border-color: var(--ink-faint); color: var(--ink-faint); }
+  /* Today is the ONE cell that gets an actual color fill, solid rather
+     than a tint, so it's unmistakable at a glance and never confused
+     with the plain white cells around it. */
+  .day.today { background: var(--primary); border-color: var(--surface-border); border-width: 3px; color: #fff; }
+  .day.today .num { color: #fff; }
+  .day.today .day-count { background: #fff; color: var(--primary); }
   .day .num { font-weight: 800; margin-bottom: 2px; }
   /* Background set inline per-event to its type color, same as
      .list-row -- see TYPE_COLORS in the script below. */
