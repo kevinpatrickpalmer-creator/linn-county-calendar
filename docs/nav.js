@@ -253,10 +253,11 @@
     // in theme.css) -- only the 11 core sections have one, so a plain
     // utility link like Flyer/Contact renders with no dot at all. Same
     // color drives --tab-accent, the active-tab fill (see .site-nav
-    // a.active) -- a dot-less link falls back to --sec-calendar so it's
-    // still a fill within the palette's checked-contrast range rather
-    // than an unrelated one-off color.
-    a.style.setProperty("--tab-accent", `var(${item.dot || "--sec-calendar"})`);
+    // a.active) -- a dot-less link stays white instead of borrowing
+    // another section's color it has no actual connection to (Kevin's
+    // catch, 2026-09-24: Flyer has no homepage card, so filling it with
+    // the Calendar's blue when active was misleading).
+    a.style.setProperty("--tab-accent", item.dot ? `var(${item.dot})` : "#fff");
     if (item.dot) {
       const dot = document.createElement("span");
       dot.className = "nav-dot";
