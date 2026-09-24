@@ -61,24 +61,30 @@
 
   const style = document.createElement("style");
   style.textContent = `
+    /* Bold solid-color bar (Kevin's ask, 2026-09-24: "copy that header
+       look across the site" from a reference screenshot's bright
+       yellow app header) instead of plain white -- see .site-nav a
+       and .nav-dot below for how text/dots stay legible against it,
+       and the mobile breakpoint further down for why the dropdown
+       panel itself goes back to a white background once open. */
     .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
-      background: var(--surface, #fff);
+      background: var(--primary, #2f6fed);
       border-bottom: 3px solid var(--surface-border, #1a1a1a);
     }
     .site-brand {
       flex-shrink: 0; display: flex; align-items: center;
-      padding: 0 .9rem; font-size: 1rem; font-weight: 700; white-space: nowrap;
+      padding: 0 .9rem; font-size: 1rem; font-weight: 800; white-space: nowrap;
       font-family: var(--font-display, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-      color: var(--ink, #1a1a1a); text-decoration: none; -webkit-user-drag: none;
-      border-right: 1px solid var(--surface-border, #e2e2e2);
+      color: #fff; text-decoration: none; -webkit-user-drag: none;
+      border-right: 1px solid rgba(255,255,255,.35);
     }
-    .site-brand:hover { color: var(--primary, #4285f4); }
+    .site-brand:hover { color: #ffe066; }
     .nav-toggle {
       display: none; flex-shrink: 0; align-items: center; justify-content: center;
       width: ${NAV_HEIGHT}; border: none; background: none; cursor: pointer;
-      color: var(--ink, #1a1a1a); font-size: 1.3rem; line-height: 1; padding: 0;
+      color: #fff; font-size: 1.3rem; line-height: 1; padding: 0;
     }
     /* No overflow-x:auto here above the breakpoint (the hamburger already
        covers cases where the row doesn't fit below it) -- a CSS quirk
@@ -117,18 +123,27 @@
       padding: 0 .9rem; font-size: .84rem; font-weight: 700; white-space: nowrap;
       letter-spacing: .01em;
       font-family: var(--font-body, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-      color: var(--ink-soft, #555); text-decoration: none; border-bottom: 3px solid transparent;
+      color: rgba(255,255,255,.9); text-decoration: none; border-bottom: 3px solid transparent;
       background: transparent; transition: background-color .1s ease, color .1s ease;
       -webkit-user-drag: none;
     }
-    .site-nav a.active { color: var(--primary, #2f6fed); border-bottom-color: var(--primary, #2f6fed); background: var(--primary-tint, #eaf1ff); }
-    .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
-    .site-nav a.active:hover { background: var(--primary-tint, #eaf1ff); }
-    .site-nav a:active { background: rgba(127,127,127,.28); }
+    /* The active tab flips to a white pill (like the reference's
+       colored "current page" button) instead of a light tint, since a
+       tint built for a white bar would barely show up against a solid
+       color one. */
+    .site-nav a.active { color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #1a1a1a); background: #fff; }
+    .site-nav a:hover { color: #fff; background: rgba(255,255,255,.22); }
+    .site-nav a.active:hover { background: #fff; }
+    .site-nav a:active { background: rgba(255,255,255,.35); }
+    /* A thin white ring so a section's own dot color never disappears
+       against the bar -- Calendar's dot is the same blue as the bar
+       itself, so without this it would vanish entirely. */
     .nav-dot {
       width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
       margin-right: .5rem; display: inline-block;
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,.9);
     }
+    .site-nav a.active .nav-dot { box-shadow: 0 0 0 1.5px rgba(0,0,0,.15); }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     /* A tab with a submenu (e.g. Business Directory -> List a Business or
        Service) -- the tab itself still navigates on click, the dropdown
@@ -142,7 +157,11 @@
       border-top: none; border-radius: 0 0 8px 8px; box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
     }
     .nav-item:hover .nav-dropdown, .nav-item:focus-within .nav-dropdown { display: flex; }
-    .nav-dropdown a { border-bottom: none; padding: .75rem 1rem; }
+    /* Its own white floating panel, same reasoning as the mobile
+       dropdown below -- reset color back to dark since the white-on-
+       blue tab text above would be invisible against it. */
+    .nav-dropdown a { color: var(--ink-soft, #555); border-bottom: none; padding: .75rem 1rem; }
+    .nav-dropdown a:hover { color: var(--ink, #1a1a1a); }
     @media (max-width: ${NAV_BREAKPOINT}) {
       .nav-toggle { display: flex; }
       .site-nav {
@@ -157,11 +176,22 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
       }
       .site-nav.open { display: flex; }
+      /* The open dropdown panel is its own white surface below the bar,
+         not the bar itself -- text/dots reset back to the original
+         light-theme colors here, since the white-on-blue treatment
+         above would be invisible against it. */
       .site-nav a {
-        padding: .9rem 1.1rem; border-bottom: 1px solid var(--surface-border, #e2e2e2);
-        border-left: 3px solid transparent;
+        color: var(--ink-soft, #555); border-bottom: 1px solid var(--surface-border, #e2e2e2);
+        background: transparent;
+        padding: .9rem 1.1rem; border-left: 3px solid transparent;
       }
-      .site-nav a.active { border-left-color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #e2e2e2); }
+      .site-nav a.active {
+        color: var(--primary, #2f6fed); background: var(--primary-tint, #eaf1ff);
+        border-left-color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #e2e2e2);
+      }
+      .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
+      .site-nav a.active:hover { background: var(--primary-tint, #eaf1ff); }
+      .nav-dot, .site-nav a.active .nav-dot { box-shadow: none; }
       /* No hover on touch -- the submenu is just always open, indented
          under its parent, right in the vertical stack. */
       .nav-item { flex-direction: column; }
