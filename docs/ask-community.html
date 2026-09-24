@@ -107,8 +107,8 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: var(--rule);
-    border: 3px solid var(--surface-border);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
@@ -119,15 +119,15 @@
   }
   .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
-  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-town { font-size: .8rem; font-weight: 600; color: var(--ink); }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
   /* The answer thread on a question card -- the one layout on the site
      with a nested list inside a card, since this is the one board where
      a listing can have several other listings attached under it. */
   .qa-answers { display: flex; flex-direction: column; gap: .55rem; margin-top: .2rem; }
-  .qa-answers-heading { font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); margin: .3rem 0 0; }
-  .qa-answer { background: var(--rule); border-radius: var(--radius-sm); padding: .6rem .7rem; }
+  .qa-answers-heading { font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); margin: .3rem 0 0; }
+  .qa-answer { background: #fff; border: 2px solid var(--surface-border); border-radius: var(--radius-sm); padding: .6rem .7rem; }
   .qa-answer-text { font-size: .88rem; color: var(--ink); line-height: 1.45; }
   .qa-answer-meta { font-size: .74rem; color: var(--ink-soft); margin-top: .25rem; }
   .qa-no-answers { font-size: .85rem; color: var(--ink-soft); font-style: italic; margin: .2rem 0 0; }
@@ -229,6 +229,16 @@
     "Local Know-How": "💡",
     "Getting Together": "🎉",
     "Other": "❓",
+  };
+
+  // Each category gets its own card color, same "colored panel" treatment
+  // as the homepage's section cards (Kevin's ask, 2026-09-24).
+  const CATEGORY_COLORS = {
+    "Recommendations": { fill: "#d5f8b9", text: "#42850d" },
+    "Where to Find Something": { fill: "#f8b9e7", text: "#d815a4" },
+    "Local Know-How": { fill: "#b9f8f7", text: "#0d8380" },
+    "Getting Together": { fill: "#f8e4b9", text: "#996d0f" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
   };
 
   // A question is already phrased as a question, so stripping the
@@ -361,9 +371,13 @@
     renderPhotoStrip(card, q);
 
     const cat = q.category || "Other";
+    const catColor = CATEGORY_COLORS[cat] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every question tagged ${cat}`;
     tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "❓"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));

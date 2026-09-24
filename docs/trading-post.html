@@ -122,8 +122,8 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: var(--rule);
-    border: 3px solid var(--surface-border);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
@@ -134,11 +134,11 @@
   }
   .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
-  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-town { font-size: .8rem; font-weight: 600; color: var(--ink); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
   .biz-avail { font-size: .82rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
-  .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .biz-meta a, .biz-meta span { color: var(--ink); text-decoration: underline; font-weight: 600; }
   .biz-meta a:hover { text-decoration: underline; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
@@ -261,6 +261,23 @@
     "Hay, Straw & Firewood": "🌾",
     "Crafts & Handmade Goods": "🧶",
     "Other": "📦",
+  };
+
+  // Each category gets its own card color, same "colored panel" treatment
+  // as the homepage's section cards (Kevin's ask, 2026-09-24). fill is the
+  // card's own background (checked for readable dark-ink text); text is
+  // the same hue darkened for use as the tag's text/border on its white
+  // pill. Other stays a neutral muted tone rather than a bright color.
+  const CATEGORY_COLORS = {
+    "Meat, Livestock & Animals": { fill: "#b9f8f8", text: "#0d8383" },
+    "Eggs & Dairy": { fill: "#f8e6b9", text: "#966f0f" },
+    "Produce & Garden": { fill: "#914fee", text: "#6e17e8" },
+    "Baked Goods": { fill: "#b9f8c1", text: "#0d881d" },
+    "Honey, Jams & Preserves": { fill: "#ee4f69", text: "#e7173a" },
+    "Plants, Seedlings & Flowers": { fill: "#b9d6f8", text: "#1673e0" },
+    "Hay, Straw & Firewood": { fill: "#e8f8b9", text: "#627f0d" },
+    "Crafts & Handmade Goods": { fill: "#f5b9f8", text: "#ca15d3" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
   };
 
   // Same filler-word list as docs/directory.html, so a typed-out question
@@ -389,9 +406,13 @@
     card.appendChild(name);
 
     const cat = b.category || "Other";
+    const catColor = CATEGORY_COLORS[cat] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every listing tagged ${cat}`;
     tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📦"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));

@@ -107,8 +107,8 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: var(--rule);
-    border: 3px solid var(--surface-border);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
@@ -119,7 +119,7 @@
   }
   .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
-  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-town { font-size: .8rem; font-weight: 600; color: var(--ink); }
   .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
@@ -212,6 +212,15 @@
     "Schedule Change": "🔁",
     "Public Notice": "📣",
     "Other": "📌",
+  };
+
+  // Each category gets its own card color, same "colored panel" treatment
+  // as the homepage's section cards (Kevin's ask, 2026-09-24).
+  const CATEGORY_COLORS = {
+    "Hours & Closures": { fill: "#bbf8b9", text: "#10880d" },
+    "Schedule Change": { fill: "#ee4f80", text: "#e41757" },
+    "Public Notice": { fill: "#b9dff8", text: "#137abe" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
   };
 
   const SEARCH_STOPWORDS = new Set([
@@ -334,9 +343,13 @@
     renderPhotoStrip(card, n);
 
     const cat = n.category || "Other";
+    const catColor = CATEGORY_COLORS[cat] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every notice tagged ${cat}`;
     tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📌"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));

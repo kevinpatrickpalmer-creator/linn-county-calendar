@@ -124,8 +124,8 @@
     padding: .2rem .55rem;
     border-radius: 999px;
   }
-  .job-badge.looking { color: #d99a44; background: #3a2c14; }
-  .job-badge.offering { color: #6fcf97; background: #12321f; }
+  .job-badge.looking { color: #a06a20; background: #fbefdf; }
+  .job-badge.offering { color: #2c8551; background: #e2f8eb; }
   /* Blue, not a third arbitrary color -- Kevin is colorblind and this
      site's blue (--primary) is already proven to read correctly for
      him, unlike a new hue picked just to be "different enough" from
@@ -137,8 +137,8 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: var(--rule);
-    border: 3px solid var(--surface-border);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
@@ -149,11 +149,11 @@
   }
   .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
-  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-town { font-size: .8rem; font-weight: 600; color: var(--ink); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
   .biz-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
-  .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .biz-meta a, .biz-meta span { color: var(--ink); text-decoration: underline; font-weight: 600; }
   .biz-meta a:hover { text-decoration: underline; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
@@ -276,6 +276,19 @@
     "Social & Civic Clubs": "🎉",
     "Support & Interest Groups": "💬",
     "Other": "🔖",
+  };
+
+  // Each category gets its own card color, same "colored panel" treatment
+  // as the homepage's section cards (Kevin's ask, 2026-09-24).
+  const CATEGORY_COLORS = {
+    "Cards & Games": { fill: "#eff8b9", text: "#6d7d0c" },
+    "Crafts & Hobbies": { fill: "#d54fee", text: "#c416e3" },
+    "Sports & Fitness": { fill: "#b9f8dc", text: "#0d8651" },
+    "Music, Arts & Dance": { fill: "#f8cab9", text: "#d04615" },
+    "Youth & Scouts": { fill: "#4f53ee", text: "#171de8" },
+    "Social & Civic Clubs": { fill: "#cdf8b9", text: "#34860d" },
+    "Support & Interest Groups": { fill: "#f8b9e0", text: "#dc168f" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
   };
 
   // Common words for what a category actually covers, so a search for
@@ -435,9 +448,13 @@
     card.appendChild(name);
 
     const category = p.category || "Other";
+    const catColor = CATEGORY_COLORS[category] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every post tagged ${category}`;
     tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[category] || "🔖"}</span> ${category}`;
     tag.addEventListener("click", () => filterToCategory(category));

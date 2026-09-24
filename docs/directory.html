@@ -100,8 +100,8 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: var(--rule);
-    border: 3px solid var(--surface-border);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
@@ -112,14 +112,14 @@
   }
   .biz-tag .biz-tag-emoji { font-size: 1.2em; }
   .biz-tag:hover { border-color: var(--primary); color: var(--primary); }
-  .biz-rating { display: flex; align-items: center; gap: .35rem; font-size: .82rem; color: var(--ink-soft); }
-  .biz-rating .stars { color: var(--primary); font-weight: 700; }
-  .biz-town { font-size: .8rem; color: var(--ink-soft); }
+  .biz-rating { display: flex; align-items: center; gap: .35rem; font-size: .82rem; font-weight: 600; color: var(--ink); }
+  .biz-rating .stars { color: var(--ink); font-weight: 700; }
+  .biz-town { font-size: .8rem; font-weight: 600; color: var(--ink); }
   .biz-desc { font-size: .85rem; color: var(--ink); line-height: 1.45; margin: .1rem 0 0; }
   .biz-meta { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; font-size: .85rem; }
-  .biz-meta a, .biz-meta span { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .biz-meta a, .biz-meta span { color: var(--ink); text-decoration: underline; font-weight: 600; }
   .biz-meta a:hover { text-decoration: underline; }
-  .biz-hours { color: var(--ink-soft); font-weight: 400 !important; }
+  .biz-hours { color: var(--ink); font-weight: 600 !important; }
   .biz-location-row {
     display: flex;
     flex-direction: column;
@@ -129,7 +129,7 @@
   }
   .biz-location-row:first-child { border-top: none; padding-top: 0; }
   .biz-location-row strong { font-size: .8rem; font-weight: 600; color: var(--ink); }
-  .biz-location-addr { font-size: .78rem; color: var(--ink-soft); font-weight: 400; }
+  .biz-location-addr { font-size: .78rem; color: var(--ink); font-weight: 500; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
   /* Hero: a full-bleed band ahead of <main> rather than another block
@@ -328,6 +328,55 @@
     "Other": "📍",
   };
 
+  // 40 business categories is too many for each to get a genuinely
+  // distinct color (Kevin's call, 2026-09-24, after flagging that a
+  // color can't reliably mean one specific category at that count):
+  // cycle through this same 12-color set the rest of the site already
+  // uses (the homepage section cards), so some unrelated categories end
+  // up sharing a color rather than every category getting its own hue.
+  const CATEGORY_COLORS = {
+    "Restaurant & Food": { fill: "#2f6fed", text: "#2e6eed" },
+    "Retail & Shopping": { fill: "#0fbfae", text: "#0a8478" },
+    "Antiques, Thrift & Secondhand": { fill: "#ff9f1c", text: "#ac6300" },
+    "Lumber & Hardware": { fill: "#4caf50", text: "#39843d" },
+    "Automotive": { fill: "#ff5d8f", text: "#e90048" },
+    "Gas Stations & Convenience Stores": { fill: "#a855f7", text: "#9e42f6" },
+    "Home & Trade Services": { fill: "#ffd23f", text: "#937000" },
+    "Plumbing": { fill: "#2fc2e0", text: "#168096" },
+    "Electrical": { fill: "#7a86c9", text: "#6170bf" },
+    "HVAC & Cooling": { fill: "#d666c9", text: "#c635b5" },
+    "Roofing": { fill: "#ff5d5d", text: "#ec0000" },
+    "Tree Service": { fill: "#b6cc2e", text: "#6f7c1c" },
+    "Lawn Care & Landscaping": { fill: "#2f6fed", text: "#2e6eed" },
+    "Pest Control": { fill: "#0fbfae", text: "#0a8478" },
+    "Handyman": { fill: "#ff9f1c", text: "#ac6300" },
+    "General Contractor": { fill: "#4caf50", text: "#39843d" },
+    "Painting": { fill: "#ff5d8f", text: "#e90048" },
+    "Locksmith": { fill: "#a855f7", text: "#9e42f6" },
+    "Appliance Repair": { fill: "#ffd23f", text: "#937000" },
+    "Fencing": { fill: "#2fc2e0", text: "#168096" },
+    "Garage Door Service": { fill: "#7a86c9", text: "#6170bf" },
+    "Septic, Well & Excavation": { fill: "#d666c9", text: "#c635b5" },
+    "Movers & Storage": { fill: "#ff5d5d", text: "#ec0000" },
+    "Medical & Healthcare": { fill: "#b6cc2e", text: "#6f7c1c" },
+    "Health & Wellness": { fill: "#2f6fed", text: "#2e6eed" },
+    "Salons & Personal Care": { fill: "#0fbfae", text: "#0a8478" },
+    "Veterinary & Pet Services": { fill: "#ff9f1c", text: "#ac6300" },
+    "Professional & Financial Services": { fill: "#4caf50", text: "#39843d" },
+    "Banks & Credit Unions": { fill: "#ff5d8f", text: "#e90048" },
+    "Real Estate & Insurance": { fill: "#a855f7", text: "#9e42f6" },
+    "Lodging & Hospitality": { fill: "#ffd23f", text: "#937000" },
+    "Farm & Agriculture": { fill: "#2fc2e0", text: "#168096" },
+    "Nonprofit & Civic Organization": { fill: "#7a86c9", text: "#6170bf" },
+    "Church & Religious Organization": { fill: "#d666c9", text: "#c635b5" },
+    "Government & Public Services": { fill: "#ff5d5d", text: "#ec0000" },
+    "Funeral Homes & Cemeteries": { fill: "#b6cc2e", text: "#6f7c1c" },
+    "Auctions & Estate Sales": { fill: "#2f6fed", text: "#2e6eed" },
+    "Education & Childcare": { fill: "#0fbfae", text: "#0a8478" },
+    "Arts, Recreation & Entertainment": { fill: "#ff9f1c", text: "#ac6300" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
+  };
+
   // Filler words stripped out of a typed-out question ("where can I find
   // a good plumber near me") so what's left ("plumber") is what actually
   // has to match -- without this, a business would need "where", "can",
@@ -488,9 +537,13 @@
     card.appendChild(name);
 
     const cat = b.category || "Other";
+    const catColor = CATEGORY_COLORS[cat] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "biz-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every listing tagged ${cat}`;
     tag.innerHTML = `<span class="biz-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📍"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));

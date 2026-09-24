@@ -73,8 +73,7 @@
      calendar, not a jarring emergency red. */
   .alert-card {
     position: relative;
-    background: var(--cat-red-tint);
-    border: 1px solid var(--cat-red);
+    border: 3px solid var(--surface-border);
     border-radius: var(--radius);
     padding: 1.1rem 1.15rem;
     box-shadow: var(--shadow-sm);
@@ -111,20 +110,20 @@
     align-items: center;
     gap: .4rem;
     align-self: flex-start;
-    background: rgba(0,0,0,.2);
-    border: 1px solid var(--cat-red);
+    background: #fff;
+    border: 2px solid var(--surface-border);
     border-radius: 999px;
     padding: .35rem .85rem .35rem .6rem;
     font-size: .92rem;
     font-weight: 700;
-    color: var(--cat-red-text);
+    color: var(--ink);
     cursor: pointer;
     line-height: 1.4;
   }
   .alert-tag .alert-tag-emoji { font-size: 1.2em; }
   .alert-tag:hover { color: var(--ink); }
   .alert-message { font-size: .95rem; color: var(--ink); line-height: 1.45; font-weight: 600; }
-  .alert-meta { font-size: .8rem; color: var(--cat-red-text); }
+  .alert-meta { font-size: .8rem; font-weight: 600; color: var(--ink); }
   .alert-posted { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin: 0; }
   #dirEmpty, #dirStatus { text-align: center; color: var(--ink-soft); padding: 2rem 0; display: none; }
 
@@ -219,6 +218,17 @@
     "Weather or Severe Conditions": "⛈️",
     "Public Safety": "🚨",
     "Other": "📢",
+  };
+
+  // Each category gets its own card color, same "colored panel" treatment
+  // as the homepage's section cards (Kevin's ask, 2026-09-24).
+  const CATEGORY_COLORS = {
+    "Road Closure or Traffic": { fill: "#b9def8", text: "#1379c3" },
+    "Power or Utility Outage": { fill: "#f0f8b9", text: "#6e7c0c" },
+    "Boil Water Order": { fill: "#d44fee", text: "#c317e5" },
+    "Weather or Severe Conditions": { fill: "#b9f8dc", text: "#0d864f" },
+    "Public Safety": { fill: "#f8c9b9", text: "#d14415" },
+    "Other": { fill: "#b8ada0", text: "#827361" },
   };
 
   const SEARCH_STOPWORDS = new Set([
@@ -345,9 +355,13 @@
     card.querySelectorAll(".biz-photo, .photo-thumb").forEach((img) => img.classList.add("alert-photo"));
 
     const cat = a.category || "Other";
+    const catColor = CATEGORY_COLORS[cat] || CATEGORY_COLORS["Other"];
+    card.style.background = catColor.fill;
     const tag = document.createElement("button");
     tag.type = "button";
     tag.className = "alert-tag";
+    tag.style.color = catColor.text;
+    tag.style.borderColor = catColor.text;
     tag.title = `Show every alert tagged ${cat}`;
     tag.innerHTML = `<span class="alert-tag-emoji" aria-hidden="true">${CATEGORY_EMOJI[cat] || "📢"}</span> ${cat}`;
     tag.addEventListener("click", () => filterToCategory(cat));
