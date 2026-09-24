@@ -644,6 +644,7 @@ def load_manual_events():
                     "start_iso": start_iso,
                     "end_iso": end_iso,
                     "event_type": (data.get("event_type") or "").strip(),
+                    "photos": data.get("photos") or [],
                 }
             )
 
@@ -1798,6 +1799,13 @@ def build_calendar(events, calname=None):
             # only for calendar-view.html's own type filter/label, see
             # guess_event_type() for how every event gets one.
             event.add("x-event-type", ev["event_type"])
+        if ev.get("photos"):
+            # Same X-property trick as x-event-type above, just for
+            # calendar-view.html's own event thumbnail. Only manually
+            # submitted events ever have one; scraped events never set
+            # "photos" at all. Just the first photo, same as every other
+            # board's listing page only showing one at a time in its card.
+            event.add("x-photo", ev["photos"][0])
 
         cal.add_component(event)
 

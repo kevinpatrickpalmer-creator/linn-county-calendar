@@ -346,6 +346,11 @@ const BOARD_CONFIG = {
         obj.recurrence = f.recurrence;
         obj.repeat_until = f.repeat_until;
       }
+      // Array, not a plain string like the fields above -- "photos" ? [k]
+      // would still be truthy for an empty array, so this needs its own
+      // check rather than joining the generic loop above (same on every
+      // board below that supports photos).
+      if (f.photos && f.photos.length) obj.photos = f.photos;
       return obj;
     },
   },
