@@ -247,37 +247,48 @@
   #listEmpty { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: var(--navy); text-decoration: none; margin-left: .75rem; font-weight: 500; }
+  /* Card-grid treatment (Kevin's ask, 2026-09-24: match the "weekly
+     heatmap" reference screenshot) -- a bold-bordered outer panel
+     housing individually-bordered day cells with real gaps between
+     them, instead of the old thin-line connected table (a 1px gap
+     filled with --surface-border to fake a grid line). */
   .grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: var(--surface-border);
-    border: 1px solid var(--surface-border);
+    gap: 6px;
+    background: var(--surface);
+    border: 4px solid var(--surface-border);
     border-radius: var(--radius);
-    overflow: hidden;
+    padding: .9rem;
+    box-shadow: var(--shadow-md);
   }
   .dow {
-    background: var(--surface);
+    background: transparent;
     text-align: center;
-    font-size: .7rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+    text-transform: uppercase;
     padding: .3rem 0;
-    color: var(--ink-soft);
+    color: var(--ink);
   }
   .day {
     background: var(--surface);
+    border: 2px solid var(--surface-border);
+    border-radius: var(--radius-sm);
     min-height: 5.6rem;
     min-width: 0;
-    padding: .25rem;
+    padding: .3rem;
     font-size: .75rem;
     display: flex;
     flex-direction: column;
     gap: 2px;
     overflow: hidden;
   }
-  .day.other-month { background: var(--paper); color: var(--ink-faint); }
-  .day.today { background: var(--primary-tint); }
-  .day .num { font-weight: 600; margin-bottom: 2px; }
+  .day.other-month { background: var(--paper); border-color: var(--ink-faint); color: var(--ink-faint); }
+  .day.today { background: var(--primary-tint); border-color: var(--primary); border-width: 3px; }
+  .day .num { font-weight: 800; margin-bottom: 2px; }
   /* Background set inline per-event to its type color, same as
      .list-row -- see TYPE_COLORS in the script below. */
   .pill {
