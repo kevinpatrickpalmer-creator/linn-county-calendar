@@ -201,7 +201,15 @@
   }
   .shortcut-tile.calendar .tile-icon { background: var(--sec-calendar); }
   .shortcut-tile.directory .tile-icon { background: var(--sec-directory); }
+  .shortcut-tile.jobs .tile-icon { background: var(--sec-jobs); }
+  .shortcut-tile.trading .tile-icon { background: var(--sec-trading-post); }
+  .shortcut-tile.volunteer .tile-icon { background: var(--sec-volunteer); }
   .shortcut-tile.clubs .tile-icon { background: var(--sec-clubs); }
+  .shortcut-tile.lost-found .tile-icon { background: var(--sec-lost-found); }
+  .shortcut-tile.ask .tile-icon { background: var(--sec-ask); }
+  .shortcut-tile.notices .tile-icon { background: var(--sec-notices); }
+  .shortcut-tile.support .tile-icon { background: var(--sec-support); }
+  .shortcut-tile.alerts .tile-icon { background: var(--sec-alerts); }
   .shortcut-tile.ideas .tile-icon { background: var(--sec-ideas); }
 
   .section-heading {
@@ -346,6 +354,26 @@
     <p class="section-heading"><span class="live-dot" aria-hidden="true"></span>What's Happening Now</p>
     <div class="wh-carousel" id="whList"></div>
   </section>
+  <p class="section-heading">Have something to add?</p>
+  <div class="shortcut-row">
+    <a class="shortcut-tile calendar" href="submit.html">
+      <span class="tile-icon" aria-hidden="true">&#128197;</span>
+      <span class="tile-label">Submit an Event</span>
+    </a>
+    <a class="shortcut-tile directory" href="submit-business.html">
+      <span class="tile-icon" aria-hidden="true">&#127978;</span>
+      <span class="tile-label">List a Business</span>
+    </a>
+    <a class="shortcut-tile jobs" href="submit-job.html">
+      <span class="tile-icon" aria-hidden="true">&#128188;</span>
+      <span class="tile-label">Post a Job</span>
+    </a>
+    <a class="shortcut-tile trading" href="submit-trading-post.html">
+      <span class="tile-icon" aria-hidden="true">&#127805;</span>
+      <span class="tile-label">List an Item</span>
+    </a>
+  </div>
+
   <p class="section-heading">What do you need today?</p>
   <div class="utility-grid">
     <a class="utility-card" href="calendar-view.html" style="background:var(--sec-calendar)">
@@ -390,6 +418,28 @@
       <p class="utility-line">There's a spot with your name on it.</p>
       <span class="utility-cta">Find your people &rarr;</span>
     </a>
+  </div>
+
+  <div class="shortcut-row">
+    <a class="shortcut-tile volunteer" href="submit-volunteer.html">
+      <span class="tile-icon" aria-hidden="true">&#129309;</span>
+      <span class="tile-label">Need Volunteers</span>
+    </a>
+    <a class="shortcut-tile clubs" href="submit-clubs.html">
+      <span class="tile-icon" aria-hidden="true">&#127912;</span>
+      <span class="tile-label">Post a Club</span>
+    </a>
+    <a class="shortcut-tile lost-found" href="submit-lost-found.html">
+      <span class="tile-icon" aria-hidden="true">&#128062;</span>
+      <span class="tile-label">Post Lost &amp; Found</span>
+    </a>
+    <a class="shortcut-tile ask" href="submit-question.html">
+      <span class="tile-icon" aria-hidden="true">&#128172;</span>
+      <span class="tile-label">Ask a Question</span>
+    </a>
+  </div>
+
+  <div class="utility-grid">
     <a class="utility-card" href="lost-found.html" style="background:var(--sec-lost-found)">
       <span class="card-icon" aria-hidden="true">&#128062;</span>
       <h2>Lost &amp; Found</h2>
@@ -434,23 +484,22 @@
     </a>
   </div>
 
-  <p class="section-heading">Have something to add?</p>
   <div class="shortcut-row">
-    <a class="shortcut-tile calendar" href="submit.html">
-      <span class="tile-icon" aria-hidden="true">&#128197;</span>
-      <span class="tile-label">Submit an Event</span>
+    <a class="shortcut-tile notices" href="submit-notice.html">
+      <span class="tile-icon" aria-hidden="true">&#128227;</span>
+      <span class="tile-label">Post a Notice</span>
     </a>
-    <a class="shortcut-tile directory" href="submit-business.html">
-      <span class="tile-icon" aria-hidden="true">&#127978;</span>
-      <span class="tile-label">List a Business</span>
+    <a class="shortcut-tile support" href="submit-support.html">
+      <span class="tile-icon" aria-hidden="true">&#10084;&#65039;</span>
+      <span class="tile-label">Request Support</span>
     </a>
-    <a class="shortcut-tile clubs" href="submit-clubs.html">
-      <span class="tile-icon" aria-hidden="true">&#127912;</span>
-      <span class="tile-label">Post a Club</span>
+    <a class="shortcut-tile alerts" href="submit-alert.html">
+      <span class="tile-icon" aria-hidden="true">&#128680;</span>
+      <span class="tile-label">Post an Alert</span>
     </a>
-    <a class="shortcut-tile ideas" href="survey.html">
-      <span class="tile-icon" aria-hidden="true">&#128161;</span>
-      <span class="tile-label">Share an Idea</span>
+    <a class="shortcut-tile ask" href="submit-answer.html">
+      <span class="tile-icon" aria-hidden="true">&#128587;</span>
+      <span class="tile-label">Answer a Question</span>
     </a>
   </div>
 
