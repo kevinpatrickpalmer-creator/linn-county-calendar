@@ -73,7 +73,10 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
       background: var(--sec-lost-found, #ffd23f);
-      border-bottom: 3px solid var(--surface-border, #1a1a1a);
+      /* 4px to match every card's own border weight (Kevin's ask,
+         2026-09-24: "gives it thickness and weight and matches the
+         cards"), up from the original plain 3px divider. */
+      border-bottom: 4px solid var(--surface-border, #1a1a1a);
     }
     .site-brand {
       flex-shrink: 0; display: flex; align-items: center; gap: .6rem;
@@ -134,57 +137,55 @@
        either row count; JS below keeps the spacer in sync with however
        tall that ends up being. */
     .site-nav {
-      display: flex; align-items: stretch; flex-wrap: wrap; flex: 1; min-width: 0;
+      display: flex; align-items: center; flex-wrap: wrap; flex: 1; min-width: 0;
+      gap: .5rem; padding: .5rem .75rem;
       scrollbar-width: none;
     }
     .site-nav::-webkit-scrollbar { display: none; }
-    /* The whole tab is one clickable box, but the only thing that ever
-       showed that was a 3px underline -- easy to miss, and gave no
-       feedback that a *click* (not just navigation) had landed (Kevin's
-       catch, 2026-09-17: he assumed the text itself was somehow "dead"
-       because the only visible reaction was that thin line). A
-       background fill now covers the tab's full padded box, not just a
-       sliver under the text, on hover, on press, and for whichever tab
-       you're already on -- one accent color for that fill, same blue
-       used everywhere else on the site. The per-tab .nav-dot below is
-       the one deliberate exception to "one accent color" on this site,
-       added 2026-09-21 alongside a matching dot on each homepage card
-       (see docs/index.html), same idea as the existing town-tag colors
-       on the calendar/Big Idea Board, just for sections instead of
-       towns -- a quiet wayfinding aid, not a chrome/button color. */
+    /* Each tab is its own bordered rectangular button now, not plain
+       text on the bar (Kevin's ask, 2026-09-24, from a reference
+       screenshot: two bordered buttons next to a header, one white, one
+       filled -- "id like the menu tabs to look like those"). White by
+       default, same border/weight as every other card and button
+       sitewide; the tab you're currently on fills with that section's
+       own --sec-* color instead of white (set via --tab-accent below),
+       same color that page's homepage card and nav dot already use, so
+       "this page is blue" stays true everywhere rather than introducing
+       one single "active" color unrelated to the rest of the site's
+       per-section palette. */
     .site-nav a {
-      flex-shrink: 0; display: flex; align-items: center; min-height: ${NAV_HEIGHT};
-      padding: 0 .9rem; font-size: .84rem; font-weight: 700; white-space: nowrap;
+      flex-shrink: 0; display: flex; align-items: center; min-height: 0;
+      padding: .5rem .95rem; font-size: .84rem; font-weight: 700; white-space: nowrap;
       letter-spacing: .01em;
       font-family: var(--font-body, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-      color: var(--ink, #1a1a1a); text-decoration: none; border-bottom: 3px solid transparent;
-      background: transparent; transition: background-color .1s ease, color .1s ease;
+      color: var(--ink, #1a1a1a); text-decoration: none;
+      background: #fff; border: 3px solid var(--surface-border, #1a1a1a); border-radius: 9px;
+      box-shadow: var(--shadow-sm); transition: transform .12s ease, background-color .1s ease;
       -webkit-user-drag: none;
     }
-    /* The active tab flips to a white pill with the site's own blue
-       (like the reference's differently-colored "current page" button
-       sitting on its yellow bar) instead of a light tint, since a tint
-       built for a white bar would barely show up against a solid
-       color one. */
-    .site-nav a.active { color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #1a1a1a); background: #fff; }
-    .site-nav a:hover { background: rgba(0,0,0,.08); }
-    .site-nav a.active:hover { background: #fff; }
-    .site-nav a:active { background: rgba(0,0,0,.15); }
+    .site-nav a:hover { transform: translate(-2px, -2px); }
+    .site-nav a:active { transform: translate(0, 0); }
+    .site-nav a.active {
+      color: var(--ink, #1a1a1a);
+      background: var(--tab-accent, var(--sec-calendar, #5a8ff6));
+    }
     /* A thin dark ring so a section's own dot color never disappears
-       against the bar -- Lost & Found's dot is the same yellow as the
-       bar itself, so without this it would vanish entirely. */
+       against its tab's white fill -- Lost & Found's dot is a pale
+       yellow that would otherwise barely register against white. Hidden
+       entirely once a tab is active: the whole button is that section's
+       color by then, so the small dot next to the label is redundant. */
     .nav-dot {
       width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
       margin-right: .5rem; display: inline-block;
       box-shadow: 0 0 0 1.5px rgba(0,0,0,.5);
     }
-    .site-nav a.active .nav-dot { box-shadow: 0 0 0 1.5px rgba(0,0,0,.15); }
+    .site-nav a.active .nav-dot { display: none; }
     .site-nav-spacer { height: ${NAV_HEIGHT}; }
     /* A tab with a submenu (e.g. Business Directory -> List a Business or
        Service) -- the tab itself still navigates on click, the dropdown
        just appears on hover (or keyboard focus) as a bonus shortcut, so it
        has to still look and act like a plain nav tab, not a button. */
-    .nav-item { position: relative; display: flex; align-items: stretch; }
+    .nav-item { position: relative; display: flex; align-items: center; }
     .nav-dropdown {
       display: none; position: absolute; top: 100%; left: 0; min-width: 230px;
       flex-direction: column; z-index: 1001;
@@ -213,20 +214,22 @@
       .site-nav.open { display: flex; }
       /* The open dropdown panel is its own white surface below the bar,
          not the bar itself -- text/dots reset back to the original
-         light-theme colors here, since the white-on-blue treatment
-         above would be invisible against it. */
+         light-theme colors here, since the desktop button treatment
+         above (border, shadow, per-section fill) is for the horizontal
+         bar only and doesn't belong in this stacked list. */
       .site-nav a {
         color: var(--ink-soft, #555); border-bottom: 1px solid var(--surface-border, #e2e2e2);
-        background: transparent;
-        padding: .9rem 1.1rem; border-left: 3px solid transparent;
+        background: transparent; border-left: 3px solid transparent;
+        border-top: none; border-right: none; border-radius: 0; box-shadow: none;
+        padding: .9rem 1.1rem; transform: none;
       }
       .site-nav a.active {
         color: var(--primary, #2f6fed); background: var(--primary-tint, #eaf1ff);
         border-left-color: var(--primary, #2f6fed); border-bottom-color: var(--surface-border, #e2e2e2);
       }
-      .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); }
+      .site-nav a:hover { color: var(--ink, #1a1a1a); background: rgba(127,127,127,.14); transform: none; }
       .site-nav a.active:hover { background: var(--primary-tint, #eaf1ff); }
-      .nav-dot, .site-nav a.active .nav-dot { box-shadow: none; }
+      .nav-dot, .site-nav a.active .nav-dot { box-shadow: none; display: inline-block; }
       /* No hover on touch -- the submenu is just always open, indented
          under its parent, right in the vertical stack. */
       .nav-item { flex-direction: column; }
@@ -248,7 +251,12 @@
     a.href = item.href;
     // item.dot is a CSS custom property name (see the --sec-* palette
     // in theme.css) -- only the 11 core sections have one, so a plain
-    // utility link like Flyer/Contact renders with no dot at all.
+    // utility link like Flyer/Contact renders with no dot at all. Same
+    // color drives --tab-accent, the active-tab fill (see .site-nav
+    // a.active) -- a dot-less link falls back to --sec-calendar so it's
+    // still a fill within the palette's checked-contrast range rather
+    // than an unrelated one-off color.
+    a.style.setProperty("--tab-accent", `var(${item.dot || "--sec-calendar"})`);
     if (item.dot) {
       const dot = document.createElement("span");
       dot.className = "nav-dot";
