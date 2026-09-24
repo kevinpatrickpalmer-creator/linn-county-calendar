@@ -319,12 +319,27 @@
     cursor: pointer;
     text-align: left;
   }
+  .day.has-events { transition: transform .12s ease; }
+  .day.has-events:hover { transform: translate(-1px, -1px); }
+  .day-count {
+    margin-top: auto;
+    align-self: flex-start;
+    font-family: var(--font-display);
+    font-size: .72rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+    border: 2px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .15rem .5rem;
+    cursor: pointer;
+  }
   /* A centered popup over a dimmed backdrop, not a block that lived at
      the bottom of the page -- clicking an event used to scroll all the
      way down to it, then required scrolling back up afterward to get
      back to where you were (Kevin's catch, 2026-09-17). This way opening
      and closing it never moves the page underneath at all. */
-  #detailBackdrop {
+  #detailBackdrop, #dayBackdrop {
     display: none;
     position: fixed;
     inset: 0;
@@ -334,10 +349,10 @@
     justify-content: center;
     padding: 1rem;
   }
-  #detailBackdrop.open { display: flex; }
-  #detail {
+  #detailBackdrop.open, #dayBackdrop.open { display: flex; }
+  #detail, #dayDetail {
     background: var(--surface);
-    border: 1px solid var(--surface-border);
+    border: 3px solid var(--surface-border);
     border-radius: var(--radius);
     padding: 1.1rem 1.25rem;
     box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
@@ -345,6 +360,34 @@
     max-width: 26rem;
     max-height: 85vh;
     overflow-y: auto;
+  }
+  #dayDetail h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin: 0 0 .8rem; color: var(--ink); }
+  #dayDetailList { display: flex; flex-direction: column; gap: .6rem; }
+  .day-detail-row {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+    width: 100%;
+    border: 3px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    padding: .55rem .7rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-body);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .day-detail-row .list-time { flex-shrink: 0; width: 4.2rem; font-size: .78rem; font-weight: 700; color: var(--ink); }
+  .day-detail-row .list-name { font-size: .88rem; font-weight: 700; line-height: 1.3; }
+  #dayDetail button#dayDetailClose {
+    margin-top: 1rem;
+    border: none;
+    background: none;
+    color: var(--primary);
+    font-size: .8rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    padding: 0;
   }
   #detailPhoto {
     display: none;
@@ -423,7 +466,7 @@
     html, body { background: #fff; color: #000; }
     .hero { background: none; border-bottom: none; padding: 0; margin: 0 0 .6rem; }
     .topbar .nav, .filterbar, .links, .homescreen-info, .embed-info,
-    .stats-line, .month-count, #detailBackdrop, #status, .share-section {
+    .stats-line, .month-count, #detailBackdrop, #dayBackdrop, #status, .share-section {
       display: none !important;
     }
     .topbar h1 { font-size: 1.6rem; }
@@ -507,6 +550,14 @@
       <div class="meta" id="detailLocation"></div>
       <div class="desc" id="detailDescription"></div>
       <button id="detailClose">Close</button>
+    </div>
+  </div>
+
+  <div id="dayBackdrop">
+    <div id="dayDetail" role="dialog" aria-modal="true" aria-labelledby="dayDetailTitle">
+      <h2 id="dayDetailTitle"></h2>
+      <div id="dayDetailList"></div>
+      <button id="dayDetailClose">Close</button>
     </div>
   </div>
 
@@ -805,7 +856,51 @@ document.getElementById("detailBackdrop").addEventListener("click", (e) => {
   if (e.target.id === "detailBackdrop") closeDetail();
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeDetail();
+  if (e.key === "Escape") { closeDetail(); closeDayDetail(); }
+});
+
+const DAY_DETAIL_FORMAT = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric" });
+
+// The month grid's day cells just show a count (see renderMonth()) --
+// this is the "pop up list of events that day" Kevin asked for instead,
+// reusing .list-row's own look (time + name) for each entry. Clicking
+// one closes this popup and opens the normal single-event detail on
+// top of it, rather than stacking two modals.
+function showDayDetail(dayEvents, cellDate) {
+  document.getElementById("dayDetailTitle").textContent =
+    `${DAY_DETAIL_FORMAT.format(cellDate)} — ${dayEvents.length === 1 ? "1 event" : `${dayEvents.length} events`}`;
+  const list = document.getElementById("dayDetailList");
+  list.innerHTML = "";
+  const sorted = [...dayEvents].sort((a, b) => (a.allDay === b.allDay ? a.start - b.start : a.allDay ? -1 : 1));
+  for (const ev of sorted) {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "day-detail-row";
+    row.style.background = typeColors(ev.eventType).fill;
+    const time = document.createElement("span");
+    time.className = "list-time";
+    time.textContent = ev.allDay ? "All day" : localTimeString(ev.start);
+    row.appendChild(time);
+    const name = document.createElement("span");
+    name.className = "list-name";
+    name.textContent = ev.summary || "(untitled event)";
+    row.appendChild(name);
+    row.addEventListener("click", () => {
+      closeDayDetail();
+      showDetail(ev);
+    });
+    list.appendChild(row);
+  }
+  document.getElementById("dayBackdrop").classList.add("open");
+}
+
+function closeDayDetail() {
+  document.getElementById("dayBackdrop").classList.remove("open");
+}
+
+document.getElementById("dayDetailClose").addEventListener("click", closeDayDetail);
+document.getElementById("dayBackdrop").addEventListener("click", (e) => {
+  if (e.target.id === "dayBackdrop") closeDayDetail();
 });
 
 let currentView = "list"; // "list" is the default -- see renderMonth()
@@ -855,21 +950,45 @@ function renderGridView(year, month, todayKey) {
     cell.appendChild(numEl);
 
     const dayEvents = eventsByDay.get(key) || [];
-    const maxShown = printMode ? 8 : 5;
-    dayEvents.slice(0, maxShown).forEach((ev) => {
-      const pill = document.createElement("button");
-      pill.className = "pill";
-      pill.style.background = typeColors(ev.eventType).fill;
-      pill.textContent = ev.summary || "(untitled)";
-      pill.addEventListener("click", () => showDetail(ev));
-      cell.appendChild(pill);
-    });
-    if (dayEvents.length > maxShown) {
-      const more = document.createElement("button");
-      more.className = "more-link";
-      more.textContent = `+${dayEvents.length - maxShown} more`;
-      more.addEventListener("click", () => showDetail(dayEvents[maxShown]));
-      cell.appendChild(more);
+
+    if (printMode) {
+      // Paper can't be clicked -- a printed page still lists out actual
+      // event names (as many as fit) rather than just a count, same as
+      // before this change, since "tap the cell for a popup" isn't a
+      // thing on a page pinned to a bulletin board.
+      const maxShown = 8;
+      dayEvents.slice(0, maxShown).forEach((ev) => {
+        const pill = document.createElement("button");
+        pill.className = "pill";
+        pill.style.background = typeColors(ev.eventType).fill;
+        pill.textContent = ev.summary || "(untitled)";
+        pill.addEventListener("click", () => showDetail(ev));
+        cell.appendChild(pill);
+      });
+      if (dayEvents.length > maxShown) {
+        const more = document.createElement("button");
+        more.className = "more-link";
+        more.textContent = `+${dayEvents.length - maxShown} more`;
+        more.addEventListener("click", () => showDetail(dayEvents[maxShown]));
+        cell.appendChild(more);
+      }
+    } else if (dayEvents.length) {
+      // On screen, a cell just says how many events are on that day --
+      // a busy day used to mean a stack of truncated, unreadable pills
+      // crammed into a small box. Tapping the count opens a popup with
+      // the day's full list instead (Kevin's ask, 2026-09-24: "month
+      // view should be just a snapshot ... click on the cell day and it
+      // gives u a pop up list of events that day").
+      cell.classList.add("has-events");
+      const countBtn = document.createElement("button");
+      countBtn.className = "day-count";
+      countBtn.textContent = dayEvents.length === 1 ? "1 event" : `${dayEvents.length} events`;
+      countBtn.addEventListener("click", () => showDayDetail(dayEvents, cellDate));
+      cell.appendChild(countBtn);
+      cell.addEventListener("click", (e) => {
+        if (e.target !== countBtn) showDayDetail(dayEvents, cellDate);
+      });
+      cell.style.cursor = "pointer";
     }
 
     grid.appendChild(cell);
