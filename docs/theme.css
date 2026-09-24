@@ -4,52 +4,44 @@
    navigation. Internal tools (admin, manage-events, status) are plain and
    intentionally don't use this.
 
-   Design direction: clean and modern, closer to a state tourism board site
-   than a startup -- a plain white background, a geometric sans (Montserrat)
-   throughout, and one accent color (green) doing all the work that color
-   does: buttons, links-within-text, badges, emphasis. No background
-   texture, no second decorative accent color. Meant to read as
-   "professionally run public infrastructure" to a city official or
-   business sponsor, and effortless to a resident. */
+   Design direction, 2026-09-23 rework: bright and colorful, an old-fashioned
+   bulletin board with colored index cards pinned to it, not a dark app.
+   Warm paper background, bold rounded display font (Baloo 2) for headings,
+   a soft round body font (Nunito), and every card/button/badge gets a
+   thick dark outline plus a hard (non-blurred) drop shadow so it reads as
+   a physical card pinned on top of the page, not a flat rectangle. Kevin's
+   call, replacing the all-dark palette below -- see dark-theme-backup
+   branch for the exact prior look if this ever needs to be undone. */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
 
-/* Pinned to the dark/blue palette for every visitor, regardless of
-   their own device's light/dark setting (Kevin's call, 2026-09-15 --
-   the site used to follow prefers-color-scheme, which meant it looked
-   different on his Mac vs his iPhone depending on each device's own
-   system setting; he'd rather everyone see the same look). The former
-   light palette and the @media (prefers-color-scheme: dark) block that
-   swapped to this one are gone, not just overridden -- if a light mode
-   ever comes back, reintroduce it as an explicit toggle rather than
-   reading the system preference again. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --ink: #f0f0f0;
-  --ink-soft: #b0b0b0;
-  --ink-faint: #888888;
-  --paper: #121212;
-  --surface: #1c1c1c;
-  --surface-border: #333333;
-  --rule: #333333;
+  --ink: #201a12;
+  --ink-soft: #5a5142;
+  --ink-faint: #8a8172;
+  --paper: #fffdf7;
+  --surface: #ffffff;
+  --surface-border: #1a1a1a;
+  --rule: #e4ddcf;
 
-  --primary: #7bb0f7;
-  --primary-dark: #9dc4f7;
-  --primary-tint: #16283d;
-  --navy: #90aecf;
-  --navy-dark: #b7cbe4;
-  --success: #5fb583;
-  --success-tint: #16281b;
+  --primary: #2f6fed;
+  --primary-dark: #1d54c4;
+  --primary-tint: #eaf1ff;
+  --navy: #1f3a54;
+  --navy-dark: #14263a;
+  --success: #1a8a3d;
+  --success-tint: #eafff0;
 
   /* Category colors for event-type badges only -- not part of the site
      chrome/button system above, which stays on --primary. */
-  --cat-red: #f2867c;
-  --cat-red-tint: #3d1917;
-  --cat-red-text: #f5a89f;
-  --cat-yellow: #f2c94c;
-  --cat-yellow-tint: #3d3115;
-  --cat-yellow-text: #f5d878;
+  --cat-red: #ff5d5d;
+  --cat-red-tint: #ffe9e9;
+  --cat-red-text: #b3261e;
+  --cat-yellow: #ffb703;
+  --cat-yellow-tint: #fff6e0;
+  --cat-yellow-text: #8a5a00;
 
   /* One color per core section, used by nav.js (the tab dot) and
      docs/index.html (the matching homepage card dot) -- same idea as
@@ -64,27 +56,50 @@
      --cat-red exactly (not its own hue) so the nav dot, the homepage
      card dot, and docs/local-alerts.html's own red-tinted card all
      read as the same "this one's urgent" signal, not three unrelated
-     colors that happen to be red-ish. */
-  --sec-calendar: #7bb0f7;
-  --sec-directory: #5fb0a8;
-  --sec-trading-post: #8bc16c;
-  --sec-jobs: #e0a458;
-  --sec-lost-found: #e0c458;
-  --sec-volunteer: #e0788f;
-  --sec-support: #d888c9;
-  --sec-clubs: #b39ddb;
-  --sec-alerts: #f2867c;
-  --sec-ask: #6fc3d9;
-  --sec-notices: #9aa5c9;
-  --sec-ideas: #c9d95a;
+     colors that happen to be red-ish. Same hue per section as before
+     the 2026-09-23 rework, just pushed to full saturation to read as a
+     bold pinned card instead of a quiet dark-mode tint. */
+  --sec-calendar: #2f6fed;
+  --sec-directory: #0fbfae;
+  --sec-trading-post: #4caf50;
+  --sec-jobs: #ff9f1c;
+  --sec-lost-found: #ffd23f;
+  --sec-volunteer: #ff5d8f;
+  --sec-support: #d666c9;
+  --sec-clubs: #a855f7;
+  --sec-alerts: #ff5d5d;
+  --sec-ask: #2fc2e0;
+  --sec-notices: #7a86c9;
+  --sec-ideas: #b6cc2e;
 
-  --shadow-sm: none;
-  --shadow-md: none;
-  --radius: 10px;
-  --radius-sm: 7px;
+  /* Same hue as the --sec-* color above it, darkened until it clears
+     4.6:1 against white -- the vivid --sec-* values above read great
+     as a card fill or a small dot, but several of them (yellow, lime,
+     bright cyan) fail contrast outright used as text on a light
+     background. Use these -text variants anywhere a section color is
+     the text color itself (a tag, a highlighted word), not a fill. */
+  --sec-calendar-text: #2e6eed;
+  --sec-directory-text: #0a8478;
+  --sec-trading-post-text: #39843d;
+  --sec-jobs-text: #ac6300;
+  --sec-lost-found-text: #937000;
+  --sec-volunteer-text: #e90048;
+  --sec-support-text: #c635b5;
+  --sec-clubs-text: #9e42f6;
+  --sec-alerts-text: #ec0000;
+  --sec-ask-text: #168096;
+  --sec-notices-text: #6170bf;
+  --sec-ideas-text: #6f7c1c;
 
-  --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Hard, non-blurred offset shadow -- the "pinned card" look -- rather
+     than the soft blurred shadow a --shadow token usually implies. */
+  --shadow-sm: 4px 4px 0 var(--surface-border);
+  --shadow-md: 7px 7px 0 var(--surface-border);
+  --radius: 18px;
+  --radius-sm: 14px;
+
+  --font-display: "Baloo 2", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -121,27 +136,33 @@ body.themed main.wide { max-width: 900px; }
   justify-content: center;
   margin: 0 auto .7rem;
   background: #fff;
+  border: 3px solid var(--surface-border);
   border-radius: 999px;
   padding: 8px;
+  box-shadow: var(--shadow-sm);
 }
 .mo-badge img { width: 100%; height: auto; display: block; }
 
 .eyebrow {
-  display: block;
-  text-align: center;
-  font-size: .72rem;
+  display: table;
+  margin: 0 auto .8rem;
+  font-family: var(--font-display);
+  font-size: .78rem;
   font-weight: 700;
-  letter-spacing: .12em;
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--primary);
-  margin: 0 0 .35rem;
+  background: var(--primary-tint);
+  border: 2.5px solid var(--surface-border);
+  border-radius: 999px;
+  padding: .3rem .9rem;
 }
 
 body.themed h1 {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.7rem;
-  line-height: 1.2;
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 1.15;
   margin: 0 0 .4rem;
   text-align: center;
   color: var(--ink);
@@ -215,21 +236,21 @@ body.themed .stats-line .live-dot,
 
 body.themed section {
   background: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 3px solid var(--surface-border);
   border-radius: var(--radius);
   padding: 1.35rem 1.25rem;
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.6rem;
   scroll-margin-top: 4rem;
 }
 
 body.themed h2 {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
+  font-weight: 700;
+  font-size: 1.25rem;
   margin: 0 0 .75rem;
   padding-left: .7rem;
-  border-left: 3px solid var(--primary);
+  border-left: 5px solid var(--primary);
   color: var(--ink);
 }
 
@@ -262,10 +283,12 @@ body.themed a.icon-cta {
   gap: .65rem;
   margin: 0 0 .9rem;
   padding: .95rem 1.1rem;
-  border-radius: var(--radius-sm);
+  border: 3px solid var(--surface-border);
+  border-radius: 999px;
   background: var(--primary);
-  color: #fff9f4;
+  color: #fff;
   text-decoration: none;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.02rem;
   box-shadow: var(--shadow-sm);
@@ -277,14 +300,14 @@ body.themed .btn {
   display: block;
   width: 100%;
   padding: .9rem;
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 1.02rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .01em;
-  border: none;
-  border-radius: var(--radius-sm);
+  border: 3px solid var(--surface-border);
+  border-radius: 999px;
   background: var(--primary);
-  color: #fff9f4;
+  color: #fff;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -294,11 +317,10 @@ body.themed .btn:hover { background: var(--primary-dark); }
 body.themed .btn.secondary {
   background: var(--surface);
   color: var(--navy);
-  border: 1px solid var(--surface-border);
   box-shadow: none;
   margin-top: .6rem;
 }
-body.themed .btn.secondary:hover { border-color: var(--navy); }
+body.themed .btn.secondary:hover { background: var(--primary-tint); }
 
 body.themed .or-divider {
   text-align: center;
@@ -365,7 +387,7 @@ body.themed textarea {
   padding: .68rem .75rem;
   font-size: 1rem;
   font-family: var(--font-body);
-  border: 1px solid var(--surface-border);
+  border: 2px solid var(--surface-border);
   border-radius: var(--radius-sm);
   color: inherit;
   background: var(--surface);
@@ -381,10 +403,10 @@ body.themed textarea { resize: vertical; min-height: 5rem; }
 body.themed input[type="file"] { padding: .5rem; }
 body.themed .card {
   background: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 3px solid var(--surface-border);
   border-radius: var(--radius);
   padding: 1.35rem 1.25rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 body.themed .checkbox-row {
@@ -412,14 +434,15 @@ body.themed button[type="submit"] {
   width: 100%;
   margin-top: 1rem;
   padding: .9rem;
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 1.02rem;
-  font-weight: 600;
-  border: none;
-  border-radius: var(--radius-sm);
+  font-weight: 700;
+  border: 3px solid var(--surface-border);
+  border-radius: 999px;
   background: var(--primary);
   color: #fff;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 body.themed button[type="submit"]:hover { filter: brightness(1.05); }
 body.themed button[type="submit"]:disabled { opacity: .6; }

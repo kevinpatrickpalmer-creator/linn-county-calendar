@@ -21,7 +21,7 @@
      ahead of <main> rather than another block inside it. */
   .hero {
     background: var(--surface);
-    border-bottom: 1px solid var(--surface-border);
+    border-bottom: 4px solid var(--surface-border);
     padding: 2.5rem 1.25rem 2.25rem;
   }
   .hero-inner { max-width: 560px; margin: 0 auto; }
@@ -30,10 +30,11 @@
   .hero h1 { font-size: 2.1rem; }
   .hero .made-for {
     text-align: center;
+    font-family: var(--font-display);
     font-weight: 700;
-    color: var(--primary);
+    color: var(--sec-volunteer-text);
     margin: -.4rem 0 .9rem;
-    font-size: .95rem;
+    font-size: 1rem;
   }
   /* Its own line, not another .stats-line -- that class's flanking rules
      look right once, but doubled up right underneath the real stats-line
@@ -69,57 +70,140 @@
   .utility-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
+    gap: 1.7rem 1.3rem;
     margin-bottom: 1.5rem;
+    padding-top: .5rem;
   }
+  /* Each card is filled with its own --sec-* color (set inline via
+     style="background:..." below) rather than the shared surface color,
+     so the grid reads as a rack of different-colored index cards, not
+     one repeated card with a small colored dot. Thick dark border plus
+     a hard (non-blurred) offset shadow instead of the old subtle
+     border-only card, so each one looks pinned on top of the page. */
   a.utility-card {
     display: block;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
+    position: relative;
+    border: 4px solid var(--surface-border);
     border-radius: var(--radius);
-    padding: 1.35rem 1.25rem;
+    padding: 1.35rem 1.25rem 1.5rem;
     text-decoration: none;
-    color: inherit;
-    transition: border-color .15s ease, background-color .15s ease;
+    color: var(--ink);
+    box-shadow: var(--shadow-md);
+    transition: transform .12s ease;
   }
-  a.utility-card:hover {
-    border-color: var(--primary);
-    background: var(--primary-tint);
-  }
+  a.utility-card:hover { transform: translate(-2px, -2px); }
   a.utility-card h2 {
     margin: 0 0 .5rem;
     padding-left: 0;
+    padding-right: 2.2rem;
     border-left: none;
-    font-size: 1.15rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: block;
+    color: var(--ink);
+  }
+  /* A small circular icon badge in the corner, same "pinned tag" idea
+     as the mo-badge, using the card's own dot color as its emoji tint
+     -- replaces the old inline nav-dot, which read as decoration only
+     against a big solid-color card instead of the card's one accent. */
+  .card-dot {
+    display: none;
+  }
+  .card-icon {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: #fff;
+    border: 3px solid var(--surface-border);
     display: flex;
     align-items: center;
-  }
-  /* Matches nav.js's own .nav-dot exactly (same size, shape, and
-     --sec-* color per section) so the two line up as one system, not
-     two -- see theme.css for the palette itself and why it exists. */
-  .card-dot {
-    width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
-    margin-right: .5rem; display: inline-block;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: var(--shadow-sm);
   }
   a.utility-card .utility-purpose {
     margin: 0 0 .7rem;
-    color: var(--ink-soft);
-    font-size: .9rem;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: .92rem;
     line-height: 1.45;
   }
   a.utility-card .utility-line {
-    margin: 0 0 .8rem;
+    margin: 0 0 1rem;
     color: var(--ink);
     font-size: .85rem;
     font-style: italic;
+    font-weight: 700;
     line-height: 1.45;
   }
   a.utility-card .utility-cta {
-    display: inline-block;
-    font-weight: 600;
-    font-size: .88rem;
-    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .85rem;
+    border: 3px solid var(--surface-border);
+    border-radius: 999px;
+    padding: .5rem 1.1rem;
+    box-shadow: var(--shadow-sm);
   }
+  /* "Have something to add?" row -- iPhone-style app icon tiles for the
+     4 actual contribute actions (submit an event, list a business, post
+     a club, share an idea), replacing the plain-text link list that used
+     to sit here. Printable flyer and Privacy Policy stay as plain text
+     below -- they're not "contribute content" actions, so they don't
+     belong in this row (Kevin's ask, 2026-09-23: bold color-coded icon
+     buttons "like on an iPhone"). Each tile reuses its parent section's
+     --sec-* color and the same icon as that section's card above, so a
+     local recognizes "that's the calendar one" instead of learning a
+     second, unrelated set of colors/icons. */
+  .shortcut-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.3rem;
+    margin: 0 0 2rem;
+  }
+  .shortcut-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    width: 96px;
+    text-decoration: none;
+  }
+  .shortcut-tile .tile-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 22px;
+    border: 4px solid var(--surface-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    transition: transform .12s ease;
+  }
+  .shortcut-tile:hover .tile-icon { transform: translate(-2px, -2px); }
+  .shortcut-tile .tile-label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: .78rem;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--ink);
+  }
+  .shortcut-tile.calendar .tile-icon { background: var(--sec-calendar); }
+  .shortcut-tile.directory .tile-icon { background: var(--sec-directory); }
+  .shortcut-tile.clubs .tile-icon { background: var(--sec-clubs); }
+  .shortcut-tile.ideas .tile-icon { background: var(--sec-ideas); }
+
   .section-heading {
     text-align: center;
     font-size: .78rem;
@@ -192,8 +276,8 @@
     align-items: flex-start;
     gap: .6rem;
     background: var(--surface);
-    border: 1px solid var(--primary);
-    box-shadow: 0 0 22px rgba(123, 176, 247, .3);
+    border: 3px solid var(--surface-border);
+    box-shadow: var(--shadow-sm);
     border-radius: var(--radius);
     padding: .7rem .9rem;
     text-decoration: none;
@@ -261,92 +345,112 @@
   </section>
   <p class="section-heading">What do you need today?</p>
   <div class="utility-grid">
-    <a class="utility-card" href="calendar-view.html">
-      <h2><span class="card-dot" style="background:var(--sec-calendar)" aria-hidden="true"></span>Calendar</h2>
+    <a class="utility-card" href="calendar-view.html" style="background:var(--sec-calendar)">
+      <span class="card-icon" aria-hidden="true">&#128197;</span>
+      <h2>Calendar</h2>
       <p class="utility-purpose">What's happening around here? Local events, meetings, and happenings, kept up to date automatically.</p>
       <p class="utility-line">Around here, showing up still means something.</p>
       <span class="utility-cta">What's on today? &rarr;</span>
     </a>
-    <a class="utility-card" href="directory.html">
-      <h2><span class="card-dot" style="background:var(--sec-directory)" aria-hidden="true"></span>Business Directory</h2>
+    <a class="utility-card" href="directory.html" style="background:var(--sec-directory)">
+      <span class="card-icon" aria-hidden="true">&#127978;</span>
+      <h2>Business Directory</h2>
       <p class="utility-purpose">Where do I go, or who do I call? Every business, shop, service, and organization across the county, in one place.</p>
       <p class="utility-line">Every dollar spent here stays here.</p>
       <span class="utility-cta">Discover local &rarr;</span>
     </a>
-    <a class="utility-card" href="jobs.html">
-      <h2><span class="card-dot" style="background:var(--sec-jobs)" aria-hidden="true"></span>Jobs Bulletin</h2>
+    <a class="utility-card" href="jobs.html" style="background:var(--sec-jobs)">
+      <span class="card-icon" aria-hidden="true">&#128188;</span>
+      <h2>Jobs Bulletin</h2>
       <p class="utility-purpose">Who's looking for work? Who needs a worker? Snow shoveling, mowing, moving, a handyman for a project, or a shift to fill.</p>
       <p class="utility-line">This town wasn't built sitting still.</p>
       <span class="utility-cta">Make moves &rarr;</span>
     </a>
-    <a class="utility-card" href="trading-post.html">
-      <h2><span class="card-dot" style="background:var(--sec-trading-post)" aria-hidden="true"></span>Trading Post</h2>
+    <a class="utility-card" href="trading-post.html" style="background:var(--sec-trading-post)">
+      <span class="card-icon" aria-hidden="true">&#127805;</span>
+      <h2>Trading Post</h2>
       <p class="utility-purpose">What do people in our community make or grow? Eggs, raw milk, farm beef, honey, garden produce, and more.</p>
       <p class="utility-line">Grown here. Made here. Sold here.</p>
       <span class="utility-cta">Fresh finds &rarr;</span>
     </a>
-    <a class="utility-card" href="volunteer.html">
-      <h2><span class="card-dot" style="background:var(--sec-volunteer)" aria-hidden="true"></span>Volunteer &amp; Help Needed</h2>
+    <a class="utility-card" href="volunteer.html" style="background:var(--sec-volunteer)">
+      <span class="card-icon" aria-hidden="true">&#129309;</span>
+      <h2>Volunteer &amp; Help Needed</h2>
       <p class="utility-purpose">A cleanup project, an event needing hands, an organization needing help, or time you want to give.</p>
       <p class="utility-line">Towns don't run on hope. They run on people who show up.</p>
       <span class="utility-cta">Jump in &rarr;</span>
     </a>
-    <a class="utility-card" href="clubs.html">
-      <h2><span class="card-dot" style="background:var(--sec-clubs)" aria-hidden="true"></span>Clubs &amp; Classes</h2>
+    <a class="utility-card" href="clubs.html" style="background:var(--sec-clubs)">
+      <span class="card-icon" aria-hidden="true">&#127912;</span>
+      <h2>Clubs &amp; Classes</h2>
       <p class="utility-purpose">Want to join a club or class, or need members or students? Bridge club, Red Hats, swimming lessons, karate, woodworking, find it here.</p>
       <p class="utility-line">There's a spot with your name on it.</p>
       <span class="utility-cta">Find your people &rarr;</span>
     </a>
-    <a class="utility-card" href="lost-found.html">
-      <h2><span class="card-dot" style="background:var(--sec-lost-found)" aria-hidden="true"></span>Lost &amp; Found</h2>
+    <a class="utility-card" href="lost-found.html" style="background:var(--sec-lost-found)">
+      <span class="card-icon" aria-hidden="true">&#128062;</span>
+      <h2>Lost &amp; Found</h2>
       <p class="utility-purpose">Lost a pet or an item, or found one? Post it here so more people see it, fast.</p>
       <p class="utility-line">This town doesn't let its own get lost.</p>
       <span class="utility-cta">Track it down &rarr;</span>
     </a>
-    <a class="utility-card" href="ask-community.html">
-      <h2><span class="card-dot" style="background:var(--sec-ask)" aria-hidden="true"></span>Ask the Community</h2>
+    <a class="utility-card" href="ask-community.html" style="background:var(--sec-ask)">
+      <span class="card-icon" aria-hidden="true">&#128172;</span>
+      <h2>Ask the Community</h2>
       <p class="utility-purpose">Trying to find someone who fixes old sewing machines, or just don't know who to ask? Post a question, get an answer.</p>
       <p class="utility-line">Somebody around here always knows somebody.</p>
       <span class="utility-cta">Get answers &rarr;</span>
     </a>
-    <a class="utility-card" href="notices.html">
-      <h2><span class="card-dot" style="background:var(--sec-notices)" aria-hidden="true"></span>Notices</h2>
+    <a class="utility-card" href="notices.html" style="background:var(--sec-notices)">
+      <span class="card-icon" aria-hidden="true">&#128227;</span>
+      <h2>Notices</h2>
       <p class="utility-purpose">A closure, a schedule change, something short-lived people around here should know.</p>
       <p class="utility-line">The first to know is the first to help.</p>
       <span class="utility-cta">Stay in the loop &rarr;</span>
     </a>
-    <a class="utility-card" href="support.html">
-      <h2><span class="card-dot" style="background:var(--sec-support)" aria-hidden="true"></span>Community Support</h2>
+    <a class="utility-card" href="support.html" style="background:var(--sec-support)">
+      <span class="card-icon" aria-hidden="true">&#10084;&#65039;</span>
+      <h2>Community Support</h2>
       <p class="utility-purpose">A bill that's due, a benefit dinner, whatever the need. See who could use a hand.</p>
       <p class="utility-line">Nobody carries a hard year alone. Not here.</p>
       <span class="utility-cta">Give back &rarr;</span>
     </a>
-    <a class="utility-card" href="local-alerts.html">
-      <h2><span class="card-dot" style="background:var(--sec-alerts)" aria-hidden="true"></span>Local Alerts</h2>
+    <a class="utility-card" href="local-alerts.html" style="background:var(--sec-alerts)">
+      <span class="card-icon" aria-hidden="true">&#128680;</span>
+      <h2>Local Alerts</h2>
       <p class="utility-purpose">A road closure, an outage, a boil water order. What people need to know right now.</p>
       <p class="utility-line">Some things can't wait. Neither should you.</p>
       <span class="utility-cta">Heads up &rarr;</span>
     </a>
-    <a class="utility-card" href="big-ideas.html">
-      <h2><span class="card-dot" style="background:var(--sec-ideas)" aria-hidden="true"></span>Big Idea Board</h2>
+    <a class="utility-card" href="big-ideas.html" style="background:var(--sec-ideas)">
+      <span class="card-icon" aria-hidden="true">&#128161;</span>
+      <h2>Big Idea Board</h2>
       <p class="utility-purpose">Got a big idea for your town? Tag it, post it, and see what your neighbors think.</p>
       <p class="utility-line">This town's next big thing starts right here.</p>
       <span class="utility-cta">Drop your idea &rarr;</span>
     </a>
   </div>
 
-  <div class="footer-link">
-    <a href="submit.html">Submit a community event &rarr;</a>
+  <p class="section-heading">Have something to add?</p>
+  <div class="shortcut-row">
+    <a class="shortcut-tile calendar" href="submit.html">
+      <span class="tile-icon" aria-hidden="true">&#128197;</span>
+      <span class="tile-label">Submit an Event</span>
+    </a>
+    <a class="shortcut-tile directory" href="submit-business.html">
+      <span class="tile-icon" aria-hidden="true">&#127978;</span>
+      <span class="tile-label">List a Business</span>
+    </a>
+    <a class="shortcut-tile clubs" href="submit-clubs.html">
+      <span class="tile-icon" aria-hidden="true">&#127912;</span>
+      <span class="tile-label">Post a Club</span>
+    </a>
+    <a class="shortcut-tile ideas" href="survey.html">
+      <span class="tile-icon" aria-hidden="true">&#128161;</span>
+      <span class="tile-label">Share an Idea</span>
+    </a>
   </div>
-  <div class="footer-link">
-    <a href="submit-business.html">List your business or organization, free &rarr;</a>
-  </div>
-  <div class="footer-link">
-    <a href="submit-clubs.html">Post your club or class, free &rarr;</a>
-  </div>
-  <div class="footer-link">
-    <a href="survey.html">Ideas for your town? &rarr;</a>
-  </div>
+
   <div class="footer-link">
     <a href="flyer.html">Printable flyer to post around town</a>
   </div>
