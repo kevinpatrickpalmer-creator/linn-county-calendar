@@ -204,26 +204,33 @@
   .list-type.cat-red { color: var(--cat-red-text); background: var(--cat-red-tint); border-color: var(--cat-red); }
   .list-type.cat-yellow { color: var(--cat-yellow-text); background: var(--cat-yellow-tint); border-color: var(--cat-yellow); }
   .list-type.cat-green { color: var(--success); background: var(--success-tint); border-color: var(--success); }
-  .list-type.cat-gray { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
+  .list-type.cat-gray { color: var(--ink-soft); background: var(--rule); border-color: var(--ink-faint); }
 
   /* Town tags -- a category tag alone only says what kind of event this
      is, not where, so this sits right beside it (Kevin's ask,
      2026-09-20). Same colors as docs/big-ideas.html's town tags, for
-     one consistent "this is Marceline's color" language site-wide. */
+     one consistent "this is Marceline's color" language site-wide.
+     Re-tinted 2026-09-24 for the light corkboard theme -- these were
+     still dark-navy chips (built for the old dark palette) sitting next
+     to the now-light category tags, so two different kinds of label
+     ended up reading as similar near-black boxes (Kevin's catch: "many
+     of the labels ... are similar in color and not easily read"). Same
+     border hue per town as before, just a light tint fill and a
+     darkened, contrast-checked text color instead of a dark fill. */
   .town-tag {
     display: inline-block; margin-top: .3rem; margin-left: .35rem;
     font-size: .68rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
     padding: .15rem .5rem; border-radius: 999px; border: 1px solid;
   }
-  .town-tag.brookfield { color: #6fa8dc; background: #16283a; border-color: #6fa8dc; }
-  .town-tag.marceline { color: #d4af37; background: #332a0f; border-color: #d4af37; }
-  .town-tag.bucklin { color: #e06666; background: #3a1414; border-color: #e06666; }
-  .town-tag.browning { color: #93c47d; background: #1c2e17; border-color: #93c47d; }
-  .town-tag.laclede { color: #b4a7d6; background: #241f33; border-color: #b4a7d6; }
-  .town-tag.linneus { color: #f6b26b; background: #3a2510; border-color: #f6b26b; }
-  .town-tag.meadville { color: #76a5af; background: #17282b; border-color: #76a5af; }
-  .town-tag.purdin { color: #d5a6bd; background: #331f28; border-color: #d5a6bd; }
-  .town-tag.default { color: var(--ink-soft); background: var(--surface-border); border-color: var(--surface-border); }
+  .town-tag.brookfield { color: #2e79bd; background: #dfeefb; border-color: #6fa8dc; }
+  .town-tag.marceline { color: #8c721e; background: #fcf5de; border-color: #d4af37; }
+  .town-tag.bucklin { color: #d73a3a; background: #fddede; border-color: #e06666; }
+  .town-tag.browning { color: #51813b; background: #eaf6e4; border-color: #93c47d; }
+  .town-tag.laclede { color: #7e68b9; background: #e9e5f6; border-color: #b4a7d6; }
+  .town-tag.linneus { color: #b2600b; background: #ffeedb; border-color: #f6b26b; }
+  .town-tag.meadville { color: #4e7c86; background: #e7f1f3; border-color: #76a5af; }
+  .town-tag.purdin { color: #b05883; background: #f5e5ed; border-color: #d5a6bd; }
+  .town-tag.default { color: var(--ink-soft); background: var(--rule); border-color: var(--ink-faint); }
   #listEmpty { text-align: center; color: var(--ink-soft); padding: 2rem 0; }
   .links { font-size: .8rem; }
   .links a { color: var(--navy); text-decoration: none; margin-left: .75rem; font-weight: 500; }
