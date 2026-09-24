@@ -59,7 +59,15 @@
      colors that happen to be red-ish. Same hue per section as before
      the 2026-09-23 rework, just pushed to full saturation to read as a
      bold pinned card instead of a quiet dark-mode tint. */
-  --sec-calendar: #2f6fed;
+  /* Lighter than --primary on purpose (Kevin's catch, 2026-09-24: the
+     original #2f6fed matched --primary but read as hard-to-read dark
+     ink text on top, on the homepage's first card and the What's
+     Happening carousel). Blue's WCAG luminance weight is low, so a
+     "bright-looking" blue can still fail contrast with dark text where
+     every other section color here clears it easily -- lightened until
+     ink text on this fill is back in the same comfortable range as the
+     rest of the palette. */
+  --sec-calendar: #5a8ff6;
   --sec-directory: #0fbfae;
   --sec-trading-post: #4caf50;
   --sec-jobs: #ff9f1c;

@@ -81,17 +81,26 @@
       color: var(--ink, #1a1a1a); text-decoration: none; -webkit-user-drag: none;
       border-right: 1px solid rgba(0,0,0,.15);
     }
-    /* A small black square badge (Kevin's ask, 2026-09-24, after seeing
-       the reference's own black icon box) -- black to match the thick
-       borders every card/button/badge already uses sitewide, and for
-       the strongest possible contrast against the yellow bar. Sized to
-       roughly match the stacked wordmark's own height next to it. */
+    /* White square, not the black one from the first pass (Kevin's
+       catch, 2026-09-24: he never asked for the badge stuffed into a
+       small black box, and wanted the logo to actually fill the tile).
+       White matches the exact .mo-badge treatment used everywhere else
+       on the site (hero, every submit page) -- same white circle, black
+       border, badge sitting directly on it -- so this reuses a color
+       the badge is already designed to sit on, rather than inventing a
+       new background for it. That also rules out blue here: the badge's
+       own accent color is a light blue (#7bb0f7), which would nearly
+       disappear against a light blue tile. Padding cut down and the box
+       sized up so the badge actually fills it, doubling as an obvious
+       home icon, instead of sitting small and centered with room to
+       spare. Border keeps it visually distinct from the yellow bar. */
     .site-brand .brand-icon {
-      width: 42px; height: 42px; flex-shrink: 0;
-      background: var(--surface-border, #1a1a1a);
-      border-radius: 8px;
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: #fff;
+      border: 3px solid var(--surface-border, #1a1a1a);
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      padding: 5px;
+      padding: 3px;
     }
     .site-brand .brand-icon img { width: 100%; height: 100%; display: block; }
     /* Each word its own line -- Kevin's ask, 2026-09-24: "linn county
