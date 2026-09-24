@@ -77,28 +77,32 @@
     }
     .site-brand {
       flex-shrink: 0; display: flex; align-items: center; gap: .6rem;
-      padding: 0 .9rem; white-space: nowrap;
+      padding: .3rem .9rem; white-space: nowrap;
       color: var(--ink, #1a1a1a); text-decoration: none; -webkit-user-drag: none;
       border-right: 1px solid rgba(0,0,0,.15);
     }
     /* A small black square badge (Kevin's ask, 2026-09-24, after seeing
        the reference's own black icon box) -- black to match the thick
        borders every card/button/badge already uses sitewide, and for
-       the strongest possible contrast against the yellow bar. */
+       the strongest possible contrast against the yellow bar. Sized to
+       roughly match the stacked wordmark's own height next to it. */
     .site-brand .brand-icon {
-      width: 34px; height: 34px; flex-shrink: 0;
+      width: 42px; height: 42px; flex-shrink: 0;
       background: var(--surface-border, #1a1a1a);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      padding: 4px;
+      padding: 5px;
     }
     .site-brand .brand-icon img { width: 100%; height: 100%; display: block; }
-    /* Sized to actually fill the bar (was 1rem, looked tiny next to the
-       new icon square) and the site's own display font, not a system
-       fallback -- Kevin's catch: "make linn county local bigger so it
-       filles up the square and give it a nice type face". */
+    /* Each word its own line -- Kevin's ask, 2026-09-24: "linn county
+       local should be stacked ... reading vertically rather than
+       horizontally" -- like a small seal/badge next to the icon square
+       rather than a wide single-line wordmark. Bar has min-height (not
+       a fixed height) precisely so it can grow to fit this. */
     .site-brand .brand-text {
-      font-size: 1.35rem; line-height: 1; font-weight: 800;
+      display: flex; flex-direction: column;
+      font-size: .82rem; line-height: 1.05; font-weight: 800;
+      letter-spacing: .01em;
       font-family: var(--font-display, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
     }
     .site-brand:hover .brand-text { color: var(--primary, #2f6fed); }
@@ -328,7 +332,7 @@
   brand.className = "site-brand";
   brand.href = "index.html";
   brand.draggable = false;
-  brand.innerHTML = `<span class="brand-icon" aria-hidden="true"><img src="logo-badge.svg" alt=""></span><span class="brand-text">Linn County Local</span>`;
+  brand.innerHTML = `<span class="brand-icon" aria-hidden="true"><img src="logo-badge.svg" alt=""></span><span class="brand-text"><span>Linn</span><span>County</span><span>Local</span></span>`;
 
   const bar = document.createElement("div");
   bar.className = "site-nav-bar";
