@@ -43,27 +43,27 @@
   --cat-yellow-tint: #fff6e0;
   --cat-yellow-text: #8a5a00;
 
-  /* One color per core section, used by nav.js (the tab dot) and
-     docs/index.html (the matching homepage card dot) -- same idea as
-     the town-tag palette already used on the calendar/Big Idea Board
+  /* One color per core section, used by nav.js (each tab's permanent
+     fill) and docs/index.html (the matching homepage card) -- same idea
+     as the town-tag palette already used on the calendar/Big Idea Board
      (docs/calendar-view.html, docs/big-ideas.html), just for sections
-     instead of towns. Defined once here so the two places that render
-     these dots can't drift out of sync with each other (Kevin's ask,
-     2026-09-21: nav and homepage dots "should match"). Flyer/Contact
-     aren't core content sections and don't get one, on purpose -- the
-     dots double as a quiet visual cue for "this is one of the 12 real
-     sections" vs. a utility link. --sec-flyer is the one deliberate
-     exception (Kevin's ask, 2026-09-25): a muted neutral, not a vivid
-     section color, since Flyer still isn't "content" -- same grey
-     already used for "Other"/uncategorized events in calendar-view.html
-     rather than a new one-off tone, and it only drives the nav tab
-     (Flyer has no homepage card to match). --sec-alerts intentionally matches
-     --cat-red exactly (not its own hue) so the nav dot, the homepage
-     card dot, and docs/local-alerts.html's own red-tinted card all
-     read as the same "this one's urgent" signal, not three unrelated
-     colors that happen to be red-ish. Same hue per section as before
-     the 2026-09-23 rework, just pushed to full saturation to read as a
-     bold pinned card instead of a quiet dark-mode tint. */
+     instead of towns. Defined once here so the two places that use
+     these colors can't drift out of sync with each other (Kevin's ask,
+     2026-09-21: nav and homepage colors "should match"; 2026-09-24
+     follow-up: every tab stays that color all the time, not just while
+     you're on that page). Flyer/Contact aren't core content sections
+     and don't get a homepage card, but Flyer still gets a color here
+     (Kevin's ask, 2026-09-25) -- a muted neutral rather than a vivid
+     section color, since it still isn't "content." Same grey already
+     used for "Other"/uncategorized events in calendar-view.html rather
+     than a new one-off tone. Contact stays uncolored. --sec-alerts
+     intentionally matches --cat-red exactly (not its own hue) so the
+     nav tab, the homepage card, and docs/local-alerts.html's own
+     red-tinted card all read as the same "this one's urgent" signal,
+     not three unrelated colors that happen to be red-ish. Same hue per
+     section as before the 2026-09-23 rework, just pushed to full
+     saturation to read as a bold pinned card instead of a quiet
+     dark-mode tint. */
   /* Lighter than --primary on purpose (Kevin's catch, 2026-09-24: the
      original #2f6fed matched --primary but read as hard-to-read dark
      ink text on top, on the homepage's first card and the What's

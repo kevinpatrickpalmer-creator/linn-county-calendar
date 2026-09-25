@@ -66,9 +66,9 @@
        trying the actual yellow this time, not just the "bold bar"
        concept) instead of plain white. Dark ink text/icons here since
        yellow needs dark-on-light, not light-on-dark like the earlier
-       blue version -- see .site-nav a and .nav-dot below for how text/
-       dots stay legible against it, and the mobile breakpoint further
-       down for why the dropdown panel goes back to white once open. */
+       blue version -- see .site-nav a below for how tab text stays
+       legible against it, and the mobile breakpoint further down for
+       why the dropdown panel goes back to white once open. */
     .site-nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       min-height: ${NAV_HEIGHT}; display: flex; align-items: stretch;
@@ -242,10 +242,9 @@
     const a = document.createElement("a");
     a.href = item.href;
     // item.dot is a CSS custom property name (see the --sec-* palette in
-    // theme.css) -- only the 11 core sections have one, so a plain
-    // utility link like Flyer/Contact has no color of its own and stays
-    // white (Kevin's catch, 2026-09-24: Flyer has no homepage card, so
-    // filling it with the Calendar's blue was misleading).
+    // theme.css). Contact is the only item left with no color of its own
+    // (stays white) -- Flyer has one too now (a muted grey, since it
+    // still has no homepage card to match, unlike the 11 real sections).
     a.style.setProperty("--tab-accent", item.dot ? `var(${item.dot})` : "#fff");
     a.appendChild(document.createTextNode(item.label));
     // Links/text are natively draggable in the browser -- the tiniest bit
