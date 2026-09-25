@@ -52,7 +52,12 @@
      2026-09-21: nav and homepage dots "should match"). Flyer/Contact
      aren't core content sections and don't get one, on purpose -- the
      dots double as a quiet visual cue for "this is one of the 12 real
-     sections" vs. a utility link. --sec-alerts intentionally matches
+     sections" vs. a utility link. --sec-flyer is the one deliberate
+     exception (Kevin's ask, 2026-09-25): a muted neutral, not a vivid
+     section color, since Flyer still isn't "content" -- same grey
+     already used for "Other"/uncategorized events in calendar-view.html
+     rather than a new one-off tone, and it only drives the nav tab
+     (Flyer has no homepage card to match). --sec-alerts intentionally matches
      --cat-red exactly (not its own hue) so the nav dot, the homepage
      card dot, and docs/local-alerts.html's own red-tinted card all
      read as the same "this one's urgent" signal, not three unrelated
@@ -79,6 +84,7 @@
   --sec-ask: #2fc2e0;
   --sec-notices: #7a86c9;
   --sec-ideas: #b6cc2e;
+  --sec-flyer: #b8ada0;
 
   /* Same hue as the --sec-* color above it, darkened until it clears
      4.6:1 against white -- the vivid --sec-* values above read great

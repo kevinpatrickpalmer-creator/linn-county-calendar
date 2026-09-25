@@ -50,7 +50,7 @@
     { label: "Local Alerts", href: "local-alerts.html", dot: "--sec-alerts", children: [
       { label: "Post a Local Alert", href: "submit-alert.html" },
     ] },
-    { label: "Flyer", href: "flyer.html" },
+    { label: "Print Flyer", href: "flyer.html", dot: "--sec-flyer" },
     { label: "Big Idea Board", href: "big-ideas.html", dot: "--sec-ideas", children: [
       { label: "Submit Idea", href: "submit-idea.html" },
     ] },
