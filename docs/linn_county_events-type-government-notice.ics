@@ -7,139 +7,22 @@ X-WR-CALNAME:Linn County Community Calendar (Government Notice)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20260929
-DTEND;VALUE=DATE:20260930
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-09-29-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Bulk Collection Day - 1 Item per household
-DTSTART;VALUE=DATE:20261006
-DTEND;VALUE=DATE:20261007
-DTSTAMP:20260924T231547Z
-UID:17758201-2026-10-06-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261006
-DTEND;VALUE=DATE:20261007
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-10-06-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tornado Siren Test Day!
-DTSTART;VALUE=DATE:20261007
-DTEND;VALUE=DATE:20261008
-DTSTAMP:20260924T231547Z
-UID:16999440-2026-10-07-allday@linn-county-scraper.local
-DESCRIPTION:On the first Wednesday of every month (on or around noon)\, th
- e City tests its two tornado sirens to ensure they are functioning at peak
-  performance.  Do not be alarmed!
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261013
-DTEND;VALUE=DATE:20261014
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-10-13-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261020
-DTEND;VALUE=DATE:20261021
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-10-20-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261027
-DTEND;VALUE=DATE:20261028
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-10-27-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Bulk Collection Day - 1 Item per household
-DTSTART;VALUE=DATE:20261103
-DTEND;VALUE=DATE:20261104
-DTSTAMP:20260924T231547Z
-UID:17758201-2026-11-03-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Marceline Trash Collection Day
-DTSTART;VALUE=DATE:20261103
-DTEND;VALUE=DATE:20261104
-DTSTAMP:20260924T231547Z
-UID:17938320-2026-11-03-allday@linn-county-scraper.local
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tornado Siren Test Day!
-DTSTART;VALUE=DATE:20261104
-DTEND;VALUE=DATE:20261105
-DTSTAMP:20260924T231547Z
-UID:16999440-2026-11-04-allday@linn-county-scraper.local
-DESCRIPTION:On the first Wednesday of every month (on or around noon)\, th
- e City tests its two tornado sirens to ensure they are functioning at peak
-  performance.  Do not be alarmed!
-LOCATION:Marceline\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Primary Election
-DTSTART;VALUE=DATE:20260804
-DTEND;VALUE=DATE:20260805
-DTSTAMP:20260924T231547Z
-UID:leadereditorial-2026-08-04-primary-election-2026-08-04-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:Primary Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:General Election
-DTSTART;VALUE=DATE:20261103
-DTEND;VALUE=DATE:20261104
-DTSTAMP:20260924T231547Z
-UID:leadereditorial-2026-11-03-general-election-2026-11-03-allday@linn-cou
- nty-scraper.local
-DESCRIPTION:General Election.
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:First day to vote in-person\, no excuse absentee for Nov 3rd Gener
  al Election
 DTSTART;VALUE=DATE:20261020
 DTEND;VALUE=DATE:20261021
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T044625Z
 UID:linncogov-26g50pju6ltt300a9dr3udc91e@google.com-2026-10-20-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Last day for write-in candidates to file for Nov 3rd General Elect
- ion
-DTSTART;VALUE=DATE:20261023
-DTEND;VALUE=DATE:20261024
-DTSTAMP:20260924T231547Z
-UID:linncogov-3h0nu9tton6tpcv742aao4ef4j@google.com-2026-10-23-allday@linn
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+DTSTAMP:20260925T044625Z
+UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
@@ -148,7 +31,7 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T044625Z
 UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -158,18 +41,8 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261225
 DTEND;VALUE=DATE:20261226
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T044625Z
 UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
- -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-X-EVENT-TYPE:Government Notice
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261126
-DTEND;VALUE=DATE:20261127
-DTSTAMP:20260924T231547Z
-UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
@@ -178,8 +51,19 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T044625Z
 UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
+ -county-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+X-EVENT-TYPE:Government Notice
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last day for write-in candidates to file for Nov 3rd General Elect
+ ion
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+DTSTAMP:20260925T044625Z
+UID:linncogov-3h0nu9tton6tpcv742aao4ef4j@google.com-2026-10-23-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
@@ -188,7 +72,7 @@ BEGIN:VEVENT
 SUMMARY:Last day to register to vote in the November 3rd General Election
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T044625Z
 UID:linncogov-6qdgcs20leku4acp67qpm0eidq@google.com-2026-10-07-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
