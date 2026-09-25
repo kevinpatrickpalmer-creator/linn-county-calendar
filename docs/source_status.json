@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T23:15:47.753888+00:00",
+  "generated_at": "2026-09-25T13:40:12.898838+00:00",
   "sources": [
     {
       "name": "CitySpark (Linn County Leader)",
@@ -21,19 +21,19 @@
     },
     {
       "name": "Brookfield R-III School District (MSHSAA)",
-      "count": 223,
+      "count": 216,
       "ok": true,
       "error": null
     },
     {
       "name": "Marceline R-V School District (MSHSAA)",
-      "count": 108,
+      "count": 104,
       "ok": true,
       "error": null
     },
     {
       "name": "Bucklin R-II School District (MSHSAA)",
-      "count": 67,
+      "count": 66,
       "ok": true,
       "error": null
     },
@@ -45,7 +45,7 @@
     },
     {
       "name": "Meadville R-IV School District (MSHSAA)",
-      "count": 75,
+      "count": 70,
       "ok": true,
       "error": null
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "Brookfield Area Chamber of Commerce",
-      "count": 7,
+      "count": 6,
       "ok": true,
       "error": null
     },

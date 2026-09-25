@@ -10,7 +10,7 @@ BEGIN:VEVENT
 SUMMARY:Open for absentee voting
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-48cfdi83v4o6htnng65lqegca8@google.com-2026-10-31-allday@linn
  -county-scraper.local
 DESCRIPTION:Join with Google Meet: https://meet.google.com/nke-yjat-kxt\n
@@ -23,7 +23,7 @@ BEGIN:VEVENT
 SUMMARY:Last day to request an ballot by mail
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-4t89m1n71krn3fskjtf7upcbq6@google.com-2026-10-21-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -33,7 +33,7 @@ BEGIN:VEVENT
 SUMMARY:Public test of voting equipment
 DTSTART:20261015T140000Z
 DTEND:20261015T150000Z
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-00sennpbhq8f7n4q0oae4dgm10@google.com-2026-10-15-0900@linn-c
  ounty-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO

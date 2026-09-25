@@ -7,12 +7,11 @@ X-WR-CALNAME:Linneus Events (Linn County Community Calendar) (No Sports)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:First day to vote in-person\, no excuse absentee for Nov 3rd Gener
- al Election
-DTSTART;VALUE=DATE:20261020
-DTEND;VALUE=DATE:20261021
-DTSTAMP:20260924T231547Z
-UID:linncogov-26g50pju6ltt300a9dr3udc91e@google.com-2026-10-20-allday@linn
+SUMMARY:Courthouse closed
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+DTSTAMP:20260925T134012Z
+UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
@@ -22,7 +21,7 @@ SUMMARY:Last day for write-in candidates to file for Nov 3rd General Elect
  ion
 DTSTART;VALUE=DATE:20261023
 DTEND;VALUE=DATE:20261024
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-3h0nu9tton6tpcv742aao4ef4j@google.com-2026-10-23-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -32,7 +31,7 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-0cb67lt59ilounj05fpacghhj1@google.com-2026-10-12-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -42,7 +41,7 @@ BEGIN:VEVENT
 SUMMARY:Open for absentee voting
 DTSTART;VALUE=DATE:20261031
 DTEND;VALUE=DATE:20261101
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-48cfdi83v4o6htnng65lqegca8@google.com-2026-10-31-allday@linn
  -county-scraper.local
 DESCRIPTION:Join with Google Meet: https://meet.google.com/nke-yjat-kxt\n
@@ -55,19 +54,9 @@ BEGIN:VEVENT
 SUMMARY:Last day to request an ballot by mail
 DTSTART;VALUE=DATE:20261021
 DTEND;VALUE=DATE:20261022
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-4t89m1n71krn3fskjtf7upcbq6@google.com-2026-10-21-allday@linn
  -county-scraper.local
-LOCATION:Linn County Courthouse | Linneus\, MO
-X-EVENT-TYPE:Other
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Public test of voting equipment
-DTSTART:20261015T140000Z
-DTEND:20261015T150000Z
-DTSTAMP:20260924T231547Z
-UID:linncogov-00sennpbhq8f7n4q0oae4dgm10@google.com-2026-10-15-0900@linn-c
- ounty-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Other
 END:VEVENT
@@ -75,7 +64,7 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261225
 DTEND;VALUE=DATE:20261226
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-4ij55r8lmv6d7u12qngk1p031n@google.com-2026-12-25-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
@@ -85,27 +74,38 @@ BEGIN:VEVENT
 SUMMARY:Courthouse closed
 DTSTART;VALUE=DATE:20261126
 DTEND;VALUE=DATE:20261127
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-5253vnced0armnlv91he16uqtm@google.com-2026-11-26-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Courthouse closed
-DTSTART;VALUE=DATE:20261111
-DTEND;VALUE=DATE:20261112
-DTSTAMP:20260924T231547Z
-UID:linncogov-26be4sonore779t1e89gh6lmuf@google.com-2026-11-11-allday@linn
+SUMMARY:First day to vote in-person\, no excuse absentee for Nov 3rd Gener
+ al Election
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+DTSTAMP:20260925T134012Z
+UID:linncogov-26g50pju6ltt300a9dr3udc91e@google.com-2026-10-20-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
 X-EVENT-TYPE:Government Notice
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:Public test of voting equipment
+DTSTART:20261015T140000Z
+DTEND:20261015T150000Z
+DTSTAMP:20260925T134012Z
+UID:linncogov-00sennpbhq8f7n4q0oae4dgm10@google.com-2026-10-15-0900@linn-c
+ ounty-scraper.local
+LOCATION:Linn County Courthouse | Linneus\, MO
+X-EVENT-TYPE:Other
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Last day to register to vote in the November 3rd General Election
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-DTSTAMP:20260924T231547Z
+DTSTAMP:20260925T134012Z
 UID:linncogov-6qdgcs20leku4acp67qpm0eidq@google.com-2026-10-07-allday@linn
  -county-scraper.local
 LOCATION:Linn County Courthouse | Linneus\, MO
