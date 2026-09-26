@@ -422,6 +422,18 @@ body.themed .card {
   padding: 1.35rem 1.25rem;
   box-shadow: var(--shadow-md);
 }
+/* Each submit-*.html form card is tinted with its section's own --sec-*
+   color inline (Kevin's ask, 2026-09-27: same color as the tab and the
+   homepage card, not white) -- inputs/selects/textareas already sit in
+   their own white box on top of any card color, so they're unaffected,
+   but p.hint's --ink-soft fails contrast against several of the vivid
+   --sec-* colors (2-3:1 on some, checked against the same 4.3-12 range
+   plain --ink clears everywhere). Scoped to this class, not p.hint
+   globally, since --ink-soft still reads fine on every white card. */
+body.themed .card-tinted p.hint,
+body.themed .card-tinted .hint {
+  color: var(--ink);
+}
 
 body.themed .checkbox-row {
   display: flex;
