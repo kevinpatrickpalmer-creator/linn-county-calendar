@@ -19,7 +19,12 @@
 <style>
   :root { --backdrop: #0a0a0a; }
 
-  * { box-sizing: border-box; }
+  /* Backgrounds are the whole point of matching the site's bold color
+     look here (Kevin's ask, 2026-09-26), but browsers skip background
+     colors by default when printing to save ink -- without this, every
+     color below would vanish on actual paper and this would print as a
+     plain black-and-white page. */
+  * { box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 
   html, body {
     margin: 0;
@@ -76,57 +81,51 @@
     flex-direction: column;
   }
 
-  /* ---------- Masthead: a real screenshot of the site's own nav bar,
-     not a hand-built banner ----------
-     Kevin's idea: prove this is a real, full website by showing it,
-     rather than describing it. flyer-nav-header.png is an actual
-     html2canvas capture of nav.js's rendered .site-nav-bar (the "Linn
-     County Local" wordmark plus all 13 tabs), captured at 4x scale for
-     print, not a mockup. Bleeds edge-to-edge the same way the old blue
-     banner did, cancelling .page's own padding. */
-  .masthead-band {
+  /* ---------- Hero band: name + towns, bold and up top ----------
+     Replaces an earlier version of this flyer that opened with a
+     screenshot of the site's own nav bar (Kevin's idea at the time: prove
+     this is a real, full website by showing it). Rebuilt per Kevin's
+     walkthrough of how someone actually reads a bulletin-board flyer,
+     2026-09-26: color catches the eye first, then the name, then their
+     own town's name, then the tagline, in that order, in the first
+     three seconds -- a screenshot of a nav bar (small text, 13 tabs)
+     doesn't serve any of those, it just delays them. The site's own
+     yellow, not a picture of it, so it reads at a glance from a few feet
+     away instead of needing to be squinted at. Bleeds edge-to-edge,
+     cancelling .page's own padding, the same way the old image did. */
+  .hero-band {
     margin: -.55in -.7in 0;
-    line-height: 0;
-  }
-  .masthead-band img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .header-caption {
+    background: var(--sec-lost-found, #ffd23f);
+    border-bottom: 4px solid var(--surface-border, #1a1a1a);
+    padding: .5in .7in .45in;
     text-align: center;
-    font-size: .74rem;
-    font-weight: 600;
-    color: var(--ink-soft);
-    margin: .5rem 0 0;
+  }
+  .hero-band .site-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.3rem;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0 0 .35rem;
+  }
+  .hero-band .towns-line {
+    font-size: .98rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.4;
   }
 
-  .masthead-rule {
-    border: none;
-    border-top: 3px solid var(--primary);
-    border-bottom: 1px solid var(--surface-border);
-    height: 4px;
-    margin: .5rem 0 0;
-  }
-
-  .masthead-sub {
-    display: flex;
-    justify-content: space-between;
-    font-size: .68rem;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: .3rem 0 1rem;
-  }
-
-  /* ---------- Hero line ---------- */
+  /* ---------- Hero line: the one sentence that has to earn the rest of
+     the page a read (Kevin's ask, 2026-09-26: title + first few
+     sentences are what decide whether someone keeps reading). */
   .hero {
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    line-height: 1.26;
+    font-size: 1.3rem;
+    line-height: 1.3;
     text-align: center;
     max-width: 6.4in;
-    margin: 0 auto 1.15rem;
+    margin: 1.1rem auto 1.15rem;
     text-wrap: balance;
   }
 
@@ -149,43 +148,78 @@
     background: var(--rule);
   }
 
-  .body-text {
-    font-size: .88rem;
-    line-height: 1.45;
-    color: var(--ink);
-    margin: 0 0 1.1rem;
+  /* ---------- Feature list: what's actually on the site ----------
+     Replaces two paragraphs ("What it offers" / "Who it's for") that
+     described the site in the abstract. Kevin's ask, 2026-09-26: before
+     someone scans a QR code they want to know exactly what they'd find,
+     the same way the homepage's own card grid works, just compressed to
+     one line each so it reads in a few seconds instead of a few
+     minutes. Two columns, all 12 sections, one line apiece. */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .55rem 1rem;
+    margin: 0 0 1.2rem;
   }
-  .body-text strong { color: var(--ink); }
-
-  /* ---------- Two-column "right now" split ----------
-     The calendar gets its own column: it's the one thing on here with
-     real, immediate content today, not a "come see what's here"
-     pitch like the rest of the platform. Second column covers
-     everything else in one QR to the homepage, rather than picking
-     one more of the other eleven boards to feature over the rest. */
-  .two-col {
+  .feature-item {
     display: flex;
-    align-items: stretch;
-    gap: 0;
-    margin: 0 0 1rem;
+    align-items: center;
+    gap: .55rem;
+    color: inherit;
+    text-decoration: none;
   }
-  .two-col .col {
-    flex: 1;
-    text-align: center;
-    padding: 0 .9rem;
+  /* Small colored tile, not a full-width colored card -- same per-section
+     color as its homepage card and nav tab, but printing 12 full color
+     blocks on one page is a lot of ink for a flyer meant to be run off
+     by the stack (Kevin's call, 2026-09-26, over the bolder full-card
+     option). */
+  .feature-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 2px solid var(--surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
   }
-  .two-col .col-divider {
-    width: 1px;
-    background: var(--rule);
-    margin: 0 .1rem;
+  .feature-text {
+    font-size: .8rem;
+    line-height: 1.3;
+    color: var(--ink);
   }
-  .col-label {
-    font-size: .82rem;
+  .feature-text b {
+    font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin: 0 0 .6rem;
+  }
+
+  /* ---------- Get started: one QR code, one destination ----------
+     Down from two side-by-side QR codes to one -- a second, equally-
+     weighted code split the one decision a glance can make. Points at
+     the calendar, not the homepage, so it matches whatever got someone
+     to scan in the first place (the hero line above is about what's
+     happening); the site's own nav bar is right there once they land,
+     so nothing else on the site is actually harder to find this way. */
+  .qr-section { text-align: center; margin: 0 0 1rem; }
+  .qr-block .qr-img {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+  .qr-block .qr-img svg { display: block; width: 100%; height: 100%; }
+  .qr-block .qr-caption {
+    margin: .5rem 0 .15rem;
+    font-size: .95rem;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--ink);
+  }
+  .qr-block .qr-sub {
+    margin: 0 0 .3rem;
+    font-size: .74rem;
+    color: var(--ink-soft);
   }
   .col-url {
     font-family: var(--font-display);
@@ -193,56 +227,10 @@
     font-weight: 700;
     color: var(--ink);
     line-height: 1.3;
-    margin: .5rem 0 .3rem;
+    margin: 0;
     overflow-wrap: break-word;
   }
   .col-url .path { display: block; color: var(--primary); }
-  .col-hint {
-    font-size: .74rem;
-    color: var(--ink-soft);
-    line-height: 1.35;
-    margin: 0 0 .75rem;
-  }
-  .col-benefits {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    display: grid;
-    gap: .4rem;
-  }
-  .col-benefits li {
-    display: grid;
-    grid-template-columns: .9rem 1fr;
-    gap: .4rem;
-    font-size: .76rem;
-    line-height: 1.35;
-    color: var(--ink);
-  }
-  .col-benefits .mark {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--primary);
-  }
-
-  .qr-block {
-    flex-shrink: 0;
-    text-align: center;
-  }
-  .qr-block .qr-img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-  }
-  .qr-block .qr-img svg { display: block; width: 100%; height: 100%; }
-  .qr-block .qr-caption {
-    margin: .25rem 0 0;
-    font-size: .6rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
 
   .spacer { flex: 1; }
 
@@ -270,10 +258,10 @@
 
   @media (max-width: 640px) {
     .page { padding: .6in .5in .5in; }
-    .masthead-band { margin: -.6in -.5in 0; }
+    .hero-band { margin: -.6in -.5in 0; padding: .6in .5in .4in; }
+    .hero-band .site-name { font-size: 1.9rem; }
     .hero { font-size: 1.25rem; }
-    .two-col { flex-direction: column; gap: 1.1rem; }
-    .two-col .col-divider { width: 100%; height: 1px; margin: 0; }
+    .feature-grid { grid-template-columns: 1fr; }
     .footer { flex-direction: column; align-items: flex-start; }
     .footer .credit { text-align: left; }
     .toolbar { flex-direction: column; align-items: stretch; }
@@ -283,14 +271,17 @@
   @media print {
     /* The printed page is paper, not a screen -- force every token back
        to its light value here regardless of on-screen dark mode, same
-       as forcing html/body to #fff below. */
+       as forcing html/body to #fff below. --surface-border stays real
+       black (not softened to a light gray like the rest of this reset)
+       because the whole point of this version is to print the site's
+       own bold black borders, not a quiet printout. */
     :root {
       --ink: #1a1a1a;
       --ink-soft: #555555;
       --ink-faint: #888888;
       --paper: #ffffff;
       --surface: #ffffff;
-      --surface-border: #e2e2e2;
+      --surface-border: #1a1a1a;
       --rule: #e2e2e2;
       --primary: #4285f4;
       --primary-dark: #2b6fd1;
@@ -322,56 +313,24 @@
 
 <div class="page">
 
-  <div class="masthead-band">
-    <img src="flyer-nav-header.png" alt="The Linn County Local website, showing the nav bar with the community calendar, business directory, jobs bulletin, trading post, and more">
-  </div>
-  <p class="header-caption">This is the real site. Everything below is on it right now.</p>
-  <hr class="masthead-rule">
-  <div class="masthead-sub">
-    <span id="townsLeft"></span>
-    <span id="townsRight"></span>
+  <div class="hero-band">
+    <p class="site-name" id="siteName"></p>
+    <p class="towns-line" id="townsLine"></p>
   </div>
 
-  <p class="hero" id="heroLine"></p>
+  <p class="hero" id="heroLine">Don't be the last to know what's happening around here.</p>
 
-  <p class="section-label">What it offers</p>
-  <p class="body-text" id="whatItIs"></p>
-
-  <p class="section-label">Who it's for</p>
-  <p class="body-text" id="whoItsFor"></p>
+  <p class="section-label">What's on here</p>
+  <div class="feature-grid" id="featureGrid"></div>
 
   <p class="section-label">Get started</p>
-
-  <div class="two-col">
-    <div class="col">
-      <p class="col-label">Right now: the calendar</p>
-      <div class="qr-block">
-        <div class="qr-img" id="qrCalendar"></div>
-        <p class="qr-caption">Scan to subscribe</p>
-      </div>
-      <p class="col-url" id="calendarUrl"></p>
-      <p class="col-hint">Scan the QR code, or go to the address above, to subscribe.</p>
-      <ul class="col-benefits">
-        <li><span class="mark">&bull;</span><span>Know before it's too late to show up.</span></li>
-        <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
-        <li><span class="mark">&bull;</span><span>New events show up on their own. Nothing to check back for.</span></li>
-      </ul>
+  <div class="qr-section">
+    <div class="qr-block">
+      <div class="qr-img" id="qrCalendar"></div>
+      <p class="qr-caption">Scan to see what's happening</p>
+      <p class="qr-sub">A real site, updated every day. Free, no login, ever.</p>
     </div>
-    <div class="col-divider"></div>
-    <div class="col">
-      <p class="col-label">See everything else</p>
-      <div class="qr-block">
-        <div class="qr-img" id="qrMain"></div>
-        <p class="qr-caption">Scan to explore</p>
-      </div>
-      <p class="col-url" id="siteUrl"></p>
-      <p class="col-hint">Scan the QR code, or go to the address above.</p>
-      <ul class="col-benefits">
-        <li><span class="mark">&bull;</span><span>Jobs, trading post, lost &amp; found, and more.</span></li>
-        <li><span class="mark">&bull;</span><span>It's free: no account, no login, ever.</span></li>
-        <li><span class="mark">&bull;</span><span>See something missing? Post it yourself, free.</span></li>
-      </ul>
-    </div>
+    <p class="col-url" id="calendarUrl"></p>
   </div>
 
   <div class="spacer"></div>
@@ -394,19 +353,36 @@
 
   document.title = `Print Flyer | ${config.site_name}`;
 
-  const half = Math.ceil(config.towns.length / 2);
-  document.getElementById("townsLeft").textContent = config.towns.slice(0, half).join(" · ");
-  document.getElementById("townsRight").textContent = config.towns.slice(half).join(" · ");
+  document.getElementById("siteName").textContent = config.site_name;
+  document.getElementById("townsLine").textContent = config.towns.join(" · ");
 
-  document.getElementById("heroLine").textContent = config.tagline;
-
-  // Short, declarative, a little proud of itself -- the same voice as
-  // the one-line taglines on each homepage card, not a feature list.
-  document.getElementById("whatItIs").textContent =
-    `What's happening. Who's hiring. What's for sale. Who needs a hand. It's all here, and it's all free.`;
-
-  document.getElementById("whoItsFor").textContent =
-    `Built for locals looking for something. Built for businesses wanting to be found. Built for this county, not a stranger's algorithm.`;
+  // One line per section: icon, name, a 3-6 word example, not a
+  // paragraph -- someone deciding whether to scan a QR code wants to
+  // know exactly what they'd find first (Kevin's ask, 2026-09-26).
+  // Wording and icons match each section's own homepage card exactly,
+  // nothing invented fresh for the flyer.
+  const FEATURES = [
+    { icon: "📅", color: "--sec-calendar", name: "Calendar", example: "every local event, updated daily", href: "calendar-view.html" },
+    { icon: "🏪", color: "--sec-directory", name: "Business Directory", example: "every shop and service in the county", href: "directory.html" },
+    { icon: "💼", color: "--sec-jobs", name: "Jobs Bulletin", example: "who's hiring, who's looking", href: "jobs.html" },
+    { icon: "🌽", color: "--sec-trading-post", name: "Trading Post", example: "eggs, produce, local goods", href: "trading-post.html" },
+    { icon: "🤝", color: "--sec-volunteer", name: "Volunteer & Help Needed", example: "projects and events needing hands", href: "volunteer.html" },
+    { icon: "🎨", color: "--sec-clubs", name: "Clubs & Classes", example: "bridge club, karate, swim lessons", href: "clubs.html" },
+    { icon: "🐾", color: "--sec-lost-found", name: "Lost & Found", example: "lost a pet? found one?", href: "lost-found.html" },
+    { icon: "💬", color: "--sec-ask", name: "Ask the Community", example: "get answers from actual neighbors", href: "ask-community.html" },
+    { icon: "📣", color: "--sec-notices", name: "Notices", example: "closures and schedule changes", href: "notices.html" },
+    { icon: "❤️", color: "--sec-support", name: "Community Support", example: "help when someone's going through it", href: "support.html" },
+    { icon: "🚨", color: "--sec-alerts", name: "Local Alerts", example: "road closures, outages, boil water orders", href: "local-alerts.html" },
+    { icon: "💡", color: "--sec-ideas", name: "Big Idea Board", example: "got an idea? post it", href: "big-ideas.html" },
+  ];
+  const featureGrid = document.getElementById("featureGrid");
+  for (const f of FEATURES) {
+    const item = document.createElement("a");
+    item.className = "feature-item";
+    item.href = f.href;
+    item.innerHTML = `<span class="feature-icon" style="background:var(${f.color})" aria-hidden="true">${f.icon}</span><span class="feature-text"><b>${f.name}:</b> ${f.example}</span>`;
+    featureGrid.appendChild(item);
+  }
 
   // The domain has no spaces or hyphens, so a plain text wrap picks an
   // arbitrary mid-word break point once a column gets narrow. Inserting a
@@ -419,22 +395,15 @@
     });
     if (path) el.appendChild(Object.assign(document.createElement("span"), { className: "path", textContent: path }));
   }
-  fillDomain(document.getElementById("siteUrl"));
-  fillDomain(document.getElementById("calendarUrl"), "/subscribe.html");
+  fillDomain(document.getElementById("calendarUrl"), "/calendar-view.html");
 
-  // The calendar gets its own QR straight to the subscribe page, the
-  // one thing here with real, immediate content today. The second QR
-  // points at the homepage, not a specific board, so a scan lands
-  // somewhere that shows everything else on offer.
+  // One QR code, not two -- a second, equally-weighted code split the
+  // one decision a glance can make (Kevin's ask, 2026-09-26). Points at
+  // the calendar to match the hero line above, not the homepage.
   const qrCalendar = qrcode(0, "M");
-  qrCalendar.addData(`https://${config.domain}/subscribe.html`);
+  qrCalendar.addData(`https://${config.domain}/calendar-view.html`);
   qrCalendar.make();
   document.getElementById("qrCalendar").innerHTML = qrCalendar.createSvgTag({ scalable: true, margin: 2 });
-
-  const qrMain = qrcode(0, "M");
-  qrMain.addData(`https://${config.domain}/`);
-  qrMain.make();
-  document.getElementById("qrMain").innerHTML = qrMain.createSvgTag({ scalable: true, margin: 2 });
 })();
 </script>
 </body>
