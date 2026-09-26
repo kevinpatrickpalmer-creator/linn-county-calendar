@@ -63,9 +63,11 @@
     // Kevin's follow-up, 2026-09-27: this is specifically for website
     // ideas and bug reports, a narrower job than that longer survey, and
     // distinct from Contact, which he wants reserved for business/
-    // official inquiries. Private form to Kevin, not a public board, so
-    // no --sec-* color of its own, same as Contact.
-    { label: "Suggestion Box", href: "suggestion-box.html" },
+    // official inquiries. Private form to Kevin, not a public board, but
+    // still gets its own color (Kevin's follow-up, 2026-09-27) -- a warm
+    // wood-brown, distinct from every color already claimed by another
+    // tab, unlike Contact just below, which stays uncolored.
+    { label: "Suggestion Box", href: "suggestion-box.html", dot: "--sec-suggestion-box" },
     { label: "Contact", href: "contact.html" },
   ];
   const NAV_HEIGHT = "48px";

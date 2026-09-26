@@ -56,7 +56,12 @@
      (Kevin's ask, 2026-09-25) -- a muted neutral rather than a vivid
      section color, since it still isn't "content." Same grey already
      used for "Other"/uncategorized events in calendar-view.html rather
-     than a new one-off tone. Contact stays uncolored. --sec-alerts
+     than a new one-off tone. Suggestion Box also gets one (Kevin's ask,
+     2026-09-27: distinct from white, and from every color already used
+     by another tab) -- with the other twelve already covering most of
+     the hue wheel, a warm wood-brown reads as clearly its own thing
+     rather than another point on the same rainbow, and suits an actual
+     suggestion box besides. Contact stays uncolored. --sec-alerts
      intentionally matches --cat-red exactly (not its own hue) so the
      nav tab, the homepage card, and docs/local-alerts.html's own
      red-tinted card all read as the same "this one's urgent" signal,
@@ -85,6 +90,7 @@
   --sec-notices: #7a86c9;
   --sec-ideas: #b6cc2e;
   --sec-flyer: #b8ada0;
+  --sec-suggestion-box: #c48a4a;
 
   /* Same hue as the --sec-* color above it, darkened until it clears
      4.6:1 against white -- the vivid --sec-* values above read great
@@ -104,6 +110,7 @@
   --sec-ask-text: #168096;
   --sec-notices-text: #6170bf;
   --sec-ideas-text: #6f7c1c;
+  --sec-suggestion-box-text: #875b2c;
 
   /* Hard, non-blurred offset shadow -- the "pinned card" look -- rather
      than the soft blurred shadow a --shadow token usually implies. */
