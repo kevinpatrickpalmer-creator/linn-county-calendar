@@ -103,10 +103,20 @@
   .hero-band .site-name {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 2.3rem;
-    line-height: 1.1;
+    font-size: 3.1rem;
+    line-height: 1.05;
     color: var(--ink);
-    margin: 0 0 .35rem;
+    margin: 0 0 .4rem;
+  }
+  /* The site's plain positioning line, distinct from the CTA line below
+     the band (Kevin's ask, 2026-09-26: "a website for locals with
+     everything Linn County on it," a description, not a hook). */
+  .hero-band .tagline {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 .5rem;
   }
   .hero-band .towns-line {
     font-size: .98rem;
@@ -259,7 +269,8 @@
   @media (max-width: 640px) {
     .page { padding: .6in .5in .5in; }
     .hero-band { margin: -.6in -.5in 0; padding: .6in .5in .4in; }
-    .hero-band .site-name { font-size: 1.9rem; }
+    .hero-band .site-name { font-size: 2.3rem; }
+    .hero-band .tagline { font-size: .95rem; }
     .hero { font-size: 1.25rem; }
     .feature-grid { grid-template-columns: 1fr; }
     .footer { flex-direction: column; align-items: flex-start; }
@@ -315,12 +326,13 @@
 
   <div class="hero-band">
     <p class="site-name" id="siteName"></p>
+    <p class="tagline">Everything Linn County. One website, made for locals.</p>
     <p class="towns-line" id="townsLine"></p>
   </div>
 
-  <p class="hero" id="heroLine">Don't be the last to know what's happening around here.</p>
+  <p class="hero" id="heroLine">One website, made to help neighbors help each other.</p>
 
-  <p class="section-label">What's on here</p>
+  <p class="section-label">What does it do?</p>
   <div class="feature-grid" id="featureGrid"></div>
 
   <p class="section-label">Get started</p>
@@ -356,24 +368,30 @@
   document.getElementById("siteName").textContent = config.site_name;
   document.getElementById("townsLine").textContent = config.towns.join(" · ");
 
-  // One line per section: icon, name, a 3-6 word example, not a
-  // paragraph -- someone deciding whether to scan a QR code wants to
-  // know exactly what they'd find first (Kevin's ask, 2026-09-26).
-  // Wording and icons match each section's own homepage card exactly,
-  // nothing invented fresh for the flyer.
+  // One line per section: icon, name, a specific small-town scene, not
+  // a category label -- Kevin's ask, 2026-09-26, going through a full
+  // round of notes on this list: concrete, specific examples ("lost
+  // your cat," "a good roofer") make someone think "that's happened to
+  // me" in a way an abstract description never does, and each line
+  // leads with the action itself (see it, or post it) so the list
+  // reads as a two-way board, not a one-way bulletin. Order is
+  // deliberately not the site's own nav order -- broadest appeal first,
+  // alternating practical/emotional/surprising, ending on Big Idea
+  // Board since it's the most direct "you shape this town" item, right
+  // before the QR code.
   const FEATURES = [
-    { icon: "📅", color: "--sec-calendar", name: "Calendar", example: "every local event, updated daily", href: "calendar-view.html" },
-    { icon: "🏪", color: "--sec-directory", name: "Business Directory", example: "every shop and service in the county", href: "directory.html" },
-    { icon: "💼", color: "--sec-jobs", name: "Jobs Bulletin", example: "who's hiring, who's looking", href: "jobs.html" },
-    { icon: "🌽", color: "--sec-trading-post", name: "Trading Post", example: "eggs, produce, local goods", href: "trading-post.html" },
-    { icon: "🤝", color: "--sec-volunteer", name: "Volunteer & Help Needed", example: "projects and events needing hands", href: "volunteer.html" },
-    { icon: "🎨", color: "--sec-clubs", name: "Clubs & Classes", example: "bridge club, karate, swim lessons", href: "clubs.html" },
-    { icon: "🐾", color: "--sec-lost-found", name: "Lost & Found", example: "lost a pet? found one?", href: "lost-found.html" },
-    { icon: "💬", color: "--sec-ask", name: "Ask the Community", example: "get answers from actual neighbors", href: "ask-community.html" },
-    { icon: "📣", color: "--sec-notices", name: "Notices", example: "closures and schedule changes", href: "notices.html" },
-    { icon: "❤️", color: "--sec-support", name: "Community Support", example: "help when someone's going through it", href: "support.html" },
-    { icon: "🚨", color: "--sec-alerts", name: "Local Alerts", example: "road closures, outages, boil water orders", href: "local-alerts.html" },
-    { icon: "💡", color: "--sec-ideas", name: "Big Idea Board", example: "got an idea? post it", href: "big-ideas.html" },
+    { icon: "📅", color: "--sec-calendar", name: "Calendar", example: "the county fair, the Fourth of July fireworks, or the Christmas parade", href: "calendar-view.html" },
+    { icon: "💼", color: "--sec-jobs", name: "Jobs Bulletin", example: "need your driveway plowed, or looking for weekend work?", href: "jobs.html" },
+    { icon: "🌽", color: "--sec-trading-post", name: "Trading Post", example: "fresh eggs, garden tomatoes, or that old lawnmower in the shed", href: "trading-post.html" },
+    { icon: "🐾", color: "--sec-lost-found", name: "Lost & Found", example: "lost your cat? found a watch? post it here", href: "lost-found.html" },
+    { icon: "🏪", color: "--sec-directory", name: "Business Directory", example: "need a plumber, an electrician, or a good mechanic?", href: "directory.html" },
+    { icon: "🤝", color: "--sec-volunteer", name: "Volunteer & Help Needed", example: "shovel an elderly neighbor's walk, or find hands for a cleanup day", href: "volunteer.html" },
+    { icon: "💬", color: "--sec-ask", name: "Ask the Community", example: "does anyone know a good roofer?", href: "ask-community.html" },
+    { icon: "🎨", color: "--sec-clubs", name: "Clubs & Classes", example: "4-H, youth wrestling, swim lessons, or start your own", href: "clubs.html" },
+    { icon: "❤️", color: "--sec-support", name: "Community Support", example: "a benefit dinner for a neighbor who's sick", href: "support.html" },
+    { icon: "📣", color: "--sec-notices", name: "Notices", example: "the Mexican restaurant closing early today, or closed for renovations", href: "notices.html" },
+    { icon: "🚨", color: "--sec-alerts", name: "Local Alerts", example: "power out on Elm, a boil water order, or tonight's city council meeting", href: "local-alerts.html" },
+    { icon: "💡", color: "--sec-ideas", name: "Big Idea Board", example: "a community garden, a trade school, a co-op. What does your town need?", href: "big-ideas.html" },
   ];
   const featureGrid = document.getElementById("featureGrid");
   for (const f of FEATURES) {
