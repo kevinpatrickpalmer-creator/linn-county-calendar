@@ -7,35 +7,11 @@ X-WR-CALNAME:Purdin Events (Linn County Community Calendar) (No Obituary)
 X-PUBLISHED-TTL:PT4H
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-SUMMARY:Baseball: Atlanta at Linn County R-I
-DTSTART;VALUE=DATE:20260925
-DTEND;VALUE=DATE:20260926
-DTSTAMP:20260926T044541Z
-UID:mshsaa-346-2026-09-25-baseball-high-school-fall-season-home-atlanta-20
- 26-09-25-allday@linn-county-scraper.local
-CATEGORIES:sports
-DESCRIPTION:Home\; Varsity\, Loss\, 0 - 2
-LOCATION:Linn County R-I School District | Purdin\, MO
-X-EVENT-TYPE:Sports
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Softball: Atlanta at Linn County R-I
-DTSTART;VALUE=DATE:20260925
-DTEND;VALUE=DATE:20260926
-DTSTAMP:20260926T044541Z
-UID:mshsaa-346-2026-09-25-softball-high-school-fall-season-home-atlanta-20
- 26-09-25-allday@linn-county-scraper.local
-CATEGORIES:sports
-DESCRIPTION:Home\; Varsity Girls\, Loss\, 4 - 22
-LOCATION:Linn County R-I School District | Purdin\, MO
-X-EVENT-TYPE:Sports
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:Varsity Girls Softball Tournament: Linn County R-I vs Atlanta Soft
  ball Tournament
 DTSTART;VALUE=DATE:20260926
 DTEND;VALUE=DATE:20260927
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-09-26-varsity-girls-softball-tournament-atlanta-softba
  ll-tournament-2026-09-26-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -47,7 +23,7 @@ BEGIN:VEVENT
 SUMMARY:Softball: Linn County R-I at Brunswick
 DTSTART:20260928T220000Z
 DTEND:20260928T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-09-28-softball-high-school-fall-season-away-brunswick-
  2026-09-28-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -59,7 +35,7 @@ BEGIN:VEVENT
 SUMMARY:Softball: Linn County R-I at La Plata
 DTSTART:20261002T220000Z
 DTEND:20261002T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-02-softball-high-school-fall-season-away-la-plata-2
  026-10-02-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -71,7 +47,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at La Plata
 DTSTART:20261002T233000Z
 DTEND:20261003T003000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-02-baseball-high-school-fall-season-away-la-plata-2
  026-10-02-630@linn-county-scraper.local
 CATEGORIES:sports
@@ -83,7 +59,7 @@ BEGIN:VEVENT
 SUMMARY:Softball: Linn County R-I at Milan
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-06-softball-high-school-fall-season-away-milan-2026
  -10-06-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -95,7 +71,7 @@ BEGIN:VEVENT
 SUMMARY:Softball: Linn County R-I at Mercer
 DTSTART:20261008T223000Z
 DTEND:20261008T233000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-08-softball-high-school-fall-season-away-mercer-202
  6-10-08-530@linn-county-scraper.local
 CATEGORIES:sports
@@ -108,7 +84,7 @@ SUMMARY:Junior High Boys Basketball Tournament: Linn County R-I at Bucklin
   Tournament
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-12-junior-high-boys-basketball-tournament-away-buck
  lin-tournament-2026-10-12-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -121,7 +97,7 @@ SUMMARY:Junior High Girls Basketball Tournament: Linn County R-I at Buckli
  n JH Tournament
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-12-junior-high-girls-basketball-tournament-away-buc
  klin-jh-tournament-2026-10-12-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -134,7 +110,7 @@ SUMMARY:Varsity Girls Softball Tournament: Linn County R-I vs District Tou
  rnament
 DTSTART;VALUE=DATE:20261013
 DTEND;VALUE=DATE:20261014
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-13-varsity-girls-softball-tournament-district-tourn
  ament-2026-10-13-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -146,7 +122,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at La Plata
 DTSTART:20261019T230000Z
 DTEND:20261020T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-19-basketball-junior-high-boys-and-girls-away-la-pl
  ata-2026-10-19-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -158,7 +134,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Green City at Linn County R-I
 DTSTART:20261020T230000Z
 DTEND:20261021T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-20-basketball-junior-high-boys-and-girls-home-green
  -city-2026-10-20-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -170,7 +146,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Meadville
 DTSTART:20261022T230000Z
 DTEND:20261023T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-22-basketball-junior-high-boys-and-girls-away-meadv
  ille-2026-10-22-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -183,7 +159,7 @@ SUMMARY:Varsity Girls Softball Tournament: Linn County R-I vs Class 1 - St
  ate Tournament
 DTSTART;VALUE=DATE:20261024
 DTEND;VALUE=DATE:20261025
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-24-varsity-girls-softball-tournament-class-1-state-
  tournament-2026-10-24-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -195,7 +171,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Bevier
 DTSTART:20261026T230000Z
 DTEND:20261027T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-26-basketball-junior-high-boys-and-girls-away-bevie
  r-2026-10-26-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -207,7 +183,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Grundy County at Linn County R-I
 DTSTART:20261027T230000Z
 DTEND:20261028T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-27-basketball-junior-high-boys-and-girls-home-grund
  y-county-2026-10-27-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -219,7 +195,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Atlanta at Linn County R-I
 DTSTART:20261030T230000Z
 DTEND:20261031T000000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-10-30-basketball-junior-high-boys-and-girls-home-atlan
  ta-2026-10-30-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -231,7 +207,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Brashear at Linn County R-I
 DTSTART:20261106T000000Z
 DTEND:20261106T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-05-basketball-junior-high-boys-and-girls-home-brash
  ear-2026-11-05-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -243,7 +219,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Novinger
 DTSTART:20261107T000000Z
 DTEND:20261107T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-06-basketball-junior-high-boys-and-girls-away-novin
  ger-2026-11-06-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -256,7 +232,7 @@ SUMMARY:Junior High Boys Basketball Tournament: Linn County R-I vs Atlanta
   Jr. High Basketball Tournament
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-09-junior-high-boys-basketball-tournament-atlanta-j
  r-high-basketball-tournament-2026-11-09-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -269,7 +245,7 @@ SUMMARY:Junior High Girls Basketball Tournament: Linn County R-I vs Atlant
  a Junior High Tournament
 DTSTART;VALUE=DATE:20261109
 DTEND;VALUE=DATE:20261110
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-09-junior-high-girls-basketball-tournament-atlanta-
  junior-high-tournament-2026-11-09-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -281,7 +257,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Grundy County at Linn County R-I
 DTSTART:20261124T000000Z
 DTEND:20261124T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-23-basketball-high-school-boys-and-girls-home-grund
  y-county-2026-11-23-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -294,7 +270,7 @@ SUMMARY:Varsity Boys Basketball Tournament: Linn County R-I vs Northwester
  n Invitational
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-30-varsity-boys-basketball-tournament-northwestern-
  invitational-2026-11-30-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -307,7 +283,7 @@ SUMMARY:Varsity Girls Basketball Tournament: Linn County R-I at Northweste
  rn Invitational
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-11-30-varsity-girls-basketball-tournament-away-northwe
  stern-invitational-2026-11-30-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -319,7 +295,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Brashear at Linn County R-I
 DTSTART:20261209T000000Z
 DTEND:20261209T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-12-08-basketball-high-school-boys-and-girls-home-brash
  ear-2026-12-08-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -331,7 +307,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Atlanta
 DTSTART:20261212T000000Z
 DTEND:20261212T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-12-11-basketball-high-school-boys-and-girls-away-atlan
  ta-2026-12-11-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -343,7 +319,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Northwestern (Mendon)
 DTSTART:20261215T000000Z
 DTEND:20261215T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-12-14-basketball-high-school-boys-and-girls-away-north
  western-mendon-2026-12-14-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -355,7 +331,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Meadville at Linn County R-I
 DTSTART:20261216T000000Z
 DTEND:20261216T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-12-15-basketball-high-school-boys-and-girls-home-meadv
  ille-2026-12-15-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -367,7 +343,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Mercer
 DTSTART:20261218T000000Z
 DTEND:20261218T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2026-12-17-basketball-high-school-boys-and-girls-away-merce
  r-2026-12-17-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -379,7 +355,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at North Harrison
 DTSTART:20270107T000000Z
 DTEND:20270107T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-06-basketball-high-school-boys-and-girls-away-north
  -harrison-2027-01-06-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -391,7 +367,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: La Plata at Linn County R-I
 DTSTART:20270109T000000Z
 DTEND:20270109T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-08-basketball-high-school-boys-and-girls-home-la-pl
  ata-2027-01-08-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -403,7 +379,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Madison at Linn County R-I
 DTSTART:20270112T000000Z
 DTEND:20270112T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-11-basketball-high-school-boys-and-girls-home-madis
  on-2027-01-11-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -415,7 +391,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Keytesville
 DTSTART:20270115T000000Z
 DTEND:20270115T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-14-basketball-high-school-boys-away-keytesville-202
  7-01-14-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -427,7 +403,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Novinger at Linn County R-I
 DTSTART:20270120T000000Z
 DTEND:20270120T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-19-basketball-high-school-boys-and-girls-home-novin
  ger-2027-01-19-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -439,7 +415,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Brunswick
 DTSTART;VALUE=DATE:20270122
 DTEND;VALUE=DATE:20270123
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-22-basketball-high-school-boys-and-girls-away-bruns
  wick-2027-01-22-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -452,7 +428,7 @@ SUMMARY:Varsity Boys Basketball Tournament: Linn County R-I at Meadville T
  ournament
 DTSTART;VALUE=DATE:20270125
 DTEND;VALUE=DATE:20270126
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-25-varsity-boys-basketball-tournament-away-meadvill
  e-tournament-2027-01-25-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -465,7 +441,7 @@ SUMMARY:Varsity Girls Basketball Tournament: Linn County R-I at Meadville
  Tournament
 DTSTART;VALUE=DATE:20270125
 DTEND;VALUE=DATE:20270126
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-01-25-varsity-girls-basketball-tournament-away-meadvil
  le-tournament-2027-01-25-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -477,7 +453,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Macon County
 DTSTART:20270203T000000Z
 DTEND:20270203T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-02-basketball-high-school-boys-and-girls-away-macon
  -county-2027-02-02-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -489,7 +465,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Southwest (Livingston County) at Linn County R-I
 DTSTART:20270205T000000Z
 DTEND:20270205T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-04-basketball-high-school-boys-and-girls-home-south
  west-livingston-county-2027-02-04-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -501,7 +477,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Bevier at Linn County R-I
 DTSTART:20270206T000000Z
 DTEND:20270206T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-05-basketball-high-school-boys-and-girls-home-bevie
  r-2027-02-05-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -513,7 +489,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Green City
 DTSTART:20270210T000000Z
 DTEND:20270210T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-09-basketball-high-school-boys-and-girls-away-green
  -city-2027-02-09-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -525,7 +501,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Milan at Linn County R-I
 DTSTART:20270212T000000Z
 DTEND:20270212T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-11-basketball-high-school-boys-and-girls-home-milan
  -2027-02-11-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -537,7 +513,7 @@ BEGIN:VEVENT
 SUMMARY:Basketball: Linn County R-I at Tina-Avalon
 DTSTART:20270219T000000Z
 DTEND:20270219T010000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-02-18-basketball-high-school-boys-and-girls-away-tina-
  avalon-2027-02-18-600@linn-county-scraper.local
 CATEGORIES:sports
@@ -549,7 +525,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Newtown-Harris at Linn County R-I
 DTSTART:20270319T220000Z
 DTEND:20270319T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-19-baseball-high-school-spring-season-home-newtown-
  harris-2027-03-19-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -561,7 +537,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Higbee at Linn County R-I
 DTSTART:20270322T220000Z
 DTEND:20270322T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-22-baseball-high-school-spring-season-home-higbee-2
  027-03-22-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -573,7 +549,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: North Shelby at Linn County R-I
 DTSTART:20270323T220000Z
 DTEND:20270323T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-23-baseball-high-school-spring-season-home-north-sh
  elby-2027-03-23-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -585,7 +561,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at Braymer
 DTSTART:20270325T220000Z
 DTEND:20270325T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-25-baseball-high-school-spring-season-away-braymer-
  2027-03-25-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -597,7 +573,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at Carrollton
 DTSTART:20270329T220000Z
 DTEND:20270329T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-29-baseball-high-school-spring-season-away-carrollt
  on-2027-03-29-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -611,7 +587,7 @@ SUMMARY:Varsity Boys Track and Field Tournament: Linn County R-I vs La Pla
  r
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-29-varsity-boys-track-and-field-tournament-la-plata
  -early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-2027-0
  3-29-allday@linn-county-scraper.local
@@ -626,7 +602,7 @@ SUMMARY:Junior High Boys Track and Field Tournament: Linn County R-I vs La
  inger
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-29-junior-high-boys-track-and-field-tournament-la-p
  lata-early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-20
  27-03-29-allday@linn-county-scraper.local
@@ -641,7 +617,7 @@ SUMMARY:Junior High Girls Track and Field Tournament: Linn County R-I vs L
  vinger
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-29-junior-high-girls-track-and-field-tournament-la-
  plata-early-bird-with-atlanta-brashear-green-city-meadville-and-novinger-2
  027-03-29-allday@linn-county-scraper.local
@@ -654,7 +630,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at Putnam County
 DTSTART:20270330T220000Z
 DTEND:20270330T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-03-30-baseball-high-school-spring-season-away-putnam-c
  ounty-2027-03-30-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -666,7 +642,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Northwestern (Mendon) at Linn County R-I
 DTSTART:20270401T220000Z
 DTEND:20270401T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-01-baseball-high-school-spring-season-home-northwes
  tern-mendon-2027-04-01-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -679,7 +655,7 @@ SUMMARY:Varsity Boys Track and Field Tournament: Linn County R-I vs La Pla
  ta HS Relays
 DTSTART;VALUE=DATE:20270405
 DTEND;VALUE=DATE:20270406
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-05-varsity-boys-track-and-field-tournament-la-plata
  -hs-relays-2027-04-05-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -692,7 +668,7 @@ SUMMARY:Varsity Girls Track and Field Tournament: Linn County R-I vs La Pl
  ata HS Relays
 DTSTART;VALUE=DATE:20270405
 DTEND;VALUE=DATE:20270406
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-05-varsity-girls-track-and-field-tournament-la-plat
  a-hs-relays-2027-04-05-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -704,7 +680,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I vs DeKalb
 DTSTART:20270407T220000Z
 DTEND:20270407T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-07-baseball-high-school-spring-season-dekalb-2027-0
  4-07-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -716,7 +692,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at Brashear
 DTSTART:20270409T220000Z
 DTEND:20270409T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-09-baseball-high-school-spring-season-away-brashear
  -2027-04-09-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -729,7 +705,7 @@ SUMMARY:Varsity Baseball Tournament: Linn County R-I vs New Franklin Trian
  gular
 DTSTART;VALUE=DATE:20270410
 DTEND;VALUE=DATE:20270411
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-10-varsity-baseball-tournament-new-franklin-triangu
  lar-2027-04-10-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -741,7 +717,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at Macon County
 DTSTART:20270412T220000Z
 DTEND:20270412T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-12-baseball-high-school-spring-season-away-macon-co
  unty-2027-04-12-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -753,7 +729,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I vs Glasgow
 DTSTART:20270415T220000Z
 DTEND:20270415T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-15-baseball-high-school-spring-season-glasgow-2027-
  04-15-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -765,7 +741,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Green City at Linn County R-I
 DTSTART:20270422T220000Z
 DTEND:20270422T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-22-baseball-high-school-spring-season-home-green-ci
  ty-2027-04-22-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -777,7 +753,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I at La Plata
 DTSTART:20270423T220000Z
 DTEND:20270423T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-23-baseball-high-school-spring-season-away-la-plata
  -2027-04-23-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -789,7 +765,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Salisbury at Linn County R-I
 DTSTART:20270427T220000Z
 DTEND:20270427T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-27-baseball-high-school-spring-season-home-salisbur
  y-2027-04-27-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -801,7 +777,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Linn County R-I vs Tina-Avalon
 DTSTART:20270429T220000Z
 DTEND:20270429T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-29-baseball-high-school-spring-season-tina-avalon-2
  027-04-29-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -814,7 +790,7 @@ SUMMARY:State Solo & Small Ensemble: Linn County R-I vs 2027 State Music F
  estival
 DTSTART;VALUE=DATE:20270430
 DTEND;VALUE=DATE:20270501
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-04-30-state-solo-small-ensemble-2027-state-music-festi
  val-2027-04-30-allday@linn-county-scraper.local
 CATEGORIES:sports
@@ -825,7 +801,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Trenton at Linn County R-I
 DTSTART:20270503T220000Z
 DTEND:20270503T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-05-03-baseball-high-school-spring-season-home-trenton-
  2027-05-03-500@linn-county-scraper.local
 CATEGORIES:sports
@@ -837,7 +813,7 @@ BEGIN:VEVENT
 SUMMARY:Baseball: Bevier at Linn County R-I
 DTSTART:20270506T220000Z
 DTEND:20270506T230000Z
-DTSTAMP:20260926T044541Z
+DTSTAMP:20260926T130349Z
 UID:mshsaa-346-2027-05-06-baseball-high-school-spring-season-home-bevier-2
  027-05-06-500@linn-county-scraper.local
 CATEGORIES:sports
