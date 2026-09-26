@@ -6,15 +6,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>Contact</title>
+<title>Suggestion Box</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contact | Linn County">
-<meta property="og:description" content="A business, city or county office, or organization? Send a message and a real person reads and replies to every one.">
+<meta property="og:title" content="Suggestion Box | Linn County Local">
+<meta property="og:description" content="Got an idea for the website, or something not working right? Tell us. A real person reads and replies to every one.">
 <meta property="og:image" content="https://linncountylocal.com/og-image.png">
-<meta property="og:url" content="https://linncountylocal.com/contact.html">
+<meta property="og:url" content="https://linncountylocal.com/suggestion-box.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Contact | Linn County">
-<meta name="twitter:description" content="A business, city or county office, or organization? Send a message and a real person reads and replies to every one.">
+<meta name="twitter:title" content="Suggestion Box | Linn County Local">
+<meta name="twitter:description" content="Got an idea for the website, or something not working right? Tell us. A real person reads and replies to every one.">
 <link rel="stylesheet" href="theme.css">
 <style>
   form { margin: 0; }
@@ -34,35 +34,36 @@
 </head>
 <body class="themed">
 <script src="nav.js"></script>
-<script src="share.js" data-text="A business, city or county office, or organization? A real person reads and replies to every message."></script>
+<script src="share.js" data-text="Got an idea for the website, or something not working right? Tell us."></script>
 <main>
   <div class="mo-badge"><img src="logo-badge.svg" alt="" aria-hidden="true"></div>
   <span class="eyebrow" id="eyebrow"></span>
-  <h1>Contact</h1>
-  <p class="sub">A business, city or county office, or organization looking to get in touch? Send a message below. A real person reads and replies to every one, usually within a day or two.</p>
-  <p class="hint" style="text-align:center;">Got an idea for the website, or something not working right? <a href="suggestion-box.html">Try the Suggestion Box</a> instead.</p>
+  <h1>Suggestion Box</h1>
+  <p class="sub">Got an idea for the website, or something not working the way it should? Tell us below. A real person reads and replies to every one, usually within a day or two.</p>
+  <p class="callout">The people using this site are the ones who make it better.</p>
 
-  <form id="contactForm" class="card">
-    <label for="name">Your name *</label>
-    <input id="name" name="name" type="text" maxlength="120" required>
+  <form id="suggestionForm" class="card">
+    <label for="suggestion">Your suggestion, or what's not working *</label>
+    <textarea id="suggestion" name="suggestion" maxlength="2000" required placeholder="An idea, a bug, something confusing, anything"></textarea>
 
-    <label for="email">Email *</label>
-    <input id="email" name="email" type="email" maxlength="150" required placeholder="you@example.com">
+    <label for="name">Your name (optional)</label>
+    <input id="name" name="name" type="text" maxlength="120">
 
-    <label for="message">Message *</label>
-    <textarea id="message" name="message" maxlength="2000" required placeholder="What's on your mind?"></textarea>
+    <label for="email">Email (optional)</label>
+    <input id="email" name="email" type="email" maxlength="150" placeholder="you@example.com">
+    <p class="hint">Only needed if you'd like a reply.</p>
 
     <!-- Honeypot: real visitors never see or fill this in; bots often do. -->
     <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
 
-    <button type="submit" id="submitBtn">Send message</button>
+    <button type="submit" id="submitBtn">Send</button>
     <div id="status" role="status"></div>
   </form>
 
   <div id="confirmPanel" class="card confirm-panel" role="status" tabindex="-1" hidden>
     <p class="confirm-icon" aria-hidden="true">✅</p>
     <h2>Got it, thanks!</h2>
-    <p class="hint">Your message was sent. We read every one and will get back to you soon, usually within a day or two.</p>
+    <p class="hint">Your suggestion was sent. We read every one, and it genuinely shapes what gets built next.</p>
   </div>
 
   <p class="hint" style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
@@ -75,21 +76,21 @@
 <script>
 (async function () {
   const config = await (await fetch("config.json")).json();
-  document.title = `Contact | ${config.site_name}`;
+  document.title = `Suggestion Box | ${config.site_name}`;
   document.getElementById("eyebrow").textContent = `${config.county_display_name}, ${config.state}`;
 
-  const form = document.getElementById("contactForm");
+  const form = document.getElementById("suggestionForm");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
   const confirmPanel = document.getElementById("confirmPanel");
-  const messageEl = document.getElementById("message");
+  const suggestionEl = document.getElementById("suggestion");
 
-  // Other pages link here with ?topic=... instead of a mailto subject, so
-  // the "why" carries over into the form instead of getting lost (e.g. the
-  // calendar embed request, or a directory listing correction).
+  // Other pages link here with ?topic=... so a specific "report this"
+  // link (a wrong listing, a stuck removal code) carries its own context
+  // in instead of arriving as a blank box (same pattern as contact.html).
   const topic = new URLSearchParams(window.location.search).get("topic");
   if (topic) {
-    messageEl.value = `Re: ${topic}\n\n`;
+    suggestionEl.value = `Re: ${topic}\n\n`;
   }
 
   form.addEventListener("submit", async (e) => {
@@ -103,8 +104,8 @@
     const name = (data.get("name") || "").trim();
 
     data.append("access_key", config.web3forms_access_key);
-    data.append("subject", topic ? `New contact message from ${name} (${topic})` : `New contact message from ${name}`);
-    data.append("from_name", `${config.calendar_title}: Contact Form`);
+    data.append("subject", topic ? `New suggestion (${topic})` : `New suggestion${name ? ` from ${name}` : ""}`);
+    data.append("from_name", `${config.calendar_title}: Suggestion Box`);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -124,11 +125,11 @@
         throw new Error(result.message || "Submission failed");
       }
     } catch (err) {
-      statusEl.textContent = "Something went wrong sending your message. Please try again in a moment.";
+      statusEl.textContent = "Something went wrong sending your suggestion. Please try again in a moment.";
       statusEl.className = "err";
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Send message";
+      submitBtn.textContent = "Send";
     }
   });
 })();

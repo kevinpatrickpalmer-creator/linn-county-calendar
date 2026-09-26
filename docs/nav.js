@@ -57,10 +57,15 @@
     // Was "Survey" -- dropped from the nav at some point (Kevin's catch,
     // 2026-09-27), re-added under a warmer label instead of restoring
     // the old one: "suggestion box" reads like a small-town fixture,
-    // "survey" reads like market research. Same page (survey.html), a
-    // private form to Kevin, not a public board, so no --sec-* color of
-    // its own, same as Contact.
-    { label: "Suggestion Box", href: "survey.html" },
+    // "survey" reads like market research. Points at its own page now
+    // (docs/suggestion-box.html), not the old community-needs survey
+    // (docs/survey.html, still linked from a couple of other pages) --
+    // Kevin's follow-up, 2026-09-27: this is specifically for website
+    // ideas and bug reports, a narrower job than that longer survey, and
+    // distinct from Contact, which he wants reserved for business/
+    // official inquiries. Private form to Kevin, not a public board, so
+    // no --sec-* color of its own, same as Contact.
+    { label: "Suggestion Box", href: "suggestion-box.html" },
     { label: "Contact", href: "contact.html" },
   ];
   const NAV_HEIGHT = "48px";
