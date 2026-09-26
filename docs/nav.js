@@ -136,8 +136,17 @@
        itself has min-height, not a fixed height, so it grows to fit
        either row count; JS below keeps the spacer in sync with however
        tall that ends up being. */
+    /* A real grid, not flex-wrap (Kevin's catch, 2026-09-27: with tabs of
+       very different label lengths, flex-wrap packs each row tight
+       against its own content, so row 2's tabs don't line up under
+       row 1's at all -- it reads as scattered rather than a tidy block).
+       auto-fill with a minmax column keeps every row on the same column
+       grid regardless of width, and lets the column count itself shrink
+       as the window narrows, all the way down to the hamburger
+       breakpoint below. */
     .site-nav {
-      display: flex; align-items: center; flex-wrap: wrap; flex: 1; min-width: 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      align-items: stretch; flex: 1; min-width: 0;
       gap: .5rem; padding: .5rem .75rem;
       scrollbar-width: none;
     }
@@ -158,9 +167,9 @@
        has a spare state left to encode that with everything already
        colored. */
     .site-nav a {
-      flex-shrink: 0; display: flex; align-items: center; min-height: 0;
-      padding: .5rem .95rem; font-size: .84rem; font-weight: 700; white-space: nowrap;
-      letter-spacing: .01em;
+      display: flex; align-items: center; justify-content: center; min-height: 0;
+      padding: .5rem .95rem; font-size: .84rem; font-weight: 700; text-align: center;
+      letter-spacing: .01em; line-height: 1.2;
       font-family: var(--font-body, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
       color: var(--ink, #1a1a1a); text-decoration: none;
       background: var(--tab-accent, #fff); border: 3px solid var(--surface-border, #1a1a1a); border-radius: 9px;
@@ -178,7 +187,8 @@
        Service) -- the tab itself still navigates on click, the dropdown
        just appears on hover (or keyboard focus) as a bonus shortcut, so it
        has to still look and act like a plain nav tab, not a button. */
-    .nav-item { position: relative; display: flex; align-items: center; }
+    .nav-item { position: relative; display: flex; align-items: stretch; width: 100%; }
+    .nav-item > a { flex: 1; }
     .nav-dropdown {
       display: none; position: absolute; top: 100%; left: 0; min-width: 230px;
       flex-direction: column; z-index: 1001;
