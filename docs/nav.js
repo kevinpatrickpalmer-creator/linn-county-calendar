@@ -54,6 +54,13 @@
     { label: "Big Idea Board", href: "big-ideas.html", dot: "--sec-ideas", children: [
       { label: "Submit Idea", href: "submit-idea.html" },
     ] },
+    // Was "Survey" -- dropped from the nav at some point (Kevin's catch,
+    // 2026-09-27), re-added under a warmer label instead of restoring
+    // the old one: "suggestion box" reads like a small-town fixture,
+    // "survey" reads like market research. Same page (survey.html), a
+    // private form to Kevin, not a public board, so no --sec-* color of
+    // its own, same as Contact.
+    { label: "Suggestion Box", href: "survey.html" },
     { label: "Contact", href: "contact.html" },
   ];
   const NAV_HEIGHT = "48px";
